@@ -25,7 +25,10 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
 using Caliburn.Micro;
+using Caliburn.Micro.Contrib;
+using Caliburn.Micro.Contrib.Dialogs;
 using Caliburn.Micro.Contrib.Results;
+using Gibbed.IO;
 
 namespace Gibbed.Borderlands2.SaveEdit
 {
@@ -115,30 +118,40 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             string fileName = null;
 
-            yield return new OpenFileResult()
+            yield return new MyOpenFileResult()
                 .In(this._SavePath)
                 .FilterFiles(
                     ffc => ffc.AddFilter("sav", true).WithDescription("Borderlands 2 Save Files").AddAllFilesFilter())
                 .WithFileDo(s => fileName = s);
-
             if (fileName == null)
             {
                 yield break;
             }
 
-            try
+            using (var input = File.OpenRead(fileName))
             {
-                FileFormats.SaveFile saveFile;
-                using (var input = File.OpenRead(fileName))
+                var magic = input.ReadValueU32(Endian.Big);
+                if (magic == 0x434F4E20)
                 {
-                    saveFile = FileFormats.SaveFile.Deserialize(input, FileFormats.SaveFile.DeserializeSettings.None);
+                    yield return new Error("Error",
+                                           "You cannot directly open XBOX 360 CON files. Extract the save data using a tool like Modio first.",
+                                           Answer.Ok)
+                        .AsResult();
+                    yield break;
                 }
-                this.SaveFile = saveFile;
-                this._Events.Publish(new SaveUnpackMessage(saveFile));
-            }
-            catch (Exception)
-            {
-                throw;
+
+                input.Seek(0, SeekOrigin.Begin);
+                try
+                {
+                    FileFormats.SaveFile saveFile;
+                    saveFile = FileFormats.SaveFile.Deserialize(input, FileFormats.SaveFile.DeserializeSettings.None);
+                    this.SaveFile = saveFile;
+                    this._Events.Publish(new SaveUnpackMessage(saveFile));
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
         }
 
@@ -151,12 +164,12 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             string fileName = null;
 
-            yield return new SaveFileResult()
+            yield return new MySaveFileResult()
                 .In(this._SavePath)
                 .PromptForOverwrite()
                 .FilterFiles(
                     ffc => ffc.AddFilter("sav", true).WithDescription("Borderlands 2 Save Files").AddAllFilesFilter())
-                    .WithFileDo(s => fileName = s);
+                .WithFileDo(s => fileName = s);
 
             if (fileName == null)
             {

@@ -21,11 +21,14 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Primitives;
 using System.Linq;
+using System.Reflection;
 using Caliburn.Micro;
+using Caliburn.Micro.Contrib;
 
 namespace Gibbed.Borderlands2.SaveEdit
 {
@@ -35,6 +38,10 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         protected override void Configure()
         {
+            FrameworkExtensions.Message.Attach.AllowExtraSyntax(MessageSyntaxes.SpecialValueProperty | MessageSyntaxes.XamlBinding);
+            FrameworkExtensions.ActionMessage.EnableFilters();
+            FrameworkExtensions.ViewLocator.EnableContextFallback();
+
             this._Container =
                 new CompositionContainer(
                     new AggregateCatalog(
@@ -46,6 +53,11 @@ namespace Gibbed.Borderlands2.SaveEdit
             batch.AddExportedValue(this._Container);
 
             this._Container.Compose(batch);
+        }
+
+        protected override IEnumerable<Assembly> SelectAssemblies()
+        {
+            return base.SelectAssemblies().Concat(new[] { typeof(ResultExtensions).Assembly });
         }
 
         protected override object GetInstance(Type serviceType, string key)
@@ -60,6 +72,16 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             throw new InvalidOperationException(string.Format("Could not locate any instances of contract {0}.",
                                                               contract));
+        }
+
+        protected override IEnumerable<object> GetAllInstances(Type serviceType)
+        {
+            return this._Container.GetExportedValues<object>(AttributedModelServices.GetContractName(serviceType));
+        }
+
+        protected override void BuildUp(object instance)
+        {
+            this._Container.SatisfyImportsOnce(instance);
         }
     }
 }

@@ -23,6 +23,7 @@
 using System;
 using System.Windows;
 using Caliburn.Micro;
+using Caliburn.Micro.Contrib.Dialogs;
 
 namespace Gibbed.Borderlands2.SaveEdit
 {
