@@ -65,6 +65,12 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         private void UpdateComboBoxPartItems()
         {
+            if (this.BalanceDefinitionComboBox.Text == "None")
+            {
+                this.ClearComboBoxPartItems();
+                return;
+            }
+
             var balanceDefinition = InfoManager.WeaponBalanceDefinitions[this.BalanceDefinitionComboBox.Text];
             this.BodyPartDefinitionComboBox.ItemsSource =
                 CreateAssetList(balanceDefinition.Parts.BodyDefinitions.OrderBy(s => s).Distinct());
