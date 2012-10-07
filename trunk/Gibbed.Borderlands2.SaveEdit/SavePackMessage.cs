@@ -20,42 +20,19 @@
  *    distribution.
  */
 
-using System.ComponentModel.Composition;
-using Caliburn.Micro;
-
 namespace Gibbed.Borderlands2.SaveEdit
 {
-    [Export(typeof(CurrencyOnHandViewModel))]
-    internal class CurrencyOnHandViewModel : PropertyChangedBase, IHandle<SaveUnpackMessage>
+    internal class SavePackMessage
     {
-        #region Fields
-        private FileFormats.SaveFile _SaveFile;
-        #endregion
-
-        #region Properties
         public FileFormats.SaveFile SaveFile
         {
-            get { return this._SaveFile; }
-            private set
-            {
-                if (this._SaveFile != value)
-                {
-                    this._SaveFile = value;
-                    this.NotifyOfPropertyChange(() => this.SaveFile);
-                }
-            }
-        }
-        #endregion
-
-        [ImportingConstructor]
-        public CurrencyOnHandViewModel(IEventAggregator events)
-        {
-            events.Subscribe(this);
+            get;
+            private set;
         }
 
-        public void Handle(SaveUnpackMessage message)
+        public SavePackMessage(FileFormats.SaveFile saveFile)
         {
-            this.SaveFile = message.SaveFile;
+            this.SaveFile = saveFile;
         }
     }
 }

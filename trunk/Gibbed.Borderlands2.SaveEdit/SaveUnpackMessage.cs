@@ -22,7 +22,7 @@
 
 namespace Gibbed.Borderlands2.SaveEdit
 {
-    internal class SaveLoadedMessage
+    internal class SaveUnpackMessage
     {
         public FileFormats.SaveFile SaveFile
         {
@@ -30,7 +30,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             private set;
         }
 
-        public SaveLoadedMessage(FileFormats.SaveFile saveFile)
+        public SaveUnpackMessage(FileFormats.SaveFile saveFile)
         {
             this.SaveFile = saveFile;
         }
