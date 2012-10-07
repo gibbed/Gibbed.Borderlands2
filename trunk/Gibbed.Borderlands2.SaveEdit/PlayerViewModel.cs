@@ -31,7 +31,6 @@ namespace Gibbed.Borderlands2.SaveEdit
     {
         #region Fields
         private FileFormats.SaveFile _SaveFile;
-        private List<PlayerClassDefinition> _ClassDefinitions;
         #endregion
 
         #region Properties
