@@ -21,16 +21,22 @@
  */
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
+using System.Linq;
 using Caliburn.Micro;
+using Gibbed.Borderlands2.GameInfo;
 
 namespace Gibbed.Borderlands2.SaveEdit
 {
     [Export(typeof(PlayerViewModel))]
-    internal class PlayerViewModel : PropertyChangedBase, IHandle<SaveUnpackMessage>
+    internal class PlayerViewModel : PropertyChangedBase, IHandle<SaveUnpackMessage>, IHandle<SavePackMessage>
     {
         #region Fields
         private FileFormats.SaveFile _SaveFile;
+        private string _SelectedHead;
+        private string _SelectedSkin;
         #endregion
 
         #region Properties
@@ -47,28 +53,152 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        public List<PlayerClassDefinition> ClassDefinitions { get; private set; }
+        public string SelectedHead
+        {
+            get { return this._SelectedHead; }
+            set
+            {
+                this._SelectedHead = value;
+                this.NotifyOfPropertyChange(() => this.SelectedHead);
+            }
+        }
+
+        public string SelectedSkin
+        {
+            get { return this._SelectedSkin; }
+            set
+            {
+                this._SelectedSkin = value;
+                this.NotifyOfPropertyChange(() => this.SelectedSkin);
+            }
+        }
+
+        public ObservableCollection<AssetDisplay> ClassDefinitions { get; private set; }
+        public ObservableCollection<AssetDisplay> HeadAssets { get; private set; }
+        public ObservableCollection<AssetDisplay> SkinAssets { get; private set; }
         #endregion
 
         [ImportingConstructor]
         public PlayerViewModel(IEventAggregator events)
         {
-            this.ClassDefinitions = new List<PlayerClassDefinition>();
-            this.ClassDefinitions.Add(new PlayerClassDefinition("Axton (Commando)",
-                                                                "GD_Soldier.Character.CharClass_Soldier"));
-            this.ClassDefinitions.Add(new PlayerClassDefinition("Zer0 (Assassin)",
-                                                                "GD_Assassin.Character.CharClass_Assassin"));
-            this.ClassDefinitions.Add(new PlayerClassDefinition("Maya (Siren)", "GD_Siren.Character.CharClass_Siren"));
-            this.ClassDefinitions.Add(new PlayerClassDefinition("Salvador (Gunzerker)",
-                                                                "GD_Mercenary.Character.CharClass_Mercenary"));
-            //this.ClassDefinitions.Add(new PlayerClassDefinition("Gaige (Mechromancer)", "UNKNOWN"));
+            this.ClassDefinitions = new ObservableCollection<AssetDisplay>();
+            this.ClassDefinitions.Add(new AssetDisplay("Axton (Commando)",
+                                                       "GD_Soldier.Character.CharClass_Soldier"));
+            this.ClassDefinitions.Add(new AssetDisplay("Zer0 (Assassin)",
+                                                       "GD_Assassin.Character.CharClass_Assassin"));
+            this.ClassDefinitions.Add(new AssetDisplay("Maya (Siren)", "GD_Siren.Character.CharClass_Siren"));
+            this.ClassDefinitions.Add(new AssetDisplay("Salvador (Gunzerker)",
+                                                       "GD_Mercenary.Character.CharClass_Mercenary"));
+            //this.ClassDefinitions.Add(new AssetDisplay("Gaige (Mechromancer)", "UNKNOWN"));
+
+            this.HeadAssets = new ObservableCollection<AssetDisplay>();
+            this.SkinAssets = new ObservableCollection<AssetDisplay>();
 
             events.Subscribe(this);
+
+            this.BuildCustomizationAssets();
+        }
+
+        private CustomizationUsage GetCustomizationUsage()
+        {
+            if (this.SaveFile != null &&
+                this.SaveFile.SaveGame != null)
+            {
+                switch (this.SaveFile.SaveGame.PlayerClassDefinition)
+                {
+                    case "GD_Soldier.Character.CharClass_Soldier":
+                    {
+                        return CustomizationUsage.Soldier;
+                    }
+
+                    case "GD_Assassin.Character.CharClass_Assassin":
+                    {
+                        return CustomizationUsage.Assassin;
+                    }
+
+                    case "GD_Siren.Character.CharClass_Siren":
+                    {
+                        return CustomizationUsage.Siren;
+                    }
+
+                    case "GD_Mercenary.Character.CharClass_Mercenary":
+                    {
+                        return CustomizationUsage.Mercenary;
+                    }
+                }
+            }
+
+            return CustomizationUsage.Unknown;
+        }
+
+        private void BuildCustomizationAssets()
+        {
+            var usage = this.GetCustomizationUsage();
+
+            var headAssets = new List<AssetDisplay>();
+            foreach (
+                var kv in
+                    InfoManager.Customizations.Items.Where(
+                        kv => kv.Value.Type == CustomizationType.Head && kv.Value.Usage.Contains(usage) == true).OrderBy
+                        (cd => cd.Value.Name))
+            {
+                headAssets.Add(new AssetDisplay(kv.Value.Name, kv.Key));
+            }
+
+            var skinAssets = new List<AssetDisplay>();
+            foreach (
+                var kv in
+                    InfoManager.Customizations.Items.Where(
+                        kv => kv.Value.Type == CustomizationType.Skin && kv.Value.Usage.Contains(usage) == true).OrderBy
+                        (cd => cd.Value.Name))
+            {
+                skinAssets.Add(new AssetDisplay(kv.Value.Name, kv.Key));
+            }
+
+            var selectedHead = this.SelectedHead;
+            this.HeadAssets.Clear();
+            headAssets.ForEach(a => this.HeadAssets.Add(a));
+            this.SelectedHead = selectedHead;
+
+            var selectedSkin = this.SelectedSkin;
+            this.SkinAssets.Clear();
+            skinAssets.ForEach(a => this.SkinAssets.Add(a));
+            this.SelectedSkin = selectedSkin;
         }
 
         public void Handle(SaveUnpackMessage message)
         {
+            if (this.SaveFile != null)
+            {
+                this.SaveFile.SaveGame.PropertyChanged -= this.SaveGameOnPropertyChanged;
+            }
+
             this.SaveFile = message.SaveFile;
+            this.SaveFile.SaveGame.PropertyChanged += this.SaveGameOnPropertyChanged;
+
+            this.SelectedHead = this.SaveFile.SaveGame.AppliedCustomizations[0];
+            this.SelectedSkin = this.SaveFile.SaveGame.AppliedCustomizations[4];
+
+            this.BuildCustomizationAssets();
+        }
+
+        private void SaveGameOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            if (propertyChangedEventArgs.PropertyName == "PlayerClassDefinition")
+            {
+                this.BuildCustomizationAssets();
+            }
+        }
+
+        public void Handle(SavePackMessage message)
+        {
+            if (this.SaveFile != null)
+            {
+                this.SaveFile.SaveGame.PropertyChanged -= this.SaveGameOnPropertyChanged;
+            }
+
+            this.SaveFile.SaveGame.AppliedCustomizations[0] = this.SelectedHead;
+            this.SaveFile.SaveGame.AppliedCustomizations[4] = this.SelectedSkin;
         }
     }
 }

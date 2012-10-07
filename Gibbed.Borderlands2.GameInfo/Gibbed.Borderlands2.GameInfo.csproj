@@ -49,6 +49,9 @@
     <Compile Include="AssetLibraryManager.cs" />
     <Compile Include="AssetLibrarySet.cs" />
     <Compile Include="AssetSublibrary.cs" />
+    <Compile Include="CustomizationDefinition.cs" />
+    <Compile Include="CustomizationType.cs" />
+    <Compile Include="CustomizationUsage.cs" />
     <Compile Include="InfoDictionary.cs" />
     <Compile Include="InfoLoadException.cs" />
     <Compile Include="InfoManager.cs" />
@@ -84,6 +87,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Resources\Asset Library Manager.json" />
+    <None Include="Resources\Customization.json" />
     <None Include="Resources\Item Balance.json" />
     <None Include="Resources\Item Types.json" />
     <None Include="Resources\Weapon Balance.json" />

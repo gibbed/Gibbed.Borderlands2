@@ -35,12 +35,23 @@ namespace Gibbed.Borderlands2.SaveEdit
         #region Fields
         private FileFormats.SaveFile _SaveFile;
         private readonly ObservableCollection<IBackpackSlot> _Slots;
+        private IBackpackSlot _SelectedSlot;
         #endregion
 
         #region Properties
         public ObservableCollection<IBackpackSlot> Slots
         {
             get { return this._Slots; }
+        }
+
+        public IBackpackSlot SelectedSlot
+        {
+            get { return this._SelectedSlot; }
+            set
+            {
+                this._SelectedSlot = value;
+                this.NotifyOfPropertyChange(() => this.SelectedSlot);
+            }
         }
         #endregion
 
@@ -49,6 +60,26 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             this._Slots = new ObservableCollection<IBackpackSlot>();
             events.Subscribe(this);
+        }
+
+        public void NewWeapon()
+        {
+            var weapon = new BackpackWeapon()
+            {
+                UniqueId = new Random().Next(int.MinValue, int.MaxValue), // TODO: check other item unique IDs to prevent rare collisions
+            };
+            this.Slots.Add(weapon);
+            this.SelectedSlot = weapon;
+        }
+
+        public void NewItem()
+        {
+            var weapon = new BackpackItem()
+            {
+                UniqueId = new Random().Next(int.MinValue, int.MaxValue), // TODO: check other item unique IDs to prevent rare collisions
+            };
+            this.Slots.Add(weapon);
+            this.SelectedSlot = weapon;
         }
 
         public void Handle(SaveUnpackMessage message)

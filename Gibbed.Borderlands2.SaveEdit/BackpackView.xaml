@@ -42,8 +42,20 @@
   <DockPanel>
     <ToolBar Name="ButtonBar"
              DockPanel.Dock="Top">
-      <Button>New Weapon</Button>
-      <Button>New Item</Button>
+      <Button x:Name="NewWeapon">
+        <StackPanel Orientation="Horizontal">
+          <Image Height="24"
+                 Source="Resources\assaultrifle.png" />
+          <Label Content="New Weapon" />
+        </StackPanel>
+      </Button>
+      <Button x:Name="NewItem">
+        <StackPanel Orientation="Horizontal">
+          <Image Height="24"
+                 Source="Resources\shield.png" />
+          <Label Content="New Item" />
+        </StackPanel>
+      </Button>
       <Button>Paste Code</Button>
     </ToolBar>
     <Grid>
@@ -55,7 +67,8 @@
       <ListView x:Name="ListView"
                 Grid.Column="0"
                 ItemsSource="{Binding Source={StaticResource SlotCollectionViewSource}}"
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                SelectedValue="{Binding Path=SelectedSlot}">
         <ListView.GroupStyle>
           <GroupStyle>
             <GroupStyle.HeaderTemplate>
@@ -67,12 +80,31 @@
             </GroupStyle.HeaderTemplate>
           </GroupStyle>
         </ListView.GroupStyle>
+        <ListView.ContextMenu>
+          <ContextMenu>
+            <MenuItem>
+              <MenuItem.Icon>
+                <Image Source="Resources\assaultrifle.png" />
+              </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem>
+              <MenuItem.Icon>
+                <Image Source="Resources\assaultrifle.png" />
+              </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem>
+              <MenuItem.Icon>
+                <Image Source="Resources\assaultrifle.png" />
+              </MenuItem.Icon>
+            </MenuItem>
+          </ContextMenu>
+        </ListView.ContextMenu>
       </ListView>
       <GridSplitter Grid.Column="1"
                     Width="4"
                     ResizeBehavior="PreviousAndNext" />
       <ContentControl Grid.Column="2"
-                      Content="{Binding ElementName=ListView, Path=SelectedItem}">
+                      Content="{Binding Path=SelectedSlot}">
         <ContentControl.Resources>
           <DataTemplate DataType="{x:Type p:BackpackWeapon}">
             <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto"
