@@ -20,29 +20,17 @@
  *    distribution.
  */
 
-#pragma warning disable 649
-
-using System.Collections.Generic;
-using Newtonsoft.Json;
-
-namespace Gibbed.Borderlands2.GameInfo
+namespace Gibbed.Borderlands2.SaveEdit
 {
-    [JsonObject(MemberSerialization.OptIn)]
-    public class WeaponBalanceDefinition
+    internal class AssetDisplay
     {
-        internal WeaponBalanceDefinition()
+        public string Name { get; private set; }
+        public string Path { get; private set; }
+
+        public AssetDisplay(string name, string path)
         {
+            this.Name = name;
+            this.Path = path;
         }
-
-        [JsonProperty(PropertyName = "types")]
-        public List<string> Types;
-
-        [JsonProperty(PropertyName = "base")]
-        public string Base;
-
-        [JsonProperty(PropertyName = "parts")]
-        public WeaponBalancePartCollection Parts;
     }
 }
-
-#pragma warning restore 649

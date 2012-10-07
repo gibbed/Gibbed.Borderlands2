@@ -20,29 +20,11 @@
  *    distribution.
  */
 
-#pragma warning disable 649
-
-using System.Collections.Generic;
-using Newtonsoft.Json;
-
 namespace Gibbed.Borderlands2.GameInfo
 {
-    [JsonObject(MemberSerialization.OptIn)]
-    public class WeaponBalanceDefinition
+    public enum CustomizationType
     {
-        internal WeaponBalanceDefinition()
-        {
-        }
-
-        [JsonProperty(PropertyName = "types")]
-        public List<string> Types;
-
-        [JsonProperty(PropertyName = "base")]
-        public string Base;
-
-        [JsonProperty(PropertyName = "parts")]
-        public WeaponBalancePartCollection Parts;
+        Head,
+        Skin,
     }
 }
-
-#pragma warning restore 649

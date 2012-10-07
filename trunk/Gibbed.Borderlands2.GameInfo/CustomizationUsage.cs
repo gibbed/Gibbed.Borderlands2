@@ -20,17 +20,16 @@
  *    distribution.
  */
 
-namespace Gibbed.Borderlands2.SaveEdit
+namespace Gibbed.Borderlands2.GameInfo
 {
-    internal class PlayerClassDefinition
+    public enum CustomizationUsage
     {
-        public string Name { get; private set; }
-        public string Value { get; private set; }
-
-        public PlayerClassDefinition(string name, string value)
-        {
-            this.Name = name;
-            this.Value = value;
-        }
+        Unknown = 0,
+        Soldier,
+        Assassin,
+        Siren,
+        Mercenary,
+        Runner,
+        BanditTech,
     }
 }

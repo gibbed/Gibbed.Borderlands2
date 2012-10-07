@@ -70,7 +70,7 @@
                   Margin="3"
                   ItemsSource="{Binding Path=ClassDefinitions}"
                   DisplayMemberPath="Name"
-                  SelectedValuePath="Value"
+                  SelectedValuePath="Path"
                   SelectedValue="{Binding Path=SaveFile.SaveGame.PlayerClassDefinition}" />
         <Label Grid.Row="3"
                Grid.Column="0"
@@ -137,20 +137,26 @@
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Head:" />
-        <ComboBox Grid.Row="1"
+        <ComboBox x:Name="HeadComboBox"
+                  Grid.Row="1"
                   Grid.Column="1"
                   Margin="3"
-                  IsEditable="True"
-                  Text="{Binding Path=SaveFile.SaveGame.AppliedCustomizations[0]}" />
+                  ItemsSource="{Binding Path=HeadAssets}"
+                  DisplayMemberPath="Name"
+                  SelectedValuePath="Path"
+                  SelectedValue="{Binding Path=SelectedHead}" />
         <Label Grid.Row="2"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Skin:" />
-        <ComboBox Grid.Row="2"
+        <ComboBox x:Name="SkinComboBox"
+                  Grid.Row="2"
                   Grid.Column="1"
                   Margin="3"
-                  IsEditable="True"
-                  Text="{Binding Path=SaveFile.SaveGame.AppliedCustomizations[4]}" />
+                  ItemsSource="{Binding Path=SkinAssets}"
+                  DisplayMemberPath="Name"
+                  SelectedValuePath="Path"
+                  SelectedValue="{Binding Path=SelectedSkin}" />
       </Grid>
     </Expander>
   </StackPanel>

@@ -28,20 +28,20 @@ using Newtonsoft.Json;
 namespace Gibbed.Borderlands2.GameInfo
 {
     [JsonObject(MemberSerialization.OptIn)]
-    public class WeaponBalanceDefinition
+    public class CustomizationDefinition
     {
-        internal WeaponBalanceDefinition()
+        internal CustomizationDefinition()
         {
         }
 
-        [JsonProperty(PropertyName = "types")]
-        public List<string> Types;
+        [JsonProperty(PropertyName = "name", Required = Required.Always)]
+        public string Name;
 
-        [JsonProperty(PropertyName = "base")]
-        public string Base;
+        [JsonProperty(PropertyName = "type", Required = Required.Always)]
+        public CustomizationType Type;
 
-        [JsonProperty(PropertyName = "parts")]
-        public WeaponBalancePartCollection Parts;
+        [JsonProperty(PropertyName = "Usage", Required = Required.Always)]
+        public List<CustomizationUsage> Usage;
     }
 }
 

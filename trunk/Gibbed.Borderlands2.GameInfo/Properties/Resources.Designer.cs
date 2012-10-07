@@ -91,9 +91,41 @@ namespace Gibbed.Borderlands2.GameInfo.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to {
+        ///  &quot;GD_AllCustoms_MainGame.Assassin.Head_Zero002&quot;:
+        ///  {
+        ///    name: &quot;Raz0r&quot;,
+        ///    type: &quot;Head&quot;,
+        ///    usage: [&quot;Assassin&quot;],
+        ///  },
+        ///  &quot;GD_AllCustoms_MainGame.Assassin.Head_Zero009&quot;:
+        ///  {
+        ///    name: &quot;M0t0cross Marauder&quot;,
+        ///    type: &quot;Head&quot;,
+        ///    usage: [&quot;Assassin&quot;],
+        ///  },
+        ///  &quot;GD_AllCustoms_MainGame.Assassin.Head_Zero010&quot;:
+        ///  {
+        ///    name: &quot;Alienati0n&quot;,
+        ///    type: &quot;Head&quot;,
+        ///    usage: [&quot;Assassin&quot;],
+        ///  },
+        ///  &quot;GD_AllCustoms_MainGame.Assassin.Head_Zero012&quot;:
+        ///  {
+        ///    name: &quot;Gh0st&quot;,
+        ///    type: &quot;Head&quot;,
+        ///    usage: [&quot;As [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string CustomizationDefinitions {
+            get {
+                return ResourceManager.GetString("CustomizationDefinitions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {
         ///  &quot;GD_Artifacts.A_Item.A_AggressionA&quot;:
         ///  {
-        ///    type: &quot;GD_Artifacts.A_Item.Artifact_AggressionA&quot;,
+        ///    types: [&quot;GD_Artifacts.A_Item.Artifact_AggressionA&quot;],
         ///    parts:
         ///    {
         ///      mode: &quot;Complete&quot;,
@@ -105,7 +137,7 @@ namespace Gibbed.Borderlands2.GameInfo.Properties {
         ///      [
         ///        &quot;GD_Artifacts.Upgrade.Upgrade_Grade0&quot;,
         ///        &quot;GD_Artifacts.Upgrade.Upgrade_Grade1&quot;,
-        ///        &quot;GD_Art [rest of string was truncated]&quot;;.
+        ///        &quot;GD_ [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string ItemBalanceDefinitions {
             get {
@@ -134,7 +166,7 @@ namespace Gibbed.Borderlands2.GameInfo.Properties {
         ///   Looks up a localized string similar to {
         ///  &quot;GD_Weap_AssaultRifle.A_Weapons.AR_Bandit&quot;:
         ///  {
-        ///    type: &quot;GD_Weap_AssaultRifle.A_Weapons.WT_Bandit_AssaultRifle&quot;,
+        ///    types: [&quot;GD_Weap_AssaultRifle.A_Weapons.WT_Bandit_AssaultRifle&quot;],
         ///    parts:
         ///    {
         ///      mode: &quot;Additive&quot;,
@@ -145,7 +177,7 @@ namespace Gibbed.Borderlands2.GameInfo.Properties {
         ///        &quot;GD_Weap_AssaultRifle.Grip.AR_Grip_Bandit&quot;,
         ///        &quot;GD_Weap_AssaultRifle.Grip.AR_Grip_Dahl&quot;,
         ///        &quot;GD_Weap_AssaultRifle.Grip.AR_Grip_Jakobs&quot;,
-        ///        &quot;GD_Weap_AssaultRifle.Grip.AR [rest of string was truncated]&quot;;.
+        ///        &quot;GD_Weap_AssaultRifle.Grip [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string WeaponBalanceDefinitions {
             get {

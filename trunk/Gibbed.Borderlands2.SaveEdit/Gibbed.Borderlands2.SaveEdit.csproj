@@ -97,6 +97,7 @@
       <DependentUpon>CurrencyOnHandView.xaml</DependentUpon>
     </Compile>
     <Compile Include="CurrencyOnHandViewModel.cs" />
+    <Compile Include="AssetDisplay.cs" />
     <Compile Include="DataResource.cs" />
     <Compile Include="DataResourceBindingExtension.cs" />
     <Compile Include="MyOpenFileResult.cs" />
@@ -136,7 +137,6 @@
     <Compile Include="Packables\PackableItem.cs" />
     <Compile Include="Packables\PackedDataHelper.cs" />
     <Compile Include="Packables\PackableWeapon.cs" />
-    <Compile Include="PlayerClassDefinition.cs" />
     <Compile Include="PlayerViewModel.cs" />
     <Compile Include="SaveUnpackMessage.cs" />
     <Compile Include="ShellViewModel.cs" />
@@ -248,6 +248,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\credits cropped.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\assaultrifle.png" />
+    <Resource Include="Resources\shield.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
