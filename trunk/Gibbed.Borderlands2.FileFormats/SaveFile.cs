@@ -66,7 +66,75 @@ namespace Gibbed.Borderlands2.FileFormats
 
         public void Serialize(Stream output)
         {
-            throw new NotImplementedException();
+            var saveGame = this.SaveGame;
+
+            byte[] innerUncompressedBytes;
+            using (var innerUncompressedData = new MemoryStream())
+            {
+                saveGame.Compose();
+                try
+                {
+                    ProtoBuf.Serializer.Serialize(innerUncompressedData, saveGame);
+                }
+                finally
+                {
+                    saveGame.Decompose();
+                }
+                innerUncompressedData.Position = 0;
+                innerUncompressedBytes = innerUncompressedData.ReadBytes((uint)innerUncompressedData.Length);
+            }
+
+            byte[] innerCompressedBytes;
+            using (var innerCompressedData = new MemoryStream())
+            {
+                innerCompressedData.WriteValueS32(0, Endian.Big);
+                innerCompressedData.WriteString("WSG");
+                innerCompressedData.WriteValueU32(2, Endian.Little);
+                innerCompressedData.WriteValueU32(CRC32.Hash(innerUncompressedBytes, 0, innerUncompressedBytes.Length),
+                                                  Endian.Little); // crc32
+                innerCompressedData.WriteValueS32(innerUncompressedBytes.Length, Endian.Little);
+
+                var encoder = new Huffman.Encoder();
+                encoder.Build(innerUncompressedBytes);
+                innerCompressedData.WriteBytes(encoder.Encode(innerUncompressedBytes));
+
+                innerCompressedData.Position = 0;
+                innerCompressedData.WriteValueU32((uint)(innerCompressedData.Length - 4), Endian.Big);
+
+                innerCompressedData.Position = 0;
+                innerCompressedBytes = innerCompressedData.ReadBytes((uint)innerCompressedData.Length);
+            }
+
+            var compressedBytes = new byte[innerCompressedBytes.Length +
+                                           (innerCompressedBytes.Length / 16) + 64 + 3];
+            var actualCompressedSize = (uint)compressedBytes.Length;
+
+            var result = LZO.Compress(innerCompressedBytes,
+                                      (uint)innerCompressedBytes.Length,
+                                      compressedBytes,
+                                      ref actualCompressedSize);
+            if (result != 0)
+            {
+                throw new InvalidOperationException("compression failure");
+            }
+
+            byte[] uncompressedBytes;
+            using (var uncompressedData = new MemoryStream())
+            {
+                uncompressedData.WriteValueS32(innerCompressedBytes.Length, Endian.Big);
+                uncompressedData.Write(compressedBytes, 0, (int)actualCompressedSize);
+                uncompressedData.Position = 0;
+                uncompressedBytes = uncompressedData.ReadBytes((uint)uncompressedData.Length);
+            }
+
+            byte[] computedHash;
+            using (var sha1 = new System.Security.Cryptography.SHA1Managed())
+            {
+                computedHash = sha1.ComputeHash(uncompressedBytes);
+            }
+
+            output.WriteBytes(computedHash);
+            output.WriteBytes(uncompressedBytes);
         }
 
         [Flags]
