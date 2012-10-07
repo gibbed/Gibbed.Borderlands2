@@ -27,7 +27,7 @@ using Caliburn.Micro;
 namespace Gibbed.Borderlands2.SaveEdit
 {
     [Export(typeof(PlayerViewModel))]
-    internal class PlayerViewModel : PropertyChangedBase, IHandle<SaveLoadedMessage>
+    internal class PlayerViewModel : PropertyChangedBase, IHandle<SaveUnpackMessage>
     {
         #region Fields
         private FileFormats.SaveFile _SaveFile;
@@ -67,7 +67,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             events.Subscribe(this);
         }
 
-        public void Handle(SaveLoadedMessage message)
+        public void Handle(SaveUnpackMessage message)
         {
             this.SaveFile = message.SaveFile;
         }

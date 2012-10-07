@@ -109,6 +109,7 @@
     <Compile Include="PlayerView.xaml.cs">
       <DependentUpon>PlayerView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SavePackMessage.cs" />
     <Compile Include="ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
@@ -134,7 +135,7 @@
     <Compile Include="Packables\PackableWeapon.cs" />
     <Compile Include="PlayerClassDefinition.cs" />
     <Compile Include="PlayerViewModel.cs" />
-    <Compile Include="SaveLoadedMessage.cs" />
+    <Compile Include="SaveUnpackMessage.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

@@ -34,6 +34,7 @@ namespace Gibbed.Borderlands2.SaveEdit
     {
         #region Fields
         private readonly IEventAggregator _Events;
+        private readonly string _SavePath;
         private FileFormats.SaveFile _SaveFile;
         private PlayerViewModel _Player;
         private CurrencyOnHandViewModel _CurrencyOnHand;
@@ -94,6 +95,18 @@ namespace Gibbed.Borderlands2.SaveEdit
         [ImportingConstructor]
         public ShellViewModel(IEventAggregator events)
         {
+            var savePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            if (string.IsNullOrEmpty(savePath) == false)
+            {
+                savePath = Path.Combine(savePath, "My Games");
+                savePath = Path.Combine(savePath, "Borderlands 2", "WillowGame", "SaveData");
+
+                if (Directory.Exists(savePath) == true)
+                {
+                    this._SavePath = savePath;
+                }
+            }
+
             this._Events = events;
             events.Subscribe(this);
         }
@@ -102,11 +115,11 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             string fileName = null;
 
-            yield return
-                new OpenFileResult().FilterFiles(
-                    ffc => ffc.AddFilter("sav", true).WithDescription("Borderlands 2 Save Files")
-                               .AddAllFilesFilter())
-                    .WithFileDo(s => fileName = s);
+            yield return new OpenFileResult()
+                .In(this._SavePath)
+                .FilterFiles(
+                    ffc => ffc.AddFilter("sav", true).WithDescription("Borderlands 2 Save Files").AddAllFilesFilter())
+                .WithFileDo(s => fileName = s);
 
             if (fileName == null)
             {
@@ -121,7 +134,43 @@ namespace Gibbed.Borderlands2.SaveEdit
                     saveFile = FileFormats.SaveFile.Deserialize(input, FileFormats.SaveFile.DeserializeSettings.None);
                 }
                 this.SaveFile = saveFile;
-                this._Events.Publish(new SaveLoadedMessage(saveFile));
+                this._Events.Publish(new SaveUnpackMessage(saveFile));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public IEnumerable<IResult> WriteSave()
+        {
+            if (this.SaveFile == null)
+            {
+                yield break;
+            }
+
+            string fileName = null;
+
+            yield return new SaveFileResult()
+                .In(this._SavePath)
+                .PromptForOverwrite()
+                .FilterFiles(
+                    ffc => ffc.AddFilter("sav", true).WithDescription("Borderlands 2 Save Files").AddAllFilesFilter())
+                    .WithFileDo(s => fileName = s);
+
+            if (fileName == null)
+            {
+                yield break;
+            }
+
+            this._Events.Publish(new SavePackMessage(this.SaveFile));
+
+            try
+            {
+                using (var output = File.Create(fileName))
+                {
+                    this.SaveFile.Serialize(output);
+                }
             }
             catch (Exception)
             {

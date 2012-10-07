@@ -30,7 +30,7 @@ using Gibbed.Borderlands2.SaveEdit.Packables;
 namespace Gibbed.Borderlands2.SaveEdit
 {
     [Export(typeof(BackpackViewModel))]
-    internal class BackpackViewModel : PropertyChangedBase, IHandle<SaveLoadedMessage>
+    internal class BackpackViewModel : PropertyChangedBase, IHandle<SaveUnpackMessage>, IHandle<SavePackMessage>
     {
         #region Fields
         private FileFormats.SaveFile _SaveFile;
@@ -51,7 +51,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             events.Subscribe(this);
         }
 
-        public void Handle(SaveLoadedMessage message)
+        public void Handle(SaveUnpackMessage message)
         {
             this._SaveFile = message.SaveFile;
 
@@ -85,6 +85,47 @@ namespace Gibbed.Borderlands2.SaveEdit
                 item.Mark = packedItem.Mark;
 
                 this.Slots.Add(item);
+            }
+        }
+
+        public void Handle(SavePackMessage message)
+        {
+            var saveFile = message.SaveFile;
+
+            saveFile.SaveGame.PackedWeaponData.Clear();
+            saveFile.SaveGame.PackedItemData.Clear();
+
+            foreach (var slot in this.Slots)
+            {
+                if (slot is BackpackWeapon)
+                {
+                    var weapon = (BackpackWeapon)slot;
+                    var data = BackpackDataHelper.Encode(weapon);
+
+                    saveFile.SaveGame.PackedWeaponData.Add(new ProtoBufFormats.WillowTwoSave.PackedWeaponData()
+                    {
+                        Data = data,
+                        QuickSlot = weapon.QuickSlot,
+                        Mark = weapon.Mark,
+                    });
+                }
+                else if (slot is BackpackItem)
+                {
+                    var item = (BackpackItem)slot;
+                    var data = BackpackDataHelper.Encode(item);
+
+                    saveFile.SaveGame.PackedItemData.Add(new ProtoBufFormats.WillowTwoSave.PackedItemData()
+                    {
+                        Data = data,
+                        Quantity = item.Quantity,
+                        Equipped = item.Equipped,
+                        Mark = item.Mark,
+                    });
+                }
+                else
+                {
+                    throw new NotSupportedException();
+                }
             }
         }
     }
