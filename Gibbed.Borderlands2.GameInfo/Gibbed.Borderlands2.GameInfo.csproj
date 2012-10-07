@@ -72,7 +72,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="todo.txt" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gibbed.Borderlands2.FileFormats\Gibbed.Borderlands2.FileFormats.csproj">
       <Project>{75063A4E-0024-4B68-BE6C-1B3D52FD4845}</Project>

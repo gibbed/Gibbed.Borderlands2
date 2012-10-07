@@ -1,0 +1,559 @@
+﻿<!--
+/* Copyright (c) 2012 Rick (rick 'at' gibbed 'dot' us)
+ * 
+ * This software is provided 'as-is', without any express or implied
+ * warranty. In no event will the authors be held liable for any damages
+ * arising from the use of this software.
+ * 
+ * Permission is granted to anyone to use this software for any purpose,
+ * including commercial applications, and to alter it and redistribute it
+ * freely, subject to the following restrictions:
+ * 
+ * 1. The origin of this software must not be misrepresented; you must not
+ *    claim that you wrote the original software. If you use this software
+ *    in a product, an acknowledgment in the product documentation would
+ *    be appreciated but is not required.
+ * 
+ * 2. Altered source versions must be plainly marked as such, and must not
+ *    be misrepresented as being the original software.
+ * 
+ * 3. This notice may not be removed or altered from any source
+ *    distribution.
+ */
+-->
+<UserControl x:Class="Gibbed.Borderlands2.SaveEdit.PackableItemView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:v="clr-namespace:Gibbed.Borderlands2.SaveEdit.Validators"
+             xmlns:se="clr-namespace:Gibbed.Borderlands2.SaveEdit"
+             mc:Ignorable="d">
+  <UserControl.Resources>
+    <se:DataResource x:Key="AssetLibrarySetId"
+                     BindingTarget="{Binding Path=AssetLibrarySetId}" />
+    <se:ContainsToVisiblityConverter x:Key="ContainsToVisiblityConverter1" />
+  </UserControl.Resources>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="0.50*" />
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+    <Label Grid.Row="0"
+           Grid.Column="0"
+           HorizontalContentAlignment="Right"
+           Content="Type:" />
+    <DockPanel Grid.Row="0"
+               Grid.Column="1"
+               LastChildFill="True">
+      <Image DockPanel.Dock="Right"
+             Width="16"
+             Margin="2,0,0,0"
+             Source="Resources/fugue/exclamation.png"
+             ToolTip="Unsupported value, item will probably be deleted.">
+        <Image.Visibility>
+          <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
+            <Binding ElementName="TypeDefinitionComboBox"
+                     Path="ItemsSource"
+                     Mode="OneWay" />
+            <Binding ElementName="TypeDefinitionComboBox"
+                     Path="Text"
+                     Mode="OneWay" />
+          </MultiBinding>
+        </Image.Visibility>
+      </Image>
+      <se:MyComboBox x:Name="TypeDefinitionComboBox"
+                     IsEditable="true"
+                     TextBox.TextChanged="OnTypeDefinitionChanged">
+        <ComboBox.Text>
+          <Binding Path="ItemDefinition">
+            <Binding.ValidationRules>
+              <v:ItemTypeValidationRule AssetLibrarySetId="{se:DataResourceBinding DataResource={StaticResource AssetLibrarySetId}}" />
+            </Binding.ValidationRules>
+          </Binding>
+        </ComboBox.Text>
+      </se:MyComboBox>
+    </DockPanel>
+    <Label Grid.Row="1"
+           Grid.Column="0"
+           HorizontalContentAlignment="Right"
+           Content="Balance:" />
+    <DockPanel Grid.Row="1"
+               Grid.Column="1"
+               LastChildFill="True">
+      <Image DockPanel.Dock="Right"
+             Width="16"
+             Margin="2,0,0,0"
+             Source="Resources/fugue/exclamation.png"
+             ToolTip="Unsupported value, item will probably be deleted.">
+        <Image.Visibility>
+          <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
+            <Binding ElementName="BalanceDefinitionComboBox"
+                     Path="ItemsSource"
+                     Mode="OneWay" />
+            <Binding ElementName="BalanceDefinitionComboBox"
+                     Path="Text"
+                     Mode="OneWay" />
+          </MultiBinding>
+        </Image.Visibility>
+      </Image>
+      <se:MyComboBox x:Name="BalanceDefinitionComboBox"
+                     IsEditable="true"
+                     TextBoxBase.TextChanged="OnBalanceDefinitionChanged">
+        <ComboBox.Text>
+          <Binding Path="BalanceDefinition">
+            <Binding.ValidationRules>
+              <v:BalanceValidationRule AssetLibrarySetId="{se:DataResourceBinding DataResource={StaticResource AssetLibrarySetId}}" />
+            </Binding.ValidationRules>
+          </Binding>
+        </ComboBox.Text>
+      </se:MyComboBox>
+    </DockPanel>
+    <Label Grid.Row="2"
+           Grid.Column="0"
+           HorizontalContentAlignment="Right"
+           Content="Manufacturer:" />
+    <DockPanel Grid.Row="2"
+               Grid.Column="1"
+               LastChildFill="True">
+      <Image DockPanel.Dock="Right"
+             Width="16"
+             Margin="2,0,0,0"
+             Source="Resources/fugue/exclamation.png"
+             ToolTip="Unsupported value, item will probably be deleted.">
+        <Image.Visibility>
+          <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
+            <Binding ElementName="ManufacturerDefinitionComboBox"
+                     Path="ItemsSource"
+                     Mode="OneWay" />
+            <Binding ElementName="ManufacturerDefinitionComboBox"
+                     Path="Text"
+                     Mode="OneWay" />
+          </MultiBinding>
+        </Image.Visibility>
+      </Image>
+      <se:MyComboBox x:Name="ManufacturerDefinitionComboBox"
+                     IsEditable="true">
+        <ComboBox.Text>
+          <Binding Path="ManufacturerDefinition">
+            <Binding.ValidationRules>
+              <v:ManufacturerValidationRule AssetLibrarySetId="{se:DataResourceBinding DataResource={StaticResource AssetLibrarySetId}}" />
+            </Binding.ValidationRules>
+          </Binding>
+        </ComboBox.Text>
+      </se:MyComboBox>
+    </DockPanel>
+    <Label Grid.Row="3"
+           Grid.Column="0"
+           HorizontalContentAlignment="Right"
+           Content="Manufacturer Grade:" />
+    <xctk:IntegerUpDown Grid.Row="3"
+                        Grid.Column="1"
+                        Value="{Binding Path=ManufacturerGradeIndex}"
+                        Minimum="0"
+                        Maximum="127" />
+    <Label Grid.Row="4"
+           Grid.Column="0"
+           HorizontalContentAlignment="Right"
+           Content="Alpha:" />
+    <DockPanel Grid.Row="4"
+               Grid.Column="1"
+               LastChildFill="True">
+      <Image DockPanel.Dock="Right"
+             Width="16"
+             Margin="2,0,0,0"
+             Source="Resources/fugue/exclamation.png"
+             ToolTip="Unsupported value, item will probably be deleted.">
+        <Image.Visibility>
+          <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
+            <Binding ElementName="AlphaItemPartDefinitionComboBox"
+                     Path="ItemsSource"
+                     Mode="OneWay" />
+            <Binding ElementName="AlphaItemPartDefinitionComboBox"
+                     Path="Text"
+                     Mode="OneWay" />
+          </MultiBinding>
+        </Image.Visibility>
+      </Image>
+      <se:MyComboBox x:Name="AlphaItemPartDefinitionComboBox"
+                     IsEditable="true">
+        <ComboBox.Text>
+          <Binding Path="AlphaItemPartDefinition">
+            <Binding.ValidationRules>
+              <v:ItemPartValidationRule AssetLibrarySetId="{se:DataResourceBinding DataResource={StaticResource AssetLibrarySetId}}" />
+            </Binding.ValidationRules>
+          </Binding>
+        </ComboBox.Text>
+      </se:MyComboBox>
+    </DockPanel>
+    <Label Grid.Row="5"
+           Grid.Column="0"
+           HorizontalContentAlignment="Right"
+           Content="Beta:" />
+    <DockPanel Grid.Row="5"
+               Grid.Column="1"
+               LastChildFill="True">
+      <Image DockPanel.Dock="Right"
+             Width="16"
+             Margin="2,0,0,0"
+             Source="Resources/fugue/exclamation.png"
+             ToolTip="Unsupported value, item will probably be deleted.">
+        <Image.Visibility>
+          <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
+            <Binding ElementName="BetaItemPartDefinitionComboBox"
+                     Path="ItemsSource"
+                     Mode="OneWay" />
+            <Binding ElementName="BetaItemPartDefinitionComboBox"
+                     Path="Text"
+                     Mode="OneWay" />
+          </MultiBinding>
+        </Image.Visibility>
+      </Image>
+      <se:MyComboBox x:Name="BetaItemPartDefinitionComboBox"
+                     IsEditable="true">
+        <ComboBox.Text>
+          <Binding Path="BetaItemPartDefinition">
+            <Binding.ValidationRules>
+              <v:ItemPartValidationRule AssetLibrarySetId="{se:DataResourceBinding DataResource={StaticResource AssetLibrarySetId}}" />
+            </Binding.ValidationRules>
+          </Binding>
+        </ComboBox.Text>
+      </se:MyComboBox>
+    </DockPanel>
+    <Label Grid.Row="6"
+           Grid.Column="0"
+           HorizontalContentAlignment="Right"
+           Content="Gamma:" />
+    <DockPanel Grid.Row="6"
+               Grid.Column="1"
+               LastChildFill="True">
+      <Image DockPanel.Dock="Right"
+             Width="16"
+             Margin="2,0,0,0"
+             Source="Resources/fugue/exclamation.png"
+             ToolTip="Unsupported value, item will probably be deleted.">
+        <Image.Visibility>
+          <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
+            <Binding ElementName="GammaItemPartDefinitionComboBox"
+                     Path="ItemsSource"
+                     Mode="OneWay" />
+            <Binding ElementName="GammaItemPartDefinitionComboBox"
+                     Path="Text"
+                     Mode="OneWay" />
+          </MultiBinding>
+        </Image.Visibility>
+      </Image>
+      <se:MyComboBox x:Name="GammaItemPartDefinitionComboBox"
+                     IsEditable="true">
+        <ComboBox.Text>
+          <Binding Path="GammaItemPartDefinition">
+            <Binding.ValidationRules>
+              <v:ItemPartValidationRule AssetLibrarySetId="{se:DataResourceBinding DataResource={StaticResource AssetLibrarySetId}}" />
+            </Binding.ValidationRules>
+          </Binding>
+        </ComboBox.Text>
+      </se:MyComboBox>
+    </DockPanel>
+    <Label Grid.Row="7"
+           Grid.Column="0"
+           HorizontalContentAlignment="Right"
+           Content="Delta:" />
+    <DockPanel Grid.Row="7"
+               Grid.Column="1"
+               LastChildFill="True">
+      <Image DockPanel.Dock="Right"
+             Width="16"
+             Margin="2,0,0,0"
+             Source="Resources/fugue/exclamation.png"
+             ToolTip="Unsupported value, item will probably be deleted.">
+        <Image.Visibility>
+          <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
+            <Binding ElementName="DeltaItemPartDefinitionComboBox"
+                     Path="ItemsSource"
+                     Mode="OneWay" />
+            <Binding ElementName="DeltaItemPartDefinitionComboBox"
+                     Path="Text"
+                     Mode="OneWay" />
+          </MultiBinding>
+        </Image.Visibility>
+      </Image>
+      <se:MyComboBox x:Name="DeltaItemPartDefinitionComboBox"
+                     IsEditable="true">
+        <ComboBox.Text>
+          <Binding Path="DeltaItemPartDefinition">
+            <Binding.ValidationRules>
+              <v:ItemPartValidationRule AssetLibrarySetId="{se:DataResourceBinding DataResource={StaticResource AssetLibrarySetId}}" />
+            </Binding.ValidationRules>
+          </Binding>
+        </ComboBox.Text>
+      </se:MyComboBox>
+    </DockPanel>
+    <Label Grid.Row="8"
+           Grid.Column="0"
+           HorizontalContentAlignment="Right"
+           Content="Epsilon:" />
+    <DockPanel Grid.Row="8"
+               Grid.Column="1"
+               LastChildFill="True">
+      <Image DockPanel.Dock="Right"
+             Width="16"
+             Margin="2,0,0,0"
+             Source="Resources/fugue/exclamation.png"
+             ToolTip="Unsupported value, item will probably be deleted.">
+        <Image.Visibility>
+          <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
+            <Binding ElementName="EpsilonItemPartDefinitionComboBox"
+                     Path="ItemsSource"
+                     Mode="OneWay" />
+            <Binding ElementName="EpsilonItemPartDefinitionComboBox"
+                     Path="Text"
+                     Mode="OneWay" />
+          </MultiBinding>
+        </Image.Visibility>
+      </Image>
+      <se:MyComboBox x:Name="EpsilonItemPartDefinitionComboBox"
+                     IsEditable="true">
+        <ComboBox.Text>
+          <Binding Path="EpsilonItemPartDefinition">
+            <Binding.ValidationRules>
+              <v:ItemPartValidationRule AssetLibrarySetId="{se:DataResourceBinding DataResource={StaticResource AssetLibrarySetId}}" />
+            </Binding.ValidationRules>
+          </Binding>
+        </ComboBox.Text>
+      </se:MyComboBox>
+    </DockPanel>
+    <Label Grid.Row="9"
+           Grid.Column="0"
+           HorizontalContentAlignment="Right"
+           Content="Zeta:" />
+    <DockPanel Grid.Row="9"
+               Grid.Column="1"
+               LastChildFill="True">
+      <Image DockPanel.Dock="Right"
+             Width="16"
+             Margin="2,0,0,0"
+             Source="Resources/fugue/exclamation.png"
+             ToolTip="Unsupported value, item will probably be deleted.">
+        <Image.Visibility>
+          <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
+            <Binding ElementName="ZetaItemPartDefinitionComboBox"
+                     Path="ItemsSource"
+                     Mode="OneWay" />
+            <Binding ElementName="ZetaItemPartDefinitionComboBox"
+                     Path="Text"
+                     Mode="OneWay" />
+          </MultiBinding>
+        </Image.Visibility>
+      </Image>
+      <se:MyComboBox x:Name="ZetaItemPartDefinitionComboBox"
+                     IsEditable="true">
+        <ComboBox.Text>
+          <Binding Path="ZetaItemPartDefinition">
+            <Binding.ValidationRules>
+              <v:ItemPartValidationRule AssetLibrarySetId="{se:DataResourceBinding DataResource={StaticResource AssetLibrarySetId}}" />
+            </Binding.ValidationRules>
+          </Binding>
+        </ComboBox.Text>
+      </se:MyComboBox>
+    </DockPanel>
+    <Label Grid.Row="10"
+           Grid.Column="0"
+           HorizontalContentAlignment="Right"
+           Content="Eta:" />
+    <DockPanel Grid.Row="10"
+               Grid.Column="1"
+               LastChildFill="True">
+      <Image DockPanel.Dock="Right"
+             Width="16"
+             Margin="2,0,0,0"
+             Source="Resources/fugue/exclamation.png"
+             ToolTip="Unsupported value, item will probably be deleted.">
+        <Image.Visibility>
+          <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
+            <Binding ElementName="EtaItemPartDefinitionComboBox"
+                     Path="ItemsSource"
+                     Mode="OneWay" />
+            <Binding ElementName="EtaItemPartDefinitionComboBox"
+                     Path="Text"
+                     Mode="OneWay" />
+          </MultiBinding>
+        </Image.Visibility>
+      </Image>
+      <se:MyComboBox x:Name="EtaItemPartDefinitionComboBox"
+                     IsEditable="true">
+        <ComboBox.Text>
+          <Binding Path="EtaItemPartDefinition">
+            <Binding.ValidationRules>
+              <v:ItemPartValidationRule AssetLibrarySetId="{se:DataResourceBinding DataResource={StaticResource AssetLibrarySetId}}" />
+            </Binding.ValidationRules>
+          </Binding>
+        </ComboBox.Text>
+      </se:MyComboBox>
+    </DockPanel>
+    <Label Grid.Row="11"
+           Grid.Column="0"
+           HorizontalContentAlignment="Right"
+           Content="Theta:" />
+    <DockPanel Grid.Row="11"
+               Grid.Column="1"
+               LastChildFill="True">
+      <Image DockPanel.Dock="Right"
+             Width="16"
+             Margin="2,0,0,0"
+             Source="Resources/fugue/exclamation.png"
+             ToolTip="Unsupported value, item will probably be deleted.">
+        <Image.Visibility>
+          <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
+            <Binding ElementName="ThetaItemPartDefinitionComboBox"
+                     Path="ItemsSource"
+                     Mode="OneWay" />
+            <Binding ElementName="ThetaItemPartDefinitionComboBox"
+                     Path="Text"
+                     Mode="OneWay" />
+          </MultiBinding>
+        </Image.Visibility>
+      </Image>
+      <se:MyComboBox x:Name="ThetaItemPartDefinitionComboBox"
+                     IsEditable="true">
+        <ComboBox.Text>
+          <Binding Path="ThetaItemPartDefinition">
+            <Binding.ValidationRules>
+              <v:ItemPartValidationRule AssetLibrarySetId="{se:DataResourceBinding DataResource={StaticResource AssetLibrarySetId}}" />
+            </Binding.ValidationRules>
+          </Binding>
+        </ComboBox.Text>
+      </se:MyComboBox>
+    </DockPanel>
+    <Label Grid.Row="12"
+           Grid.Column="0"
+           HorizontalContentAlignment="Right"
+           Content="Material:" />
+    <DockPanel Grid.Row="12"
+               Grid.Column="1"
+               LastChildFill="True">
+      <Image DockPanel.Dock="Right"
+             Width="16"
+             Margin="2,0,0,0"
+             Source="Resources/fugue/exclamation.png"
+             ToolTip="Unsupported value, item will probably be deleted.">
+        <Image.Visibility>
+          <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
+            <Binding ElementName="MaterialItemPartDefinitionComboBox"
+                     Path="ItemsSource"
+                     Mode="OneWay" />
+            <Binding ElementName="MaterialItemPartDefinitionComboBox"
+                     Path="Text"
+                     Mode="OneWay" />
+          </MultiBinding>
+        </Image.Visibility>
+      </Image>
+      <se:MyComboBox x:Name="MaterialItemPartDefinitionComboBox"
+                     IsEditable="true">
+        <ComboBox.Text>
+          <Binding Path="MaterialItemPartDefinition">
+            <Binding.ValidationRules>
+              <v:ItemPartValidationRule AssetLibrarySetId="{se:DataResourceBinding DataResource={StaticResource AssetLibrarySetId}}" />
+            </Binding.ValidationRules>
+          </Binding>
+        </ComboBox.Text>
+      </se:MyComboBox>
+    </DockPanel>
+    <Label Grid.Row="13"
+           Grid.Column="0"
+           HorizontalContentAlignment="Right"
+           Content="Prefix:" />
+    <DockPanel Grid.Row="13"
+               Grid.Column="1"
+               LastChildFill="True">
+      <Image DockPanel.Dock="Right"
+             Width="16"
+             Margin="2,0,0,0"
+             Source="Resources/fugue/exclamation.png"
+             ToolTip="Unsupported value, item will probably be deleted.">
+        <Image.Visibility>
+          <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
+            <Binding ElementName="PrefixItemNamePartDefinitionComboBox"
+                     Path="ItemsSource"
+                     Mode="OneWay" />
+            <Binding ElementName="PrefixItemNamePartDefinitionComboBox"
+                     Path="Text"
+                     Mode="OneWay" />
+          </MultiBinding>
+        </Image.Visibility>
+      </Image>
+      <se:MyComboBox x:Name="PrefixItemNamePartDefinitionComboBox"
+                     IsEditable="true">
+        <ComboBox.Text>
+          <Binding Path="PrefixItemNamePartDefinition">
+            <Binding.ValidationRules>
+              <v:ItemPartValidationRule AssetLibrarySetId="{se:DataResourceBinding DataResource={StaticResource AssetLibrarySetId}}" />
+            </Binding.ValidationRules>
+          </Binding>
+        </ComboBox.Text>
+      </se:MyComboBox>
+    </DockPanel>
+    <Label Grid.Row="14"
+           Grid.Column="0"
+           HorizontalContentAlignment="Right"
+           Content="Title:" />
+    <DockPanel Grid.Row="14"
+               Grid.Column="1"
+               LastChildFill="True">
+      <Image DockPanel.Dock="Right"
+             Width="16"
+             Margin="2,0,0,0"
+             Source="Resources/fugue/exclamation.png"
+             ToolTip="Unsupported value, item will probably be deleted.">
+        <Image.Visibility>
+          <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
+            <Binding ElementName="TitleItemNamePartDefinitionComboBox"
+                     Path="ItemsSource"
+                     Mode="OneWay" />
+            <Binding ElementName="TitleItemNamePartDefinitionComboBox"
+                     Path="Text"
+                     Mode="OneWay" />
+          </MultiBinding>
+        </Image.Visibility>
+      </Image>
+      <se:MyComboBox x:Name="TitleItemNamePartDefinitionComboBox"
+                     IsEditable="true">
+        <ComboBox.Text>
+          <Binding Path="TitleItemNamePartDefinition">
+            <Binding.ValidationRules>
+              <v:ItemPartValidationRule AssetLibrarySetId="{se:DataResourceBinding DataResource={StaticResource AssetLibrarySetId}}" />
+            </Binding.ValidationRules>
+          </Binding>
+        </ComboBox.Text>
+      </se:MyComboBox>
+    </DockPanel>
+    <Label Grid.Row="15"
+           Grid.Column="0"
+           HorizontalContentAlignment="Right"
+           Content="Game Stage:" />
+    <xctk:IntegerUpDown Grid.Row="15"
+                        Grid.Column="1"
+                        Value="{Binding Path=GameStage}"
+                        Minimum="0"
+                        Maximum="127" />
+  </Grid>
+</UserControl>
