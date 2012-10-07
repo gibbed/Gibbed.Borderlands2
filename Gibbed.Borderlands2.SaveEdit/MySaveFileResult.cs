@@ -39,7 +39,6 @@ namespace Gibbed.Borderlands2.SaveEdit
     {
         private readonly FileFilterCollection _Filters = new FileFilterCollection();
         private readonly string _Title;
-        private bool _Cancelled = true;
         private EventHandler<ResultCompletionEventArgs> _Completed = delegate { };
         private Action<string> _FileAction;
         private bool _IgnoreUserCancel;
