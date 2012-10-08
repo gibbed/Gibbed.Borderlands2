@@ -155,6 +155,13 @@ namespace Gibbed.Borderlands2.FileFormats
                 throw new SaveCorruptionException("not enough data for save header");
             }
 
+            var check = input.ReadValueU32(Endian.Big);
+            if (check == 0x434F4E20)
+            {
+                throw new SaveFormatException("cannot load XBOX 360 CON files, extract save using Modio or equivalent");
+            }
+            input.Seek(-4, SeekOrigin.Current);
+
             var readSha1Hash = input.ReadBytes(20);
             using (var data = input.ReadToMemoryStream(input.Length - 20))
             {
