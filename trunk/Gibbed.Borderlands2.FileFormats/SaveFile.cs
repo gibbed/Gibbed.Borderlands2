@@ -87,12 +87,14 @@ namespace Gibbed.Borderlands2.FileFormats
             byte[] innerCompressedBytes;
             using (var innerCompressedData = new MemoryStream())
             {
+                var endian = this.Endian;
+
                 innerCompressedData.WriteValueS32(0, Endian.Big);
                 innerCompressedData.WriteString("WSG");
-                innerCompressedData.WriteValueU32(2, Endian.Little);
+                innerCompressedData.WriteValueU32(2, endian);
                 innerCompressedData.WriteValueU32(CRC32.Hash(innerUncompressedBytes, 0, innerUncompressedBytes.Length),
-                                                  Endian.Little); // crc32
-                innerCompressedData.WriteValueS32(innerUncompressedBytes.Length, Endian.Little);
+                                                  endian); // crc32
+                innerCompressedData.WriteValueS32(innerUncompressedBytes.Length, endian);
 
                 var encoder = new Huffman.Encoder();
                 encoder.Build(innerUncompressedBytes);
@@ -193,13 +195,15 @@ namespace Gibbed.Borderlands2.FileFormats
                     }
 
                     var version = outerData.ReadValueU32(Endian.Little);
-                    if (version != 2)
+                    if (version != 2 &&
+                        version.Swap() != 2)
                     {
                         throw new SaveCorruptionException("invalid or unsupported version");
                     }
+                    var endian = version == 2 ? Endian.Little : Endian.Big;
 
-                    var readCRC32Hash = outerData.ReadValueU32(Endian.Little);
-                    var innerUncompressedSize = outerData.ReadValueS32(Endian.Little);
+                    var readCRC32Hash = outerData.ReadValueU32(endian);
+                    var innerUncompressedSize = outerData.ReadValueS32(endian);
 
                     var innerCompressedBytes = outerData.ReadBytes(innerSize - 3 - 4 - 4 - 4);
                     var innerUncompressedBytes = Huffman.Decoder.Decode(innerCompressedBytes,
@@ -239,7 +243,7 @@ namespace Gibbed.Borderlands2.FileFormats
                         saveGame.Decompose();
                         return new SaveFile()
                         {
-                            Endian = Endian.Little,
+                            Endian = endian,
                             SaveGame = saveGame,
                         };
                     }
