@@ -91,15 +91,18 @@ namespace VerifySaves
                             }
 
                             var version = outerData.ReadValueU32(Endian.Little);
-                            if (version != 2)
+                            if (version != 2 &&
+                                version.Swap() != 2)
                             {
                                 Console.WriteLine("{0}: failed (bad version)", name);
                                 failures++;
                                 continue;
                             }
 
-                            var hash = outerData.ReadValueU32(Endian.Little);
-                            var innerUncompressedSize = outerData.ReadValueS32(Endian.Little);
+                            var endian = version == 2 ? Endian.Little : Endian.Big;
+
+                            var hash = outerData.ReadValueU32(endian);
+                            var innerUncompressedSize = outerData.ReadValueS32(endian);
 
                             var innerCompressedBytes = outerData.ReadBytes(innerSize - 3 - 4 - 4 - 4);
                             var innerUncompressedBytes = Huffman.Decoder.Decode(innerCompressedBytes,
