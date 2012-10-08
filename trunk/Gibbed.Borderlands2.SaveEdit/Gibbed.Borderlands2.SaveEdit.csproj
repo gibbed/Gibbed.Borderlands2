@@ -102,6 +102,7 @@
     <Compile Include="DataResourceBindingExtension.cs" />
     <Compile Include="MyOpenFileResult.cs" />
     <Compile Include="MySaveFileResult.cs" />
+    <Compile Include="NullToBooleanConverter.cs" />
     <Compile Include="PackableItemView.xaml.cs">
       <DependentUpon>PackableItemView.xaml</DependentUpon>
     </Compile>
