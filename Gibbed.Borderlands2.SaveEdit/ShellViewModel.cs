@@ -118,9 +118,9 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             string fileName = null;
 
-            MyOpenFileResult ofd;
+            MyOpenFileResult ofr;
 
-            ofd = new MyOpenFileResult()
+            ofr = new MyOpenFileResult()
                 .FilterFiles(
                     ffc => ffc.AddFilter("sav", true)
                                .WithDescription("Borderlands 2 Save Files")
@@ -129,40 +129,46 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             if (string.IsNullOrEmpty(this._SavePath) == false)
             {
-                ofd = ofd.In(this._SavePath);
+                ofr = ofr.In(this._SavePath);
             }
 
-            yield return ofd;
+            yield return ofr;
             if (fileName == null)
             {
                 yield break;
             }
 
-            using (var input = File.OpenRead(fileName))
+            yield return new DelegateResult(() =>
             {
-                var magic = input.ReadValueU32(Endian.Big);
-                if (magic == 0x434F4E20)
-                {
-                    yield return new Error("Error",
-                                           "You cannot directly open XBOX 360 CON files. Extract the save data using a tool like Modio first.",
-                                           Answer.Ok)
-                        .AsResult();
-                    yield break;
-                }
-
-                input.Seek(0, SeekOrigin.Begin);
-                try
+                using (var input = File.OpenRead(fileName))
                 {
                     FileFormats.SaveFile saveFile;
                     saveFile = FileFormats.SaveFile.Deserialize(input, FileFormats.SaveFile.DeserializeSettings.None);
                     this.SaveFile = saveFile;
                     this._Events.Publish(new SaveUnpackMessage(saveFile));
                 }
-                catch (Exception)
-                {
-                    throw;
-                }
-            }
+            })
+                .Rescue<FileFormats.SaveFormatException>().Execute(
+                    x =>
+                    {
+                        return
+                            new Error("Error", "Failed to load save: " + x.Message, Answer.Ok).AsResult().
+                                AsCoroutine();
+                    })
+                .Rescue<FileFormats.SaveCorruptionException>().Execute(
+                    x =>
+                    {
+                        return
+                            new Error("Error", "Failed to load save: " + x.Message, Answer.Ok).AsResult().
+                                AsCoroutine();
+                    })
+                .Rescue().Execute(
+                    x =>
+                    {
+                        return
+                            new Error("Error", "An exception was thrown:\n\n" + x.ToString(), Answer.Ok).AsResult().
+                                AsCoroutine();
+                    });
         }
 
         public IEnumerable<IResult> WriteSave()
@@ -174,31 +180,42 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             string fileName = null;
 
-            yield return new MySaveFileResult()
-                .In(this._SavePath)
+            MySaveFileResult ofr;
+
+            ofr = new MySaveFileResult()
                 .PromptForOverwrite()
                 .FilterFiles(
-                    ffc => ffc.AddFilter("sav", true).WithDescription("Borderlands 2 Save Files").AddAllFilesFilter())
+                    ffc => ffc.AddFilter("sav", true)
+                               .WithDescription("Borderlands 2 Save Files")
+                               .AddAllFilesFilter())
                 .WithFileDo(s => fileName = s);
+
+            if (string.IsNullOrEmpty(this._SaveFile) == false)
+            {
+                ofr = ofr.In(this._SavePath);
+            }
+
+            yield return ofr;
 
             if (fileName == null)
             {
                 yield break;
             }
 
-            this._Events.Publish(new SavePackMessage(this.SaveFile));
-
-            try
+            yield return new DelegateResult(() =>
             {
+                this._Events.Publish(new SavePackMessage(this.SaveFile));
                 using (var output = File.Create(fileName))
                 {
                     this.SaveFile.Serialize(output);
                 }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            }).Rescue().Execute(
+                x =>
+                {
+                    return
+                        new Error("Error", "An exception was thrown:\n\n" + x.ToString(), Answer.Ok).AsResult().
+                            AsCoroutine();
+                });
         }
     }
 }
