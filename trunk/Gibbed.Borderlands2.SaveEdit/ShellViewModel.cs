@@ -118,11 +118,21 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             string fileName = null;
 
-            yield return new MyOpenFileResult()
-                .In(this._SavePath)
+            MyOpenFileResult ofd;
+
+            ofd = new MyOpenFileResult()
                 .FilterFiles(
-                    ffc => ffc.AddFilter("sav", true).WithDescription("Borderlands 2 Save Files").AddAllFilesFilter())
+                    ffc => ffc.AddFilter("sav", true)
+                               .WithDescription("Borderlands 2 Save Files")
+                               .AddAllFilesFilter())
                 .WithFileDo(s => fileName = s);
+
+            if (string.IsNullOrEmpty(this._SavePath) == false)
+            {
+                ofd = ofd.In(this._SavePath);
+            }
+
+            yield return ofd;
             if (fileName == null)
             {
                 yield break;

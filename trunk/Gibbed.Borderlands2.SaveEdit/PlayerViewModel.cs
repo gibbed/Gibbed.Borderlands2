@@ -73,14 +73,31 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
+        public ObservableCollection<EndianDisplay> Endians { get; private set; }
         public ObservableCollection<AssetDisplay> ClassDefinitions { get; private set; }
         public ObservableCollection<AssetDisplay> HeadAssets { get; private set; }
         public ObservableCollection<AssetDisplay> SkinAssets { get; private set; }
         #endregion
 
+        internal class EndianDisplay
+        {
+            public string Name { get; private set; }
+            public IO.Endian Value { get; private set; }
+
+            public EndianDisplay(string name, IO.Endian value)
+            {
+                this.Name = name;
+                this.Value = value;
+            }
+        }
+
         [ImportingConstructor]
         public PlayerViewModel(IEventAggregator events)
         {
+            this.Endians = new ObservableCollection<EndianDisplay>();
+            this.Endians.Add(new EndianDisplay("Little (PC)", IO.Endian.Little));
+            this.Endians.Add(new EndianDisplay("Big (360, PS3)", IO.Endian.Big));
+
             this.ClassDefinitions = new ObservableCollection<AssetDisplay>();
             this.ClassDefinitions.Add(new AssetDisplay("Axton (Commando)",
                                                        "GD_Soldier.Character.CharClass_Soldier"));
