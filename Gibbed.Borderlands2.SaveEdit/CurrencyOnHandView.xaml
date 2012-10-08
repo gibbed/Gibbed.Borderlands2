@@ -33,7 +33,6 @@
       <Grid.RowDefinitions>
         <RowDefinition Height="Auto" />
         <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
         <RowDefinition Height="*" />
       </Grid.RowDefinitions>
       <Grid.ColumnDefinitions>
@@ -77,19 +76,13 @@
                           Grid.Column="1"
                           Margin="3"
                           Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[1]}" />
-      <Label Grid.Row="2"
-             Grid.Column="0"
-             HorizontalContentAlignment="Right"
-             Content="Seraph Crystals:" />
-      <xctk:IntegerUpDown Grid.Row="2"
-                          Grid.Column="1"
-                          Margin="3"
-                          Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[2]}" />
     </Grid>
     <Expander Header="Reserved"
               IsExpanded="False">
       <Grid>
         <Grid.RowDefinitions>
+          <RowDefinition Height="29" />
+          <RowDefinition Height="Auto" />
           <RowDefinition Height="Auto" />
           <RowDefinition Height="Auto" />
           <RowDefinition Height="Auto" />
@@ -109,80 +102,88 @@
         <Label Grid.Row="0"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
-               Content="A:" />
+               Content="Seraph Crystals:" />
         <xctk:IntegerUpDown Grid.Row="0"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[3]}" />
+                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[2]}" />
         <Label Grid.Row="1"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
-               Content="B:" />
+               Content="A:" />
         <xctk:IntegerUpDown Grid.Row="1"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[4]}" />
+                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[3]}" />
         <Label Grid.Row="2"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
-               Content="C:" />
+               Content="B:" />
         <xctk:IntegerUpDown Grid.Row="2"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[5]}" />
+                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[4]}" />
         <Label Grid.Row="3"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
-               Content="D:" />
+               Content="C:" />
         <xctk:IntegerUpDown Grid.Row="3"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[6]}" />
+                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[5]}" />
         <Label Grid.Row="4"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
-               Content="E:" />
+               Content="D:" />
         <xctk:IntegerUpDown Grid.Row="4"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[7]}" />
+                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[6]}" />
         <Label Grid.Row="5"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
-               Content="F:" />
+               Content="E:" />
         <xctk:IntegerUpDown Grid.Row="5"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[8]}" />
+                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[7]}" />
         <Label Grid.Row="6"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
-               Content="G:" />
+               Content="F:" />
         <xctk:IntegerUpDown Grid.Row="6"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[9]}" />
+                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[8]}" />
         <Label Grid.Row="7"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
-               Content="H:" />
+               Content="G:" />
         <xctk:IntegerUpDown Grid.Row="7"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[10]}" />
+                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[9]}" />
         <Label Grid.Row="8"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
-               Content="I:" />
+               Content="H:" />
         <xctk:IntegerUpDown Grid.Row="8"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[11]}" />
+                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[10]}" />
         <Label Grid.Row="9"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
-               Content="J:" />
+               Content="I:" />
         <xctk:IntegerUpDown Grid.Row="9"
+                            Grid.Column="1"
+                            Margin="3"
+                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[11]}" />
+        <Label Grid.Row="10"
+               Grid.Column="0"
+               HorizontalContentAlignment="Right"
+               Content="J:" />
+        <xctk:IntegerUpDown Grid.Row="10"
                             Grid.Column="1"
                             Margin="3"
                             Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[12]}" />

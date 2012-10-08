@@ -27,24 +27,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:SaveEdit="clr-namespace:Gibbed.Borderlands2.SaveEdit"
              mc:Ignorable="d"
              d:DesignWidth="720"
              d:DesignHeight="480">
   <StackPanel Orientation="Vertical">
     <Expander Header="General"
               IsExpanded="True">
-    </Expander>
-    <Expander Header="Character"
-              IsExpanded="True">
       <Grid>
         <Grid.RowDefinitions>
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
           <RowDefinition Height="Auto" />
           <RowDefinition Height="Auto" />
           <RowDefinition Height="*" />
@@ -61,46 +52,77 @@
                             Grid.Column="1"
                             Margin="3"
                             Value="{Binding Path=SaveFile.SaveGame.SaveGameId}" />
-        <Label Grid.Row="2"
+        <Label Grid.Row="1"
+               Grid.Column="0"
+               HorizontalContentAlignment="Right"
+               Content="Endian:" />
+        <SaveEdit:MyComboBox Grid.Row="1"
+                             Grid.Column="1"
+                             ItemsSource="{Binding Path=Endians}"
+                             DisplayMemberPath="Name"
+                             SelectedValuePath="Value"
+                             SelectedValue="{Binding Path=SaveFile.Endian}"
+                             Margin="3" />
+      </Grid>
+    </Expander>
+    <Expander Header="Character"
+              IsExpanded="True">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="0.50*" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="1"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Class:" />
-        <ComboBox Grid.Row="2"
+        <ComboBox Grid.Row="1"
                   Grid.Column="1"
                   Margin="3"
                   ItemsSource="{Binding Path=ClassDefinitions}"
                   DisplayMemberPath="Name"
                   SelectedValuePath="Path"
                   SelectedValue="{Binding Path=SaveFile.SaveGame.PlayerClassDefinition}" />
-        <Label Grid.Row="3"
+        <Label Grid.Row="2"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Experience Level:" />
-        <xctk:IntegerUpDown Grid.Row="3"
+        <xctk:IntegerUpDown Grid.Row="2"
                             Grid.Column="1"
                             Margin="3"
                             Value="{Binding Path=SaveFile.SaveGame.ExpLevel}" />
-        <Label Grid.Row="4"
+        <Label Grid.Row="3"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Experience Points:" />
-        <xctk:IntegerUpDown Grid.Row="4"
+        <xctk:IntegerUpDown Grid.Row="3"
                             Grid.Column="1"
                             Margin="3"
                             Value="{Binding Path=SaveFile.SaveGame.ExpPoints}" />
-        <Label Grid.Row="5"
+        <Label Grid.Row="4"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="General Skill Points:" />
-        <xctk:IntegerUpDown Grid.Row="5"
+        <xctk:IntegerUpDown Grid.Row="4"
                             Grid.Column="1"
                             Margin="3"
                             Value="{Binding Path=SaveFile.SaveGame.GeneralSkillPoints}" />
-        <Label Grid.Row="6"
+        <Label Grid.Row="5"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Specialist Skill Points:" />
-        <xctk:IntegerUpDown Grid.Row="6"
+        <xctk:IntegerUpDown Grid.Row="5"
                             Grid.Column="1"
                             Margin="3"
                             Value="{Binding Path=SaveFile.SaveGame.SpecialistSkillPoints}" />
