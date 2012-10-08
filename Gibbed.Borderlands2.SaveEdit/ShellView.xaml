@@ -29,7 +29,11 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
              d:DesignWidth="720"
-             d:DesignHeight="480">
+             d:DesignHeight="480"
+             xmlns:my="clr-namespace:Gibbed.Borderlands2.SaveEdit">
+  <UserControl.Resources>
+    <my:NullToBooleanConverter x:Key="NullToBooleanConverter1" />
+  </UserControl.Resources>
   <DockPanel>
     <ToolBar Name="ButtonBar"
              DockPanel.Dock="Top">
@@ -49,7 +53,8 @@
           <Label Content="Open" />
         </StackPanel>
       </Button>
-      <Button x:Name="WriteSave">
+      <Button x:Name="WriteSave"
+              IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}">
         <StackPanel Orientation="Horizontal">
           <Image Width="16"
                  Height="16"
@@ -58,7 +63,7 @@
         </StackPanel>
       </Button>
     </ToolBar>
-    <TabControl>
+    <TabControl IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}">
       <TabItem>
         <TabItem.Header>
           <StackPanel Orientation="Horizontal">
