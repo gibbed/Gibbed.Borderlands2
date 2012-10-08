@@ -127,7 +127,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                                .AddAllFilesFilter())
                 .WithFileDo(s => fileName = s);
 
-            if (string.IsNullOrEmpty(this._SavePath) == false)
+            if (string.IsNullOrEmpty(this._SavePath) == false &&
+                Directory.Exists(this._SavePath) == true)
             {
                 ofr = ofr.In(this._SavePath);
             }
@@ -190,7 +191,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                                .AddAllFilesFilter())
                 .WithFileDo(s => fileName = s);
 
-            if (string.IsNullOrEmpty(this._SaveFile) == false)
+            if (string.IsNullOrEmpty(this._SavePath) == false &&
+                Directory.Exists(this._SavePath) == true)
             {
                 ofr = ofr.In(this._SavePath);
             }
