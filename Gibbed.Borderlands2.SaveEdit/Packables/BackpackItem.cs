@@ -27,26 +27,12 @@ namespace Gibbed.Borderlands2.SaveEdit.Packables
     internal class BackpackItem : PackableItem, IBackpackSlot
     {
         #region Fields
-        private PackableItem _Item;
-        private int _Quantity;
-        private bool _Equipped;
-        private PlayerMark _Mark;
+        private int _Quantity = 1;
+        private bool _Equipped = false;
+        private PlayerMark _Mark = PlayerMark.Standard;
         #endregion
 
         #region Properties
-        public PackableItem Item
-        {
-            get { return this._Item; }
-            set
-            {
-                if (value != this._Item)
-                {
-                    this._Item = Item;
-                    this.NotifyOfPropertyChange(() => this.Item);
-                }
-            }
-        }
-
         public int Quantity
         {
             get { return this._Quantity; }
@@ -93,7 +79,24 @@ namespace Gibbed.Borderlands2.SaveEdit.Packables
         {
             return new BackpackItem()
             {
-                Item = (PackableItem)this.Item.Clone(),
+                ItemDefinition = this.ItemDefinition,
+                BalanceDefinition = this.BalanceDefinition,
+                ManufacturerDefinition = this.ManufacturerDefinition,
+                ManufacturerGradeIndex = this.ManufacturerGradeIndex,
+                AlphaItemPartDefinition = this.AlphaItemPartDefinition,
+                BetaItemPartDefinition = this.BetaItemPartDefinition,
+                GammaItemPartDefinition = this.GammaItemPartDefinition,
+                DeltaItemPartDefinition = this.DeltaItemPartDefinition,
+                EpsilonItemPartDefinition = this.EpsilonItemPartDefinition,
+                ZetaItemPartDefinition = this.ZetaItemPartDefinition,
+                EtaItemPartDefinition = this.EtaItemPartDefinition,
+                ThetaItemPartDefinition = this.ThetaItemPartDefinition,
+                MaterialItemPartDefinition = this.MaterialItemPartDefinition,
+                PrefixItemNamePartDefinition = this.PrefixItemNamePartDefinition,
+                TitleItemNamePartDefinition = this.TitleItemNamePartDefinition,
+                GameStage = this.GameStage,
+                UniqueId = this.UniqueId,
+                AssetLibrarySetId = this.AssetLibrarySetId,
                 Quantity = this.Quantity,
                 Equipped = this.Equipped,
                 Mark = this.Mark,

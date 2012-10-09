@@ -27,8 +27,8 @@ namespace Gibbed.Borderlands2.SaveEdit.Packables
     internal sealed class BackpackWeapon : PackableWeapon, IBackpackSlot
     {
         #region Fields
-        private QuickWeaponSlot _QuickSlot;
-        private PlayerMark _Mark;
+        private QuickWeaponSlot _QuickSlot = QuickWeaponSlot.None;
+        private PlayerMark _Mark = PlayerMark.Standard;
         #endregion
 
         #region Properties
