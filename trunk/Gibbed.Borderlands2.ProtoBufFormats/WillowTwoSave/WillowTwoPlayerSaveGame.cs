@@ -904,7 +904,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
             }
         }
 
-        [ProtoMember(24, IsRequired = false)]
+        [ProtoMember(24, IsRequired = false, IsPacked = true)]
         public ObservableCollection<int> MarketingCodesNeedingNotification
         {
             get { return this._MarketingCodesNeedingNotification; }
