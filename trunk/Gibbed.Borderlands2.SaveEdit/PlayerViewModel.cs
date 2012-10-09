@@ -106,7 +106,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             this.ClassDefinitions.Add(new AssetDisplay("Maya (Siren)", "GD_Siren.Character.CharClass_Siren"));
             this.ClassDefinitions.Add(new AssetDisplay("Salvador (Gunzerker)",
                                                        "GD_Mercenary.Character.CharClass_Mercenary"));
-            //this.ClassDefinitions.Add(new AssetDisplay("Gaige (Mechromancer)", "UNKNOWN"));
+            this.ClassDefinitions.Add(new AssetDisplay("Gaige (Mechromancer)", "GD_Tulip_Mechromancer.Character.CharClass_Mechromancer"));
 
             this.HeadAssets = new ObservableCollection<AssetDisplay>();
             this.SkinAssets = new ObservableCollection<AssetDisplay>();
