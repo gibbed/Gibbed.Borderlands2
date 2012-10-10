@@ -51,7 +51,7 @@
         <xctk:IntegerUpDown Grid.Row="0"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=SaveFile.SaveGame.SaveGameId}" />
+                            Value="{Binding Path=SaveGameId}" />
         <Label Grid.Row="1"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
@@ -61,7 +61,7 @@
                              ItemsSource="{Binding Path=Endians}"
                              DisplayMemberPath="Name"
                              SelectedValuePath="Value"
-                             SelectedValue="{Binding Path=SaveFile.Endian}"
+                             SelectedValue="{Binding Path=Endian}"
                              Margin="3" />
       </Grid>
     </Expander>
@@ -93,7 +93,7 @@
                   ItemsSource="{Binding Path=ClassDefinitions}"
                   DisplayMemberPath="Name"
                   SelectedValuePath="Path"
-                  SelectedValue="{Binding Path=SaveFile.SaveGame.PlayerClassDefinition}" />
+                  SelectedValue="{Binding Path=PlayerClassDefinition}" />
         <Label Grid.Row="2"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
@@ -101,7 +101,7 @@
         <xctk:IntegerUpDown Grid.Row="2"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=SaveFile.SaveGame.ExpLevel}" />
+                            Value="{Binding Path=ExpLevel}" />
         <Label Grid.Row="3"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
@@ -109,7 +109,7 @@
         <xctk:IntegerUpDown Grid.Row="3"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=SaveFile.SaveGame.ExpPoints}" />
+                            Value="{Binding Path=ExpPoints}" />
         <Label Grid.Row="4"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
@@ -117,7 +117,7 @@
         <xctk:IntegerUpDown Grid.Row="4"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=SaveFile.SaveGame.GeneralSkillPoints}" />
+                            Value="{Binding Path=GeneralSkillPoints}" />
         <Label Grid.Row="5"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
@@ -125,7 +125,7 @@
         <xctk:IntegerUpDown Grid.Row="5"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=SaveFile.SaveGame.SpecialistSkillPoints}" />
+                            Value="{Binding Path=SpecialistSkillPoints}" />
       </Grid>
     </Expander>
     <Expander Header="Customization"
@@ -154,7 +154,7 @@
         <TextBox Grid.Row="0"
                  Grid.Column="1"
                  Margin="3"
-                 Text="{Binding Path=SaveFile.SaveGame.UIPreferences.CharacterName}" />
+                 Text="{Binding Path=CharacterName}" />
         <Label Grid.Row="1"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
