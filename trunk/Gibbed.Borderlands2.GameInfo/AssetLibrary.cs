@@ -22,10 +22,8 @@
 
 #pragma warning disable 649
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Gibbed.Borderlands2.FileFormats;
 using Newtonsoft.Json;
 
 namespace Gibbed.Borderlands2.GameInfo
@@ -50,6 +48,16 @@ namespace Gibbed.Borderlands2.GameInfo
 
         [JsonProperty(PropertyName = "sublibraries")]
         public List<AssetSublibrary> Sublibraries = new List<AssetSublibrary>();
+
+        public string[] GetAssets()
+        {
+            return new[]
+            {
+                "None"
+            }.Concat(
+                this.Sublibraries.SelectMany(sl => sl.Assets.Select(a => sl.Package + "." + a)).Distinct().
+                    OrderBy(a => a)).ToArray();
+        }
     }
 }
 

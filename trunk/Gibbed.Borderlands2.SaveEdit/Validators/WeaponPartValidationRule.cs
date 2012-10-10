@@ -20,22 +20,15 @@
  *    distribution.
  */
 
-using System.Collections.Generic;
+using Gibbed.Borderlands2.GameInfo;
 
 namespace Gibbed.Borderlands2.SaveEdit.Validators
 {
     internal class WeaponPartValidationRule : AssetValidationRule
     {
-        private static readonly Dictionary<int, string[]> _CachedAssets = new Dictionary<int, string[]>();
-
-        protected override string[] GetAssets()
+        public WeaponPartValidationRule()
+            : base(AssetGroup.WeaponParts)
         {
-            if (_CachedAssets.ContainsKey(this.AssetLibrarySetId) == false)
-            {
-                return _CachedAssets[this.AssetLibrarySetId] = GetAvailableAssets(this.AssetLibrarySet.Libraries[GameInfo.AssetGroup.WeaponParts]);
-            }
-
-            return _CachedAssets[this.AssetLibrarySetId];
         }
     }
 }

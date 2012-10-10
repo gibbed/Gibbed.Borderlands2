@@ -20,15 +20,16 @@
  *    distribution.
  */
 
-using Gibbed.Borderlands2.GameInfo;
+using System;
 
-namespace Gibbed.Borderlands2.SaveEdit.Validators
+namespace Gibbed.Borderlands2.FileFormats.Items
 {
-    internal class ItemPartValidationRule : AssetValidationRule
+    public interface IPackable : ICloneable
     {
-        public ItemPartValidationRule()
-            : base(AssetGroup.ItemParts)
-        {
-        }
+        int UniqueId { get; set; }
+        int AssetLibrarySetId { get; set; }
+
+        void Read(BitReader reader);
+        void Write(BitWriter writer);
     }
 }

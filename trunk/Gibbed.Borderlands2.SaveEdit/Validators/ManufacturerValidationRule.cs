@@ -20,22 +20,15 @@
  *    distribution.
  */
 
-using System.Collections.Generic;
+using Gibbed.Borderlands2.GameInfo;
 
 namespace Gibbed.Borderlands2.SaveEdit.Validators
 {
     internal class ManufacturerValidationRule : AssetValidationRule
     {
-        private static readonly Dictionary<int, string[]> _CachedAssets = new Dictionary<int, string[]>();
-
-        protected override string[] GetAssets()
+        public ManufacturerValidationRule()
+            : base(AssetGroup.Manufacturers)
         {
-            if (_CachedAssets.ContainsKey(this.AssetLibrarySetId) == false)
-            {
-                return _CachedAssets[this.AssetLibrarySetId] = GetAvailableAssets(this.AssetLibrarySet.Libraries[GameInfo.AssetGroup.Manufacturers]);
-            }
-
-            return _CachedAssets[this.AssetLibrarySetId];
         }
     }
 }

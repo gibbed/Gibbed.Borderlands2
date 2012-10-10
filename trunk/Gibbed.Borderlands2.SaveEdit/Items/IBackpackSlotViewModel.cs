@@ -20,15 +20,14 @@
  *    distribution.
  */
 
-using Gibbed.Borderlands2.GameInfo;
+using Gibbed.Borderlands2.FileFormats.Items;
 
-namespace Gibbed.Borderlands2.SaveEdit.Validators
+namespace Gibbed.Borderlands2.SaveEdit
 {
-    internal class ItemPartValidationRule : AssetValidationRule
+    internal interface IBackpackSlotViewModel
     {
-        public ItemPartValidationRule()
-            : base(AssetGroup.ItemParts)
-        {
-        }
+        IBackpackSlot Slot { get; }
+        string DisplayName { get; }
+        string DisplayGroup { get; }
     }
 }

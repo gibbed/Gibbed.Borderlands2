@@ -30,7 +30,8 @@
              mc:Ignorable="d"
              d:DesignWidth="720"
              d:DesignHeight="480"
-             xmlns:my="clr-namespace:Gibbed.Borderlands2.SaveEdit">
+             xmlns:my="clr-namespace:Gibbed.Borderlands2.SaveEdit"
+             xmlns:butt="clr-namespace:Xceed.Wpf.Toolkit.PropertyGrid.Editors;assembly=WPFToolkit.Extended">
   <UserControl.Resources>
     <my:NullToBooleanConverter x:Key="NullToBooleanConverter1" />
   </UserControl.Resources>
@@ -84,7 +85,7 @@
           <StackPanel Orientation="Horizontal">
             <Image Width="20"
                    Height="20"
-                   Source="Resources\credits cropped.png" />
+                   Source="Resources\pink seraph crystal.png" />
             <Label VerticalAlignment="Center"
                    Content="Currency" />
           </StackPanel>
@@ -129,7 +130,7 @@
           </StackPanel>
         </TabItem.Header>
       </TabItem>
-      <TabItem>
+      <TabItem IsSelected="True">
         <TabItem.Header>
           <StackPanel Orientation="Horizontal">
             <Image Width="20"

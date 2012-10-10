@@ -20,6 +20,7 @@
  *    distribution.
  */
 
+using System;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Controls;
@@ -29,15 +30,9 @@ namespace Gibbed.Borderlands2.SaveEdit.Validators
 {
     internal abstract class AssetValidationRule : ValidationRule
     {
+        private readonly AssetGroup _Group;
         private int _AssetLibrarySetId = -1;
         private string[] _Assets = new string[0];
-
-        protected abstract string[] GetAssets();
-
-        protected AssetLibrarySet AssetLibrarySet
-        {
-            get { return InfoManager.AssetLibraryManager.GetSet(this.AssetLibrarySetId); }
-        }
 
         public int AssetLibrarySetId
         {
@@ -47,23 +42,23 @@ namespace Gibbed.Borderlands2.SaveEdit.Validators
                 if (value != this._AssetLibrarySetId)
                 {
                     this._AssetLibrarySetId = value;
-                    this._Assets = this.GetAssets();
+                    this._Assets = AssetCache.Get(this._AssetLibrarySetId)[this._Group];
                 }
             }
         }
 
-        protected static string[] GetAvailableAssets(AssetLibrary assetLibrary)
+        public AssetValidationRule(AssetGroup group)
         {
-            return new[]
-            {
-                "None"
-            }.Concat(
-                assetLibrary.Sublibraries.SelectMany(sl => sl.Assets.Select(a => sl.Package + "." + a)).Distinct().
-                    OrderBy(a => a)).ToArray();
+            this._Group = group;
         }
 
         public override ValidationResult Validate(object value, CultureInfo ultureInfo)
         {
+            if (this.AssetLibrarySetId == -1)
+            {
+                throw new InvalidOperationException();
+            }
+
             if (value == null ||
                 this._Assets.Contains(value.ToString()) == false)
             {

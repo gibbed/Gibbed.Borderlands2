@@ -43,18 +43,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssetLibraryManagerHelpers.cs" />
+    <Compile Include="Items\BackpackDataHelper.cs" />
+    <Compile Include="Items\BackpackItem.cs" />
+    <Compile Include="Items\BackpackWeapon.cs" />
     <Compile Include="BitReader.cs" />
     <Compile Include="BitWriter.cs" />
     <Compile Include="CRC32.cs" />
     <Compile Include="Huffman\Decoder.cs" />
     <Compile Include="Huffman\Encoder.cs" />
+    <Compile Include="Items\IBackpackSlot.cs" />
+    <Compile Include="Items\ISlot.cs" />
+    <Compile Include="Items\IPackable.cs" />
     <Compile Include="LZO.cs" />
+    <Compile Include="Items\BaseItem.cs" />
+    <Compile Include="Items\BaseWeapon.cs" />
+    <Compile Include="Items\PackedDataHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveCorruptionException.cs" />
     <Compile Include="SaveFile.cs" />
     <Compile Include="SaveFormatException.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Gibbed.Borderlands2.GameInfo\Gibbed.Borderlands2.GameInfo.csproj">
+      <Project>{9B42EE82-42E9-455C-A3DE-7B93F1FF2476}</Project>
+      <Name>Gibbed.Borderlands2.GameInfo</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Gibbed.Borderlands2.ProtoBufFormats\Gibbed.Borderlands2.ProtoBufFormats.csproj">
       <Project>{17A51353-4224-43DC-91FE-A1407BD318EC}</Project>
       <Name>Gibbed.Borderlands2.ProtoBufFormats</Name>
