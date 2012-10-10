@@ -63,7 +63,9 @@
     <Compile Include="WillowTwoSave\MissionStatus.cs" />
     <Compile Include="WillowTwoSave\OneOffLevelChallengeData.cs" />
     <Compile Include="WillowTwoSave\PackedItemData.cs" />
+    <Compile Include="WillowTwoSave\PackedItemDataOptional.cs" />
     <Compile Include="WillowTwoSave\PackedWeaponData.cs" />
+    <Compile Include="WillowTwoSave\PackedWeaponDataOptional.cs" />
     <Compile Include="WillowTwoSave\PendingMissionRewards.cs" />
     <Compile Include="WillowTwoSave\PlayerMark.cs" />
     <Compile Include="WillowTwoSave\QuickWeaponSlot.cs" />
