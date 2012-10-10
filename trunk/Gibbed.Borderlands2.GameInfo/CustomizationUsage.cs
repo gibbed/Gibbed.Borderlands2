@@ -29,7 +29,9 @@ namespace Gibbed.Borderlands2.GameInfo
         Assassin,
         Siren,
         Mercenary,
+        Mechromancer,
         Runner,
         BanditTech,
+        Hovercraft,
     }
 }

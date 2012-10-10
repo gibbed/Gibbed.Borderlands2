@@ -22,6 +22,7 @@
 
 #pragma warning disable 649
 
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Gibbed.Borderlands2.GameInfo
@@ -36,23 +37,8 @@ namespace Gibbed.Borderlands2.GameInfo
         [JsonProperty(PropertyName = "id", Required = Required.Always)]
         public int Id;
 
-        [JsonProperty(PropertyName = "weapon_types", Required = Required.Always)]
-        public AssetLibrary WeaponTypes;
-
-        [JsonProperty(PropertyName = "weapon_parts", Required = Required.Always)]
-        public AssetLibrary WeaponParts;
-
-        [JsonProperty(PropertyName = "item_types", Required = Required.Always)]
-        public AssetLibrary ItemTypes;
-
-        [JsonProperty(PropertyName = "item_parts", Required = Required.Always)]
-        public AssetLibrary ItemParts;
-
-        [JsonProperty(PropertyName = "manufacturers", Required = Required.Always)]
-        public AssetLibrary Manufacturers;
-
-        [JsonProperty(PropertyName = "balance_defs", Required = Required.Always)]
-        public AssetLibrary BalanceDefs;
+        [JsonProperty(PropertyName = "libraries", Required = Required.Always)]
+        public Dictionary<AssetGroup, AssetLibrary> Libraries = new Dictionary<AssetGroup, AssetLibrary>();
     }
 }
 

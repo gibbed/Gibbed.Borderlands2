@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssetLibrary.cs" />
+    <Compile Include="AssetLibraryConfiguration.cs" />
+    <Compile Include="AssetGroup.cs" />
     <Compile Include="AssetLibraryManager.cs" />
     <Compile Include="AssetLibrarySet.cs" />
     <Compile Include="AssetSublibrary.cs" />

@@ -142,6 +142,11 @@ namespace Gibbed.Borderlands2.SaveEdit
                     {
                         return CustomizationUsage.Mercenary;
                     }
+
+                    case "GD_Tulip_Mechromancer.Character.CharClass_Mechromancer":
+                    {
+                        return CustomizationUsage.Mechromancer;
+                    }
                 }
             }
 

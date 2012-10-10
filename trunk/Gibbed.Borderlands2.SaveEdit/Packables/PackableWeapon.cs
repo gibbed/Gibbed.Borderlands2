@@ -51,46 +51,46 @@ namespace Gibbed.Borderlands2.SaveEdit.Packables
 
         public void Read(BitReader reader)
         {
-            var set = InfoManager.AssetLibraryManager.GetSet(this.AssetLibrarySetId);
+            var alm = InfoManager.AssetLibraryManager;
 
-            this.WeaponTypeDefinition = set.WeaponTypes.Decode(reader);
-            this.BalanceDefinition = set.BalanceDefs.Decode(reader);
-            this.ManufacturerDefinition = set.Manufacturers.Decode(reader);
+            this.WeaponTypeDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponTypes);
+            this.BalanceDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.Balances);
+            this.ManufacturerDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.Manufacturers);
             this.ManufacturerGradeIndex = reader.ReadInt32(7);
             this.GameStage = reader.ReadInt32(7);
-            this.BodyPartDefinition = set.WeaponParts.Decode(reader);
-            this.GripPartDefinition = set.WeaponParts.Decode(reader);
-            this.BarrelPartDefinition = set.WeaponParts.Decode(reader);
-            this.SightPartDefinition = set.WeaponParts.Decode(reader);
-            this.StockPartDefinition = set.WeaponParts.Decode(reader);
-            this.ElementalPartDefinition = set.WeaponParts.Decode(reader);
-            this.Accessory1PartDefinition = set.WeaponParts.Decode(reader);
-            this.Accessory2PartDefinition = set.WeaponParts.Decode(reader);
-            this.MaterialPartDefinition = set.WeaponParts.Decode(reader);
-            this.PrefixPartDefinition = set.WeaponParts.Decode(reader);
-            this.TitlePartDefinition = set.WeaponParts.Decode(reader);
+            this.BodyPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
+            this.GripPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
+            this.BarrelPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
+            this.SightPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
+            this.StockPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
+            this.ElementalPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
+            this.Accessory1PartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
+            this.Accessory2PartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
+            this.MaterialPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
+            this.PrefixPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
+            this.TitlePartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
         }
 
         public void Write(BitWriter writer)
         {
-            var set = InfoManager.AssetLibraryManager.GetSet(this.AssetLibrarySetId);
+            var alm = InfoManager.AssetLibraryManager;
 
-            set.WeaponTypes.Encode(writer, this.WeaponTypeDefinition);
-            set.BalanceDefs.Encode(writer, this.BalanceDefinition);
-            set.Manufacturers.Encode(writer, this.ManufacturerDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponTypes, this.WeaponTypeDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.Balances, this.BalanceDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.Manufacturers, this.ManufacturerDefinition);
             writer.WriteInt32(this.ManufacturerGradeIndex, 7);
             writer.WriteInt32(this.GameStage, 7);
-            set.WeaponParts.Encode(writer, this.BodyPartDefinition);
-            set.WeaponParts.Encode(writer, this.GripPartDefinition);
-            set.WeaponParts.Encode(writer, this.BarrelPartDefinition);
-            set.WeaponParts.Encode(writer, this.SightPartDefinition);
-            set.WeaponParts.Encode(writer, this.StockPartDefinition);
-            set.WeaponParts.Encode(writer, this.ElementalPartDefinition);
-            set.WeaponParts.Encode(writer, this.Accessory1PartDefinition);
-            set.WeaponParts.Encode(writer, this.Accessory2PartDefinition);
-            set.WeaponParts.Encode(writer, this.MaterialPartDefinition);
-            set.WeaponParts.Encode(writer, this.PrefixPartDefinition);
-            set.WeaponParts.Encode(writer, this.TitlePartDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.BodyPartDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.GripPartDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.BarrelPartDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.SightPartDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.StockPartDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.ElementalPartDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.Accessory1PartDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.Accessory2PartDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.MaterialPartDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.PrefixPartDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.TitlePartDefinition);
         }
 
         #region Properties

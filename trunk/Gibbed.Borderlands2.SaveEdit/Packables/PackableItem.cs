@@ -51,46 +51,46 @@ namespace Gibbed.Borderlands2.SaveEdit.Packables
 
         public void Read(BitReader reader)
         {
-            var set = InfoManager.AssetLibraryManager.GetSet(this.AssetLibrarySetId);
+            var alm = InfoManager.AssetLibraryManager;
 
-            this.ItemDefinition = set.ItemTypes.Decode(reader);
-            this.BalanceDefinition = set.BalanceDefs.Decode(reader);
-            this.ManufacturerDefinition = set.Manufacturers.Decode(reader);
+            this.ItemDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemTypes);
+            this.BalanceDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.Balances);
+            this.ManufacturerDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.Manufacturers);
             this.ManufacturerGradeIndex = reader.ReadInt32(7);
             this.GameStage = reader.ReadInt32(7);
-            this.AlphaItemPartDefinition = set.ItemParts.Decode(reader);
-            this.BetaItemPartDefinition = set.ItemParts.Decode(reader);
-            this.GammaItemPartDefinition = set.ItemParts.Decode(reader);
-            this.DeltaItemPartDefinition = set.ItemParts.Decode(reader);
-            this.EpsilonItemPartDefinition = set.ItemParts.Decode(reader);
-            this.ZetaItemPartDefinition = set.ItemParts.Decode(reader);
-            this.EtaItemPartDefinition = set.ItemParts.Decode(reader);
-            this.ThetaItemPartDefinition = set.ItemParts.Decode(reader);
-            this.MaterialItemPartDefinition = set.ItemParts.Decode(reader);
-            this.PrefixItemNamePartDefinition = set.ItemParts.Decode(reader);
-            this.TitleItemNamePartDefinition = set.ItemParts.Decode(reader);
+            this.AlphaItemPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.BetaItemPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.GammaItemPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.DeltaItemPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.EpsilonItemPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.ZetaItemPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.EtaItemPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.ThetaItemPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.MaterialItemPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.PrefixItemNamePartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.TitleItemNamePartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
         }
 
         public void Write(BitWriter writer)
         {
-            var set = InfoManager.AssetLibraryManager.GetSet(this.AssetLibrarySetId);
+            var alm = InfoManager.AssetLibraryManager;
 
-            set.ItemTypes.Encode(writer, this.ItemDefinition);
-            set.BalanceDefs.Encode(writer, this.BalanceDefinition);
-            set.Manufacturers.Encode(writer, this.ManufacturerDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemTypes, this.ItemDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.Balances, this.BalanceDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.Manufacturers, this.ManufacturerDefinition);
             writer.WriteInt32(this.ManufacturerGradeIndex, 7);
             writer.WriteInt32(this.GameStage, 7);
-            set.ItemParts.Encode(writer, this.AlphaItemPartDefinition);
-            set.ItemParts.Encode(writer, this.BetaItemPartDefinition);
-            set.ItemParts.Encode(writer, this.GammaItemPartDefinition);
-            set.ItemParts.Encode(writer, this.DeltaItemPartDefinition);
-            set.ItemParts.Encode(writer, this.EpsilonItemPartDefinition);
-            set.ItemParts.Encode(writer, this.ZetaItemPartDefinition);
-            set.ItemParts.Encode(writer, this.EtaItemPartDefinition);
-            set.ItemParts.Encode(writer, this.ThetaItemPartDefinition);
-            set.ItemParts.Encode(writer, this.MaterialItemPartDefinition);
-            set.ItemParts.Encode(writer, this.PrefixItemNamePartDefinition);
-            set.ItemParts.Encode(writer, this.TitleItemNamePartDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.AlphaItemPartDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.BetaItemPartDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.GammaItemPartDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.DeltaItemPartDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.EpsilonItemPartDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.ZetaItemPartDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.EtaItemPartDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.ThetaItemPartDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.MaterialItemPartDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.PrefixItemNamePartDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.TitleItemNamePartDefinition);
         }
 
         #region Properties

@@ -22,18 +22,14 @@
 
 #pragma warning disable 649
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Gibbed.Borderlands2.FileFormats;
 using Newtonsoft.Json;
 
 namespace Gibbed.Borderlands2.GameInfo
 {
     [JsonObject(MemberSerialization.OptIn)]
-    public sealed class AssetLibrary
+    public sealed class AssetLibraryConfiguration
     {
-        internal AssetLibrary()
+        internal AssetLibraryConfiguration()
         {
         }
 
@@ -43,13 +39,37 @@ namespace Gibbed.Borderlands2.GameInfo
         [JsonProperty(PropertyName = "type", Required = Required.Always)]
         public string Type;
 
-        public int MostAssets
+        /// <summary>
+        /// The number of bits required to represent the sublibrary index.
+        /// </summary>
+        [JsonProperty(PropertyName = "sublibrary_bits", Required = Required.Always)]
+        public int SublibraryBits;
+
+        /// <summary>
+        /// The number of bits required to represent the sublibrary assets index.
+        /// </summary>
+        [JsonProperty(PropertyName = "asset_bits", Required = Required.Always)]
+        public int AssetBits;
+
+        public uint NoneIndex
         {
-            get { return this.Sublibraries.Max(sl => sl.Assets.Count); }
+            get { return (1u << this.SublibraryBits + this.AssetBits) - 1; }
         }
 
-        [JsonProperty(PropertyName = "sublibraries")]
-        public List<AssetSublibrary> Sublibraries = new List<AssetSublibrary>();
+        public uint SublibraryMask
+        {
+            get { return (1u << this.SublibraryBits - 1) - 1; }
+        }
+
+        public uint UseSetIdMask
+        {
+            get { return (1u << this.SublibraryBits - 1); }
+        }
+
+        public uint AssetMask
+        {
+            get { return (1u << this.AssetBits) - 1; }
+        }
     }
 }
 
