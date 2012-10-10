@@ -20,15 +20,31 @@
  *    distribution.
  */
 
-using Gibbed.Borderlands2.GameInfo;
+using System.Windows.Input;
 
-namespace Gibbed.Borderlands2.SaveEdit.Validators
+namespace Gibbed.Borderlands2.SaveEdit
 {
-    internal class ItemPartValidationRule : AssetValidationRule
+    public partial class BackpackView
     {
-        public ItemPartValidationRule()
-            : base(AssetGroup.ItemParts)
+        public BackpackView()
         {
+            this.InitializeComponent();
+        }
+
+        public static class Commands
+        {
+            public static readonly RoutedUICommand Duplicate;
+            public static readonly RoutedUICommand Bank;
+            public static readonly RoutedUICommand CopyCode;
+            public static readonly RoutedUICommand Delete;
+
+            static Commands()
+            {
+                Duplicate = new RoutedUICommand("Duplicate", "Duplicate", typeof(BackpackView));
+                Bank = new RoutedUICommand("Bank", "Bank", typeof(BackpackView));
+                CopyCode = new RoutedUICommand("Copy Code", "CopyCode", typeof(BackpackView));
+                Delete = new RoutedUICommand("Delete", "Delete", typeof(BackpackView));
+            }
         }
     }
 }

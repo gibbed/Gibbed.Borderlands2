@@ -20,15 +20,24 @@
  *    distribution.
  */
 
+using System.Globalization;
+using System.Windows.Controls;
 using Gibbed.Borderlands2.GameInfo;
 
 namespace Gibbed.Borderlands2.SaveEdit.Validators
 {
-    internal class ItemPartValidationRule : AssetValidationRule
+    internal class AssetLibrarySetIdValidationRule : ValidationRule
     {
-        public ItemPartValidationRule()
-            : base(AssetGroup.ItemParts)
+        public override ValidationResult Validate(object value, CultureInfo ultureInfo)
         {
+            if (value == null ||
+                (value is int) == false ||
+                InfoManager.AssetLibraryManager.GetSet((int)value) == null)
+            {
+                return new ValidationResult(false, "The value is not a valid asset library set");
+            }
+
+            return new ValidationResult(true, null);
         }
     }
 }

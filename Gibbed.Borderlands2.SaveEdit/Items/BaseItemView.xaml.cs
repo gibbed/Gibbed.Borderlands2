@@ -20,15 +20,13 @@
  *    distribution.
  */
 
-using Gibbed.Borderlands2.GameInfo;
-
-namespace Gibbed.Borderlands2.SaveEdit.Validators
+namespace Gibbed.Borderlands2.SaveEdit
 {
-    internal class ItemPartValidationRule : AssetValidationRule
+    public partial class BaseItemView
     {
-        public ItemPartValidationRule()
-            : base(AssetGroup.ItemParts)
+        public BaseItemView()
         {
+            this.InitializeComponent();
         }
     }
 }
