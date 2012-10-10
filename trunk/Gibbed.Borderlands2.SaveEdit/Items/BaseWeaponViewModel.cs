@@ -234,6 +234,11 @@ namespace Gibbed.Borderlands2.SaveEdit
         #endregion
 
         #region Display Properties
+        public virtual string DisplayName
+        {
+            get { return "sheep"; }
+        }
+
         public virtual string DisplayGroup
         {
             get { return "Weapons"; }
