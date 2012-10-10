@@ -130,7 +130,7 @@
           </StackPanel>
         </TabItem.Header>
       </TabItem>
-      <TabItem IsSelected="True">
+      <TabItem>
         <TabItem.Header>
           <StackPanel Orientation="Horizontal">
             <Image Width="20"
