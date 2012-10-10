@@ -21,12 +21,11 @@
  */
 
 using System;
-using Gibbed.Borderlands2.FileFormats.Items;
 using System.Collections.Generic;
 using System.Linq;
-using Gibbed.Borderlands2.GameInfo;
-using System.Text;
 using Caliburn.Micro;
+using Gibbed.Borderlands2.FileFormats.Items;
+using Gibbed.Borderlands2.GameInfo;
 
 namespace Gibbed.Borderlands2.SaveEdit
 {
@@ -58,6 +57,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             {
                 this._Item.TypeDefinition = value;
                 this.NotifyOfPropertyChange(() => this.TypeDefinition);
+                this.BuildBalanceAssets();
             }
         }
 
@@ -68,6 +68,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             {
                 this._Item.BalanceDefinition = value;
                 this.NotifyOfPropertyChange(() => this.BalanceDefinition);
+                this.BuildPartAssets();
             }
         }
 
