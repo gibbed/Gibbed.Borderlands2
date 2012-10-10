@@ -29,8 +29,8 @@ using Gibbed.IO;
 namespace Gibbed.Borderlands2.SaveEdit.Packables
 {
     internal abstract class PackedDataHelper<TWeapon, TItem>
-        where TWeapon: PackableWeapon, new()
-        where TItem: PackableItem, new()
+        where TWeapon : PackableWeapon, new()
+        where TItem : PackableItem, new()
     {
         public static byte[] Encode(IPackable packable)
         {
@@ -45,7 +45,8 @@ namespace Gibbed.Borderlands2.SaveEdit.Packables
                 throw new ArgumentException("unsupported packable");
             }
 
-            var assetLibrarySet = InfoManager.AssetLibraryManager.Sets.SingleOrDefault(s => s.Id == packable.AssetLibrarySetId);
+            var assetLibrarySet =
+                InfoManager.AssetLibraryManager.Sets.SingleOrDefault(s => s.Id == packable.AssetLibrarySetId);
             if (assetLibrarySet == null)
             {
                 throw new ArgumentException();
@@ -182,6 +183,10 @@ namespace Gibbed.Borderlands2.SaveEdit.Packables
             if (set == null)
             {
                 throw new FormatException();
+            }
+
+            if (setId != 0)
+            {
             }
 
             IPackable packable = isWeapon == true

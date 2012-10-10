@@ -32,7 +32,7 @@ namespace Gibbed.Borderlands2.SaveEdit.Validators
         {
             if (_CachedAssets.ContainsKey(this.AssetLibrarySetId) == false)
             {
-                return _CachedAssets[this.AssetLibrarySetId] = GetAvailableAssets(this.AssetLibrarySet.WeaponTypes);
+                return _CachedAssets[this.AssetLibrarySetId] = GetAvailableAssets(this.AssetLibrarySet.Libraries[GameInfo.AssetGroup.WeaponTypes]);
             }
 
             return _CachedAssets[this.AssetLibrarySetId];
