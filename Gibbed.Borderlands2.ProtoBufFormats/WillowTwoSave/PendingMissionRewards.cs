@@ -34,8 +34,8 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         private string _Mission;
         private List<WeaponData> _WeaponRewards;
         private List<ItemData> _ItemRewards;
-        private List<PackedWeaponData> _PackedWeaponRewards;
-        private List<PackedItemData> _PackedItemRewards;
+        private List<PackedWeaponDataOptional> _PackedWeaponRewards;
+        private List<PackedItemDataOptional> _PackedItemRewards;
         private int _Unknown6;
         private int _Unknown7;
         #endregion
@@ -120,7 +120,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
             if (this.PackedWeaponRewards == null)
             {
-                this.PackedWeaponRewards = new List<PackedWeaponData>();
+                this.PackedWeaponRewards = new List<PackedWeaponDataOptional>();
             }
             else
             {
@@ -129,7 +129,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
             if (this.PackedItemRewards == null)
             {
-                this.PackedItemRewards = new List<PackedItemData>();
+                this.PackedItemRewards = new List<PackedItemDataOptional>();
             }
             else
             {
@@ -153,7 +153,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
             }
         }
 
-        [ProtoMember(2, IsRequired = true)]
+        [ProtoMember(2, IsRequired = false)]
         public List<WeaponData> WeaponRewards
         {
             get { return this._WeaponRewards; }
@@ -167,7 +167,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
             }
         }
 
-        [ProtoMember(3, IsRequired = true)]
+        [ProtoMember(3, IsRequired = false)]
         public List<ItemData> ItemRewards
         {
             get { return this._ItemRewards; }
@@ -182,7 +182,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(4, IsRequired = true)]
-        public List<PackedWeaponData> PackedWeaponRewards
+        public List<PackedWeaponDataOptional> PackedWeaponRewards
         {
             get { return this._PackedWeaponRewards; }
             set
@@ -195,8 +195,8 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
             }
         }
 
-        [ProtoMember(5, IsRequired = true, IsPacked = true)]
-        public List<PackedItemData> PackedItemRewards
+        [ProtoMember(5, IsRequired = true)]
+        public List<PackedItemDataOptional> PackedItemRewards
         {
             get { return this._PackedItemRewards; }
             set

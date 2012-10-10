@@ -167,9 +167,6 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(5, IsRequired = true)]
-        [Editor(
-            "System.Windows.Forms.Design.StringCollectionEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
-            , typeof(System.Drawing.Design.UITypeEditor))]
         public List<string> FilteredMissions
         {
             get { return this._FilteredMissions; }
