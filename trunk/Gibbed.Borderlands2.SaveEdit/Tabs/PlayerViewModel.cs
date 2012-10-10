@@ -22,11 +22,11 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Caliburn.Micro;
 using Gibbed.Borderlands2.GameInfo;
+using Gibbed.IO;
 
 namespace Gibbed.Borderlands2.SaveEdit
 {
@@ -34,12 +34,21 @@ namespace Gibbed.Borderlands2.SaveEdit
     internal class PlayerViewModel : PropertyChangedBase, IHandle<SaveUnpackMessage>, IHandle<SavePackMessage>
     {
         #region Fields
+        private Endian _Endian;
+        private int _SaveGameId;
         private FileFormats.SaveFile _SaveFile;
+        private string _PlayerClassDefinition = "GD_Assassin.Character.CharClass_Assassin";
+        private int _ExpLevel = 1;
+        private int _ExpPoints;
+        private int _GeneralSkillPoints;
+        private int _SpecialistSkillPoints;
+        private string _CharacterName = "Zer0";
         private string _SelectedHead;
         private string _SelectedSkin;
         #endregion
 
         #region Properties
+        /*
         public FileFormats.SaveFile SaveFile
         {
             get { return this._SaveFile; }
@@ -50,6 +59,94 @@ namespace Gibbed.Borderlands2.SaveEdit
                     this._SaveFile = value;
                     this.NotifyOfPropertyChange(() => this.SaveFile);
                 }
+            }
+        }
+        */
+
+        public Endian Endian
+        {
+            get { return this._Endian; }
+            set
+            {
+                if (this._Endian != value)
+                {
+                    this._Endian = value;
+                    this.NotifyOfPropertyChange(() => this.Endian);
+                }
+            }
+        }
+
+        public int SaveGameId
+        {
+            get { return this._SaveGameId; }
+            set
+            {
+                this._SaveGameId = value;
+                this.NotifyOfPropertyChange(() => this.SaveGameId);
+            }
+        }
+
+        public string PlayerClassDefinition
+        {
+            get { return this._PlayerClassDefinition; }
+            set
+            {
+                if (this._PlayerClassDefinition != value)
+                {
+                    this._PlayerClassDefinition = value;
+                    this.NotifyOfPropertyChange(() => this.PlayerClassDefinition);
+                    this.BuildCustomizationAssets();
+                }
+            }
+        }
+
+        public int ExpLevel
+        {
+            get { return this._ExpLevel; }
+            set
+            {
+                this._ExpLevel = value;
+                this.NotifyOfPropertyChange(() => this.ExpLevel);
+            }
+        }
+
+        public int ExpPoints
+        {
+            get { return this._ExpPoints; }
+            set
+            {
+                this._ExpPoints = value;
+                this.NotifyOfPropertyChange(() => this.ExpPoints);
+            }
+        }
+
+        public int GeneralSkillPoints
+        {
+            get { return this._GeneralSkillPoints; }
+            set
+            {
+                this._GeneralSkillPoints = value;
+                this.NotifyOfPropertyChange(() => this.GeneralSkillPoints);
+            }
+        }
+
+        public int SpecialistSkillPoints
+        {
+            get { return this._SpecialistSkillPoints; }
+            set
+            {
+                this._SpecialistSkillPoints = value;
+                this.NotifyOfPropertyChange(() => this.SpecialistSkillPoints);
+            }
+        }
+
+        public string CharacterName
+        {
+            get { return this._CharacterName; }
+            set
+            {
+                this._CharacterName = value;
+                this.NotifyOfPropertyChange(() => this.CharacterName);
             }
         }
 
@@ -82,9 +179,9 @@ namespace Gibbed.Borderlands2.SaveEdit
         internal class EndianDisplay
         {
             public string Name { get; private set; }
-            public IO.Endian Value { get; private set; }
+            public Endian Value { get; private set; }
 
-            public EndianDisplay(string name, IO.Endian value)
+            public EndianDisplay(string name, Endian value)
             {
                 this.Name = name;
                 this.Value = value;
@@ -115,39 +212,47 @@ namespace Gibbed.Borderlands2.SaveEdit
             events.Subscribe(this);
 
             this.BuildCustomizationAssets();
+
+            var firstHead = this.HeadAssets.FirstOrDefault();
+            if (firstHead != null)
+            {
+                this.SelectedHead = firstHead.Path;
+            }
+
+            var firstSkin = this.SkinAssets.FirstOrDefault();
+            if (firstSkin != null)
+            {
+                this.SelectedSkin = firstSkin.Path;
+            }
         }
 
         private CustomizationUsage GetCustomizationUsage()
         {
-            if (this.SaveFile != null &&
-                this.SaveFile.SaveGame != null)
+            switch (this.PlayerClassDefinition)
             {
-                switch (this.SaveFile.SaveGame.PlayerClassDefinition)
+                case "GD_Soldier.Character.CharClass_Soldier":
                 {
-                    case "GD_Soldier.Character.CharClass_Soldier":
-                    {
-                        return CustomizationUsage.Soldier;
-                    }
+                    return CustomizationUsage.Soldier;
+                }
 
-                    case "GD_Assassin.Character.CharClass_Assassin":
-                    {
-                        return CustomizationUsage.Assassin;
-                    }
+                case "GD_Assassin.Character.CharClass_Assassin":
+                {
+                    return CustomizationUsage.Assassin;
+                }
 
-                    case "GD_Siren.Character.CharClass_Siren":
-                    {
-                        return CustomizationUsage.Siren;
-                    }
+                case "GD_Siren.Character.CharClass_Siren":
+                {
+                    return CustomizationUsage.Siren;
+                }
 
-                    case "GD_Mercenary.Character.CharClass_Mercenary":
-                    {
-                        return CustomizationUsage.Mercenary;
-                    }
+                case "GD_Mercenary.Character.CharClass_Mercenary":
+                {
+                    return CustomizationUsage.Mercenary;
+                }
 
-                    case "GD_Tulip_Mechromancer.Character.CharClass_Mechromancer":
-                    {
-                        return CustomizationUsage.Mechromancer;
-                    }
+                case "GD_Tulip_Mechromancer.Character.CharClass_Mechromancer":
+                {
+                    return CustomizationUsage.Mechromancer;
                 }
             }
 
@@ -191,37 +296,36 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         public void Handle(SaveUnpackMessage message)
         {
-            if (this.SaveFile != null)
-            {
-                this.SaveFile.SaveGame.PropertyChanged -= this.SaveGameOnPropertyChanged;
-            }
+            this._SaveFile = message.SaveFile;
+            this.Endian = this._SaveFile.Endian;
 
-            this.SaveFile = message.SaveFile;
-            this.SaveFile.SaveGame.PropertyChanged += this.SaveGameOnPropertyChanged;
-
-            this.SelectedHead = this.SaveFile.SaveGame.AppliedCustomizations[0];
-            this.SelectedSkin = this.SaveFile.SaveGame.AppliedCustomizations[4];
-
+            var saveGame = this._SaveFile.SaveGame;
+            this.SaveGameId = saveGame.SaveGameId;
+            this.PlayerClassDefinition = saveGame.PlayerClassDefinition;
+            this.ExpLevel = saveGame.ExpLevel;
+            this.ExpPoints = saveGame.ExpPoints;
+            this.GeneralSkillPoints = saveGame.GeneralSkillPoints;
+            this.SpecialistSkillPoints = saveGame.SpecialistSkillPoints;
+            this.CharacterName = saveGame.UIPreferences.CharacterName;
+            this.SelectedHead = saveGame.AppliedCustomizations[0];
+            this.SelectedSkin = saveGame.AppliedCustomizations[4];
             this.BuildCustomizationAssets();
-        }
-
-        private void SaveGameOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            if (propertyChangedEventArgs.PropertyName == "PlayerClassDefinition")
-            {
-                this.BuildCustomizationAssets();
-            }
         }
 
         public void Handle(SavePackMessage message)
         {
-            if (this.SaveFile != null)
-            {
-                this.SaveFile.SaveGame.PropertyChanged -= this.SaveGameOnPropertyChanged;
-            }
+            message.SaveFile.Endian = this.Endian;
 
-            this.SaveFile.SaveGame.AppliedCustomizations[0] = this.SelectedHead;
-            this.SaveFile.SaveGame.AppliedCustomizations[4] = this.SelectedSkin;
+            var saveGame = message.SaveFile.SaveGame;
+            saveGame.SaveGameId = this.SaveGameId;
+            saveGame.PlayerClassDefinition = this.PlayerClassDefinition;
+            saveGame.ExpLevel = this.ExpLevel;
+            saveGame.ExpPoints = this.ExpPoints;
+            saveGame.GeneralSkillPoints = this.GeneralSkillPoints;
+            saveGame.SpecialistSkillPoints = this.SpecialistSkillPoints;
+            saveGame.UIPreferences.CharacterName = this.CharacterName;
+            saveGame.AppliedCustomizations[0] = this.SelectedHead;
+            saveGame.AppliedCustomizations[4] = this.SelectedSkin;
         }
     }
 }
