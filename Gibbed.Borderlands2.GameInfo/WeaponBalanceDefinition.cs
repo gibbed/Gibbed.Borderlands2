@@ -40,6 +40,9 @@ namespace Gibbed.Borderlands2.GameInfo
         [JsonProperty(PropertyName = "base")]
         public string Base;
 
+        [JsonProperty(PropertyName = "manufacturers")]
+        public List<string> Manufacturers;
+        
         [JsonProperty(PropertyName = "parts")]
         public WeaponBalancePartCollection Parts;
     }
