@@ -201,6 +201,12 @@ namespace Gibbed.Borderlands2.GameInfo
                     merged.Types.AddRange(source.Types);
                 }
 
+                if (source.Manufacturers != null)
+                {
+                    merged.Manufacturers = new List<string>();
+                    merged.Manufacturers.AddRange(source.Manufacturers);
+                }
+
                 if (source.Parts != null)
                 {
                     if (source.Parts.TypeDefinition != null)
@@ -464,6 +470,12 @@ namespace Gibbed.Borderlands2.GameInfo
                 {
                     merged.Types = new List<string>();
                     merged.Types.AddRange(source.Types);
+                }
+
+                if (source.Manufacturers != null)
+                {
+                    merged.Manufacturers = new List<string>();
+                    merged.Manufacturers.AddRange(source.Manufacturers);
                 }
 
                 if (source.Parts != null)
