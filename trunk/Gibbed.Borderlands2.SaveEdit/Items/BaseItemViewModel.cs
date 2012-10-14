@@ -45,7 +45,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             this.TypeAssets =
                 CreateAssetList(
                     InfoManager.ItemBalanceDefinitions.Items.Where(bd => bd.Value.Types != null).SelectMany(
-                        wbd => wbd.Value.Types).Distinct().OrderBy(s => s));
+                        bd => bd.Value.Types).Distinct().OrderBy(s => s));
             this.BuildBalanceAssets();
         }
 
