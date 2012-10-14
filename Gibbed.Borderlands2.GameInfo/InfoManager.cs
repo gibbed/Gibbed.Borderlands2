@@ -22,20 +22,49 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using Newtonsoft.Json;
 
 namespace Gibbed.Borderlands2.GameInfo
 {
     public static class InfoManager
     {
-        private static TType DeserializeJson<TType>(string text)
+        private static UnmanagedMemoryStream GetUnmanagedMemoryStream(string embeddedResourceName)
+        {
+            if (embeddedResourceName == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            var path = "Gibbed.Borderlands2.GameInfo.Resources." + embeddedResourceName + ".json";
+
+            var assembly = Assembly.GetExecutingAssembly();
+            var stream = (UnmanagedMemoryStream)assembly.GetManifestResourceStream(path);
+            if (stream == null)
+            {
+                throw new ArgumentException("The specified embedded resource could not be found.",
+                                            "embeddedResourceName");
+            }
+            return stream;
+        }
+
+        private static TType DeserializeJson<TType>(string embeddedResourceName)
         {
             var settings = new JsonSerializerSettings()
             {
                 MissingMemberHandling = MissingMemberHandling.Error,
             };
             settings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
-            return JsonConvert.DeserializeObject<TType>(text, settings);
+
+            var serializer = JsonSerializer.Create(settings);
+
+            using (var input = GetUnmanagedMemoryStream(embeddedResourceName))
+            using (var textReader = new StreamReader(input))
+            using (var jsonReader = new JsonTextReader(textReader))
+            {
+                return serializer.Deserialize<TType>(jsonReader);
+            }
         }
 
         #region AssetLibraryManager
@@ -58,7 +87,7 @@ namespace Gibbed.Borderlands2.GameInfo
         {
             try
             {
-                return DeserializeJson<AssetLibraryManager>(Properties.Resources.AssetLibraryManager);
+                return DeserializeJson<AssetLibraryManager>("Asset Library Manager");
             }
             catch (Exception e)
             {
@@ -87,7 +116,7 @@ namespace Gibbed.Borderlands2.GameInfo
         {
             try
             {
-                return DeserializeJson<Dictionary<string, WeaponType>>(Properties.Resources.WeaponTypes);
+                return DeserializeJson<Dictionary<string, WeaponType>>("Weapon Types");
             }
             catch (Exception e)
             {
@@ -116,7 +145,7 @@ namespace Gibbed.Borderlands2.GameInfo
         {
             try
             {
-                return DeserializeJson<Dictionary<string, ItemType>>(Properties.Resources.ItemTypes);
+                return DeserializeJson<Dictionary<string, ItemType>>("Item Types");
             }
             catch (Exception e)
             {
@@ -147,9 +176,7 @@ namespace Gibbed.Borderlands2.GameInfo
         {
             try
             {
-                var definitions =
-                    DeserializeJson<Dictionary<string, WeaponBalanceDefinition>>(
-                        Properties.Resources.WeaponBalanceDefinitions);
+                var definitions = DeserializeJson<Dictionary<string, WeaponBalanceDefinition>>("Weapon Balance");
                 var mergedDefinitions = new Dictionary<string, WeaponBalanceDefinition>();
                 foreach (var definition in definitions)
                 {
@@ -164,7 +191,7 @@ namespace Gibbed.Borderlands2.GameInfo
         }
 
         private static WeaponBalanceDefinition MergeWeaponBalanceDefinition(
-                    Dictionary<string, WeaponBalanceDefinition> definitions, WeaponBalanceDefinition definition)
+            Dictionary<string, WeaponBalanceDefinition> definitions, WeaponBalanceDefinition definition)
         {
             var list = new List<WeaponBalanceDefinition>();
 
@@ -418,9 +445,7 @@ namespace Gibbed.Borderlands2.GameInfo
         {
             try
             {
-                var definitions =
-                    DeserializeJson<Dictionary<string, ItemBalanceDefinition>>(
-                        Properties.Resources.ItemBalanceDefinitions);
+                var definitions = DeserializeJson<Dictionary<string, ItemBalanceDefinition>>("Item Balance");
                 var mergedDefinitions = new Dictionary<string, ItemBalanceDefinition>();
                 foreach (var definition in definitions)
                 {
@@ -688,7 +713,7 @@ namespace Gibbed.Borderlands2.GameInfo
         {
             try
             {
-                return DeserializeJson<Dictionary<string, CustomizationDefinition>>(Properties.Resources.CustomizationDefinitions);
+                return DeserializeJson<Dictionary<string, CustomizationDefinition>>("Customization");
             }
             catch (Exception e)
             {
