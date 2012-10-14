@@ -27,7 +27,7 @@ namespace Gibbed.Borderlands2.SaveEdit.Validators
     internal class BalanceValidationRule : AssetValidationRule
     {
         public BalanceValidationRule()
-            : base(AssetGroup.Balances)
+            : base(AssetGroup.BalanceDefs)
         {
         }
     }

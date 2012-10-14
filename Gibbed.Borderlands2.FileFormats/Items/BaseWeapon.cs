@@ -54,7 +54,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             var alm = InfoManager.AssetLibraryManager;
 
             this.TypeDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponTypes);
-            this.BalanceDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.Balances);
+            this.BalanceDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.BalanceDefs);
             this.ManufacturerDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.Manufacturers);
             this.ManufacturerGradeIndex = reader.ReadInt32(7);
             this.GameStage = reader.ReadInt32(7);
@@ -76,7 +76,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             var alm = InfoManager.AssetLibraryManager;
 
             alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponTypes, this.TypeDefinition);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.Balances, this.BalanceDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.BalanceDefs, this.BalanceDefinition);
             alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.Manufacturers, this.ManufacturerDefinition);
             writer.WriteInt32(this.ManufacturerGradeIndex, 7);
             writer.WriteInt32(this.GameStage, 7);

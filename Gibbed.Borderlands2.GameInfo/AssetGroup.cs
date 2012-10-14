@@ -29,6 +29,6 @@ namespace Gibbed.Borderlands2.GameInfo
         ItemTypes,
         ItemParts,
         Manufacturers,
-        Balances,
+        BalanceDefs,
     }
 }
