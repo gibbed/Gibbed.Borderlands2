@@ -68,7 +68,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             var weapon = new BackpackWeapon()
             {
                 UniqueId = new Random().Next(int.MinValue, int.MaxValue), // TODO: check other item unique IDs to prevent rare collisions
-                AssetLibrarySetId = 0,
+                AssetLibrarySetId = 1,
             };
             var viewModel = new BackpackWeaponViewModel(weapon);
             this.Slots.Add(viewModel);
@@ -80,7 +80,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             var item = new BackpackItem()
             {
                 UniqueId = new Random().Next(int.MinValue, int.MaxValue), // TODO: check other item unique IDs to prevent rare collisions
-                AssetLibrarySetId = 0,
+                AssetLibrarySetId = 1,
             };
             var viewModel = new BackpackItemViewModel(item);
             this.Slots.Add(viewModel);
