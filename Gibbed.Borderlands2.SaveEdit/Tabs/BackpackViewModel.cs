@@ -126,6 +126,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                     var code = match.Groups["data"].Value;
 
                     IPackable packable;
+
                     try
                     {
                         var data = Convert.FromBase64String(code);
@@ -136,6 +137,9 @@ namespace Gibbed.Borderlands2.SaveEdit
                         errors++;
                         continue;
                     }
+
+                    // TODO: check other item unique IDs to prevent rare collisions
+                    packable.UniqueId = new Random().Next(int.MinValue, int.MaxValue);
 
                     if (packable is BackpackWeapon)
                     {
@@ -181,7 +185,11 @@ namespace Gibbed.Borderlands2.SaveEdit
                 return;
             }
 
-            var data = BackpackDataHelper.Encode((IPackable)this.SelectedSlot.Slot);
+            // just a hack until I add a way to override the unique ID in Encode()
+            var copy = (IPackable)this.SelectedSlot.Slot.Clone();
+            copy.UniqueId = new Random().Next(int.MinValue, int.MaxValue);
+
+            var data = BackpackDataHelper.Encode(copy);
             var sb = new StringBuilder();
             sb.Append("BL2(");
             sb.Append(Convert.ToBase64String(data, Base64FormattingOptions.None));
