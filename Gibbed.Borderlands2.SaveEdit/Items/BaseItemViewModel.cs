@@ -29,9 +29,14 @@ using Gibbed.Borderlands2.GameInfo;
 
 namespace Gibbed.Borderlands2.SaveEdit
 {
-    internal class BaseItemViewModel : PropertyChangedBase
+    internal class BaseItemViewModel : PropertyChangedBase, IBaseSlotViewModel
     {
         private readonly BaseItem _Item;
+
+        public IBaseSlot BaseSlot
+        {
+            get { return this._Item; }
+        }
 
         public BaseItemViewModel(BaseItem item)
         {
@@ -236,7 +241,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         #region Display Properties
         public virtual string DisplayName
         {
-            get { return "hmm"; }
+            get { return "Base Item"; }
         }
 
         public virtual string DisplayGroup

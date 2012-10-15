@@ -84,10 +84,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Helpers\AssetCache.cs" />
+    <Compile Include="Helpers\MyMessageBox.cs" />
     <Compile Include="Items\BackpackItemView.xaml.cs">
       <DependentUpon>BackpackItemView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Items\BackpackItemViewModel.cs" />
+    <Compile Include="Items\IBaseSlotViewModel.cs" />
     <Compile Include="Tabs\BackpackView.xaml.cs">
       <DependentUpon>BackpackView.xaml</DependentUpon>
     </Compile>
@@ -98,6 +100,10 @@
     <Compile Include="Items\BaseItemViewModel.cs" />
     <Compile Include="Items\BaseWeaponViewModel.cs" />
     <Compile Include="Helpers\ContainsToVisiblityConverter.cs" />
+    <Compile Include="Tabs\BankView.xaml.cs">
+      <DependentUpon>BankView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tabs\BankViewModel.cs" />
     <Compile Include="Tabs\CurrencyOnHandView.xaml.cs">
       <DependentUpon>CurrencyOnHandView.xaml</DependentUpon>
     </Compile>
@@ -177,6 +183,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Items\BackpackWeaponView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tabs\BankView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

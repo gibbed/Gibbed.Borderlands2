@@ -20,9 +20,13 @@
  *    distribution.
  */
 
-namespace Gibbed.Borderlands2.FileFormats.Items
+namespace Gibbed.Borderlands2.SaveEdit
 {
-    public interface IBackpackSlot : IBaseSlot
+    public partial class BankView
     {
+        public BankView()
+        {
+            this.InitializeComponent();
+        }
     }
 }

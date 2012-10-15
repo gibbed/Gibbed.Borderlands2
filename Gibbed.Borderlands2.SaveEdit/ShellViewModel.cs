@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
+using System.Windows;
 using Caliburn.Micro;
 using Caliburn.Micro.Contrib;
 using Caliburn.Micro.Contrib.Dialogs;
@@ -42,6 +43,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         private PlayerViewModel _Player;
         private CurrencyOnHandViewModel _CurrencyOnHand;
         private BackpackViewModel _Backpack;
+        private BankViewModel _Bank;
         #endregion
 
         #region Properties
@@ -91,6 +93,18 @@ namespace Gibbed.Borderlands2.SaveEdit
             {
                 this._Backpack = value;
                 this.NotifyOfPropertyChange(() => this.Backpack);
+            }
+        }
+
+        [Import(typeof(BankViewModel))]
+        public BankViewModel Bank
+        {
+            get { return this._Bank; }
+
+            set
+            {
+                this._Bank = value;
+                this.NotifyOfPropertyChange(() => this.Bank);
             }
         }
         #endregion
@@ -153,22 +167,22 @@ namespace Gibbed.Borderlands2.SaveEdit
                     x =>
                     {
                         return
-                            new Error("Error", "Failed to load save: " + x.Message, Answer.Ok).AsResult().
-                                AsCoroutine();
+                            new MyMessageBox("Failed to load save: " + x.Message, "Error")
+                                .WithIcon(MessageBoxImage.Error).AsCoroutine();
                     })
                 .Rescue<FileFormats.SaveCorruptionException>().Execute(
                     x =>
                     {
                         return
-                            new Error("Error", "Failed to load save: " + x.Message, Answer.Ok).AsResult().
-                                AsCoroutine();
+                            new MyMessageBox("Failed to load save: " + x.Message, "Error")
+                                .WithIcon(MessageBoxImage.Error).AsCoroutine();
                     })
                 .Rescue().Execute(
                     x =>
                     {
                         return
-                            new Error("Error", "An exception was thrown:\n\n" + x.ToString(), Answer.Ok).AsResult().
-                                AsCoroutine();
+                            new MyMessageBox("An exception was thrown:\n\n" + x.ToString(), "Error")
+                                .WithIcon(MessageBoxImage.Error).AsCoroutine();
                     });
         }
 
@@ -215,8 +229,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                 x =>
                 {
                     return
-                        new Error("Error", "An exception was thrown:\n\n" + x.ToString(), Answer.Ok).AsResult().
-                            AsCoroutine();
+                        new MyMessageBox("An exception was thrown:\n\n" + x.ToString(), "Error")
+                            .WithIcon(MessageBoxImage.Error).AsCoroutine();
                 });
         }
     }

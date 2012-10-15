@@ -25,7 +25,7 @@ using Gibbed.Borderlands2.GameInfo;
 
 namespace Gibbed.Borderlands2.FileFormats.Items
 {
-    public class BaseWeapon : IPackable, INotifyPropertyChanged
+    public class BaseWeapon : IBaseSlot, IPackable, INotifyPropertyChanged
     {
         #region Fields
         private string _TypeDefinition = "None";

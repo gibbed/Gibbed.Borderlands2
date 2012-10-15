@@ -30,7 +30,7 @@ namespace Gibbed.Borderlands2.SaveEdit
     {
         private readonly BackpackItem _Item;
 
-        public IBackpackSlot Slot
+        public IBackpackSlot BackpackSlot
         {
             get { return this._Item; }
         }
@@ -79,7 +79,7 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         public override string DisplayName
         {
-            get { return "BAMF!"; }
+            get { return "Backpack Item"; }
         }
 
         public override string DisplayGroup

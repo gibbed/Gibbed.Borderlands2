@@ -20,9 +20,14 @@
  *    distribution.
  */
 
-namespace Gibbed.Borderlands2.FileFormats.Items
+using Gibbed.Borderlands2.FileFormats.Items;
+
+namespace Gibbed.Borderlands2.SaveEdit
 {
-    public interface IBackpackSlot : IBaseSlot
+    internal interface IBaseSlotViewModel
     {
+        IBaseSlot BaseSlot { get; }
+        string DisplayName { get; }
+        string DisplayGroup { get; }
     }
 }

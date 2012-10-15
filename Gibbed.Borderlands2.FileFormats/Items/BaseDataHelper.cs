@@ -22,7 +22,7 @@
 
 namespace Gibbed.Borderlands2.FileFormats.Items
 {
-    public interface IBackpackSlot : IBaseSlot
+    public abstract class BaseDataHelper : PackedDataHelper<BaseWeapon, BaseItem>
     {
     }
 }
