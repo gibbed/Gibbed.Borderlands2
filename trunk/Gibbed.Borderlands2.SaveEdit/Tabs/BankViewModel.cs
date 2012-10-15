@@ -34,28 +34,26 @@ using Caliburn.Micro.Contrib;
 using Caliburn.Micro.Contrib.Dialogs;
 using Caliburn.Micro.Contrib.Results;
 using Gibbed.Borderlands2.FileFormats.Items;
-using PlayerMark = Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave.PlayerMark;
-using QuickWeaponSlot = Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave.QuickWeaponSlot;
 
 namespace Gibbed.Borderlands2.SaveEdit
 {
-    [Export(typeof(BackpackViewModel))]
-    internal class BackpackViewModel : PropertyChangedBase, IHandle<SaveUnpackMessage>, IHandle<SavePackMessage>
+    [Export(typeof(BankViewModel))]
+    internal class BankViewModel : PropertyChangedBase, IHandle<SaveUnpackMessage>, IHandle<SavePackMessage>
     {
         #region Fields
         private FileFormats.SaveFile _SaveFile;
-        private readonly ObservableCollection<IBackpackSlotViewModel> _Slots;
+        private readonly ObservableCollection<IBaseSlotViewModel> _Slots;
 
-        private IBackpackSlotViewModel _SelectedSlot;
+        private IBaseSlotViewModel _SelectedSlot;
         #endregion
 
         #region Properties
-        public ObservableCollection<IBackpackSlotViewModel> Slots
+        public ObservableCollection<IBaseSlotViewModel> Slots
         {
             get { return this._Slots; }
         }
 
-        public IBackpackSlotViewModel SelectedSlot
+        public IBaseSlotViewModel SelectedSlot
         {
             get { return this._SelectedSlot; }
             set
@@ -67,34 +65,34 @@ namespace Gibbed.Borderlands2.SaveEdit
         #endregion
 
         [ImportingConstructor]
-        public BackpackViewModel(IEventAggregator events)
+        public BankViewModel(IEventAggregator events)
         {
-            this._Slots = new ObservableCollection<IBackpackSlotViewModel>();
+            this._Slots = new ObservableCollection<IBaseSlotViewModel>();
             events.Subscribe(this);
         }
 
         public void NewWeapon()
         {
-            var weapon = new BackpackWeapon()
+            var weapon = new BaseWeapon()
             {
                 UniqueId = new Random().Next(int.MinValue, int.MaxValue),
                 // TODO: check other item unique IDs to prevent rare collisions
                 AssetLibrarySetId = 0,
             };
-            var viewModel = new BackpackWeaponViewModel(weapon);
+            var viewModel = new BaseWeaponViewModel(weapon);
             this.Slots.Add(viewModel);
             this.SelectedSlot = viewModel;
         }
 
         public void NewItem()
         {
-            var item = new BackpackItem()
+            var item = new BaseItem()
             {
                 UniqueId = new Random().Next(int.MinValue, int.MaxValue),
                 // TODO: check other item unique IDs to prevent rare collisions
                 AssetLibrarySetId = 0,
             };
-            var viewModel = new BackpackItemViewModel(item);
+            var viewModel = new BaseItemViewModel(item);
             this.Slots.Add(viewModel);
             this.SelectedSlot = viewModel;
         }
@@ -112,7 +110,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
 
             var errors = 0;
-            var viewModels = new List<IBackpackSlotViewModel>();
+            var viewModels = new List<IBaseSlotViewModel>();
             yield return new DelegateResult(() =>
             {
                 var codes = Clipboard.GetText();
@@ -130,7 +128,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                     try
                     {
                         var data = Convert.FromBase64String(code);
-                        packable = BackpackDataHelper.Decode(data);
+                        packable = BaseDataHelper.Decode(data);
                     }
                     catch (Exception)
                     {
@@ -141,21 +139,16 @@ namespace Gibbed.Borderlands2.SaveEdit
                     // TODO: check other item unique IDs to prevent rare collisions
                     packable.UniqueId = new Random().Next(int.MinValue, int.MaxValue);
 
-                    if (packable is BackpackWeapon)
+                    if (packable is BaseWeapon)
                     {
-                        var weapon = (BackpackWeapon)packable;
-                        weapon.QuickSlot = QuickWeaponSlot.None;
-                        weapon.Mark = PlayerMark.Standard;
-                        var viewModel = new BackpackWeaponViewModel(weapon);
+                        var weapon = (BaseWeapon)packable;
+                        var viewModel = new BaseWeaponViewModel(weapon);
                         viewModels.Add(viewModel);
                     }
-                    else if (packable is BackpackItem)
+                    else if (packable is BaseItem)
                     {
-                        var item = (BackpackItem)packable;
-                        item.Quantity = 1;
-                        item.Equipped = false;
-                        item.Mark = PlayerMark.Standard;
-                        var viewModel = new BackpackItemViewModel(item);
+                        var item = (BaseItem)packable;
+                        var viewModel = new BaseItemViewModel(item);
                         viewModels.Add(viewModel);
                     }
                 }
@@ -179,17 +172,17 @@ namespace Gibbed.Borderlands2.SaveEdit
         public void CopySelectedSlotCode()
         {
             if (this.SelectedSlot == null ||
-                !(this.SelectedSlot.BackpackSlot is IPackable))
+                !(this.SelectedSlot.BaseSlot is IPackable))
             {
                 Clipboard.SetText("", TextDataFormat.Text);
                 return;
             }
 
             // just a hack until I add a way to override the unique ID in Encode()
-            var copy = (IPackable)this.SelectedSlot.BackpackSlot.Clone();
+            var copy = (IPackable)this.SelectedSlot.BaseSlot.Clone();
             copy.UniqueId = new Random().Next(int.MinValue, int.MaxValue);
 
-            var data = BackpackDataHelper.Encode(copy);
+            var data = BaseDataHelper.Encode(copy);
             var sb = new StringBuilder();
             sb.Append("BL2(");
             sb.Append(Convert.ToBase64String(data, Base64FormattingOptions.None));
@@ -204,27 +197,23 @@ namespace Gibbed.Borderlands2.SaveEdit
                 return;
             }
 
-            var copy = (IBackpackSlot)this.SelectedSlot.BackpackSlot.Clone();
+            var copy = (IBaseSlot)this.SelectedSlot.BaseSlot.Clone();
             copy.UniqueId = new Random().Next(int.MinValue, int.MaxValue);
             // TODO: check other item unique IDs to prevent rare collisions
 
-            if (copy is BackpackWeapon)
+            if (copy is BaseWeapon)
             {
-                var weapon = (BackpackWeapon)copy;
-                weapon.QuickSlot = QuickWeaponSlot.None;
-                weapon.Mark = PlayerMark.Standard;
+                var weapon = (BaseWeapon)copy;
 
-                var viewModel = new BackpackWeaponViewModel(weapon);
+                var viewModel = new BaseWeaponViewModel(weapon);
                 this.Slots.Add(viewModel);
                 this.SelectedSlot = viewModel;
             }
-            else if (copy is BackpackItem)
+            else if (copy is BaseItem)
             {
-                var item = (BackpackItem)copy;
-                item.Equipped = false;
-                item.Mark = PlayerMark.Standard;
+                var item = (BaseItem)copy;
 
-                var viewModel = new BackpackItemViewModel(item);
+                var viewModel = new BaseItemViewModel(item);
                 this.Slots.Add(viewModel);
                 this.SelectedSlot = viewModel;
             }
@@ -234,7 +223,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        public void BankSelectedSlot()
+        public void UnbankSelectedSlot()
         {
             // TODO: implement me
         }
@@ -256,37 +245,25 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             this.Slots.Clear();
 
-            foreach (var packedWeapon in this._SaveFile.SaveGame.PackedWeaponData)
+            foreach (var bankSlot in this._SaveFile.SaveGame.BankSlots)
             {
-                var weapon = (BackpackWeapon)BackpackDataHelper.Decode(packedWeapon.Data);
-                var test = BackpackDataHelper.Encode(weapon);
-                if (Enumerable.SequenceEqual(packedWeapon.Data, test) == false)
+                var slot = BaseDataHelper.Decode(bankSlot.Data);
+                var test = BaseDataHelper.Encode(slot);
+                if (Enumerable.SequenceEqual(bankSlot.Data, test) == false)
                 {
                     throw new FormatException();
                 }
 
-                weapon.QuickSlot = packedWeapon.QuickSlot;
-                weapon.Mark = packedWeapon.Mark;
-
-                var viewModel = new BackpackWeaponViewModel(weapon);
-                this.Slots.Add(viewModel);
-            }
-
-            foreach (var packedItem in this._SaveFile.SaveGame.PackedItemData)
-            {
-                var item = (BackpackItem)BackpackDataHelper.Decode(packedItem.Data);
-                var test = BackpackDataHelper.Encode(item);
-                if (Enumerable.SequenceEqual(packedItem.Data, test) == false)
+                if (slot is BaseWeapon)
                 {
-                    throw new FormatException();
+                    var viewModel = new BaseWeaponViewModel((BaseWeapon)slot);
+                    this.Slots.Add(viewModel);
                 }
-
-                item.Quantity = packedItem.Quantity;
-                item.Equipped = packedItem.Equipped;
-                item.Mark = packedItem.Mark;
-
-                var viewModel = new BackpackItemViewModel(item);
-                this.Slots.Add(viewModel);
+                else if (slot is BaseItem)
+                {
+                    var viewModel = new BaseItemViewModel((BaseItem)slot);
+                    this.Slots.Add(viewModel);
+                }
             }
         }
 
@@ -294,36 +271,30 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             var saveFile = message.SaveFile;
 
-            saveFile.SaveGame.PackedWeaponData.Clear();
-            saveFile.SaveGame.PackedItemData.Clear();
+            saveFile.SaveGame.BankSlots.Clear();
 
             foreach (var viewModel in this.Slots)
             {
-                var slot = viewModel.BackpackSlot;
+                var slot = viewModel.BaseSlot;
 
-                if (slot is BackpackWeapon)
+                if (slot is BaseWeapon)
                 {
-                    var weapon = (BackpackWeapon)slot;
-                    var data = BackpackDataHelper.Encode(weapon);
+                    var weapon = (BaseWeapon)slot;
+                    var data = BaseDataHelper.Encode(weapon);
 
-                    saveFile.SaveGame.PackedWeaponData.Add(new ProtoBufFormats.WillowTwoSave.PackedWeaponData()
+                    saveFile.SaveGame.BankSlots.Add(new ProtoBufFormats.WillowTwoSave.BankSlot()
                     {
                         Data = data,
-                        QuickSlot = weapon.QuickSlot,
-                        Mark = weapon.Mark,
                     });
                 }
-                else if (slot is BackpackItem)
+                else if (slot is BaseItem)
                 {
-                    var item = (BackpackItem)slot;
-                    var data = BackpackDataHelper.Encode(item);
+                    var item = (BaseItem)slot;
+                    var data = BaseDataHelper.Encode(item);
 
-                    saveFile.SaveGame.PackedItemData.Add(new ProtoBufFormats.WillowTwoSave.PackedItemData()
+                    saveFile.SaveGame.BankSlots.Add(new ProtoBufFormats.WillowTwoSave.BankSlot()
                     {
                         Data = data,
-                        Quantity = item.Quantity,
-                        Equipped = item.Equipped,
-                        Mark = item.Mark,
                     });
                 }
                 else

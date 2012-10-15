@@ -26,7 +26,7 @@ namespace Gibbed.Borderlands2.SaveEdit
 {
     internal interface IBackpackSlotViewModel
     {
-        IBackpackSlot Slot { get; }
+        IBackpackSlot BackpackSlot { get; }
         string DisplayName { get; }
         string DisplayGroup { get; }
     }

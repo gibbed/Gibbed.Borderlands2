@@ -129,6 +129,7 @@
                    Content="Bank" />
           </StackPanel>
         </TabItem.Header>
+        <ContentControl x:Name="Bank" />
       </TabItem>
       <TabItem>
         <TabItem.Header>

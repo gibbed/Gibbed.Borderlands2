@@ -52,8 +52,9 @@
     <Compile Include="CRC32.cs" />
     <Compile Include="Huffman\Decoder.cs" />
     <Compile Include="Huffman\Encoder.cs" />
+    <Compile Include="Items\BaseDataHelper.cs" />
     <Compile Include="Items\IBackpackSlot.cs" />
-    <Compile Include="Items\ISlot.cs" />
+    <Compile Include="Items\IBaseSlot.cs" />
     <Compile Include="Items\IPackable.cs" />
     <Compile Include="LZO.cs" />
     <Compile Include="Items\BaseItem.cs" />

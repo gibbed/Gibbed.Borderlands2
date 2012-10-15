@@ -29,7 +29,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
     public class BankSlot : IComposable, INotifyPropertyChanged
     {
         #region Fields
-        private byte[] _PackedData;
+        private byte[] _Data;
         #endregion
 
         #region IComposable Members
@@ -44,15 +44,15 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         #region Properties
         [ProtoMember(1, IsRequired = true)]
-        public byte[] PackedData
+        public byte[] Data
         {
-            get { return this._PackedData; }
+            get { return this._Data; }
             set
             {
-                if (value != this._PackedData)
+                if (value != this._Data)
                 {
-                    this._PackedData = value;
-                    this.NotifyPropertyChanged("PackedData");
+                    this._Data = value;
+                    this.NotifyPropertyChanged("Data");
                 }
             }
         }

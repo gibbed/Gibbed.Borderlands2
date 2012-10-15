@@ -29,11 +29,16 @@ using Gibbed.Borderlands2.GameInfo;
 
 namespace Gibbed.Borderlands2.SaveEdit
 {
-    internal class BaseWeaponViewModel : PropertyChangedBase
+    internal class BaseWeaponViewModel : PropertyChangedBase, IBaseSlotViewModel
     {
-        private readonly BackpackWeapon _Weapon;
+        private readonly BaseWeapon _Weapon;
 
-        public BaseWeaponViewModel(BackpackWeapon weapon)
+        public IBaseSlot BaseSlot
+        {
+            get { return this._Weapon; }
+        }
+
+        public BaseWeaponViewModel(BaseWeapon weapon)
         {
             if (weapon == null)
             {
@@ -236,7 +241,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         #region Display Properties
         public virtual string DisplayName
         {
-            get { return "sheep"; }
+            get { return "Base Weapon"; }
         }
 
         public virtual string DisplayGroup
