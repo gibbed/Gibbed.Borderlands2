@@ -24,6 +24,7 @@ namespace Gibbed.Borderlands2.GameInfo
 {
     public enum WeaponType
     {
+        // ReSharper disable InconsistentNaming
         Unknown = 0,
         Pistol,
         Shotgun,
@@ -31,5 +32,6 @@ namespace Gibbed.Borderlands2.GameInfo
         SniperRifle,
         AssaultRifle,
         RocketLauncher,
+        // ReSharper restore InconsistentNaming
     }
 }
