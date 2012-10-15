@@ -161,6 +161,9 @@ namespace Gibbed.Borderlands2.SaveEdit
                     this._Events.Publish(new SaveUnpackMessage(saveFile));
                 }
             })
+                .Rescue<DllNotFoundException>().Execute(
+                    x => new MyMessageBox("Failed to load save: " + x.Message, "Error")
+                             .WithIcon(MessageBoxImage.Error).AsCoroutine())
                 .Rescue<FileFormats.SaveFormatException>().Execute(
                     x => new MyMessageBox("Failed to load save: " + x.Message, "Error")
                              .WithIcon(MessageBoxImage.Error).AsCoroutine())
@@ -168,8 +171,10 @@ namespace Gibbed.Borderlands2.SaveEdit
                     x => new MyMessageBox("Failed to load save: " + x.Message, "Error")
                              .WithIcon(MessageBoxImage.Error).AsCoroutine())
                 .Rescue().Execute(
-                    x => new MyMessageBox("An exception was thrown (press Ctrl+C to copy this text):\n\n" + x.ToString(), "Error")
-                             .WithIcon(MessageBoxImage.Error).AsCoroutine());
+                    x =>
+                    new MyMessageBox("An exception was thrown (press Ctrl+C to copy this text):\n\n" + x.ToString(),
+                                     "Error")
+                        .WithIcon(MessageBoxImage.Error).AsCoroutine());
         }
 
         public IEnumerable<IResult> WriteSave()
@@ -212,8 +217,9 @@ namespace Gibbed.Borderlands2.SaveEdit
                     this.SaveFile.Serialize(output);
                 }
             }).Rescue().Execute(
-                x => new MyMessageBox("An exception was thrown (press Ctrl+C to copy this text):\n\n" + x.ToString(), "Error")
-                         .WithIcon(MessageBoxImage.Error).AsCoroutine());
+                x =>
+                new MyMessageBox("An exception was thrown (press Ctrl+C to copy this text):\n\n" + x.ToString(), "Error")
+                    .WithIcon(MessageBoxImage.Error).AsCoroutine());
         }
     }
 }
