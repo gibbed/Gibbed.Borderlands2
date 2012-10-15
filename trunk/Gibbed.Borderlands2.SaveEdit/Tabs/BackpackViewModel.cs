@@ -30,8 +30,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using Caliburn.Micro;
-using Caliburn.Micro.Contrib;
-using Caliburn.Micro.Contrib.Dialogs;
 using Caliburn.Micro.Contrib.Results;
 using Gibbed.Borderlands2.FileFormats.Items;
 using PlayerMark = Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave.PlayerMark;
@@ -178,23 +176,30 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         public void CopySelectedSlotCode()
         {
-            if (this.SelectedSlot == null ||
-                !(this.SelectedSlot.BackpackSlot is IPackable))
+            try
             {
-                Clipboard.SetText("", TextDataFormat.Text);
-                return;
+                if (this.SelectedSlot == null ||
+                    (this.SelectedSlot.BackpackSlot is IPackable) == false)
+                {
+                    Clipboard.SetText("", TextDataFormat.Text);
+                    return;
+                }
+
+                // just a hack until I add a way to override the unique ID in Encode()
+                var copy = (IPackable)this.SelectedSlot.BackpackSlot.Clone();
+                copy.UniqueId = new Random().Next(int.MinValue, int.MaxValue);
+
+                var data = BackpackDataHelper.Encode(copy);
+                var sb = new StringBuilder();
+                sb.Append("BL2(");
+                sb.Append(Convert.ToBase64String(data, Base64FormattingOptions.None));
+                sb.Append(")");
+                Clipboard.SetText(sb.ToString(), TextDataFormat.Text);
             }
-
-            // just a hack until I add a way to override the unique ID in Encode()
-            var copy = (IPackable)this.SelectedSlot.BackpackSlot.Clone();
-            copy.UniqueId = new Random().Next(int.MinValue, int.MaxValue);
-
-            var data = BackpackDataHelper.Encode(copy);
-            var sb = new StringBuilder();
-            sb.Append("BL2(");
-            sb.Append(Convert.ToBase64String(data, Base64FormattingOptions.None));
-            sb.Append(")");
-            Clipboard.SetText(sb.ToString(), TextDataFormat.Text);
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
         }
 
         public void DuplicateSelectedSlot()

@@ -30,8 +30,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using Caliburn.Micro;
-using Caliburn.Micro.Contrib;
-using Caliburn.Micro.Contrib.Dialogs;
 using Caliburn.Micro.Contrib.Results;
 using Gibbed.Borderlands2.FileFormats.Items;
 
@@ -172,7 +170,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         public void CopySelectedSlotCode()
         {
             if (this.SelectedSlot == null ||
-                !(this.SelectedSlot.BaseSlot is IPackable))
+                (this.SelectedSlot.BaseSlot is IPackable) == false)
             {
                 Clipboard.SetText("", TextDataFormat.Text);
                 return;
