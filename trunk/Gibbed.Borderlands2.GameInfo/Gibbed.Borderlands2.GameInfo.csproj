@@ -54,6 +54,7 @@
     <Compile Include="CustomizationDefinition.cs" />
     <Compile Include="CustomizationType.cs" />
     <Compile Include="CustomizationUsage.cs" />
+    <Compile Include="CustomizationSet.cs" />
     <Compile Include="InfoDictionary.cs" />
     <Compile Include="InfoLoadException.cs" />
     <Compile Include="InfoManager.cs" />
@@ -72,7 +73,8 @@
   <ItemGroup>
     <None Include="packages.config" />
     <EmbeddedResource Include="Resources\Asset Library Manager.json" />
-    <EmbeddedResource Include="Resources\Customization.json" />
+    <EmbeddedResource Include="Resources\Customizations.json" />
+    <EmbeddedResource Include="Resources\Customization Sets.json" />
     <EmbeddedResource Include="Resources\Item Balance.json" />
     <EmbeddedResource Include="Resources\Item Types.json" />
     <EmbeddedResource Include="Resources\Weapon Balance.json" />

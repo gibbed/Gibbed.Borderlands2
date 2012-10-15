@@ -40,8 +40,11 @@ namespace Gibbed.Borderlands2.GameInfo
         [JsonProperty(PropertyName = "type", Required = Required.Always)]
         public CustomizationType Type;
 
-        [JsonProperty(PropertyName = "Usage", Required = Required.Always)]
+        [JsonProperty(PropertyName = "usage", Required = Required.Always)]
         public List<CustomizationUsage> Usage;
+
+        [JsonProperty(PropertyName = "dlc_set")]
+        public string DlcSet;
     }
 }
 
