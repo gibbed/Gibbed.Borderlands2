@@ -101,8 +101,18 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         public IEnumerable<IResult> PasteCode()
         {
-            if (Clipboard.ContainsText(TextDataFormat.Text) != true &&
-                Clipboard.ContainsText(TextDataFormat.UnicodeText) != true)
+            bool containsText = false;
+            bool containsUnicodeText = false;
+            if (MyClipboard.ContainsText(TextDataFormat.Text, out containsText) != MyClipboard.Result.Success ||
+                MyClipboard.ContainsText(TextDataFormat.UnicodeText, out containsUnicodeText) !=
+                MyClipboard.Result.Success)
+            {
+                yield return new MyMessageBox("Clipboard failure.", "Error")
+                    .WithIcon(MessageBoxImage.Error);
+            }
+
+            if (containsText == false &&
+                containsUnicodeText == false)
             {
                 yield break;
             }
@@ -111,7 +121,12 @@ namespace Gibbed.Borderlands2.SaveEdit
             var viewModels = new List<IBaseSlotViewModel>();
             yield return new DelegateResult(() =>
             {
-                var codes = Clipboard.GetText();
+                string codes;
+                if (MyClipboard.GetText(out codes) != MyClipboard.Result.Success)
+                {
+                    MessageBox.Show("Clipboard failure.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
 
                 // strip whitespace
                 codes = Regex.Replace(codes, @"\s+", "");
@@ -172,7 +187,10 @@ namespace Gibbed.Borderlands2.SaveEdit
             if (this.SelectedSlot == null ||
                 (this.SelectedSlot.BaseSlot is IPackable) == false)
             {
-                Clipboard.SetText("", TextDataFormat.Text);
+                if (MyClipboard.SetText("") != MyClipboard.Result.Success)
+                {
+                    MessageBox.Show("Clipboard failure.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
                 return;
             }
 
@@ -185,7 +203,11 @@ namespace Gibbed.Borderlands2.SaveEdit
             sb.Append("BL2(");
             sb.Append(Convert.ToBase64String(data, Base64FormattingOptions.None));
             sb.Append(")");
-            Clipboard.SetText(sb.ToString(), TextDataFormat.Text);
+
+            if (MyClipboard.SetText(sb.ToString()) != MyClipboard.Result.Success)
+            {
+                MessageBox.Show("Clipboard failure.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         public void DuplicateSelectedSlot()
