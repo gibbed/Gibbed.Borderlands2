@@ -270,7 +270,21 @@ namespace Gibbed.Borderlands2.SaveEdit
                         kv => kv.Value.Type == CustomizationType.Head && kv.Value.Usage.Contains(usage) == true).OrderBy
                         (cd => cd.Value.Name))
             {
-                headAssets.Add(new AssetDisplay(kv.Value.Name, kv.Key));
+                string group = "Base Game";
+
+                if (string.IsNullOrEmpty(kv.Value.DlcSet) == false)
+                {
+                    if (InfoManager.CustomizationSets.ContainsKey(kv.Value.DlcSet) == true)
+                    {
+                        group = InfoManager.CustomizationSets[kv.Value.DlcSet].DisplayName;
+                    }
+                    else
+                    {
+                        group = "??? " + kv.Value.DlcSet + " ???";
+                    }
+                }
+
+                headAssets.Add(new AssetDisplay(kv.Value.Name, kv.Key, group));
             }
 
             var skinAssets = new List<AssetDisplay>();
@@ -280,7 +294,21 @@ namespace Gibbed.Borderlands2.SaveEdit
                         kv => kv.Value.Type == CustomizationType.Skin && kv.Value.Usage.Contains(usage) == true).OrderBy
                         (cd => cd.Value.Name))
             {
-                skinAssets.Add(new AssetDisplay(kv.Value.Name, kv.Key));
+                string group = "Base Game";
+
+                if (string.IsNullOrEmpty(kv.Value.DlcSet) == false)
+                {
+                    if (InfoManager.CustomizationSets.ContainsKey(kv.Value.DlcSet) == true)
+                    {
+                        group = InfoManager.CustomizationSets[kv.Value.DlcSet].DisplayName;
+                    }
+                    else
+                    {
+                        group = "??? " + kv.Value.DlcSet + " ???";
+                    }
+                }
+
+                skinAssets.Add(new AssetDisplay(kv.Value.Name, kv.Key, group));
             }
 
             var selectedHead = this.SelectedHead;

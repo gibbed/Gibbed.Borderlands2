@@ -713,11 +713,40 @@ namespace Gibbed.Borderlands2.GameInfo
         {
             try
             {
-                return DeserializeJson<Dictionary<string, CustomizationDefinition>>("Customization");
+                return DeserializeJson<Dictionary<string, CustomizationDefinition>>("Customizations");
             }
             catch (Exception e)
             {
                 throw new InfoLoadException("failed to load customization definitions", e);
+            }
+        }
+        #endregion
+
+        #region Customization Sets
+        private static InfoDictionary<CustomizationSet> _CustomizationSets;
+
+        public static InfoDictionary<CustomizationSet> CustomizationSets
+        {
+            get
+            {
+                if (_CustomizationSets == null)
+                {
+                    return _CustomizationSets = new InfoDictionary<CustomizationSet>(LoadCustomizationSets());
+                }
+
+                return _CustomizationSets;
+            }
+        }
+
+        private static Dictionary<string, CustomizationSet> LoadCustomizationSets()
+        {
+            try
+            {
+                return DeserializeJson<Dictionary<string, CustomizationSet>>("Customization Sets");
+            }
+            catch (Exception e)
+            {
+                throw new InfoLoadException("failed to load customization sets", e);
             }
         }
         #endregion

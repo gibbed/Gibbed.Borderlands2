@@ -20,25 +20,25 @@
  *    distribution.
  */
 
-namespace Gibbed.Borderlands2.SaveEdit
+#pragma warning disable 649
+
+using Newtonsoft.Json;
+
+namespace Gibbed.Borderlands2.GameInfo
 {
-    internal class AssetDisplay
+    [JsonObject(MemberSerialization.OptIn)]
+    public class CustomizationSet
     {
-        public string Name { get; private set; }
-        public string Path { get; private set; }
-        public string Group { get; private set; }
-
-        public AssetDisplay(string name, string path)
+        internal CustomizationSet()
         {
-            this.Name = name;
-            this.Path = path;
         }
 
-        public AssetDisplay(string name, string path, string group)
-        {
-            this.Name = name;
-            this.Path = path;
-            this.Group = group;
-        }
+        [JsonProperty(PropertyName = "id", Required = Required.Always)]
+        public int Id;
+
+        [JsonProperty(PropertyName = "display_name", Required = Required.Always)]
+        public string DisplayName;
     }
 }
+
+#pragma warning restore 649
