@@ -253,12 +253,16 @@ namespace Gibbed.Borderlands2.SaveEdit
         #region Asset Properties
         private static IEnumerable<string> CreateAssetList(IEnumerable<string> items)
         {
-            var list = new List<string>();
-            list.Add("None");
+            var list = new List<string>
+            {
+                "None"
+            };
+
             if (items != null)
             {
                 list.AddRange(items);
             }
+
             return list;
         }
 

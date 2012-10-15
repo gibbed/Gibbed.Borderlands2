@@ -30,8 +30,7 @@
              mc:Ignorable="d"
              d:DesignWidth="720"
              d:DesignHeight="480"
-             xmlns:my="clr-namespace:Gibbed.Borderlands2.SaveEdit"
-             xmlns:butt="clr-namespace:Xceed.Wpf.Toolkit.PropertyGrid.Editors;assembly=WPFToolkit.Extended">
+             xmlns:my="clr-namespace:Gibbed.Borderlands2.SaveEdit">
   <UserControl.Resources>
     <my:NullToBooleanConverter x:Key="NullToBooleanConverter1" />
   </UserControl.Resources>

@@ -103,7 +103,7 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         public IEnumerable<IResult> PasteCode()
         {
-            bool containsText = false;
+            bool containsText;
             bool containsUnicodeText = false;
             if (MyClipboard.ContainsText(TextDataFormat.Text, out containsText) != MyClipboard.Result.Success ||
                 MyClipboard.ContainsText(TextDataFormat.UnicodeText, out containsUnicodeText) !=
@@ -280,7 +280,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             {
                 var weapon = (BackpackWeapon)BackpackDataHelper.Decode(packedWeapon.Data);
                 var test = BackpackDataHelper.Encode(weapon);
-                if (Enumerable.SequenceEqual(packedWeapon.Data, test) == false)
+                if (packedWeapon.Data.SequenceEqual(test) == false)
                 {
                     throw new FormatException();
                 }
@@ -296,7 +296,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             {
                 var item = (BackpackItem)BackpackDataHelper.Decode(packedItem.Data);
                 var test = BackpackDataHelper.Encode(item);
-                if (Enumerable.SequenceEqual(packedItem.Data, test) == false)
+                if (packedItem.Data.SequenceEqual(test) == false)
                 {
                     throw new FormatException();
                 }

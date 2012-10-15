@@ -113,15 +113,17 @@ namespace Gibbed.Borderlands2.SaveEdit
         /// <returns></returns>
         protected virtual SaveFileDialog CreateDialog()
         {
-            var dialog = new SaveFileDialog();
-            dialog.DefaultExt = this._Filters.DefaultExtension;
-            dialog.Title = this._Title;
-            dialog.Filter = this._Filters.CreateFilterExpression();
-            dialog.InitialDirectory = this._InitialDirectory;
-            dialog.OverwritePrompt = this._PromptForOverwrite;
-            dialog.CreatePrompt = this._PromptForCreate;
-            dialog.AddExtension = true;
-            dialog.CheckPathExists = true;
+            var dialog = new SaveFileDialog
+            {
+                DefaultExt = this._Filters.DefaultExtension,
+                Title = this._Title,
+                Filter = this._Filters.CreateFilterExpression(),
+                InitialDirectory = this._InitialDirectory,
+                OverwritePrompt = this._PromptForOverwrite,
+                CreatePrompt = this._PromptForCreate,
+                AddExtension = true,
+                CheckPathExists = true,
+            };
             return dialog;
         }
 
@@ -145,7 +147,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             if (action == null)
             {
-                throw new ArgumentNullException("action may not be null");
+                throw new ArgumentNullException("action", "action may not be null");
             }
             action(this._Filters);
             return this;

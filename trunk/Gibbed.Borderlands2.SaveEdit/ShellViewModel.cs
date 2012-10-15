@@ -27,9 +27,7 @@ using System.IO;
 using System.Windows;
 using Caliburn.Micro;
 using Caliburn.Micro.Contrib;
-using Caliburn.Micro.Contrib.Dialogs;
 using Caliburn.Micro.Contrib.Results;
-using Gibbed.IO;
 
 namespace Gibbed.Borderlands2.SaveEdit
 {
@@ -164,26 +162,14 @@ namespace Gibbed.Borderlands2.SaveEdit
                 }
             })
                 .Rescue<FileFormats.SaveFormatException>().Execute(
-                    x =>
-                    {
-                        return
-                            new MyMessageBox("Failed to load save: " + x.Message, "Error")
-                                .WithIcon(MessageBoxImage.Error).AsCoroutine();
-                    })
+                    x => new MyMessageBox("Failed to load save: " + x.Message, "Error")
+                             .WithIcon(MessageBoxImage.Error).AsCoroutine())
                 .Rescue<FileFormats.SaveCorruptionException>().Execute(
-                    x =>
-                    {
-                        return
-                            new MyMessageBox("Failed to load save: " + x.Message, "Error")
-                                .WithIcon(MessageBoxImage.Error).AsCoroutine();
-                    })
+                    x => new MyMessageBox("Failed to load save: " + x.Message, "Error")
+                             .WithIcon(MessageBoxImage.Error).AsCoroutine())
                 .Rescue().Execute(
-                    x =>
-                    {
-                        return
-                            new MyMessageBox("An exception was thrown:\n\n" + x.ToString(), "Error")
-                                .WithIcon(MessageBoxImage.Error).AsCoroutine();
-                    });
+                    x => new MyMessageBox("An exception was thrown:\n\n" + x.ToString(), "Error")
+                             .WithIcon(MessageBoxImage.Error).AsCoroutine());
         }
 
         public IEnumerable<IResult> WriteSave()
@@ -226,12 +212,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                     this.SaveFile.Serialize(output);
                 }
             }).Rescue().Execute(
-                x =>
-                {
-                    return
-                        new MyMessageBox("An exception was thrown:\n\n" + x.ToString(), "Error")
-                            .WithIcon(MessageBoxImage.Error).AsCoroutine();
-                });
+                x => new MyMessageBox("An exception was thrown:\n\n" + x.ToString(), "Error")
+                         .WithIcon(MessageBoxImage.Error).AsCoroutine());
         }
     }
 }
