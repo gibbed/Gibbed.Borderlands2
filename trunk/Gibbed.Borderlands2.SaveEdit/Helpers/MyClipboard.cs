@@ -33,7 +33,8 @@ namespace Gibbed.Borderlands2.SaveEdit
     internal static class MyClipboard
     {
         #region TryAgain
-        private const int _Tries = 10;
+        private const int _Tries = 5;
+        private const int _Interval = 100;
 
         public enum Result
         {
@@ -65,7 +66,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                     {
                         if (i < _Tries)
                         {
-                            Thread.Sleep(10);
+                            Thread.Sleep(_Interval);
                         }
                         else
                         {
@@ -95,7 +96,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                     {
                         if (i < _Tries)
                         {
-                            Thread.Sleep(10);
+                            Thread.Sleep(_Interval);
                         }
                         else
                         {
