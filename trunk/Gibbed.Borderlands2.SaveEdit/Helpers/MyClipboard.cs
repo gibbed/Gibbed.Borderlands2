@@ -52,14 +52,18 @@ namespace Gibbed.Borderlands2.SaveEdit
                 }
                 catch (COMException e)
                 {
-                    if ((uint)e.ErrorCode == 0x800401D0u &&
-                        i < _Tries)
+                    if ((uint)e.ErrorCode == 0x800401D0u)
                     {
-                        Thread.Sleep(10);
-                        continue;
+                        if (i < _Tries)
+                        {
+                            Thread.Sleep(10);
+                            continue;
+                        }
+
+                        return Result.Failure;
                     }
 
-                    return Result.Failure;
+                    throw e;
                 }
             }
         }
@@ -91,12 +95,12 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         public static Result Clear()
         {
-            return TryAgain(() => Clipboard.Clear());
+            return TryAgain(Clipboard.Clear);
         }
 
         public static Result ContainsAudio(out bool result)
         {
-            return TryAgain(() => Clipboard.ContainsAudio(), out result);
+            return TryAgain(Clipboard.ContainsAudio, out result);
         }
 
         public static Result ContainsData(string format, out bool result)
