@@ -90,14 +90,13 @@ namespace Gibbed.Borderlands2.FileFormats.Huffman
             var output = new byte[maxLength];
             var left = maxLength;
 
-            var index = 0;
             var o = 0;
             while (left > 0)
             {
                 var branch = tree[0];
                 while (branch.IsLeaf == false)
                 {
-                    index = input[offset++] == false ? branch.Left : branch.Right;
+                    var index = input[offset++] == false ? branch.Left : branch.Right;
                     branch = tree[index];
                 }
 

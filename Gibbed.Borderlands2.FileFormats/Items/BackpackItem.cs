@@ -28,7 +28,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
     {
         #region Fields
         private int _Quantity = 1;
-        private bool _Equipped = false;
+        private bool _Equipped;
         private PlayerMark _Mark = PlayerMark.Standard;
         #endregion
 
