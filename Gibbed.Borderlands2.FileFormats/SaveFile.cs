@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -63,6 +64,8 @@ namespace Gibbed.Borderlands2.FileFormats
             }
         }
         #endregion
+
+        public const int BlockSize = 0x40000;
 
         public void Serialize(Stream output)
         {
@@ -107,24 +110,83 @@ namespace Gibbed.Borderlands2.FileFormats
                 innerCompressedBytes = innerCompressedData.ReadBytes((uint)innerCompressedData.Length);
             }
 
-            var compressedBytes = new byte[innerCompressedBytes.Length +
-                                           (innerCompressedBytes.Length / 16) + 64 + 3];
-            var actualCompressedSize = (uint)compressedBytes.Length;
+            byte[] compressedBytes;
 
-            var result = LZO.Compress(innerCompressedBytes,
-                                      (uint)innerCompressedBytes.Length,
-                                      compressedBytes,
-                                      ref actualCompressedSize);
-            if (result != 0)
+            if (innerCompressedBytes.Length <= BlockSize)
             {
-                throw new InvalidOperationException("compression failure");
+                compressedBytes = new byte[innerCompressedBytes.Length +
+                                           (innerCompressedBytes.Length / 16) + 64 + 3];
+                var actualCompressedSize = compressedBytes.Length;
+
+                var result = LZO.Compress(innerCompressedBytes,
+                                          0,
+                                          innerCompressedBytes.Length,
+                                          compressedBytes,
+                                          0,
+                                          ref actualCompressedSize);
+                if (result != LZO.ErrorCode.Success)
+                {
+                    throw new SaveCorruptionException(string.Format("LZO compression failure ({0})", result));
+                }
+
+                Array.Resize(ref compressedBytes, actualCompressedSize);
+            }
+            else
+            {
+                int innerCompressedOffset = 0;
+                int innerCompressedSizeLeft = innerCompressedBytes.Length;
+
+                using (var blockData = new MemoryStream())
+                {
+                    var blockCount = (innerCompressedSizeLeft + BlockSize) / BlockSize;
+                    blockData.WriteValueS32(blockCount, Endian.Big);
+
+                    blockData.Position = 4 + (blockCount * 8);
+
+                    var blockInfos = new List<Tuple<uint, uint>>();
+                    while (innerCompressedSizeLeft > 0)
+                    {
+                        var blockUncompressedSize = Math.Min(BlockSize, innerCompressedSizeLeft);
+
+                        compressedBytes = new byte[blockUncompressedSize +
+                                                   (blockUncompressedSize / 16) + 64 + 3];
+                        var actualCompressedSize = compressedBytes.Length;
+
+                        var result = LZO.Compress(innerCompressedBytes,
+                                                  innerCompressedOffset,
+                                                  blockUncompressedSize,
+                                                  compressedBytes,
+                                                  0,
+                                                  ref actualCompressedSize);
+                        if (result != LZO.ErrorCode.Success)
+                        {
+                            throw new SaveCorruptionException(string.Format("LZO compression failure ({0})", result));
+                        }
+
+                        blockData.Write(compressedBytes, 0, actualCompressedSize);
+                        blockInfos.Add(new Tuple<uint, uint>((uint)actualCompressedSize, BlockSize));
+
+                        innerCompressedOffset += blockUncompressedSize;
+                        innerCompressedSizeLeft -= blockUncompressedSize;
+                    }
+
+                    blockData.Position = 4;
+                    foreach (var blockInfo in blockInfos)
+                    {
+                        blockData.WriteValueU32(blockInfo.Item1, Endian.Big);
+                        blockData.WriteValueU32(blockInfo.Item2, Endian.Big);
+                    }
+
+                    blockData.Position = 0;
+                    compressedBytes = blockData.ReadBytes((uint)blockData.Length);
+                }
             }
 
             byte[] uncompressedBytes;
             using (var uncompressedData = new MemoryStream())
             {
                 uncompressedData.WriteValueS32(innerCompressedBytes.Length, Endian.Big);
-                uncompressedData.Write(compressedBytes, 0, (int)actualCompressedSize);
+                uncompressedData.WriteBytes(compressedBytes);
                 uncompressedData.Position = 0;
                 uncompressedBytes = uncompressedData.ReadBytes((uint)uncompressedData.Length);
             }
@@ -179,17 +241,72 @@ namespace Gibbed.Borderlands2.FileFormats
 
                 data.Position = 0;
                 var uncompressedSize = data.ReadValueU32(Endian.Big);
-                var actualUncompressedSize = uncompressedSize;
+
                 var uncompressedBytes = new byte[uncompressedSize];
-                var compressedSize = (uint)(data.Length - 4);
-                var compressedBytes = data.ReadBytes(compressedSize);
-                var result = LZO.Decompress(compressedBytes,
-                                            compressedSize,
-                                            uncompressedBytes,
-                                            ref actualUncompressedSize);
-                if (result != LZO.ErrorCode.Success)
+                if (uncompressedSize <= BlockSize)
                 {
-                    throw new SaveCorruptionException(string.Format("LZO decompression failure ({0})", result));
+                    var actualUncompressedSize = (int)uncompressedSize;
+                    var compressedSize = (uint)(data.Length - 4);
+                    var compressedBytes = data.ReadBytes(compressedSize);
+                    var result = LZO.Decompress(compressedBytes,
+                                                0,
+                                                (int)compressedSize,
+                                                uncompressedBytes,
+                                                0,
+                                                ref actualUncompressedSize);
+                    if (result != LZO.ErrorCode.Success)
+                    {
+                        throw new SaveCorruptionException(string.Format("LZO decompression failure ({0})", result));
+                    }
+
+                    if (actualUncompressedSize != (int)uncompressedSize)
+                    {
+                        throw new SaveCorruptionException("LZO decompression failure (uncompressed size mismatch)");
+                    }
+                }
+                else
+                {
+                    var blockCount = data.ReadValueU32(Endian.Big);
+                    var blockInfos = new List<Tuple<uint, uint>>();
+                    for (uint i = 0; i < blockCount; i++)
+                    {
+                        var blockCompressedSize = data.ReadValueU32(Endian.Big);
+                        var blockUncompressedSize = data.ReadValueU32(Endian.Big);
+                        blockInfos.Add(new Tuple<uint, uint>(blockCompressedSize, blockUncompressedSize));
+                    }
+
+                    int uncompressedOffset = 0;
+                    int uncompressedSizeLeft = (int)uncompressedSize;
+                    foreach (var blockInfo in blockInfos)
+                    {
+                        var blockUncompressedSize = Math.Min((int)blockInfo.Item2, uncompressedSizeLeft);
+                        var actualUncompressedSize = blockUncompressedSize;
+                        var compressedSize = (int)blockInfo.Item1;
+                        var compressedBytes = data.ReadBytes(compressedSize);
+                        var result = LZO.Decompress(compressedBytes,
+                                                    0,
+                                                    compressedSize,
+                                                    uncompressedBytes,
+                                                    uncompressedOffset,
+                                                    ref actualUncompressedSize);
+                        if (result != LZO.ErrorCode.Success)
+                        {
+                            throw new SaveCorruptionException(string.Format("LZO decompression failure ({0})", result));
+                        }
+
+                        if (actualUncompressedSize != blockUncompressedSize)
+                        {
+                            throw new SaveCorruptionException("LZO decompression failure (uncompressed size mismatch)");
+                        }
+
+                        uncompressedOffset += blockUncompressedSize;
+                        uncompressedSizeLeft -= blockUncompressedSize;
+                    }
+
+                    if (uncompressedSizeLeft != 0)
+                    {
+                        throw new SaveCorruptionException("LZO decompression failure (uncompressed size left != 0)");
+                    }
                 }
 
                 using (var outerData = new MemoryStream(uncompressedBytes))
