@@ -57,7 +57,13 @@
           <Label Content="New Item" />
         </StackPanel>
       </Button>
-      <Button>Paste Code</Button>
+      <Button x:Name="PasteCode">
+        <StackPanel Orientation="Horizontal">
+          <Image Height="24"
+                 Source="..\Resources\fugue\scanner.png" />
+          <Label Content="Paste Code" />
+        </StackPanel>
+      </Button>
     </ToolBar>
     <Grid>
       <Grid.ColumnDefinitions>
@@ -82,25 +88,57 @@
         </ListView.GroupStyle>
         <ListView.ItemTemplate>
           <DataTemplate>
-            <TextBlock Text="{Binding Path=DisplayName}" />
+            <StackPanel Orientation="Horizontal">
+              <Image Width="24"
+                     Height="24" />
+              <TextBlock Text="{Binding Path=DisplayName}"
+                         VerticalAlignment="Center" />
+            </StackPanel>
           </DataTemplate>
         </ListView.ItemTemplate>
         <ListView.ContextMenu>
           <ContextMenu>
             <MenuItem>
               <MenuItem.Icon>
-                <Image Source="..\Resources\assaultrifle.png" />
+                <Image Source="..\Resources\fugue\printer.png"
+                       Height="16" />
               </MenuItem.Icon>
+              <MenuItem.Header>Copy Code</MenuItem.Header>
+              <cal:Message.Attach>
+                CopySelectedSlotCode()
+              </cal:Message.Attach>
+            </MenuItem>
+            <Separator />
+            <MenuItem>
+              <MenuItem.Icon>
+                <Image Source="..\Resources\fugue\document-copy.png"
+                       Height="16" />
+              </MenuItem.Icon>
+              <MenuItem.Header>Duplicate</MenuItem.Header>
+              <cal:Message.Attach>
+                DuplicateSelectedSlot()
+              </cal:Message.Attach>
             </MenuItem>
             <MenuItem>
               <MenuItem.Icon>
-                <Image Source="..\Resources\assaultrifle.png" />
+                <Image Source="..\Resources\bank.png"
+                       Height="16" />
               </MenuItem.Icon>
+              <MenuItem.Header>Bank</MenuItem.Header>
+              <cal:Message.Attach>
+                BankSelectedSlot()
+              </cal:Message.Attach>
             </MenuItem>
+            <Separator />
             <MenuItem>
               <MenuItem.Icon>
-                <Image Source="..\Resources\assaultrifle.png" />
+                <Image Source="..\Resources\fugue\document-delete.png"
+                       Height="16" />
               </MenuItem.Icon>
+              <MenuItem.Header>Delete</MenuItem.Header>
+              <cal:Message.Attach>
+                DeleteSelectedSlot()
+              </cal:Message.Attach>
             </MenuItem>
           </ContextMenu>
         </ListView.ContextMenu>
