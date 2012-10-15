@@ -187,7 +187,7 @@ namespace Gibbed.Borderlands2.FileFormats
                                             compressedSize,
                                             uncompressedBytes,
                                             ref actualUncompressedSize);
-                if (result != 0)
+                if (result != LZO.ErrorCode.Success)
                 {
                     throw new SaveCorruptionException(string.Format("LZO decompression failure ({0})", result));
                 }
