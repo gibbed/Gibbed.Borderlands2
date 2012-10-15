@@ -41,6 +41,15 @@ namespace Gibbed.Borderlands2.SaveEdit
             Failure,
         }
 
+        private static bool IsClipboardErrorCode(uint errorCode)
+        {
+            return errorCode == 0x800401D0u /* CLIPBRD_E_CANT_OPEN */||
+                   errorCode == 0x800401D1u /* CLIPBRD_E_CANT_EMPTY */||
+                   errorCode == 0x800401D2u /* CLIPBRD_E_CANT_SET */||
+                   errorCode == 0x800401D3u /* CLIPBRD_E_BAD_DATA */||
+                   errorCode == 0x800401D4u /* CLIPBRD_E_CANT_CLOSE */;
+        }
+
         private static Result TryAgain(Action callback)
         {
             for (int i = 0;; i++)
@@ -52,7 +61,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 }
                 catch (COMException e)
                 {
-                    if ((uint)e.ErrorCode == 0x800401D0u)
+                    if (IsClipboardErrorCode((uint)e.ErrorCode) == true)
                     {
                         if (i < _Tries)
                         {
@@ -79,15 +88,19 @@ namespace Gibbed.Borderlands2.SaveEdit
                 }
                 catch (COMException e)
                 {
-                    if ((uint)e.ErrorCode == 0x800401D0u &&
-                        i < _Tries)
+                    if (IsClipboardErrorCode((uint)e.ErrorCode) == true)
                     {
-                        Thread.Sleep(10);
-                        continue;
+                        if (i < _Tries)
+                        {
+                            Thread.Sleep(10);
+                            continue;
+                        }
+
+                        result = default(TResult);
+                        return Result.Failure;
                     }
 
-                    result = default(TResult);
-                    return Result.Failure;
+                    throw e;
                 }
             }
         }
