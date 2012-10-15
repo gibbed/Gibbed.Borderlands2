@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using Newtonsoft.Json;
+using Enumerable = System.Linq.Enumerable;
 
 namespace Gibbed.Borderlands2.GameInfo
 {
@@ -177,12 +178,9 @@ namespace Gibbed.Borderlands2.GameInfo
             try
             {
                 var definitions = DeserializeJson<Dictionary<string, WeaponBalanceDefinition>>("Weapon Balance");
-                var mergedDefinitions = new Dictionary<string, WeaponBalanceDefinition>();
-                foreach (var definition in definitions)
-                {
-                    mergedDefinitions.Add(definition.Key, MergeWeaponBalanceDefinition(definitions, definition.Value));
-                }
-                return mergedDefinitions;
+                return Enumerable.ToDictionary(definitions,
+                                               definition => definition.Key,
+                                               definition => MergeWeaponBalanceDefinition(definitions, definition.Value));
             }
             catch (Exception e)
             {
@@ -446,12 +444,9 @@ namespace Gibbed.Borderlands2.GameInfo
             try
             {
                 var definitions = DeserializeJson<Dictionary<string, ItemBalanceDefinition>>("Item Balance");
-                var mergedDefinitions = new Dictionary<string, ItemBalanceDefinition>();
-                foreach (var definition in definitions)
-                {
-                    mergedDefinitions.Add(definition.Key, MergeItemBalanceDefinition(definitions, definition.Value));
-                }
-                return mergedDefinitions;
+                return Enumerable.ToDictionary(definitions,
+                                               definition => definition.Key,
+                                               definition => MergeItemBalanceDefinition(definitions, definition.Value));
             }
             catch (Exception e)
             {
