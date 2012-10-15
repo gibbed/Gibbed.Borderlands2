@@ -64,13 +64,15 @@ namespace VerifySaves
 
                         data.Position = 0;
                         var uncompressedSize = data.ReadValueU32(Endian.Big);
-                        var actualUncompressedSize = uncompressedSize;
+                        var actualUncompressedSize = (int)uncompressedSize;
                         var uncompressedBytes = new byte[uncompressedSize];
-                        var compressedSize = (uint)(data.Length - 4);
+                        var compressedSize = (int)(data.Length - 4);
                         var compressedBytes = data.ReadBytes(compressedSize);
                         var result = LZO.Decompress(compressedBytes,
+                                                    0,
                                                     compressedSize,
                                                     uncompressedBytes,
+                                                    0,
                                                     ref actualUncompressedSize);
                         if (result != LZO.ErrorCode.Success)
                         {
