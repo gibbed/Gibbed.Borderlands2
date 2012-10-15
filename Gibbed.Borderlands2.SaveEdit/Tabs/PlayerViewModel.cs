@@ -191,20 +191,24 @@ namespace Gibbed.Borderlands2.SaveEdit
         [ImportingConstructor]
         public PlayerViewModel(IEventAggregator events)
         {
-            this.Endians = new ObservableCollection<EndianDisplay>();
-            this.Endians.Add(new EndianDisplay("Little (PC)", IO.Endian.Little));
-            this.Endians.Add(new EndianDisplay("Big (360, PS3)", IO.Endian.Big));
+            this.Endians = new ObservableCollection<EndianDisplay>
+            {
+                new EndianDisplay("Little (PC)", Endian.Little),
+                new EndianDisplay("Big (360, PS3)", Endian.Big)
+            };
 
-            this.ClassDefinitions = new ObservableCollection<AssetDisplay>();
-            this.ClassDefinitions.Add(new AssetDisplay("Axton (Commando)",
-                                                       "GD_Soldier.Character.CharClass_Soldier"));
-            this.ClassDefinitions.Add(new AssetDisplay("Zer0 (Assassin)",
-                                                       "GD_Assassin.Character.CharClass_Assassin"));
-            this.ClassDefinitions.Add(new AssetDisplay("Maya (Siren)", "GD_Siren.Character.CharClass_Siren"));
-            this.ClassDefinitions.Add(new AssetDisplay("Salvador (Gunzerker)",
-                                                       "GD_Mercenary.Character.CharClass_Mercenary"));
-            this.ClassDefinitions.Add(new AssetDisplay("Gaige (Mechromancer)",
-                                                       "GD_Tulip_Mechromancer.Character.CharClass_Mechromancer"));
+            this.ClassDefinitions = new ObservableCollection<AssetDisplay>
+            {
+                new AssetDisplay("Axton (Commando)",
+                                 "GD_Soldier.Character.CharClass_Soldier"),
+                new AssetDisplay("Zer0 (Assassin)",
+                                 "GD_Assassin.Character.CharClass_Assassin"),
+                new AssetDisplay("Maya (Siren)", "GD_Siren.Character.CharClass_Siren"),
+                new AssetDisplay("Salvador (Gunzerker)",
+                                 "GD_Mercenary.Character.CharClass_Mercenary"),
+                new AssetDisplay("Gaige (Mechromancer)",
+                                 "GD_Tulip_Mechromancer.Character.CharClass_Mechromancer")
+            };
 
             this.HeadAssets = new ObservableCollection<AssetDisplay>();
             this.SkinAssets = new ObservableCollection<AssetDisplay>();

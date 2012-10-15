@@ -47,7 +47,7 @@ namespace Gibbed.Borderlands2.SaveEdit.Validators
             }
         }
 
-        public AssetValidationRule(AssetGroup group)
+        protected AssetValidationRule(AssetGroup group)
         {
             this._Group = group;
         }

@@ -38,14 +38,14 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         protected override void Configure()
         {
-            FrameworkExtensions.Message.Attach.AllowExtraSyntax(MessageSyntaxes.SpecialValueProperty | MessageSyntaxes.XamlBinding);
+            FrameworkExtensions.Message.Attach.AllowExtraSyntax(MessageSyntaxes.SpecialValueProperty |
+                                                                MessageSyntaxes.XamlBinding);
             FrameworkExtensions.ActionMessage.EnableFilters();
             FrameworkExtensions.ViewLocator.EnableContextFallback();
 
             this._Container =
                 new CompositionContainer(
-                    new AggregateCatalog(
-                        AssemblySource.Instance.Select(x => new AssemblyCatalog(x)).OfType<ComposablePartCatalog>()));
+                    new AggregateCatalog(AssemblySource.Instance.Select(x => new AssemblyCatalog(x))));
 
             var batch = new CompositionBatch();
             batch.AddExportedValue<IWindowManager>(new AppWindowManager());
@@ -57,7 +57,10 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         protected override IEnumerable<Assembly> SelectAssemblies()
         {
-            return base.SelectAssemblies().Concat(new[] { typeof(ResultExtensions).Assembly });
+            return base.SelectAssemblies().Concat(new[]
+            {
+                typeof(ResultExtensions).Assembly
+            });
         }
 
         protected override object GetInstance(Type serviceType, string key)

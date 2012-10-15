@@ -121,13 +121,15 @@ namespace Gibbed.Borderlands2.SaveEdit
         /// <returns></returns>
         protected virtual OpenFileDialog CreateDialog()
         {
-            var dialog = new OpenFileDialog();
-            dialog.Title = this._Title;
-            dialog.Filter = this._Filters.CreateFilterExpression();
-            dialog.InitialDirectory = this._InitialDirectory;
-            dialog.Multiselect = this._AllowMultipleFiles;
-            dialog.CheckFileExists = true;
-            dialog.CheckPathExists = true;
+            var dialog = new OpenFileDialog
+            {
+                Title = this._Title,
+                Filter = this._Filters.CreateFilterExpression(),
+                InitialDirectory = this._InitialDirectory,
+                Multiselect = this._AllowMultipleFiles,
+                CheckFileExists = true,
+                CheckPathExists = true,
+            };
             return dialog;
         }
 
@@ -162,7 +164,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             if (action == null)
             {
-                throw new ArgumentNullException("action may not be null");
+                throw new ArgumentNullException("action", "action may not be null");
             }
             action(this._Filters);
             return this;

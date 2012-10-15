@@ -101,7 +101,7 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         public IEnumerable<IResult> PasteCode()
         {
-            bool containsText = false;
+            bool containsText;
             bool containsUnicodeText = false;
             if (MyClipboard.ContainsText(TextDataFormat.Text, out containsText) != MyClipboard.Result.Success ||
                 MyClipboard.ContainsText(TextDataFormat.UnicodeText, out containsUnicodeText) !=
@@ -269,7 +269,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             {
                 var slot = BaseDataHelper.Decode(bankSlot.Data);
                 var test = BaseDataHelper.Encode(slot);
-                if (Enumerable.SequenceEqual(bankSlot.Data, test) == false)
+                if (bankSlot.Data.SequenceEqual(test) == false)
                 {
                     throw new FormatException();
                 }

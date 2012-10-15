@@ -25,12 +25,17 @@ namespace Gibbed.Borderlands2.SaveEdit
                 {
                     if (null != BindingOperations.GetBinding(p, OutProperty))
                     {
-                        (p as PropertyProxy).Out = args.NewValue;
+                        var proxy = p as PropertyProxy;
+                        if (proxy != null)
+                        {
+                            proxy.Out = args.NewValue;
+                        }
                     }
-                });
-
-            inMetadata.BindsTwoWayByDefault = false;
-            inMetadata.DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+                })
+            {
+                BindsTwoWayByDefault = false,
+                DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+            };
 
             InProperty = DependencyProperty.Register("In",
                                                      typeof(object),
@@ -45,17 +50,21 @@ namespace Gibbed.Borderlands2.SaveEdit
                     if (source.BaseValueSource != BaseValueSource.Local)
                     {
                         var proxy = p as PropertyProxy;
-                        object expected = proxy.In;
-                        if (!ReferenceEquals(args.NewValue, expected))
+                        if (proxy != null)
                         {
-                            Dispatcher.CurrentDispatcher.BeginInvoke(
-                                DispatcherPriority.DataBind, new Action(delegate { proxy.Out = proxy.In; }));
+                            object expected = proxy.In;
+                            if (!ReferenceEquals(args.NewValue, expected))
+                            {
+                                Dispatcher.CurrentDispatcher.BeginInvoke(
+                                    DispatcherPriority.DataBind, new Action(delegate { proxy.Out = proxy.In; }));
+                            }
                         }
                     }
-                });
-
-            outMetadata.BindsTwoWayByDefault = true;
-            outMetadata.DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+                })
+            {
+                BindsTwoWayByDefault = true,
+                DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+            };
 
             OutProperty = DependencyProperty.Register("Out", typeof(object), typeof(PropertyProxy), outMetadata);
         }
@@ -72,7 +81,11 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 SetValue(OutProperty, value);
-                this.GetBindingExpression(OutProperty).UpdateSource();
+                var expression = this.GetBindingExpression(OutProperty);
+                if (expression != null)
+                {
+                    expression.UpdateSource();
+                }
             }
         }
     }

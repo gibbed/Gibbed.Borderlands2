@@ -107,7 +107,7 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         public MyMessageBox WithResultDo(Action<MessageBoxResult> action)
         {
-            this._ResultAction = result => action(result);
+            this._ResultAction = action;
             return this;
         }
     }

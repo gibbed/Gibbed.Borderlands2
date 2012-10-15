@@ -28,18 +28,18 @@ namespace Gibbed.Borderlands2.SaveEdit
 {
     internal static class AssetCache
     {
-        private static object _Lock;
-        private static Dictionary<int, AssetLibraryCache> _Libraries;
+        private static readonly object _AssetCacheLock;
+        private static readonly Dictionary<int, AssetLibraryCache> _Libraries;
 
         static AssetCache()
         {
-            _Lock = new object();
+            _AssetCacheLock = new object();
             _Libraries = new Dictionary<int, AssetLibraryCache>();
         }
 
         public static AssetLibraryCache Get(int setId)
         {
-            lock (_Lock)
+            lock (_AssetCacheLock)
             {
                 if (_Libraries.ContainsKey(setId) == false)
                 {
@@ -52,12 +52,13 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         public class AssetLibraryCache
         {
-            private int _SetId;
-            private object _Lock = new object();
-            private Dictionary<AssetGroup, string[]> _Assets = new Dictionary<AssetGroup, string[]>();
+            private readonly int _SetId;
+            private readonly object _AssetLibraryCacheLock;
+            private readonly Dictionary<AssetGroup, string[]> _Assets = new Dictionary<AssetGroup, string[]>();
 
             public AssetLibraryCache(int setId)
             {
+                this._AssetLibraryCacheLock = new object();
                 this._SetId = setId;
             }
 
@@ -78,7 +79,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             {
                 get
                 {
-                    lock (this._Lock)
+                    lock (this._AssetLibraryCacheLock)
                     {
                         if (this._Assets.ContainsKey(group) == false)
                         {
