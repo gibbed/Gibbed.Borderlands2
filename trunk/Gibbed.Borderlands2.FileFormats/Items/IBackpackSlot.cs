@@ -20,9 +20,13 @@
  *    distribution.
  */
 
+using System;
+
 namespace Gibbed.Borderlands2.FileFormats.Items
 {
-    public interface IBackpackSlot
+    public interface IBackpackSlot : ICloneable
     {
+        int UniqueId { get; set; }
+        int AssetLibrarySetId { get; set; }
     }
 }
