@@ -30,7 +30,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
     public class UIPreferencesData : IComposable, INotifyPropertyChanged
     {
         #region Fields
-        private string _CharacterName;
+        private byte[] _CharacterName;
         private Color _PrimaryColor;
         private Color _SecondaryColor;
         private Color _TertiaryColor;
@@ -68,7 +68,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         #region Properties
         [ProtoMember(1, IsRequired = true)]
-        public string CharacterName
+        public byte[] CharacterName
         {
             get { return this._CharacterName; }
             set

@@ -72,7 +72,8 @@
       <ListView Grid.Column="0"
                 ItemsSource="{Binding Source={StaticResource SlotCollectionViewSource}}"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                SelectedValue="{Binding Path=SelectedSlot}">
+                SelectedValue="{Binding Path=SelectedSlot}"
+                SelectionMode="Single">
         <ListView.GroupStyle>
           <GroupStyle>
             <GroupStyle.HeaderTemplate>

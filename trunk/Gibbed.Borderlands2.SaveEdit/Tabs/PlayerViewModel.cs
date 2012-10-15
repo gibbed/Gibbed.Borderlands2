@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Text;
 using Caliburn.Micro;
 using Gibbed.Borderlands2.GameInfo;
 using Gibbed.IO;
@@ -34,6 +35,7 @@ namespace Gibbed.Borderlands2.SaveEdit
     internal class PlayerViewModel : PropertyChangedBase, IHandle<SaveUnpackMessage>, IHandle<SavePackMessage>
     {
         #region Fields
+        private readonly IEventAggregator _Events;
         private Endian _Endian;
         private int _SaveGameId;
         private FileFormats.SaveFile _SaveFile;
@@ -191,6 +193,8 @@ namespace Gibbed.Borderlands2.SaveEdit
         [ImportingConstructor]
         public PlayerViewModel(IEventAggregator events)
         {
+            this._Events = events;
+
             this.Endians = new ObservableCollection<EndianDisplay>
             {
                 new EndianDisplay("Little (PC)", Endian.Little),
@@ -338,7 +342,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             this.ExpPoints = saveGame.ExpPoints;
             this.GeneralSkillPoints = saveGame.GeneralSkillPoints;
             this.SpecialistSkillPoints = saveGame.SpecialistSkillPoints;
-            this.CharacterName = saveGame.UIPreferences.CharacterName;
+            this.CharacterName = Encoding.UTF8.GetString(saveGame.UIPreferences.CharacterName);
             this.SelectedHead = saveGame.AppliedCustomizations[0];
             this.SelectedSkin = saveGame.AppliedCustomizations[4];
             this.BuildCustomizationAssets();
@@ -355,7 +359,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             saveGame.ExpPoints = this.ExpPoints;
             saveGame.GeneralSkillPoints = this.GeneralSkillPoints;
             saveGame.SpecialistSkillPoints = this.SpecialistSkillPoints;
-            saveGame.UIPreferences.CharacterName = this.CharacterName;
+            saveGame.UIPreferences.CharacterName = Encoding.UTF8.GetBytes(this.CharacterName);
             saveGame.AppliedCustomizations[0] = this.SelectedHead;
             saveGame.AppliedCustomizations[4] = this.SelectedSkin;
         }
