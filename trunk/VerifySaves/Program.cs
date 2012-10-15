@@ -55,7 +55,7 @@ namespace VerifySaves
                             computedHash = sha1.ComputeHash(data);
                         }
 
-                        if (Enumerable.SequenceEqual(readHash, computedHash) == false)
+                        if (readHash.SequenceEqual(computedHash) == false)
                         {
                             Console.WriteLine("{0}: failed (SHA1 mismatch)", name);
                             failures++;
@@ -123,7 +123,7 @@ namespace VerifySaves
 
                                     testData.Position = 0;
                                     var testBytes = testData.ReadBytes((uint)testData.Length);
-                                    if (Enumerable.SequenceEqual(innerUncompressedBytes, testBytes) == false)
+                                    if (innerUncompressedBytes.SequenceEqual(testBytes) == false)
                                     {
                                         Console.WriteLine("{0}: failed (reencode mismatch)", name);
 
