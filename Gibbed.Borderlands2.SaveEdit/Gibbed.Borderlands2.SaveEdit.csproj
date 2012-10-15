@@ -84,6 +84,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Helpers\AssetCache.cs" />
+    <Compile Include="Helpers\MyClipboard.cs" />
     <Compile Include="Helpers\MyMessageBox.cs" />
     <Compile Include="Items\BackpackItemView.xaml.cs">
       <DependentUpon>BackpackItemView.xaml</DependentUpon>
