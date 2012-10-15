@@ -66,13 +66,16 @@ namespace Gibbed.Borderlands2.SaveEdit
                         if (i < _Tries)
                         {
                             Thread.Sleep(10);
-                            continue;
                         }
-
-                        return Result.Failure;
+                        else
+                        {
+                            return Result.Failure;
+                        }
                     }
-
-                    throw e;
+                    else
+                    {
+                        throw e;
+                    }
                 }
             }
         }
@@ -93,14 +96,17 @@ namespace Gibbed.Borderlands2.SaveEdit
                         if (i < _Tries)
                         {
                             Thread.Sleep(10);
-                            continue;
                         }
-
-                        result = default(TResult);
-                        return Result.Failure;
+                        else
+                        {
+                            result = default(TResult);
+                            return Result.Failure;
+                        }
                     }
-
-                    throw e;
+                    else
+                    {
+                        throw e;
+                    }
                 }
             }
         }
