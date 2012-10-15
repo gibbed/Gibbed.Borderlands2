@@ -80,7 +80,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
             get { return this._Amount; }
             set
             {
-                if (value != this._Amount)
+                if (value.Equals(this._Amount) == false)
                 {
                     this._Amount = value;
                     this.NotifyPropertyChanged("Amount");
