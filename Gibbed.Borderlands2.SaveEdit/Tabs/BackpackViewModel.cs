@@ -211,7 +211,16 @@ namespace Gibbed.Borderlands2.SaveEdit
             sb.Append(Convert.ToBase64String(data, Base64FormattingOptions.None));
             sb.Append(")");
 
+            /*
             if (MyClipboard.SetText(sb.ToString()) != MyClipboard.Result.Success)
+            {
+                MessageBox.Show("Clipboard failure.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            */
+
+            var dobj = new DataObject();
+            dobj.SetText(sb.ToString());
+            if (MyClipboard.SetDataObject(dobj, false) != MyClipboard.Result.Success)
             {
                 MessageBox.Show("Clipboard failure.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
