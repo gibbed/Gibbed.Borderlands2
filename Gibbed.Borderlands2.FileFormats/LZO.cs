@@ -29,6 +29,21 @@ namespace Gibbed.Borderlands2.FileFormats
     {
         private static readonly bool _Is64Bit = DetectIs64Bit();
 
+        public enum ErrorCode
+        {
+            Success = 0,
+            GenericError = -1,
+            OutOfMemory = -2,
+            NotCompressible = -3,
+            InputOverrun = -4,
+            OutputOverrun = -5,
+            LookbehindOverrun = -6,
+            EndOfFileNotFound = -7,
+            InputNotConsumed = -8,
+            NotImplemented = -9,
+            InvalidArgument = -10,
+        }
+
         private static bool DetectIs64Bit()
         {
             return Marshal.SizeOf(IntPtr.Zero) == 8;
@@ -37,27 +52,27 @@ namespace Gibbed.Borderlands2.FileFormats
         private static class Native32
         {
             [DllImport("lzo_32.dll", EntryPoint = "#67", CallingConvention = CallingConvention.StdCall)]
-            internal static extern int NativeCompress(byte[] inbuf,
+            internal static extern ErrorCode NativeCompress(byte[] inbuf,
                                                       uint inlen,
                                                       byte[] outbuf,
                                                       ref uint outlen,
                                                       byte[] workbuf);
 
             [DllImport("lzo_32.dll", EntryPoint = "#68", CallingConvention = CallingConvention.StdCall)]
-            internal static extern int NativeDecompress(byte[] inbuf, uint inlen, byte[] outbuf, ref uint outlen);
+            internal static extern ErrorCode NativeDecompress(byte[] inbuf, uint inlen, byte[] outbuf, ref uint outlen);
         }
 
         private static class Native64
         {
             [DllImport("lzo_64.dll", EntryPoint = "#67", CallingConvention = CallingConvention.StdCall)]
-            internal static extern int NativeCompress(byte[] inbuf,
+            internal static extern ErrorCode NativeCompress(byte[] inbuf,
                                                       uint inlen,
                                                       byte[] outbuf,
                                                       ref uint outlen,
                                                       byte[] workbuf);
 
             [DllImport("lzo_64.dll", EntryPoint = "#68", CallingConvention = CallingConvention.StdCall)]
-            internal static extern int NativeDecompress(byte[] inbuf, uint inlen, byte[] outbuf, ref uint outlen);
+            internal static extern ErrorCode NativeDecompress(byte[] inbuf, uint inlen, byte[] outbuf, ref uint outlen);
         }
 
         private const int DictSize = 2;
@@ -65,7 +80,7 @@ namespace Gibbed.Borderlands2.FileFormats
 
         private static byte[] CompressWork = new byte[WorkSize];
 
-        public static int Compress(byte[] inbuf, uint inlen, byte[] outbuf, ref uint outlen)
+        public static ErrorCode Compress(byte[] inbuf, uint inlen, byte[] outbuf, ref uint outlen)
         {
             lock (CompressWork)
             {
@@ -78,7 +93,7 @@ namespace Gibbed.Borderlands2.FileFormats
             }
         }
 
-        public static int Decompress(byte[] inbuf, uint inlen, byte[] outbuf, ref uint outlen)
+        public static ErrorCode Decompress(byte[] inbuf, uint inlen, byte[] outbuf, ref uint outlen)
         {
             if (_Is64Bit == true)
             {

@@ -126,7 +126,7 @@ namespace Gibbed.Borderlands2.SparkTmsUnpack
                                             compressedSize1,
                                             uncompressedBytes,
                                             ref actualUncompressedSize);
-                if (result != 0)
+                if (result != LZO.ErrorCode.Success)
                 {
                     throw new FormatException();
                 }

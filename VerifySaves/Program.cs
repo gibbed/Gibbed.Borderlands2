@@ -72,9 +72,9 @@ namespace VerifySaves
                                                     compressedSize,
                                                     uncompressedBytes,
                                                     ref actualUncompressedSize);
-                        if (result != 0)
+                        if (result != LZO.ErrorCode.Success)
                         {
-                            Console.WriteLine("{0}: failed (LZO error {0})", name, result);
+                            Console.WriteLine("{0}: failed (LZO error {1})", name, result);
                             failures++;
                             continue;
                         }
