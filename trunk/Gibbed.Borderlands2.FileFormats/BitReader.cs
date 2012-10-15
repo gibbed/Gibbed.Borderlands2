@@ -115,8 +115,8 @@ namespace Gibbed.Borderlands2.FileFormats
                 int offset = this.Position % 8;
                 int left = Math.Min(8 - offset, bits);
 
-                uint mask = (uint)(1 << left) - 1;
-                uint value = (uint)(this._Buffer[this.Position >> 3] >> offset);
+                var mask = (uint)(1 << left) - 1;
+                var value = (uint)(this._Buffer[this.Position >> 3] >> offset);
 
                 bits -= left;
 
@@ -157,8 +157,8 @@ namespace Gibbed.Borderlands2.FileFormats
                 int offset = this.Position % 8;
                 int left = Math.Min(8 - offset, bits);
 
-                ulong mask = (ulong)(1 << left) - 1;
-                ulong value = (ulong)(this._Buffer[this.Position >> 3] >> offset);
+                var mask = (ulong)(1 << left) - 1;
+                var value = (ulong)(this._Buffer[this.Position >> 3] >> offset);
 
                 bits -= left;
 

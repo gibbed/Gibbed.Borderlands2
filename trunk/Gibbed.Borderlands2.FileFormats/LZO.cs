@@ -75,21 +75,21 @@ namespace Gibbed.Borderlands2.FileFormats
             internal static extern ErrorCode NativeDecompress(byte[] inbuf, uint inlen, byte[] outbuf, ref uint outlen);
         }
 
-        private const int DictSize = 2;
-        private const int WorkSize = (16384 * DictSize);
+        private const int _DictSize = 2;
+        private const int _WorkSize = (16384 * _DictSize);
 
-        private static byte[] CompressWork = new byte[WorkSize];
+        private static readonly byte[] _CompressWork = new byte[_WorkSize];
 
         public static ErrorCode Compress(byte[] inbuf, uint inlen, byte[] outbuf, ref uint outlen)
         {
-            lock (CompressWork)
+            lock (_CompressWork)
             {
                 if (_Is64Bit == true)
                 {
-                    return Native64.NativeCompress(inbuf, inlen, outbuf, ref outlen, CompressWork);
+                    return Native64.NativeCompress(inbuf, inlen, outbuf, ref outlen, _CompressWork);
                 }
 
-                return Native32.NativeCompress(inbuf, inlen, outbuf, ref outlen, CompressWork);
+                return Native32.NativeCompress(inbuf, inlen, outbuf, ref outlen, _CompressWork);
             }
         }
 

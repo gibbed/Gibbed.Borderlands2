@@ -41,7 +41,7 @@ namespace Gibbed.Borderlands2.FileFormats.Huffman
         {
             if (bytes == null)
             {
-                throw new ArgumentNullException("text");
+                throw new ArgumentNullException("bytes");
             }
 
             this._Root = null;
@@ -215,11 +215,11 @@ namespace Gibbed.Borderlands2.FileFormats.Huffman
             return code.Length;
         }
 
-        private int Encode(byte[] bytes, BitArray bits, int offset)
+        private int Encode(IEnumerable<byte> bytes, BitArray bits, int offset)
         {
             if (bytes == null)
             {
-                throw new ArgumentNullException("text");
+                throw new ArgumentNullException("bytes");
             }
 
             offset = EncodeNode(bits, this._Root, offset);

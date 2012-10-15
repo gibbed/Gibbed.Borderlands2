@@ -172,7 +172,7 @@ namespace Gibbed.Borderlands2.FileFormats
                 }
 
                 if ((settings & DeserializeSettings.IgnoreSha1Mismatch) == 0 &&
-                    Enumerable.SequenceEqual(readSha1Hash, computedSha1Hash) == false)
+                    readSha1Hash.SequenceEqual(computedSha1Hash) == false)
                 {
                     throw new SaveCorruptionException("invalid SHA1 hash");
                 }
@@ -240,7 +240,7 @@ namespace Gibbed.Borderlands2.FileFormats
 
                                 testData.Position = 0;
                                 var testBytes = testData.ReadBytes((uint)testData.Length);
-                                if (Enumerable.SequenceEqual(innerUncompressedBytes, testBytes) == false)
+                                if (innerUncompressedBytes.SequenceEqual(testBytes) == false)
                                 {
                                     throw new SaveCorruptionException("reencode mismatch");
                                 }
