@@ -65,7 +65,7 @@
         <xctk:IntegerUpDown Grid.Row="0"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=SaveGameId}" />
+                            Value="{Binding Path=SaveGameId, UpdateSourceTrigger=PropertyChanged}" />
         <Label Grid.Row="1"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
@@ -115,7 +115,7 @@
         <xctk:IntegerUpDown Grid.Row="2"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=ExpLevel}" />
+                            Value="{Binding Path=ExpLevel, UpdateSourceTrigger=PropertyChanged}" />
         <Label Grid.Row="3"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
@@ -123,7 +123,7 @@
         <xctk:IntegerUpDown Grid.Row="3"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=ExpPoints}" />
+                            Value="{Binding Path=ExpPoints, UpdateSourceTrigger=PropertyChanged}" />
         <Label Grid.Row="4"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
@@ -131,7 +131,7 @@
         <xctk:IntegerUpDown Grid.Row="4"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=GeneralSkillPoints}" />
+                            Value="{Binding Path=GeneralSkillPoints, UpdateSourceTrigger=PropertyChanged}" />
         <Label Grid.Row="5"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
@@ -139,7 +139,7 @@
         <xctk:IntegerUpDown Grid.Row="5"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=SpecialistSkillPoints}" />
+                            Value="{Binding Path=SpecialistSkillPoints, UpdateSourceTrigger=PropertyChanged}" />
       </Grid>
     </Expander>
     <Expander Header="Customization"
@@ -168,7 +168,7 @@
         <TextBox Grid.Row="0"
                  Grid.Column="1"
                  Margin="3"
-                 Text="{Binding Path=CharacterName}" />
+                 Text="{Binding Path=CharacterName, UpdateSourceTrigger=PropertyChanged}" />
         <Label Grid.Row="1"
                Grid.Column="0"
                HorizontalContentAlignment="Right"

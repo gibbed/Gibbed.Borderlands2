@@ -77,7 +77,7 @@
     <Label Grid.Row="0"
            Grid.Column="1"
            HorizontalContentAlignment="Left"
-           Content="{Binding Path=AssetLibrarySetId}" />
+           Content="{Binding Path=AssetLibrarySetId, UpdateSourceTrigger=PropertyChanged}" />
     <Label Grid.Column="0"
            HorizontalContentAlignment="Right"
            Content="Type:"
@@ -105,7 +105,8 @@
                      IsEditable="true"
                      ItemsSource="{Binding Path=TypeAssets}">
         <ComboBox.Text>
-          <Binding Path="TypeDefinition">
+          <Binding Path="TypeDefinition"
+                   UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="TypeValidator" />
             </Binding.ValidationRules>
@@ -140,7 +141,8 @@
                      IsEditable="true"
                      ItemsSource="{Binding Path=BalanceAssets}">
         <ComboBox.Text>
-          <Binding Path="BalanceDefinition">
+          <Binding Path="BalanceDefinition"
+                   UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="BalanceValidator" />
             </Binding.ValidationRules>
@@ -174,7 +176,8 @@
       <se:MyComboBox x:Name="ManufacturerDefinitionComboBox"
                      IsEditable="true">
         <ComboBox.Text>
-          <Binding Path="ManufacturerDefinition">
+          <Binding Path="ManufacturerDefinition"
+                   UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="ManufacturerValidator" />
             </Binding.ValidationRules>
@@ -188,7 +191,7 @@
            Content="Manufacturer Grade:" />
     <xctk:IntegerUpDown Grid.Row="4"
                         Grid.Column="1"
-                        Value="{Binding Path=ManufacturerGradeIndex}"
+                        Value="{Binding Path=ManufacturerGradeIndex, UpdateSourceTrigger=PropertyChanged}"
                         Minimum="0"
                         Maximum="127" />
     <Label Grid.Row="5"
@@ -218,7 +221,8 @@
                      IsEditable="true"
                      ItemsSource="{Binding Path=AlphaPartAssets}">
         <ComboBox.Text>
-          <Binding Path="AlphaPartDefinition">
+          <Binding Path="AlphaPartDefinition"
+                   UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="PartValidator" />
             </Binding.ValidationRules>
@@ -253,7 +257,8 @@
                      IsEditable="true"
                      ItemsSource="{Binding Path=BetaPartAssets}">
         <ComboBox.Text>
-          <Binding Path="BetaPartDefinition">
+          <Binding Path="BetaPartDefinition"
+                   UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="PartValidator" />
             </Binding.ValidationRules>
@@ -288,7 +293,8 @@
                      IsEditable="true"
                      ItemsSource="{Binding Path=GammaPartAssets}">
         <ComboBox.Text>
-          <Binding Path="GammaPartDefinition">
+          <Binding Path="GammaPartDefinition"
+                   UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="PartValidator" />
             </Binding.ValidationRules>
@@ -323,7 +329,8 @@
                      IsEditable="true"
                      ItemsSource="{Binding Path=DeltaPartAssets}">
         <ComboBox.Text>
-          <Binding Path="DeltaPartDefinition">
+          <Binding Path="DeltaPartDefinition"
+                   UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="PartValidator" />
             </Binding.ValidationRules>
@@ -358,7 +365,8 @@
                      IsEditable="true"
                      ItemsSource="{Binding Path=EpsilonPartAssets}">
         <ComboBox.Text>
-          <Binding Path="EpsilonPartDefinition">
+          <Binding Path="EpsilonPartDefinition"
+                   UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="PartValidator" />
             </Binding.ValidationRules>
@@ -393,7 +401,8 @@
                      IsEditable="true"
                      ItemsSource="{Binding Path=ZetaPartAssets}">
         <ComboBox.Text>
-          <Binding Path="ZetaPartDefinition">
+          <Binding Path="ZetaPartDefinition"
+                   UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="PartValidator" />
             </Binding.ValidationRules>
@@ -428,7 +437,8 @@
                      IsEditable="true"
                      ItemsSource="{Binding Path=EtaPartAssets}">
         <ComboBox.Text>
-          <Binding Path="EtaPartDefinition">
+          <Binding Path="EtaPartDefinition"
+                   UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="PartValidator" />
             </Binding.ValidationRules>
@@ -463,7 +473,8 @@
                      IsEditable="true"
                      ItemsSource="{Binding Path=ThetaPartAssets}">
         <ComboBox.Text>
-          <Binding Path="ThetaPartDefinition">
+          <Binding Path="ThetaPartDefinition"
+                   UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="PartValidator" />
             </Binding.ValidationRules>
@@ -498,7 +509,8 @@
                      IsEditable="true"
                      ItemsSource="{Binding Path=MaterialPartAssets}">
         <ComboBox.Text>
-          <Binding Path="MaterialPartDefinition">
+          <Binding Path="MaterialPartDefinition"
+                   UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="PartValidator" />
             </Binding.ValidationRules>
@@ -532,7 +544,8 @@
       <se:MyComboBox x:Name="PrefixPartDefinitionComboBox"
                      IsEditable="true">
         <ComboBox.Text>
-          <Binding Path="PrefixPartDefinition">
+          <Binding Path="PrefixPartDefinition"
+                   UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="PartValidator" />
             </Binding.ValidationRules>
@@ -566,7 +579,8 @@
       <se:MyComboBox x:Name="TitlePartDefinitionComboBox"
                      IsEditable="true">
         <ComboBox.Text>
-          <Binding Path="TitlePartDefinition">
+          <Binding Path="TitlePartDefinition"
+                   UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="PartValidator" />
             </Binding.ValidationRules>
@@ -580,7 +594,7 @@
            Content="Game Stage:" />
     <xctk:IntegerUpDown Grid.Row="16"
                         Grid.Column="1"
-                        Value="{Binding Path=GameStage}"
+                        Value="{Binding Path=GameStage, UpdateSourceTrigger=PropertyChanged}"
                         Minimum="0"
                         Maximum="127" />
   </Grid>
