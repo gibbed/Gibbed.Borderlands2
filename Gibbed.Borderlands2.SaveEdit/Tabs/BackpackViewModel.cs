@@ -189,41 +189,50 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        public void CopySelectedSlotCode()
+        public IEnumerable<IResult> CopySelectedSlotCode()
         {
-            if (this.SelectedSlot == null ||
-                (this.SelectedSlot.BackpackSlot is IPackable) == false)
+            yield return new DelegateResult(() =>
             {
-                if (MyClipboard.SetText("") != MyClipboard.Result.Success)
+                if (this.SelectedSlot == null ||
+                    (this.SelectedSlot.BackpackSlot is IPackable) == false)
+                {
+                    if (MyClipboard.SetText("") != MyClipboard.Result.Success)
+                    {
+                        MessageBox.Show("Clipboard failure.",
+                                        "Error",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Error);
+                    }
+                    return;
+                }
+
+                // just a hack until I add a way to override the unique ID in Encode()
+                var copy = (IPackable)this.SelectedSlot.BackpackSlot.Clone();
+                copy.UniqueId = new Random().Next(int.MinValue, int.MaxValue);
+
+                var data = BackpackDataHelper.Encode(copy);
+                var sb = new StringBuilder();
+                sb.Append("BL2(");
+                sb.Append(Convert.ToBase64String(data, Base64FormattingOptions.None));
+                sb.Append(")");
+
+                /*
+                if (MyClipboard.SetText(sb.ToString()) != MyClipboard.Result.Success)
                 {
                     MessageBox.Show("Clipboard failure.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                return;
-            }
+                */
 
-            // just a hack until I add a way to override the unique ID in Encode()
-            var copy = (IPackable)this.SelectedSlot.BackpackSlot.Clone();
-            copy.UniqueId = new Random().Next(int.MinValue, int.MaxValue);
-
-            var data = BackpackDataHelper.Encode(copy);
-            var sb = new StringBuilder();
-            sb.Append("BL2(");
-            sb.Append(Convert.ToBase64String(data, Base64FormattingOptions.None));
-            sb.Append(")");
-
-            /*
-            if (MyClipboard.SetText(sb.ToString()) != MyClipboard.Result.Success)
-            {
-                MessageBox.Show("Clipboard failure.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            */
-
-            var dobj = new DataObject();
-            dobj.SetText(sb.ToString());
-            if (MyClipboard.SetDataObject(dobj, false) != MyClipboard.Result.Success)
-            {
-                MessageBox.Show("Clipboard failure.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+                var dobj = new DataObject();
+                dobj.SetText(sb.ToString());
+                if (MyClipboard.SetDataObject(dobj, false) != MyClipboard.Result.Success)
+                {
+                    MessageBox.Show("Clipboard failure.",
+                                    "Error",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Error);
+                }
+            });
         }
 
         public void DuplicateSelectedSlot()
