@@ -61,11 +61,13 @@
     <Compile Include="ItemBalanceDefinition.cs" />
     <Compile Include="ItemBalancePartCollection.cs" />
     <Compile Include="ItemType.cs" />
+    <Compile Include="ItemTypeDefinition.cs" />
     <Compile Include="PartReplacementMode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WeaponBalanceDefinition.cs" />
     <Compile Include="WeaponBalancePartCollection.cs" />
     <Compile Include="WeaponType.cs" />
+    <Compile Include="WeaponTypeDefinition.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="todo.txt" />
