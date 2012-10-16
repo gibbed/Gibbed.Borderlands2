@@ -98,26 +98,26 @@ namespace Gibbed.Borderlands2.GameInfo
         #endregion
 
         #region WeaponTypes
-        private static InfoDictionary<WeaponType> _WeaponTypes;
+        private static InfoDictionary<WeaponTypeDefinition> _WeaponTypes;
 
-        public static InfoDictionary<WeaponType> WeaponTypes
+        public static InfoDictionary<WeaponTypeDefinition> WeaponTypes
         {
             get
             {
                 if (_WeaponTypes == null)
                 {
-                    return _WeaponTypes = new InfoDictionary<WeaponType>(LoadWeaponTypes());
+                    return _WeaponTypes = new InfoDictionary<WeaponTypeDefinition>(LoadWeaponTypes());
                 }
 
                 return _WeaponTypes;
             }
         }
 
-        private static Dictionary<string, WeaponType> LoadWeaponTypes()
+        private static Dictionary<string, WeaponTypeDefinition> LoadWeaponTypes()
         {
             try
             {
-                return DeserializeJson<Dictionary<string, WeaponType>>("Weapon Types");
+                return DeserializeJson<Dictionary<string, WeaponTypeDefinition>>("Weapon Types");
             }
             catch (Exception e)
             {
@@ -127,26 +127,26 @@ namespace Gibbed.Borderlands2.GameInfo
         #endregion
 
         #region ItemTypes
-        private static InfoDictionary<ItemType> _ItemTypes;
+        private static InfoDictionary<ItemTypeDefinition> _ItemTypes;
 
-        public static InfoDictionary<ItemType> ItemTypes
+        public static InfoDictionary<ItemTypeDefinition> ItemTypes
         {
             get
             {
                 if (_ItemTypes == null)
                 {
-                    return _ItemTypes = new InfoDictionary<ItemType>(LoadItemTypes());
+                    return _ItemTypes = new InfoDictionary<ItemTypeDefinition>(LoadItemTypes());
                 }
 
                 return _ItemTypes;
             }
         }
 
-        private static Dictionary<string, ItemType> LoadItemTypes()
+        private static Dictionary<string, ItemTypeDefinition> LoadItemTypes()
         {
             try
             {
-                return DeserializeJson<Dictionary<string, ItemType>>("Item Types");
+                return DeserializeJson<Dictionary<string, ItemTypeDefinition>>("Item Types");
             }
             catch (Exception e)
             {

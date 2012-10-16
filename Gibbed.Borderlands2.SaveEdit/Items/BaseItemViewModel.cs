@@ -253,7 +253,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                     return "Unknown";
                 }
 
-                switch (InfoManager.ItemTypes[this.TypeDefinition])
+                switch (InfoManager.ItemTypes[this.TypeDefinition].Type)
                 {
                     case ItemType.Artifact:
                     {
