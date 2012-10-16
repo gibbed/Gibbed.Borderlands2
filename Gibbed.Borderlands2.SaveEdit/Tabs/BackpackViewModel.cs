@@ -300,7 +300,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 var test = BackpackDataHelper.Encode(weapon);
                 if (packedWeapon.Data.SequenceEqual(test) == false)
                 {
-                    throw new FormatException();
+                    throw new FormatException("backpack weapon reencode mismatch");
                 }
 
                 weapon.QuickSlot = packedWeapon.QuickSlot;
@@ -316,7 +316,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 var test = BackpackDataHelper.Encode(item);
                 if (packedItem.Data.SequenceEqual(test) == false)
                 {
-                    throw new FormatException();
+                    throw new FormatException("backpack item reencode mismatch");
                 }
 
                 item.Quantity = packedItem.Quantity;

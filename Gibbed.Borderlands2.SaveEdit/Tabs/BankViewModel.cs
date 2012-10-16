@@ -274,7 +274,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 var test = BaseDataHelper.Encode(slot);
                 if (bankSlot.Data.SequenceEqual(test) == false)
                 {
-                    throw new FormatException();
+                    throw new FormatException("bank slot reencode mismatch");
                 }
 
                 if (slot is BaseWeapon)
