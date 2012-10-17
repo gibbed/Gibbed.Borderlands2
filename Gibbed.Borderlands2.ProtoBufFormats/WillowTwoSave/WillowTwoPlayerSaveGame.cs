@@ -1011,7 +1011,8 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
             {
                 if (value != this._IsBadassModeSaveGame)
                 {
-                    this._IsBadassModeSaveGame = value;
+                    //this._IsBadassModeSaveGame = value;
+                    this._IsBadassModeSaveGame = false;
                     this.NotifyPropertyChanged("IsBadassModeSaveGame");
                 }
             }

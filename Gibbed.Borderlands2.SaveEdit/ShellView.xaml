@@ -155,6 +155,17 @@
                 </DataTemplate>
               </xctk:EditorDefinition.EditorTemplate>
             </xctk:EditorDefinition>
+            <xctk:EditorDefinition>
+              <!-- Prevent editing of IsBadassMode -->
+              <xctk:EditorDefinition.PropertiesDefinitions>
+                <xctk:PropertyDefinition Name="IsBadassModeSaveGame" />
+              </xctk:EditorDefinition.PropertiesDefinitions>
+              <xctk:EditorDefinition.EditorTemplate>
+                <DataTemplate>
+                  <TextBlock Text="{Binding Value}" />
+                </DataTemplate>
+              </xctk:EditorDefinition.EditorTemplate>
+            </xctk:EditorDefinition>
           </xctk:PropertyGrid.EditorDefinitions>
         </xctk:PropertyGrid>
       </TabItem>
