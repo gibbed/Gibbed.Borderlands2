@@ -29,7 +29,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
     public class RegionGameStageData : IComposable, INotifyPropertyChanged
     {
         #region Fields
-        private string _RegionDef;
+        private string _RegionDefinition;
         private int _GameStage;
         private int _PlaythroughIdx;
         private int _Unknown4;
@@ -48,15 +48,15 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         #region Properties
         [ProtoMember(1, IsRequired = true)]
-        public string RegionDef
+        public string RegionDefinition
         {
-            get { return this._RegionDef; }
+            get { return this._RegionDefinition; }
             set
             {
-                if (value != this._RegionDef)
+                if (value != this._RegionDefinition)
                 {
-                    this._RegionDef = value;
-                    this.NotifyPropertyChanged("RegionDef");
+                    this._RegionDefinition = value;
+                    this.NotifyPropertyChanged("RegionDefinition");
                 }
             }
         }
