@@ -58,7 +58,7 @@
       <xctk:IntegerUpDown Grid.Row="0"
                           Grid.Column="1"
                           Margin="3"
-                          Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[0], UpdateSourceTrigger=PropertyChanged}" />
+                          Value="{Binding Path=Credits, UpdateSourceTrigger=PropertyChanged}" />
       <Grid Grid.Row="1"
             Grid.Column="0">
         <Grid.RowDefinitions>
@@ -80,7 +80,7 @@
       <xctk:IntegerUpDown Grid.Row="1"
                           Grid.Column="1"
                           Margin="3"
-                          Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[1], UpdateSourceTrigger=PropertyChanged}" />
+                          Value="{Binding Path=Eridium, UpdateSourceTrigger=PropertyChanged}" />
       <Grid Grid.Row="2"
             Grid.Column="0">
         <Grid.RowDefinitions>
@@ -102,7 +102,7 @@
       <xctk:IntegerUpDown Grid.Row="2"
                           Grid.Column="1"
                           Margin="3"
-                          Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[2], UpdateSourceTrigger=PropertyChanged}" />
+                          Value="{Binding Path=SeraphCrystals, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
     <Expander Header="Reserved"
               IsExpanded="False">
@@ -130,7 +130,7 @@
                Content="A:" />
         <xctk:IntegerUpDown Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[3], UpdateSourceTrigger=PropertyChanged}" />
+                            Value="{Binding Path=ReservedA, UpdateSourceTrigger=PropertyChanged}" />
         <Label Grid.Row="1"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
@@ -138,7 +138,7 @@
         <xctk:IntegerUpDown Grid.Row="1"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[4], UpdateSourceTrigger=PropertyChanged}" />
+                            Value="{Binding Path=ReservedB, UpdateSourceTrigger=PropertyChanged}" />
         <Label Grid.Row="2"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
@@ -146,7 +146,7 @@
         <xctk:IntegerUpDown Grid.Row="2"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[5], UpdateSourceTrigger=PropertyChanged}" />
+                            Value="{Binding Path=ReservedC, UpdateSourceTrigger=PropertyChanged}" />
         <Label Grid.Row="3"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
@@ -154,7 +154,7 @@
         <xctk:IntegerUpDown Grid.Row="3"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[6], UpdateSourceTrigger=PropertyChanged}" />
+                            Value="{Binding Path=ReservedD, UpdateSourceTrigger=PropertyChanged}" />
         <Label Grid.Row="4"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
@@ -162,7 +162,7 @@
         <xctk:IntegerUpDown Grid.Row="4"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[7], UpdateSourceTrigger=PropertyChanged}" />
+                            Value="{Binding Path=ReservedE, UpdateSourceTrigger=PropertyChanged}" />
         <Label Grid.Row="5"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
@@ -170,7 +170,7 @@
         <xctk:IntegerUpDown Grid.Row="5"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[8], UpdateSourceTrigger=PropertyChanged}" />
+                            Value="{Binding Path=ReservedF, UpdateSourceTrigger=PropertyChanged}" />
         <Label Grid.Row="6"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
@@ -178,7 +178,7 @@
         <xctk:IntegerUpDown Grid.Row="6"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[9], UpdateSourceTrigger=PropertyChanged}" />
+                            Value="{Binding Path=ReservedG, UpdateSourceTrigger=PropertyChanged}" />
         <Label Grid.Row="7"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
@@ -186,7 +186,7 @@
         <xctk:IntegerUpDown Grid.Row="7"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[10], UpdateSourceTrigger=PropertyChanged}" />
+                            Value="{Binding Path=ReservedH, UpdateSourceTrigger=PropertyChanged}" />
         <Label Grid.Row="8"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
@@ -194,7 +194,7 @@
         <xctk:IntegerUpDown Grid.Row="8"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[11], UpdateSourceTrigger=PropertyChanged}" />
+                            Value="{Binding Path=ReservedI, UpdateSourceTrigger=PropertyChanged}" />
         <Label Grid.Row="9"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
@@ -202,7 +202,7 @@
         <xctk:IntegerUpDown Grid.Row="9"
                             Grid.Column="1"
                             Margin="3"
-                            Value="{Binding Path=SaveFile.SaveGame.CurrencyOnHand[12], UpdateSourceTrigger=PropertyChanged}" />
+                            Value="{Binding Path=ReservedJ, UpdateSourceTrigger=PropertyChanged}" />
       </Grid>
     </Expander>
   </StackPanel>

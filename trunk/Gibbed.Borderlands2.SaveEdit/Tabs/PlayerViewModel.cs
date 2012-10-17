@@ -27,18 +27,18 @@ using System.Linq;
 using System.Text;
 using Caliburn.Micro;
 using Gibbed.Borderlands2.GameInfo;
+using Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave;
 using Gibbed.IO;
 
 namespace Gibbed.Borderlands2.SaveEdit
 {
     [Export(typeof(PlayerViewModel))]
-    internal class PlayerViewModel : PropertyChangedBase, IHandle<SaveUnpackMessage>, IHandle<SavePackMessage>
+    internal class PlayerViewModel : PropertyChangedBase
     {
         #region Fields
         private readonly IEventAggregator _Events;
         private Endian _Endian;
         private int _SaveGameId;
-        private FileFormats.SaveFile _SaveFile;
         private string _PlayerClassDefinition = "GD_Assassin.Character.CharClass_Assassin";
         private int _ExpLevel = 1;
         private int _ExpPoints;
@@ -50,21 +50,6 @@ namespace Gibbed.Borderlands2.SaveEdit
         #endregion
 
         #region Properties
-        /*
-        public FileFormats.SaveFile SaveFile
-        {
-            get { return this._SaveFile; }
-            private set
-            {
-                if (this._SaveFile != value)
-                {
-                    this._SaveFile = value;
-                    this.NotifyOfPropertyChange(() => this.SaveFile);
-                }
-            }
-        }
-        */
-
         public Endian Endian
         {
             get { return this._Endian; }
@@ -330,12 +315,9 @@ namespace Gibbed.Borderlands2.SaveEdit
             this.SelectedSkin = selectedSkin;
         }
 
-        public void Handle(SaveUnpackMessage message)
+        public void ImportData(WillowTwoPlayerSaveGame saveGame, Endian endian)
         {
-            this._SaveFile = message.SaveFile;
-            this.Endian = this._SaveFile.Endian;
-
-            var saveGame = this._SaveFile.SaveGame;
+            this.Endian = endian;
             this.SaveGameId = saveGame.SaveGameId;
             this.PlayerClassDefinition = saveGame.PlayerClassDefinition;
             this.ExpLevel = saveGame.ExpLevel;
@@ -348,11 +330,9 @@ namespace Gibbed.Borderlands2.SaveEdit
             this.BuildCustomizationAssets();
         }
 
-        public void Handle(SavePackMessage message)
+        public void ExportData(WillowTwoPlayerSaveGame saveGame, out Endian endian)
         {
-            message.SaveFile.Endian = this.Endian;
-
-            var saveGame = message.SaveFile.SaveGame;
+            endian = this.Endian;
             saveGame.SaveGameId = this.SaveGameId;
             saveGame.PlayerClassDefinition = this.PlayerClassDefinition;
             saveGame.ExpLevel = this.ExpLevel;

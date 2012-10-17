@@ -28,6 +28,7 @@ using System.Windows;
 using Caliburn.Micro;
 using Caliburn.Micro.Contrib;
 using Caliburn.Micro.Contrib.Results;
+using Gibbed.IO;
 
 namespace Gibbed.Borderlands2.SaveEdit
 {
@@ -153,13 +154,17 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             yield return new DelegateResult(() =>
             {
+                FileFormats.SaveFile saveFile;
                 using (var input = File.OpenRead(fileName))
                 {
-                    FileFormats.SaveFile saveFile;
                     saveFile = FileFormats.SaveFile.Deserialize(input, FileFormats.SaveFile.DeserializeSettings.None);
-                    this.SaveFile = saveFile;
-                    this._Events.Publish(new SaveUnpackMessage(saveFile));
                 }
+
+                this.SaveFile = saveFile;
+                this.Player.ImportData(saveFile.SaveGame, saveFile.Endian);
+                this.CurrencyOnHand.ImportData(saveFile.SaveGame);
+                this.Backpack.ImportData(saveFile.SaveGame);
+                this.Bank.ImportData(saveFile.SaveGame);
             })
                 .Rescue<DllNotFoundException>().Execute(
                     x => new MyMessageBox("Failed to load save: " + x.Message, "Error")
@@ -209,12 +214,20 @@ namespace Gibbed.Borderlands2.SaveEdit
                 yield break;
             }
 
+            var saveFile = this.SaveFile;
+
             yield return new DelegateResult(() =>
             {
-                this._Events.Publish(new SavePackMessage(this.SaveFile));
+                Endian endian;
+                this.Player.ExportData(saveFile.SaveGame, out endian);
+                this.CurrencyOnHand.ExportData(saveFile.SaveGame);
+                this.Backpack.ExportData(saveFile.SaveGame);
+                this.Bank.ExportData(saveFile.SaveGame);
+
                 using (var output = File.Create(fileName))
                 {
-                    this.SaveFile.Serialize(output);
+                    saveFile.Endian = endian;
+                    saveFile.Serialize(output);
                 }
             }).Rescue().Execute(
                 x =>

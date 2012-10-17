@@ -32,14 +32,14 @@ using System.Windows;
 using Caliburn.Micro;
 using Caliburn.Micro.Contrib.Results;
 using Gibbed.Borderlands2.FileFormats.Items;
+using Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave;
 
 namespace Gibbed.Borderlands2.SaveEdit
 {
     [Export(typeof(BankViewModel))]
-    internal class BankViewModel : PropertyChangedBase, IHandle<SaveUnpackMessage>, IHandle<SavePackMessage>
+    internal class BankViewModel : PropertyChangedBase
     {
         #region Fields
-        private FileFormats.SaveFile _SaveFile;
         private readonly ObservableCollection<IBaseSlotViewModel> _Slots;
 
         private IBaseSlotViewModel _SelectedSlot;
@@ -262,13 +262,11 @@ namespace Gibbed.Borderlands2.SaveEdit
             this.SelectedSlot = this.Slots.FirstOrDefault();
         }
 
-        public void Handle(SaveUnpackMessage message)
+        public void ImportData(WillowTwoPlayerSaveGame saveGame)
         {
-            this._SaveFile = message.SaveFile;
-
             this.Slots.Clear();
 
-            foreach (var bankSlot in this._SaveFile.SaveGame.BankSlots)
+            foreach (var bankSlot in saveGame.BankSlots)
             {
                 var slot = BaseDataHelper.Decode(bankSlot.Data);
                 var test = BaseDataHelper.Encode(slot);
@@ -290,11 +288,9 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        public void Handle(SavePackMessage message)
+        public void ExportData(WillowTwoPlayerSaveGame saveGame)
         {
-            var saveFile = message.SaveFile;
-
-            saveFile.SaveGame.BankSlots.Clear();
+            saveGame.BankSlots.Clear();
 
             foreach (var viewModel in this.Slots)
             {
@@ -305,7 +301,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                     var weapon = (BaseWeapon)slot;
                     var data = BaseDataHelper.Encode(weapon);
 
-                    saveFile.SaveGame.BankSlots.Add(new ProtoBufFormats.WillowTwoSave.BankSlot()
+                    saveGame.BankSlots.Add(new BankSlot()
                     {
                         Data = data,
                     });
@@ -315,7 +311,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                     var item = (BaseItem)slot;
                     var data = BaseDataHelper.Encode(item);
 
-                    saveFile.SaveGame.BankSlots.Add(new ProtoBufFormats.WillowTwoSave.BankSlot()
+                    saveGame.BankSlots.Add(new BankSlot()
                     {
                         Data = data,
                     });
