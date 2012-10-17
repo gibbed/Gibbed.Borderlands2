@@ -31,9 +31,9 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
     public class MissionData : IComposable, INotifyPropertyChanged
     {
         #region Fields
-        private string _MissionDef;
+        private string _MissionDefinition;
         private MissionStatus _Status;
-        private bool _IsDLCMission;
+        private bool _IsFromDLC;
         private int _DLCPackageId;
         private List<int> _ObjectivesProgress;
         private int _ActiveObjectiveSetIndex;
@@ -90,15 +90,15 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         #region Properties
         [ProtoMember(1, IsRequired = true)]
-        public string MissionDef
+        public string MissionDefinition
         {
-            get { return this._MissionDef; }
+            get { return this._MissionDefinition; }
             set
             {
-                if (value != this._MissionDef)
+                if (value != this._MissionDefinition)
                 {
-                    this._MissionDef = value;
-                    this.NotifyPropertyChanged("MissionDef");
+                    this._MissionDefinition = value;
+                    this.NotifyPropertyChanged("MissionDefinition");
                 }
             }
         }
@@ -118,15 +118,15 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(3, IsRequired = true)]
-        public bool IsDLCMission
+        public bool IsFromDLC
         {
-            get { return this._IsDLCMission; }
+            get { return this._IsFromDLC; }
             set
             {
-                if (value != this._IsDLCMission)
+                if (value != this._IsFromDLC)
                 {
-                    this._IsDLCMission = value;
-                    this.NotifyPropertyChanged("IsDLCMission");
+                    this._IsFromDLC = value;
+                    this.NotifyPropertyChanged("IsFromDLC");
                 }
             }
         }
@@ -258,7 +258,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         public override string ToString()
         {
-            return this.MissionDef ?? base.ToString();
+            return this.MissionDefinition ?? base.ToString();
         }
     }
 }

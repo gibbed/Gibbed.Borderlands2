@@ -29,10 +29,10 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
     public class LockoutData : IComposable, INotifyPropertyChanged
     {
         #region Fields
-        private string _SkillDefinition;
-        private int _Grade;
-        private int _GradePoints;
-        private int _EquippedSlotIndex;
+        private string _LockoutDefinition;
+        private int _LockoutTime;
+        private bool _IsFromDLC;
+        private int _DLCPackageId;
         #endregion
 
         #region IComposable Members
@@ -47,57 +47,57 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         #region Properties
         [ProtoMember(1, IsRequired = true)]
-        public string SkillDefinition
+        public string LockoutDefinition
         {
-            get { return this._SkillDefinition; }
+            get { return this._LockoutDefinition; }
             set
             {
-                if (value != this._SkillDefinition)
+                if (value != this._LockoutDefinition)
                 {
-                    this._SkillDefinition = value;
-                    this.NotifyPropertyChanged("SkillDefinition");
+                    this._LockoutDefinition = value;
+                    this.NotifyPropertyChanged("LockoutDefinition");
                 }
             }
         }
 
         [ProtoMember(2, IsRequired = true)]
-        public int Grade
+        public int LockoutTime
         {
-            get { return this._Grade; }
+            get { return this._LockoutTime; }
             set
             {
-                if (value != this._Grade)
+                if (value != this._LockoutTime)
                 {
-                    this._Grade = value;
-                    this.NotifyPropertyChanged("Grade");
+                    this._LockoutTime = value;
+                    this.NotifyPropertyChanged("LockoutTime");
                 }
             }
         }
 
         [ProtoMember(3, IsRequired = true)]
-        public int GradePoints
+        public bool IsFromDLC
         {
-            get { return this._GradePoints; }
+            get { return this._IsFromDLC; }
             set
             {
-                if (value != this._GradePoints)
+                if (value != this._IsFromDLC)
                 {
-                    this._GradePoints = value;
-                    this.NotifyPropertyChanged("GradePoints");
+                    this._IsFromDLC = value;
+                    this.NotifyPropertyChanged("IsFromDLC");
                 }
             }
         }
 
         [ProtoMember(4, IsRequired = true)]
-        public int EquippedSlotIndex
+        public int DLCPackageId
         {
-            get { return this._EquippedSlotIndex; }
+            get { return this._DLCPackageId; }
             set
             {
-                if (value != this._EquippedSlotIndex)
+                if (value != this._DLCPackageId)
                 {
-                    this._EquippedSlotIndex = value;
-                    this.NotifyPropertyChanged("EquippedSlotIndex");
+                    this._DLCPackageId = value;
+                    this.NotifyPropertyChanged("DLCPackageId");
                 }
             }
         }
