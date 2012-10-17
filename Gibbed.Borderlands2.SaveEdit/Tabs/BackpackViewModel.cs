@@ -32,16 +32,14 @@ using System.Windows;
 using Caliburn.Micro;
 using Caliburn.Micro.Contrib.Results;
 using Gibbed.Borderlands2.FileFormats.Items;
-using PlayerMark = Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave.PlayerMark;
-using QuickWeaponSlot = Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave.QuickWeaponSlot;
+using Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave;
 
 namespace Gibbed.Borderlands2.SaveEdit
 {
     [Export(typeof(BackpackViewModel))]
-    internal class BackpackViewModel : PropertyChangedBase, IHandle<SaveUnpackMessage>, IHandle<SavePackMessage>
+    internal class BackpackViewModel : PropertyChangedBase
     {
         #region Fields
-        private FileFormats.SaveFile _SaveFile;
         private readonly ObservableCollection<IBackpackSlotViewModel> _Slots;
 
         private IBackpackSlotViewModel _SelectedSlot;
@@ -288,13 +286,11 @@ namespace Gibbed.Borderlands2.SaveEdit
             this.SelectedSlot = this.Slots.FirstOrDefault();
         }
 
-        public void Handle(SaveUnpackMessage message)
+        public void ImportData(WillowTwoPlayerSaveGame saveGame)
         {
-            this._SaveFile = message.SaveFile;
-
             this.Slots.Clear();
 
-            foreach (var packedWeapon in this._SaveFile.SaveGame.PackedWeaponData)
+            foreach (var packedWeapon in saveGame.PackedWeaponData)
             {
                 var weapon = (BackpackWeapon)BackpackDataHelper.Decode(packedWeapon.Data);
                 var test = BackpackDataHelper.Encode(weapon);
@@ -310,7 +306,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 this.Slots.Add(viewModel);
             }
 
-            foreach (var packedItem in this._SaveFile.SaveGame.PackedItemData)
+            foreach (var packedItem in saveGame.PackedItemData)
             {
                 var item = (BackpackItem)BackpackDataHelper.Decode(packedItem.Data);
                 var test = BackpackDataHelper.Encode(item);
@@ -328,12 +324,10 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        public void Handle(SavePackMessage message)
+        public void ExportData(WillowTwoPlayerSaveGame saveGame)
         {
-            var saveFile = message.SaveFile;
-
-            saveFile.SaveGame.PackedWeaponData.Clear();
-            saveFile.SaveGame.PackedItemData.Clear();
+            saveGame.PackedWeaponData.Clear();
+            saveGame.PackedItemData.Clear();
 
             foreach (var viewModel in this.Slots)
             {
@@ -344,7 +338,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                     var weapon = (BackpackWeapon)slot;
                     var data = BackpackDataHelper.Encode(weapon);
 
-                    saveFile.SaveGame.PackedWeaponData.Add(new ProtoBufFormats.WillowTwoSave.PackedWeaponData()
+                    saveGame.PackedWeaponData.Add(new PackedWeaponData()
                     {
                         Data = data,
                         QuickSlot = weapon.QuickSlot,
@@ -356,7 +350,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                     var item = (BackpackItem)slot;
                     var data = BackpackDataHelper.Encode(item);
 
-                    saveFile.SaveGame.PackedItemData.Add(new ProtoBufFormats.WillowTwoSave.PackedItemData()
+                    saveGame.PackedItemData.Add(new PackedItemData()
                     {
                         Data = data,
                         Quantity = item.Quantity,

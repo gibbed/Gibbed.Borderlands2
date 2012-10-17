@@ -125,7 +125,6 @@
       <DependentUpon>PlayerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\PropertyProxy.cs" />
-    <Compile Include="Messages\SavePackMessage.cs" />
     <Compile Include="ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
@@ -143,7 +142,6 @@
     <Compile Include="AppWindowManager.cs" />
     <Compile Include="Tabs\BackpackViewModel.cs" />
     <Compile Include="Tabs\PlayerViewModel.cs" />
-    <Compile Include="Messages\SaveUnpackMessage.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
