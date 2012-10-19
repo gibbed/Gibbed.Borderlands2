@@ -39,7 +39,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         private readonly IEventAggregator _Events;
         private readonly string _SavePath;
         private FileFormats.SaveFile _SaveFile;
-        private PlayerViewModel _Player;
+        private GeneralViewModel _General;
         private CurrencyOnHandViewModel _CurrencyOnHand;
         private BackpackViewModel _Backpack;
         private BankViewModel _Bank;
@@ -59,15 +59,15 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        [Import(typeof(PlayerViewModel))]
-        public PlayerViewModel Player
+        [Import(typeof(GeneralViewModel))]
+        public GeneralViewModel General
         {
-            get { return this._Player; }
+            get { return this._General; }
 
             set
             {
-                this._Player = value;
-                this.NotifyOfPropertyChange(() => this.Player);
+                this._General = value;
+                this.NotifyOfPropertyChange(() => this.General);
             }
         }
 
@@ -161,7 +161,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 }
 
                 this.SaveFile = saveFile;
-                this.Player.ImportData(saveFile.SaveGame, saveFile.Endian);
+                this.General.ImportData(saveFile.SaveGame, saveFile.Endian);
                 this.CurrencyOnHand.ImportData(saveFile.SaveGame);
                 this.Backpack.ImportData(saveFile.SaveGame);
                 this.Bank.ImportData(saveFile.SaveGame);
@@ -219,7 +219,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             yield return new DelegateResult(() =>
             {
                 Endian endian;
-                this.Player.ExportData(saveFile.SaveGame, out endian);
+                this.General.ExportData(saveFile.SaveGame, out endian);
                 this.CurrencyOnHand.ExportData(saveFile.SaveGame);
                 this.Backpack.ExportData(saveFile.SaveGame);
                 this.Bank.ExportData(saveFile.SaveGame);

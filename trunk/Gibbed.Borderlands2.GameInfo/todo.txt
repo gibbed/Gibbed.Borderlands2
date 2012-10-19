@@ -1,6 +1,2 @@
-- Figure out why some shields don't have any balance information.
-
-- Manufacturer, Title, and Prefix lists (outside of asset libraries).
-
 - Title, Prefix info (for namegen in SaveEdit). Will need info for
   non-title/prefix parts too, since Title/Prefix can be None.

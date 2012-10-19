@@ -92,20 +92,20 @@
              ToolTip="Unsupported value, item will probably be deleted.">
         <Image.Visibility>
           <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
-            <Binding ElementName="TypeDefinitionComboBox"
+            <Binding ElementName="TypeComboBox"
                      Path="ItemsSource"
                      Mode="OneWay" />
-            <Binding ElementName="TypeDefinitionComboBox"
+            <Binding ElementName="TypeComboBox"
                      Path="Text"
                      Mode="OneWay" />
           </MultiBinding>
         </Image.Visibility>
       </Image>
-      <se:MyComboBox x:Name="TypeDefinitionComboBox"
+      <se:MyComboBox x:Name="TypeComboBox"
                      IsEditable="true"
                      ItemsSource="{Binding Path=TypeAssets}">
         <ComboBox.Text>
-          <Binding Path="TypeDefinition"
+          <Binding Path="Type"
                    UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="TypeValidator" />
@@ -128,20 +128,20 @@
              ToolTip="Unsupported value, item will probably be deleted.">
         <Image.Visibility>
           <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
-            <Binding ElementName="BalanceDefinitionComboBox"
+            <Binding ElementName="BalanceComboBox"
                      Path="ItemsSource"
                      Mode="OneWay" />
-            <Binding ElementName="BalanceDefinitionComboBox"
+            <Binding ElementName="BalanceComboBox"
                      Path="Text"
                      Mode="OneWay" />
           </MultiBinding>
         </Image.Visibility>
       </Image>
-      <se:MyComboBox x:Name="BalanceDefinitionComboBox"
+      <se:MyComboBox x:Name="BalanceComboBox"
                      IsEditable="true"
                      ItemsSource="{Binding Path=BalanceAssets}">
         <ComboBox.Text>
-          <Binding Path="BalanceDefinition"
+          <Binding Path="Balance"
                    UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="BalanceValidator" />
@@ -157,26 +157,11 @@
     <DockPanel Grid.Row="3"
                Grid.Column="1"
                LastChildFill="True">
-      <Image DockPanel.Dock="Right"
-             Width="16"
-             Margin="2,0,0,0"
-             Source="..\Resources\fugue\exclamation.png"
-             ToolTip="Unsupported value, item will probably be deleted.">
-        <Image.Visibility>
-          <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
-            <Binding ElementName="ManufacturerDefinitionComboBox"
-                     Path="ItemsSource"
-                     Mode="OneWay" />
-            <Binding ElementName="ManufacturerDefinitionComboBox"
-                     Path="Text"
-                     Mode="OneWay" />
-          </MultiBinding>
-        </Image.Visibility>
-      </Image>
-      <se:MyComboBox x:Name="ManufacturerDefinitionComboBox"
-                     IsEditable="true">
+      <se:MyComboBox x:Name="ManufacturerComboBox"
+                     IsEditable="true"
+                     ItemsSource="{Binding Path=ManufacturerAssets}">
         <ComboBox.Text>
-          <Binding Path="ManufacturerDefinition"
+          <Binding Path="Manufacturer"
                    UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="ManufacturerValidator" />
@@ -208,20 +193,20 @@
              ToolTip="Unsupported value, item will probably be deleted.">
         <Image.Visibility>
           <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
-            <Binding ElementName="AlphaPartDefinitionComboBox"
+            <Binding ElementName="AlphaPartComboBox"
                      Path="ItemsSource"
                      Mode="OneWay" />
-            <Binding ElementName="AlphaPartDefinitionComboBox"
+            <Binding ElementName="AlphaPartComboBox"
                      Path="Text"
                      Mode="OneWay" />
           </MultiBinding>
         </Image.Visibility>
       </Image>
-      <se:MyComboBox x:Name="AlphaPartDefinitionComboBox"
+      <se:MyComboBox x:Name="AlphaPartComboBox"
                      IsEditable="true"
                      ItemsSource="{Binding Path=AlphaPartAssets}">
         <ComboBox.Text>
-          <Binding Path="AlphaPartDefinition"
+          <Binding Path="AlphaPart"
                    UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="PartValidator" />
@@ -244,20 +229,20 @@
              ToolTip="Unsupported value, item will probably be deleted.">
         <Image.Visibility>
           <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
-            <Binding ElementName="BetaPartDefinitionComboBox"
+            <Binding ElementName="BetaPartComboBox"
                      Path="ItemsSource"
                      Mode="OneWay" />
-            <Binding ElementName="BetaPartDefinitionComboBox"
+            <Binding ElementName="BetaPartComboBox"
                      Path="Text"
                      Mode="OneWay" />
           </MultiBinding>
         </Image.Visibility>
       </Image>
-      <se:MyComboBox x:Name="BetaPartDefinitionComboBox"
+      <se:MyComboBox x:Name="BetaPartComboBox"
                      IsEditable="true"
                      ItemsSource="{Binding Path=BetaPartAssets}">
         <ComboBox.Text>
-          <Binding Path="BetaPartDefinition"
+          <Binding Path="BetaPart"
                    UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="PartValidator" />
@@ -280,20 +265,20 @@
              ToolTip="Unsupported value, item will probably be deleted.">
         <Image.Visibility>
           <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
-            <Binding ElementName="GammaPartDefinitionComboBox"
+            <Binding ElementName="GammaPartComboBox"
                      Path="ItemsSource"
                      Mode="OneWay" />
-            <Binding ElementName="GammaPartDefinitionComboBox"
+            <Binding ElementName="GammaPartComboBox"
                      Path="Text"
                      Mode="OneWay" />
           </MultiBinding>
         </Image.Visibility>
       </Image>
-      <se:MyComboBox x:Name="GammaPartDefinitionComboBox"
+      <se:MyComboBox x:Name="GammaPartComboBox"
                      IsEditable="true"
                      ItemsSource="{Binding Path=GammaPartAssets}">
         <ComboBox.Text>
-          <Binding Path="GammaPartDefinition"
+          <Binding Path="GammaPart"
                    UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="PartValidator" />
@@ -316,20 +301,20 @@
              ToolTip="Unsupported value, item will probably be deleted.">
         <Image.Visibility>
           <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
-            <Binding ElementName="DeltaPartDefinitionComboBox"
+            <Binding ElementName="DeltaPartComboBox"
                      Path="ItemsSource"
                      Mode="OneWay" />
-            <Binding ElementName="DeltaPartDefinitionComboBox"
+            <Binding ElementName="DeltaPartComboBox"
                      Path="Text"
                      Mode="OneWay" />
           </MultiBinding>
         </Image.Visibility>
       </Image>
-      <se:MyComboBox x:Name="DeltaPartDefinitionComboBox"
+      <se:MyComboBox x:Name="DeltaPartComboBox"
                      IsEditable="true"
                      ItemsSource="{Binding Path=DeltaPartAssets}">
         <ComboBox.Text>
-          <Binding Path="DeltaPartDefinition"
+          <Binding Path="DeltaPart"
                    UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="PartValidator" />
@@ -352,20 +337,20 @@
              ToolTip="Unsupported value, item will probably be deleted.">
         <Image.Visibility>
           <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
-            <Binding ElementName="EpsilonPartDefinitionComboBox"
+            <Binding ElementName="EpsilonPartComboBox"
                      Path="ItemsSource"
                      Mode="OneWay" />
-            <Binding ElementName="EpsilonPartDefinitionComboBox"
+            <Binding ElementName="EpsilonPartComboBox"
                      Path="Text"
                      Mode="OneWay" />
           </MultiBinding>
         </Image.Visibility>
       </Image>
-      <se:MyComboBox x:Name="EpsilonPartDefinitionComboBox"
+      <se:MyComboBox x:Name="EpsilonPartComboBox"
                      IsEditable="true"
                      ItemsSource="{Binding Path=EpsilonPartAssets}">
         <ComboBox.Text>
-          <Binding Path="EpsilonPartDefinition"
+          <Binding Path="EpsilonPart"
                    UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="PartValidator" />
@@ -388,20 +373,20 @@
              ToolTip="Unsupported value, item will probably be deleted.">
         <Image.Visibility>
           <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
-            <Binding ElementName="ZetaPartDefinitionComboBox"
+            <Binding ElementName="ZetaPartComboBox"
                      Path="ItemsSource"
                      Mode="OneWay" />
-            <Binding ElementName="ZetaPartDefinitionComboBox"
+            <Binding ElementName="ZetaPartComboBox"
                      Path="Text"
                      Mode="OneWay" />
           </MultiBinding>
         </Image.Visibility>
       </Image>
-      <se:MyComboBox x:Name="ZetaPartDefinitionComboBox"
+      <se:MyComboBox x:Name="ZetaPartComboBox"
                      IsEditable="true"
                      ItemsSource="{Binding Path=ZetaPartAssets}">
         <ComboBox.Text>
-          <Binding Path="ZetaPartDefinition"
+          <Binding Path="ZetaPart"
                    UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="PartValidator" />
@@ -424,20 +409,20 @@
              ToolTip="Unsupported value, item will probably be deleted.">
         <Image.Visibility>
           <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
-            <Binding ElementName="EtaPartDefinitionComboBox"
+            <Binding ElementName="EtaPartComboBox"
                      Path="ItemsSource"
                      Mode="OneWay" />
-            <Binding ElementName="EtaPartDefinitionComboBox"
+            <Binding ElementName="EtaPartComboBox"
                      Path="Text"
                      Mode="OneWay" />
           </MultiBinding>
         </Image.Visibility>
       </Image>
-      <se:MyComboBox x:Name="EtaPartDefinitionComboBox"
+      <se:MyComboBox x:Name="EtaPartComboBox"
                      IsEditable="true"
                      ItemsSource="{Binding Path=EtaPartAssets}">
         <ComboBox.Text>
-          <Binding Path="EtaPartDefinition"
+          <Binding Path="EtaPart"
                    UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="PartValidator" />
@@ -460,20 +445,20 @@
              ToolTip="Unsupported value, item will probably be deleted.">
         <Image.Visibility>
           <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
-            <Binding ElementName="ThetaPartDefinitionComboBox"
+            <Binding ElementName="ThetaPartComboBox"
                      Path="ItemsSource"
                      Mode="OneWay" />
-            <Binding ElementName="ThetaPartDefinitionComboBox"
+            <Binding ElementName="ThetaPartComboBox"
                      Path="Text"
                      Mode="OneWay" />
           </MultiBinding>
         </Image.Visibility>
       </Image>
-      <se:MyComboBox x:Name="ThetaPartDefinitionComboBox"
+      <se:MyComboBox x:Name="ThetaPartComboBox"
                      IsEditable="true"
                      ItemsSource="{Binding Path=ThetaPartAssets}">
         <ComboBox.Text>
-          <Binding Path="ThetaPartDefinition"
+          <Binding Path="ThetaPart"
                    UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="PartValidator" />
@@ -496,20 +481,20 @@
              ToolTip="Unsupported value, item will probably be deleted.">
         <Image.Visibility>
           <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
-            <Binding ElementName="MaterialPartDefinitionComboBox"
+            <Binding ElementName="MaterialPartComboBox"
                      Path="ItemsSource"
                      Mode="OneWay" />
-            <Binding ElementName="MaterialPartDefinitionComboBox"
+            <Binding ElementName="MaterialPartComboBox"
                      Path="Text"
                      Mode="OneWay" />
           </MultiBinding>
         </Image.Visibility>
       </Image>
-      <se:MyComboBox x:Name="MaterialPartDefinitionComboBox"
+      <se:MyComboBox x:Name="MaterialPartComboBox"
                      IsEditable="true"
                      ItemsSource="{Binding Path=MaterialPartAssets}">
         <ComboBox.Text>
-          <Binding Path="MaterialPartDefinition"
+          <Binding Path="MaterialPart"
                    UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="PartValidator" />
@@ -525,26 +510,10 @@
     <DockPanel Grid.Row="14"
                Grid.Column="1"
                LastChildFill="True">
-      <Image DockPanel.Dock="Right"
-             Width="16"
-             Margin="2,0,0,0"
-             Source="..\Resources\fugue\exclamation.png"
-             ToolTip="Unsupported value, item will probably be deleted.">
-        <Image.Visibility>
-          <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
-            <Binding ElementName="PrefixPartDefinitionComboBox"
-                     Path="ItemsSource"
-                     Mode="OneWay" />
-            <Binding ElementName="PrefixPartDefinitionComboBox"
-                     Path="Text"
-                     Mode="OneWay" />
-          </MultiBinding>
-        </Image.Visibility>
-      </Image>
-      <se:MyComboBox x:Name="PrefixPartDefinitionComboBox"
+      <se:MyComboBox x:Name="PrefixPartComboBox"
                      IsEditable="true">
         <ComboBox.Text>
-          <Binding Path="PrefixPartDefinition"
+          <Binding Path="PrefixPart"
                    UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="PartValidator" />
@@ -560,26 +529,10 @@
     <DockPanel Grid.Row="15"
                Grid.Column="1"
                LastChildFill="True">
-      <Image DockPanel.Dock="Right"
-             Width="16"
-             Margin="2,0,0,0"
-             Source="..\Resources\fugue\exclamation.png"
-             ToolTip="Unsupported value, item will probably be deleted.">
-        <Image.Visibility>
-          <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
-            <Binding ElementName="TitlePartDefinitionComboBox"
-                     Path="ItemsSource"
-                     Mode="OneWay" />
-            <Binding ElementName="TitlePartDefinitionComboBox"
-                     Path="Text"
-                     Mode="OneWay" />
-          </MultiBinding>
-        </Image.Visibility>
-      </Image>
-      <se:MyComboBox x:Name="TitlePartDefinitionComboBox"
+      <se:MyComboBox x:Name="TitlePartComboBox"
                      IsEditable="true">
         <ComboBox.Text>
-          <Binding Path="TitlePartDefinition"
+          <Binding Path="TitlePart"
                    UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
               <StaticResource ResourceKey="PartValidator" />

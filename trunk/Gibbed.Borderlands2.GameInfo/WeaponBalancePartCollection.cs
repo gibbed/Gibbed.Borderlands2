@@ -21,48 +21,25 @@
  */
 
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace Gibbed.Borderlands2.GameInfo
 {
-    [JsonObject(MemberSerialization.OptIn)]
     public sealed class WeaponBalancePartCollection
     {
         internal WeaponBalancePartCollection()
         {
         }
 
-        [JsonProperty(PropertyName = "type")]
-        public string TypeDefinition;
-
-        [JsonProperty(PropertyName = "mode")]
-        public PartReplacementMode Mode;
-
-        [JsonProperty(PropertyName = "body")]
-        public List<string> BodyDefinitions;
-
-        [JsonProperty(PropertyName = "grip")]
-        public List<string> GripDefinitions;
-
-        [JsonProperty(PropertyName = "barrel")]
-        public List<string> BarrelDefinitions;
-
-        [JsonProperty(PropertyName = "sight")]
-        public List<string> SightDefinitions;
-
-        [JsonProperty(PropertyName = "stock")]
-        public List<string> StockDefinitions;
-
-        [JsonProperty(PropertyName = "elemental")]
-        public List<string> ElementalDefinitions;
-
-        [JsonProperty(PropertyName = "accessory1")]
-        public List<string> Accessory1Definitions;
-
-        [JsonProperty(PropertyName = "accessory2")]
-        public List<string> Accessory2Definitions;
-
-        [JsonProperty(PropertyName = "material")]
-        public List<string> MaterialDefinitions;
+        public WeaponTypeDefinition Type { get; internal set; }
+        public PartReplacementMode Mode { get; internal set; }
+        public List<string> BodyParts { get; internal set; }
+        public List<string> GripParts { get; internal set; }
+        public List<string> BarrelParts { get; internal set; }
+        public List<string> SightParts { get; internal set; }
+        public List<string> StockParts { get; internal set; }
+        public List<string> ElementalParts { get; internal set; }
+        public List<string> Accessory1Parts { get; internal set; }
+        public List<string> Accessory2Parts { get; internal set; }
+        public List<string> MaterialParts { get; internal set; }
     }
 }

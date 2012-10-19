@@ -121,8 +121,9 @@
       <DependentUpon>BaseWeaponView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\MyComboBox.cs" />
-    <Compile Include="Tabs\PlayerView.xaml.cs">
-      <DependentUpon>PlayerView.xaml</DependentUpon>
+    <Compile Include="Tabs\FastTravelViewModel.cs" />
+    <Compile Include="Tabs\GeneralView.xaml.cs">
+      <DependentUpon>GeneralView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\PropertyProxy.cs" />
     <Compile Include="ShellView.xaml.cs">
@@ -141,7 +142,7 @@
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="AppWindowManager.cs" />
     <Compile Include="Tabs\BackpackViewModel.cs" />
-    <Compile Include="Tabs\PlayerViewModel.cs" />
+    <Compile Include="Tabs\GeneralViewModel.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -201,7 +202,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Tabs\PlayerView.xaml">
+    <Page Include="Tabs\GeneralView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -235,9 +236,6 @@
     <Resource Include="Resources\fugue\folder-open-document.png" />
     <Resource Include="Resources\fugue\luggage.png" />
     <Resource Include="Resources\fugue\piggy-bank.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\player.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\backpack.png" />
@@ -290,6 +288,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\fugue\document-delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\fast travel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\green vault symbol.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\red skull.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

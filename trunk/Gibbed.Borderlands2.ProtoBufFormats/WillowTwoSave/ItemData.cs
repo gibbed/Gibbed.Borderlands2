@@ -29,7 +29,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
     public class ItemData : IComposable, INotifyPropertyChanged
     {
         #region Fields
-        private string _BalanceDefinition;
+        private string _Balance;
         private string _ItemDefinition;
         private string _AlphaItemPartDefinition;
         private string _BetaItemPartDefinition;
@@ -63,12 +63,12 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         [ProtoMember(1, IsRequired = true)]
         public string Unknown1
         {
-            get { return this._BalanceDefinition; }
+            get { return this._Balance; }
             set
             {
-                if (value != this._BalanceDefinition)
+                if (value != this._Balance)
                 {
-                    this._BalanceDefinition = value;
+                    this._Balance = value;
                     this.NotifyPropertyChanged("Unknown1");
                 }
             }

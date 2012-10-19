@@ -20,13 +20,17 @@
  *    distribution.
  */
 
-namespace Gibbed.Borderlands2.SaveEdit
+namespace Gibbed.Borderlands2.GameInfo
 {
-    public partial class PlayerView
+    public sealed class DownloadablePackageDefinition
     {
-        public PlayerView()
+        internal DownloadablePackageDefinition()
         {
-            this.InitializeComponent();
         }
+
+        public string ResourcePath { get; internal set; }
+        public int Id { get; internal set; }
+        public string DLCName { get; internal set; }
+        public string DisplayName { get; internal set; }
     }
 }

@@ -20,32 +20,20 @@
  *    distribution.
  */
 
-#pragma warning disable 649
-
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace Gibbed.Borderlands2.GameInfo
 {
-    [JsonObject(MemberSerialization.OptIn)]
-    public class CustomizationDefinition
+    public sealed class CustomizationDefinition
     {
         internal CustomizationDefinition()
         {
         }
 
-        [JsonProperty(PropertyName = "name", Required = Required.Always)]
-        public string Name;
-
-        [JsonProperty(PropertyName = "type", Required = Required.Always)]
-        public CustomizationType Type;
-
-        [JsonProperty(PropertyName = "usage", Required = Required.Always)]
-        public List<CustomizationUsage> Usage;
-
-        [JsonProperty(PropertyName = "dlc_set")]
-        public string DlcSet;
+        public string ResourcePath { get; internal set; }
+        public string Name { get; internal set; }
+        public CustomizationType Type { get; internal set; }
+        public List<CustomizationUsage> Usage { get; internal set; }
+        public DownloadableContentDefinition DLC { get; internal set; }
     }
 }
-
-#pragma warning restore 649
