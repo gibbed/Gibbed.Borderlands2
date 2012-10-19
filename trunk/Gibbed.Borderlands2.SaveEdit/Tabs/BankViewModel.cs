@@ -205,7 +205,7 @@ namespace Gibbed.Borderlands2.SaveEdit
 
                 // just a hack until I add a way to override the unique ID in Encode()
                 var copy = (IPackable)this.SelectedSlot.BaseSlot.Clone();
-                copy.UniqueId = new Random().Next(int.MinValue, int.MaxValue);
+                copy.UniqueId = 0;
 
                 var data = BaseDataHelper.Encode(copy);
                 var sb = new StringBuilder();
