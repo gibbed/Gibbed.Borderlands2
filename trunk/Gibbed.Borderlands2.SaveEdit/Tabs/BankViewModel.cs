@@ -180,6 +180,13 @@ namespace Gibbed.Borderlands2.SaveEdit
                                      "Warning")
                         .WithIcon(MessageBoxImage.Warning);
             }
+            else if (viewModels.Count == 0)
+            {
+                yield return
+                    new MyMessageBox("Did not find any codes in clipboard.",
+                                     "Warning")
+                        .WithIcon(MessageBoxImage.Warning);
+            }
         }
 
         public IEnumerable<IResult> CopySelectedSlotCode()
