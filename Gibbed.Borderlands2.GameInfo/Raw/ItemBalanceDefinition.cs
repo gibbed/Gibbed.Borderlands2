@@ -22,43 +22,36 @@
 
 #pragma warning disable 649
 
-using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Gibbed.Borderlands2.GameInfo
+namespace Gibbed.Borderlands2.GameInfo.Raw
 {
     [JsonObject(MemberSerialization.OptIn)]
-    public sealed class AssetSublibrary
+    internal sealed class ItemBalanceDefinition
     {
-        internal AssetSublibrary()
+        public ItemBalanceDefinition()
         {
+            this.Types = null;
+            this.Base = null;
+            this.Manufacturers = null;
+            this.Parts = null;
         }
 
-        [JsonProperty(PropertyName = "description")]
-        public string Description;
+        [JsonProperty(PropertyName = "type")]
+        public string Type { get; set; }
 
-        /// <summary>
-        /// The UnrealEngine package that contains the assets.
-        /// </summary>
-        [JsonProperty(PropertyName = "package")]
-        public string Package;
+        [JsonProperty(PropertyName = "types")]
+        public List<string> Types { get; set; }
 
-        /// <summary>
-        /// Paths of assets within the package.
-        /// </summary>
-        [JsonProperty(PropertyName = "assets")]
-        public List<string> Assets = new List<string>();
+        [JsonProperty(PropertyName = "base")]
+        public string Base { get; set; }
 
-        public string GetAsset(int index)
-        {
-            if (index < 0 || index >= this.Assets.Count)
-            {
-                throw new ArgumentOutOfRangeException();
-            }
+        [JsonProperty(PropertyName = "manufacturers")]
+        public List<string> Manufacturers { get; set; }
 
-            return this.Package + "." + this.Assets[index];
-        }
+        [JsonProperty(PropertyName = "parts")]
+        public ItemBalancePartCollection Parts { get; set; }
     }
 }
 

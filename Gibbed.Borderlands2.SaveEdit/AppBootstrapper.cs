@@ -24,9 +24,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
-using System.ComponentModel.Composition.Primitives;
 using System.Linq;
 using System.Reflection;
+using System.Windows;
 using Caliburn.Micro;
 using Caliburn.Micro.Contrib;
 
@@ -85,6 +85,24 @@ namespace Gibbed.Borderlands2.SaveEdit
         protected override void BuildUp(object instance)
         {
             this._Container.SatisfyImportsOnce(instance);
+        }
+
+        protected override void OnStartup(object sender, StartupEventArgs e)
+        {
+            base.OnStartup(sender, e);
+
+            try
+            {
+                GameInfo.InfoManager.Touch();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An exception was thrown (press Ctrl+C to copy this text):\n\n" + ex,
+                                "Error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+                Application.Shutdown(1);
+            }
         }
     }
 }

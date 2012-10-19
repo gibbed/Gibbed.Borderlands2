@@ -28,21 +28,21 @@ namespace Gibbed.Borderlands2.FileFormats.Items
     public class BaseItem : IBaseSlot, IPackable, INotifyPropertyChanged
     {
         #region Fields
-        private string _TypeDefinition = "None";
-        private string _BalanceDefinition = "None";
-        private string _ManufacturerDefinition = "None";
+        private string _Type = "None";
+        private string _Balance = "None";
+        private string _Manufacturer = "None";
         private int _ManufacturerGradeIndex;
-        private string _AlphaPartDefinition = "None";
-        private string _BetaPartDefinition = "None";
-        private string _GammaPartDefinition = "None";
-        private string _DeltaPartDefinition = "None";
-        private string _EpsilonPartDefinition = "None";
-        private string _ZetaPartDefinition = "None";
-        private string _EtaPartDefinition = "None";
-        private string _ThetaPartDefinition = "None";
-        private string _MaterialPartDefinition = "None";
-        private string _PrefixPartDefinition = "None";
-        private string _TitlePartDefinition = "None";
+        private string _AlphaPart = "None";
+        private string _BetaPart = "None";
+        private string _GammaPart = "None";
+        private string _DeltaPart = "None";
+        private string _EpsilonPart = "None";
+        private string _ZetaPart = "None";
+        private string _EtaPart = "None";
+        private string _ThetaPart = "None";
+        private string _MaterialPart = "None";
+        private string _PrefixPart = "None";
+        private string _TitlePart = "None";
         private int _GameStage;
         private int _UniqueId;
         private int _AssetLibrarySetId;
@@ -53,82 +53,82 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         {
             var alm = InfoManager.AssetLibraryManager;
 
-            this.TypeDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemTypes);
-            this.BalanceDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.BalanceDefs);
-            this.ManufacturerDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.Manufacturers);
+            this.Type = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemTypes);
+            this.Balance = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.BalanceDefs);
+            this.Manufacturer = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.Manufacturers);
             this.ManufacturerGradeIndex = reader.ReadInt32(7);
             this.GameStage = reader.ReadInt32(7);
-            this.AlphaPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.BetaPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.GammaPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.DeltaPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.EpsilonPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.ZetaPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.EtaPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.ThetaPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.MaterialPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.PrefixPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.TitlePartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.AlphaPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.BetaPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.GammaPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.DeltaPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.EpsilonPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.ZetaPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.EtaPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.ThetaPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.MaterialPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.PrefixPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.TitlePart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
         }
 
         public void Write(BitWriter writer)
         {
             var alm = InfoManager.AssetLibraryManager;
 
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemTypes, this.TypeDefinition);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.BalanceDefs, this.BalanceDefinition);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.Manufacturers, this.ManufacturerDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemTypes, this.Type);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.BalanceDefs, this.Balance);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.Manufacturers, this.Manufacturer);
             writer.WriteInt32(this.ManufacturerGradeIndex, 7);
             writer.WriteInt32(this.GameStage, 7);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.AlphaPartDefinition);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.BetaPartDefinition);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.GammaPartDefinition);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.DeltaPartDefinition);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.EpsilonPartDefinition);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.ZetaPartDefinition);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.EtaPartDefinition);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.ThetaPartDefinition);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.MaterialPartDefinition);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.PrefixPartDefinition);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.TitlePartDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.AlphaPart);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.BetaPart);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.GammaPart);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.DeltaPart);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.EpsilonPart);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.ZetaPart);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.EtaPart);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.ThetaPart);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.MaterialPart);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.PrefixPart);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.TitlePart);
         }
         #endregion
 
         #region Properties
-        public string TypeDefinition
+        public string Type
         {
-            get { return this._TypeDefinition; }
+            get { return this._Type; }
             set
             {
-                if (value != this._TypeDefinition)
+                if (value != this._Type)
                 {
-                    this._TypeDefinition = value;
+                    this._Type = value;
                     this.NotifyPropertyChanged("Type");
                 }
             }
         }
 
-        public string BalanceDefinition
+        public string Balance
         {
-            get { return this._BalanceDefinition; }
+            get { return this._Balance; }
             set
             {
-                if (value != this._BalanceDefinition)
+                if (value != this._Balance)
                 {
-                    this._BalanceDefinition = value;
+                    this._Balance = value;
                     this.NotifyPropertyChanged("Balance");
                 }
             }
         }
 
-        public string ManufacturerDefinition
+        public string Manufacturer
         {
-            get { return this._ManufacturerDefinition; }
+            get { return this._Manufacturer; }
             set
             {
-                if (value != this._ManufacturerDefinition)
+                if (value != this._Manufacturer)
                 {
-                    this._ManufacturerDefinition = value;
+                    this._Manufacturer = value;
                     this.NotifyPropertyChanged("Manufacturer");
                 }
             }
@@ -147,145 +147,145 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string AlphaPartDefinition
+        public string AlphaPart
         {
-            get { return this._AlphaPartDefinition; }
+            get { return this._AlphaPart; }
             set
             {
-                if (value != this._AlphaPartDefinition)
+                if (value != this._AlphaPart)
                 {
-                    this._AlphaPartDefinition = value;
-                    this.NotifyPropertyChanged("AlphaPartDefinition");
+                    this._AlphaPart = value;
+                    this.NotifyPropertyChanged("AlphaPart");
                 }
             }
         }
 
-        public string BetaPartDefinition
+        public string BetaPart
         {
-            get { return this._BetaPartDefinition; }
+            get { return this._BetaPart; }
             set
             {
-                if (value != this._BetaPartDefinition)
+                if (value != this._BetaPart)
                 {
-                    this._BetaPartDefinition = value;
-                    this.NotifyPropertyChanged("BetaPartDefinition");
+                    this._BetaPart = value;
+                    this.NotifyPropertyChanged("BetaPart");
                 }
             }
         }
 
-        public string GammaPartDefinition
+        public string GammaPart
         {
-            get { return this._GammaPartDefinition; }
+            get { return this._GammaPart; }
             set
             {
-                if (value != this._GammaPartDefinition)
+                if (value != this._GammaPart)
                 {
-                    this._GammaPartDefinition = value;
-                    this.NotifyPropertyChanged("GammaPartDefinition");
+                    this._GammaPart = value;
+                    this.NotifyPropertyChanged("GammaPart");
                 }
             }
         }
 
-        public string DeltaPartDefinition
+        public string DeltaPart
         {
-            get { return this._DeltaPartDefinition; }
+            get { return this._DeltaPart; }
             set
             {
-                if (value != this._DeltaPartDefinition)
+                if (value != this._DeltaPart)
                 {
-                    this._DeltaPartDefinition = value;
-                    this.NotifyPropertyChanged("DeltaPartDefinition");
+                    this._DeltaPart = value;
+                    this.NotifyPropertyChanged("DeltaPart");
                 }
             }
         }
 
-        public string EpsilonPartDefinition
+        public string EpsilonPart
         {
-            get { return this._EpsilonPartDefinition; }
+            get { return this._EpsilonPart; }
             set
             {
-                if (value != this._EpsilonPartDefinition)
+                if (value != this._EpsilonPart)
                 {
-                    this._EpsilonPartDefinition = value;
-                    this.NotifyPropertyChanged("EpsilonPartDefinition");
+                    this._EpsilonPart = value;
+                    this.NotifyPropertyChanged("EpsilonPart");
                 }
             }
         }
 
-        public string ZetaPartDefinition
+        public string ZetaPart
         {
-            get { return this._ZetaPartDefinition; }
+            get { return this._ZetaPart; }
             set
             {
-                if (value != this._ZetaPartDefinition)
+                if (value != this._ZetaPart)
                 {
-                    this._ZetaPartDefinition = value;
-                    this.NotifyPropertyChanged("ZetaPartDefinition");
+                    this._ZetaPart = value;
+                    this.NotifyPropertyChanged("ZetaPart");
                 }
             }
         }
 
-        public string EtaPartDefinition
+        public string EtaPart
         {
-            get { return this._EtaPartDefinition; }
+            get { return this._EtaPart; }
             set
             {
-                if (value != this._EtaPartDefinition)
+                if (value != this._EtaPart)
                 {
-                    this._EtaPartDefinition = value;
-                    this.NotifyPropertyChanged("EtaPartDefinition");
+                    this._EtaPart = value;
+                    this.NotifyPropertyChanged("EtaPart");
                 }
             }
         }
 
-        public string ThetaPartDefinition
+        public string ThetaPart
         {
-            get { return this._ThetaPartDefinition; }
+            get { return this._ThetaPart; }
             set
             {
-                if (value != this._ThetaPartDefinition)
+                if (value != this._ThetaPart)
                 {
-                    this._ThetaPartDefinition = value;
-                    this.NotifyPropertyChanged("ThetaPartDefinition");
+                    this._ThetaPart = value;
+                    this.NotifyPropertyChanged("ThetaPart");
                 }
             }
         }
 
-        public string MaterialPartDefinition
+        public string MaterialPart
         {
-            get { return this._MaterialPartDefinition; }
+            get { return this._MaterialPart; }
             set
             {
-                if (value != this._MaterialPartDefinition)
+                if (value != this._MaterialPart)
                 {
-                    this._MaterialPartDefinition = value;
-                    this.NotifyPropertyChanged("MaterialPartDefinition");
+                    this._MaterialPart = value;
+                    this.NotifyPropertyChanged("MaterialPart");
                 }
             }
         }
 
-        public string PrefixPartDefinition
+        public string PrefixPart
         {
-            get { return this._PrefixPartDefinition; }
+            get { return this._PrefixPart; }
             set
             {
-                if (value != this._PrefixPartDefinition)
+                if (value != this._PrefixPart)
                 {
-                    this._PrefixPartDefinition = value;
-                    this.NotifyPropertyChanged("PrefixPartDefinition");
+                    this._PrefixPart = value;
+                    this.NotifyPropertyChanged("PrefixPart");
                 }
             }
         }
 
-        public string TitlePartDefinition
+        public string TitlePart
         {
-            get { return this._TitlePartDefinition; }
+            get { return this._TitlePart; }
             set
             {
-                if (value != this._TitlePartDefinition)
+                if (value != this._TitlePart)
                 {
-                    this._TitlePartDefinition = value;
-                    this.NotifyPropertyChanged("TitlePartDefinition");
+                    this._TitlePart = value;
+                    this.NotifyPropertyChanged("TitlePart");
                 }
             }
         }
@@ -335,21 +335,21 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         {
             return new BaseItem()
             {
-                TypeDefinition = this.TypeDefinition,
-                BalanceDefinition = this.BalanceDefinition,
-                ManufacturerDefinition = this.ManufacturerDefinition,
+                Type = this.Type,
+                Balance = this.Balance,
+                Manufacturer = this.Manufacturer,
                 ManufacturerGradeIndex = this.ManufacturerGradeIndex,
-                AlphaPartDefinition = this.AlphaPartDefinition,
-                BetaPartDefinition = this.BetaPartDefinition,
-                GammaPartDefinition = this.GammaPartDefinition,
-                DeltaPartDefinition = this.DeltaPartDefinition,
-                EpsilonPartDefinition = this.EpsilonPartDefinition,
-                ZetaPartDefinition = this.ZetaPartDefinition,
-                EtaPartDefinition = this.EtaPartDefinition,
-                ThetaPartDefinition = this.ThetaPartDefinition,
-                MaterialPartDefinition = this.MaterialPartDefinition,
-                PrefixPartDefinition = this.PrefixPartDefinition,
-                TitlePartDefinition = this.TitlePartDefinition,
+                AlphaPart = this.AlphaPart,
+                BetaPart = this.BetaPart,
+                GammaPart = this.GammaPart,
+                DeltaPart = this.DeltaPart,
+                EpsilonPart = this.EpsilonPart,
+                ZetaPart = this.ZetaPart,
+                EtaPart = this.EtaPart,
+                ThetaPart = this.ThetaPart,
+                MaterialPart = this.MaterialPart,
+                PrefixPart = this.PrefixPart,
+                TitlePart = this.TitlePart,
                 GameStage = this.GameStage,
                 UniqueId = this.UniqueId,
                 AssetLibrarySetId = this.AssetLibrarySetId,

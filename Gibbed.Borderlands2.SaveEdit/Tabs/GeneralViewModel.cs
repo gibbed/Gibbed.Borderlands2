@@ -32,11 +32,10 @@ using Gibbed.IO;
 
 namespace Gibbed.Borderlands2.SaveEdit
 {
-    [Export(typeof(PlayerViewModel))]
-    internal class PlayerViewModel : PropertyChangedBase
+    [Export(typeof(GeneralViewModel))]
+    internal class GeneralViewModel : PropertyChangedBase
     {
         #region Fields
-        private readonly IEventAggregator _Events;
         private Endian _Endian;
         private int _SaveGameId;
         private string _PlayerClassDefinition = "GD_Assassin.Character.CharClass_Assassin";
@@ -73,7 +72,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        public string PlayerClassDefinition
+        public string PlayerClass
         {
             get { return this._PlayerClassDefinition; }
             set
@@ -81,7 +80,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 if (this._PlayerClassDefinition != value)
                 {
                     this._PlayerClassDefinition = value;
-                    this.NotifyOfPropertyChange(() => this.PlayerClassDefinition);
+                    this.NotifyOfPropertyChange(() => this.PlayerClass);
                     this.BuildCustomizationAssets();
                 }
             }
@@ -158,7 +157,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         }
 
         public ObservableCollection<EndianDisplay> Endians { get; private set; }
-        public ObservableCollection<AssetDisplay> ClassDefinitions { get; private set; }
+        public ObservableCollection<AssetDisplay> PlayerClasses { get; private set; }
         public ObservableCollection<AssetDisplay> HeadAssets { get; private set; }
         public ObservableCollection<AssetDisplay> SkinAssets { get; private set; }
         #endregion
@@ -175,34 +174,35 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        [ImportingConstructor]
-        public PlayerViewModel(IEventAggregator events)
+        private void UpdateClassDefinitions()
         {
-            this._Events = events;
+            this.PlayerClasses = new ObservableCollection<AssetDisplay>(
+                InfoManager.PlayerClasses.Items
+                    .OrderBy(kv => kv.Value.SortOrder)
+                    .Select(kv => GetPlayerClass(kv.Value)));
+        }
 
+        private static AssetDisplay GetPlayerClass(PlayerClassDefinition playerClass)
+        {
+            return new AssetDisplay(string.Format("{0} ({1})",
+                                                  playerClass.Name,
+                                                  playerClass.Class),
+                                    playerClass.ResourcePath);
+        }
+
+        [ImportingConstructor]
+        public GeneralViewModel()
+        {
             this.Endians = new ObservableCollection<EndianDisplay>
             {
                 new EndianDisplay("Little (PC)", Endian.Little),
                 new EndianDisplay("Big (360, PS3)", Endian.Big)
             };
 
-            this.ClassDefinitions = new ObservableCollection<AssetDisplay>
-            {
-                new AssetDisplay("Axton (Commando)",
-                                 "GD_Soldier.Character.CharClass_Soldier"),
-                new AssetDisplay("Zer0 (Assassin)",
-                                 "GD_Assassin.Character.CharClass_Assassin"),
-                new AssetDisplay("Maya (Siren)", "GD_Siren.Character.CharClass_Siren"),
-                new AssetDisplay("Salvador (Gunzerker)",
-                                 "GD_Mercenary.Character.CharClass_Mercenary"),
-                new AssetDisplay("Gaige (Mechromancer)",
-                                 "GD_Tulip_Mechromancer.Character.CharClass_Mechromancer")
-            };
+            this.UpdateClassDefinitions();
 
             this.HeadAssets = new ObservableCollection<AssetDisplay>();
             this.SkinAssets = new ObservableCollection<AssetDisplay>();
-
-            events.Subscribe(this);
 
             this.BuildCustomizationAssets();
 
@@ -221,7 +221,7 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         private CustomizationUsage GetCustomizationUsage()
         {
-            switch (this.PlayerClassDefinition)
+            switch (this.PlayerClass)
             {
                 case "GD_Soldier.Character.CharClass_Soldier":
                 {
@@ -265,15 +265,15 @@ namespace Gibbed.Borderlands2.SaveEdit
             {
                 string group = "Base Game";
 
-                if (string.IsNullOrEmpty(kv.Value.DlcSet) == false)
+                if (kv.Value.DLC != null)
                 {
-                    if (InfoManager.CustomizationSets.ContainsKey(kv.Value.DlcSet) == true)
+                    if (kv.Value.DLC.Package != null)
                     {
-                        group = InfoManager.CustomizationSets[kv.Value.DlcSet].DisplayName;
+                        group = kv.Value.DLC.Package.DisplayName;
                     }
                     else
                     {
-                        group = "??? " + kv.Value.DlcSet + " ???";
+                        group = "??? " + kv.Value.DLC.ResourcePath + " ???";
                     }
                 }
 
@@ -289,15 +289,15 @@ namespace Gibbed.Borderlands2.SaveEdit
             {
                 string group = "Base Game";
 
-                if (string.IsNullOrEmpty(kv.Value.DlcSet) == false)
+                if (kv.Value.DLC != null)
                 {
-                    if (InfoManager.CustomizationSets.ContainsKey(kv.Value.DlcSet) == true)
+                    if (kv.Value.DLC.Package != null)
                     {
-                        group = InfoManager.CustomizationSets[kv.Value.DlcSet].DisplayName;
+                        group = kv.Value.DLC.Package.DisplayName;
                     }
                     else
                     {
-                        group = "??? " + kv.Value.DlcSet + " ???";
+                        group = "??? " + kv.Value.DLC.ResourcePath + " ???";
                     }
                 }
 
@@ -319,7 +319,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             this.Endian = endian;
             this.SaveGameId = saveGame.SaveGameId;
-            this.PlayerClassDefinition = saveGame.PlayerClassDefinition;
+            this.PlayerClass = saveGame.PlayerClassDefinition;
             this.ExpLevel = saveGame.ExpLevel;
             this.ExpPoints = saveGame.ExpPoints;
             this.GeneralSkillPoints = saveGame.GeneralSkillPoints;
@@ -334,7 +334,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             endian = this.Endian;
             saveGame.SaveGameId = this.SaveGameId;
-            saveGame.PlayerClassDefinition = this.PlayerClassDefinition;
+            saveGame.PlayerClassDefinition = this.PlayerClass;
             saveGame.ExpLevel = this.ExpLevel;
             saveGame.ExpPoints = this.ExpPoints;
             saveGame.GeneralSkillPoints = this.GeneralSkillPoints;

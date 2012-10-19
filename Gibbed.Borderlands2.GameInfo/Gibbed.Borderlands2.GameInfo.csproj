@@ -45,16 +45,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssetLibrary.cs" />
+    <Compile Include="AssetLibraryDefinition.cs" />
     <Compile Include="AssetLibraryConfiguration.cs" />
     <Compile Include="AssetGroup.cs" />
     <Compile Include="AssetLibraryManager.cs" />
     <Compile Include="AssetLibrarySet.cs" />
-    <Compile Include="AssetSublibrary.cs" />
+    <Compile Include="AssetSublibraryDefinition.cs" />
     <Compile Include="CustomizationDefinition.cs" />
     <Compile Include="CustomizationType.cs" />
     <Compile Include="CustomizationUsage.cs" />
-    <Compile Include="CustomizationSet.cs" />
+    <Compile Include="DownloadableContentDefinition.cs" />
+    <Compile Include="DownloadableContentType.cs" />
+    <Compile Include="DownloadablePackageDefinition.cs" />
     <Compile Include="InfoDictionary.cs" />
     <Compile Include="InfoLoadException.cs" />
     <Compile Include="InfoManager.cs" />
@@ -62,8 +64,34 @@
     <Compile Include="ItemBalancePartCollection.cs" />
     <Compile Include="ItemType.cs" />
     <Compile Include="ItemTypeDefinition.cs" />
+    <Compile Include="Loaders\AssetLibraryManagerLoader.cs" />
+    <Compile Include="Loaders\CustomizationDefinitionLoader.cs" />
+    <Compile Include="Loaders\DownloadableContentDefinitionLoader.cs" />
+    <Compile Include="Loaders\DownloadablePackageDefinitionLoader.cs" />
+    <Compile Include="Loaders\ItemBalanceDefinitionLoader.cs" />
+    <Compile Include="Loaders\ItemTypeDefinitionLoader.cs" />
+    <Compile Include="Loaders\LoaderHelper.cs" />
+    <Compile Include="Loaders\PlayerClassDefinitionLoader.cs" />
+    <Compile Include="Loaders\WeaponBalanceDefinitionLoader.cs" />
+    <Compile Include="Loaders\WeaponTypeDefinitionLoader.cs" />
+    <Compile Include="Raw\AssetLibraryConfiguration.cs" />
+    <Compile Include="Raw\AssetLibraryDefinition.cs" />
+    <Compile Include="Raw\AssetLibraryManager.cs" />
+    <Compile Include="Raw\AssetLibrarySet.cs" />
+    <Compile Include="Raw\AssetSublibraryDefinition.cs" />
+    <Compile Include="Raw\CustomizationDefinition.cs" />
+    <Compile Include="Raw\DownloadableContentDefinition.cs" />
+    <Compile Include="Raw\DownloadablePackage.cs" />
+    <Compile Include="Raw\ItemBalanceDefinition.cs" />
+    <Compile Include="Raw\ItemBalancePartCollection.cs" />
+    <Compile Include="Raw\ItemTypeDefinition.cs" />
+    <Compile Include="Raw\PlayerClassDefinition.cs" />
     <Compile Include="PartReplacementMode.cs" />
+    <Compile Include="PlayerClassDefinition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Raw\WeaponBalanceDefinition.cs" />
+    <Compile Include="Raw\WeaponBalancePartCollection.cs" />
+    <Compile Include="Raw\WeaponTypeDefinition.cs" />
     <Compile Include="WeaponBalanceDefinition.cs" />
     <Compile Include="WeaponBalancePartCollection.cs" />
     <Compile Include="WeaponType.cs" />
@@ -76,12 +104,15 @@
     <None Include="packages.config" />
     <EmbeddedResource Include="Resources\Asset Library Manager.json" />
     <EmbeddedResource Include="Resources\Customizations.json" />
-    <EmbeddedResource Include="Resources\Customization Sets.json" />
     <EmbeddedResource Include="Resources\Item Balance.json" />
     <EmbeddedResource Include="Resources\Item Types.json" />
     <EmbeddedResource Include="Resources\Weapon Balance.json" />
     <EmbeddedResource Include="Resources\Weapon Types.json" />
+    <EmbeddedResource Include="Resources\Player Classes.json" />
+    <EmbeddedResource Include="Resources\Downloadable Contents.json" />
+    <EmbeddedResource Include="Resources\Downloadable Packages.json" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

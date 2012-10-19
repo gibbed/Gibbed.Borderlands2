@@ -20,53 +20,26 @@
  *    distribution.
  */
 
-#pragma warning disable 649
-
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace Gibbed.Borderlands2.GameInfo
 {
-    [JsonObject(MemberSerialization.OptIn)]
-    public class ItemBalancePartCollection
+    public sealed class ItemBalancePartCollection
     {
         internal ItemBalancePartCollection()
         {
         }
 
-        [JsonProperty(PropertyName = "type")]
-        public string TypeDefinition;
-
-        [JsonProperty(PropertyName = "mode")]
-        public PartReplacementMode Mode;
-
-        [JsonProperty(PropertyName = "alpha")]
-        public List<string> AlphaDefinitions;
-
-        [JsonProperty(PropertyName = "beta")]
-        public List<string> BetaDefinitions;
-
-        [JsonProperty(PropertyName = "gamma")]
-        public List<string> GammaDefinitions;
-
-        [JsonProperty(PropertyName = "delta")]
-        public List<string> DeltaDefinitions;
-
-        [JsonProperty(PropertyName = "epsilon")]
-        public List<string> EpsilonDefinitions;
-
-        [JsonProperty(PropertyName = "zeta")]
-        public List<string> ZetaDefinitions;
-
-        [JsonProperty(PropertyName = "eta")]
-        public List<string> EtaDefinitions;
-
-        [JsonProperty(PropertyName = "theta")]
-        public List<string> ThetaDefinitions;
-
-        [JsonProperty(PropertyName = "material")]
-        public List<string> MaterialDefinitions;
+        public ItemTypeDefinition Type { get; internal set; }
+        public PartReplacementMode Mode { get; internal set; }
+        public List<string> AlphaParts { get; internal set; }
+        public List<string> BetaParts { get; internal set; }
+        public List<string> GammaParts { get; internal set; }
+        public List<string> DeltaParts { get; internal set; }
+        public List<string> EpsilonParts { get; internal set; }
+        public List<string> ZetaParts { get; internal set; }
+        public List<string> EtaParts { get; internal set; }
+        public List<string> ThetaParts { get; internal set; }
+        public List<string> MaterialParts { get; internal set; }
     }
 }
-
-#pragma warning restore 649

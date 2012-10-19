@@ -23,41 +23,30 @@
 #pragma warning disable 649
 
 using System.Collections.Generic;
-using System.Linq;
 using Newtonsoft.Json;
 
-namespace Gibbed.Borderlands2.GameInfo
+namespace Gibbed.Borderlands2.GameInfo.Raw
 {
     [JsonObject(MemberSerialization.OptIn)]
-    public sealed class AssetLibrary
+    internal sealed class WeaponBalanceDefinition
     {
-        internal AssetLibrary()
+        internal WeaponBalanceDefinition()
         {
+            this.Manufacturers = null;
+            this.Parts = null;
         }
 
-        /// <summary>
-        /// The Native/UnrealScript type of assets in the library.
-        /// </summary>
-        [JsonProperty(PropertyName = "type", Required = Required.Always)]
-        public string Type;
+        [JsonProperty(PropertyName = "type")]
+        public string Type { get; set; }
 
-        public int MostAssets
-        {
-            get { return this.Sublibraries.Max(sl => sl.Assets.Count); }
-        }
+        [JsonProperty(PropertyName = "base")]
+        public string Base { get; set; }
 
-        [JsonProperty(PropertyName = "sublibraries")]
-        public List<AssetSublibrary> Sublibraries = new List<AssetSublibrary>();
+        [JsonProperty(PropertyName = "manufacturers")]
+        public List<string> Manufacturers { get; set; }
 
-        public string[] GetAssets()
-        {
-            return new[]
-            {
-                "None"
-            }.Concat(
-                this.Sublibraries.SelectMany(sl => sl.Assets.Select(a => sl.Package + "." + a)).Distinct().
-                    OrderBy(a => a)).ToArray();
-        }
+        [JsonProperty(PropertyName = "parts")]
+        public WeaponBalancePartCollection Parts { get; set; }
     }
 }
 

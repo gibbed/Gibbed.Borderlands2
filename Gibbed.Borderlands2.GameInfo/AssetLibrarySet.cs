@@ -20,26 +20,17 @@
  *    distribution.
  */
 
-#pragma warning disable 649
-
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace Gibbed.Borderlands2.GameInfo
 {
-    [JsonObject(MemberSerialization.OptIn)]
     public sealed class AssetLibrarySet
     {
         internal AssetLibrarySet()
         {
         }
 
-        [JsonProperty(PropertyName = "id", Required = Required.Always)]
-        public int Id;
-
-        [JsonProperty(PropertyName = "libraries", Required = Required.Always)]
-        public Dictionary<AssetGroup, AssetLibrary> Libraries = new Dictionary<AssetGroup, AssetLibrary>();
+        public int Id { get; internal set; }
+        public Dictionary<AssetGroup, AssetLibraryDefinition> Libraries { get; internal set; }
     }
 }
-
-#pragma warning restore 649

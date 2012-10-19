@@ -67,23 +67,21 @@
       <TabItem>
         <TabItem.Header>
           <StackPanel Orientation="Horizontal">
-            <Image Width="20"
-                   Height="20"
-                   Source="Resources\player.png" />
+            <Image Height="24"
+                   Source="Resources\red skull.png" />
             <Label VerticalAlignment="Center"
-                   Content="Player" />
+                   Content="General" />
           </StackPanel>
         </TabItem.Header>
         <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto"
                       ScrollViewer.HorizontalScrollBarVisibility="Auto">
-          <ContentControl x:Name="Player" />
+          <ContentControl x:Name="General" />
         </ScrollViewer>
       </TabItem>
       <TabItem>
         <TabItem.Header>
           <StackPanel Orientation="Horizontal">
-            <Image Width="20"
-                   Height="20"
+            <Image Height="24"
                    Source="Resources\pink seraph crystal.png" />
             <Label VerticalAlignment="Center"
                    Content="Currency" />
@@ -97,6 +95,8 @@
       <TabItem>
         <TabItem.Header>
           <StackPanel Orientation="Horizontal">
+            <Image Height="24"
+                   Source="Resources\fast travel.png" />
             <Label VerticalAlignment="Center"
                    Content="Fast Travel" />
           </StackPanel>
@@ -109,8 +109,7 @@
       <TabItem>
         <TabItem.Header>
           <StackPanel Orientation="Horizontal">
-            <Image Width="20"
-                   Height="20"
+            <Image Height="24"
                    Source="Resources\backpack.png" />
             <Label VerticalAlignment="Center"
                    Content="Backpack" />
@@ -121,8 +120,7 @@
       <TabItem>
         <TabItem.Header>
           <StackPanel Orientation="Horizontal">
-            <Image Width="20"
-                   Height="20"
+            <Image Height="24"
                    Source="Resources\bank.png" />
             <Label VerticalAlignment="Center"
                    Content="Bank" />
@@ -133,8 +131,7 @@
       <TabItem>
         <TabItem.Header>
           <StackPanel Orientation="Horizontal">
-            <Image Width="20"
-                   Height="20"
+            <Image Height="24"
                    Source="Resources\fugue\document-binary.png" />
             <Label VerticalAlignment="Center"
                    Content="Raw" />

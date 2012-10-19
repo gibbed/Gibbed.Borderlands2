@@ -47,43 +47,46 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             this._Item = item;
 
-            this.TypeAssets =
-                CreateAssetList(
-                    InfoManager.ItemBalanceDefinitions.Items.Where(bd => bd.Value.Types != null).SelectMany(
-                        bd => bd.Value.Types).Distinct().OrderBy(s => s));
+            IEnumerable<ItemTypeDefinition> resources;
+            resources = InfoManager.ItemBalance.Items.Where(kv => kv.Value.Type != null).Select(kv => kv.Value.Type);
+            resources =
+                resources.Concat(
+                    InfoManager.ItemBalance.Items.Where(kv => kv.Value.Types != null).SelectMany(bd => bd.Value.Types));
+
+            this.TypeAssets = CreateAssetList(resources.Distinct().Select(t => t.ResourcePath).OrderBy(s => s));
             this.BuildBalanceAssets();
         }
 
         #region Properties
-        public string TypeDefinition
+        public string Type
         {
-            get { return this._Item.TypeDefinition; }
+            get { return this._Item.Type; }
             set
             {
-                this._Item.TypeDefinition = value;
-                this.NotifyOfPropertyChange(() => this.TypeDefinition);
+                this._Item.Type = value;
+                this.NotifyOfPropertyChange(() => this.Type);
                 this.BuildBalanceAssets();
             }
         }
 
-        public string BalanceDefinition
+        public string Balance
         {
-            get { return this._Item.BalanceDefinition; }
+            get { return this._Item.Balance; }
             set
             {
-                this._Item.BalanceDefinition = value;
-                this.NotifyOfPropertyChange(() => this.BalanceDefinition);
+                this._Item.Balance = value;
+                this.NotifyOfPropertyChange(() => this.Balance);
                 this.BuildPartAssets();
             }
         }
 
-        public string ManufacturerDefinition
+        public string Manufacturer
         {
-            get { return this._Item.ManufacturerDefinition; }
+            get { return this._Item.Manufacturer; }
             set
             {
-                this._Item.ManufacturerDefinition = value;
-                this.NotifyOfPropertyChange(() => this.ManufacturerDefinition);
+                this._Item.Manufacturer = value;
+                this.NotifyOfPropertyChange(() => this.Manufacturer);
             }
         }
 
@@ -97,113 +100,113 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        public string AlphaPartDefinition
+        public string AlphaPart
         {
-            get { return this._Item.AlphaPartDefinition; }
+            get { return this._Item.AlphaPart; }
             set
             {
-                this._Item.AlphaPartDefinition = value;
-                this.NotifyOfPropertyChange(() => this.AlphaPartDefinition);
+                this._Item.AlphaPart = value;
+                this.NotifyOfPropertyChange(() => this.AlphaPart);
             }
         }
 
-        public string BetaPartDefinition
+        public string BetaPart
         {
-            get { return this._Item.BetaPartDefinition; }
+            get { return this._Item.BetaPart; }
             set
             {
-                this._Item.BetaPartDefinition = value;
-                this.NotifyOfPropertyChange(() => this.BetaPartDefinition);
+                this._Item.BetaPart = value;
+                this.NotifyOfPropertyChange(() => this.BetaPart);
             }
         }
 
-        public string GammaPartDefinition
+        public string GammaPart
         {
-            get { return this._Item.GammaPartDefinition; }
+            get { return this._Item.GammaPart; }
             set
             {
-                this._Item.GammaPartDefinition = value;
-                this.NotifyOfPropertyChange(() => this.GammaPartDefinition);
+                this._Item.GammaPart = value;
+                this.NotifyOfPropertyChange(() => this.GammaPart);
             }
         }
 
-        public string DeltaPartDefinition
+        public string DeltaPart
         {
-            get { return this._Item.DeltaPartDefinition; }
+            get { return this._Item.DeltaPart; }
             set
             {
-                this._Item.DeltaPartDefinition = value;
-                this.NotifyOfPropertyChange(() => this.DeltaPartDefinition);
+                this._Item.DeltaPart = value;
+                this.NotifyOfPropertyChange(() => this.DeltaPart);
             }
         }
 
-        public string EpsilonPartDefinition
+        public string EpsilonPart
         {
-            get { return this._Item.EpsilonPartDefinition; }
+            get { return this._Item.EpsilonPart; }
             set
             {
-                this._Item.EpsilonPartDefinition = value;
-                this.NotifyOfPropertyChange(() => this.EpsilonPartDefinition);
+                this._Item.EpsilonPart = value;
+                this.NotifyOfPropertyChange(() => this.EpsilonPart);
             }
         }
 
-        public string ZetaPartDefinition
+        public string ZetaPart
         {
-            get { return this._Item.ZetaPartDefinition; }
+            get { return this._Item.ZetaPart; }
             set
             {
-                this._Item.ZetaPartDefinition = value;
-                this.NotifyOfPropertyChange(() => this.ZetaPartDefinition);
+                this._Item.ZetaPart = value;
+                this.NotifyOfPropertyChange(() => this.ZetaPart);
             }
         }
 
-        public string EtaPartDefinition
+        public string EtaPart
         {
-            get { return this._Item.EtaPartDefinition; }
+            get { return this._Item.EtaPart; }
             set
             {
-                this._Item.EtaPartDefinition = value;
-                this.NotifyOfPropertyChange(() => this.EtaPartDefinition);
+                this._Item.EtaPart = value;
+                this.NotifyOfPropertyChange(() => this.EtaPart);
             }
         }
 
-        public string ThetaPartDefinition
+        public string ThetaPart
         {
-            get { return this._Item.ThetaPartDefinition; }
+            get { return this._Item.ThetaPart; }
             set
             {
-                this._Item.ThetaPartDefinition = value;
-                this.NotifyOfPropertyChange(() => this.ThetaPartDefinition);
+                this._Item.ThetaPart = value;
+                this.NotifyOfPropertyChange(() => this.ThetaPart);
             }
         }
 
-        public string MaterialPartDefinition
+        public string MaterialPart
         {
-            get { return this._Item.MaterialPartDefinition; }
+            get { return this._Item.MaterialPart; }
             set
             {
-                this._Item.MaterialPartDefinition = value;
-                this.NotifyOfPropertyChange(() => this.MaterialPartDefinition);
+                this._Item.MaterialPart = value;
+                this.NotifyOfPropertyChange(() => this.MaterialPart);
             }
         }
 
-        public string PrefixPartDefinition
+        public string PrefixPart
         {
-            get { return this._Item.PrefixPartDefinition; }
+            get { return this._Item.PrefixPart; }
             set
             {
-                this._Item.PrefixPartDefinition = value;
-                this.NotifyOfPropertyChange(() => this.PrefixPartDefinition);
+                this._Item.PrefixPart = value;
+                this.NotifyOfPropertyChange(() => this.PrefixPart);
             }
         }
 
-        public string TitlePartDefinition
+        public string TitlePart
         {
-            get { return this._Item.TitlePartDefinition; }
+            get { return this._Item.TitlePart; }
             set
             {
-                this._Item.TitlePartDefinition = value;
-                this.NotifyOfPropertyChange(() => this.TitlePartDefinition);
+                this._Item.TitlePart = value;
+                this.NotifyOfPropertyChange(() => this.TitlePart);
             }
         }
 
@@ -248,12 +251,12 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             get
             {
-                if (InfoManager.ItemTypes.ContainsKey(this.TypeDefinition) == false)
+                if (InfoManager.ItemTypes.ContainsKey(this.Type) == false)
                 {
                     return "Unknown";
                 }
 
-                switch (InfoManager.ItemTypes[this.TypeDefinition].Type)
+                switch (InfoManager.ItemTypes[this.Type].Type)
                 {
                     case ItemType.Artifact:
                     {
@@ -291,7 +294,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         }
         #endregion
 
-        #region Asset Properties
+        #region Assets
         private static IEnumerable<string> CreateAssetList(IEnumerable<string> items)
         {
             var list = new List<string>()
@@ -307,9 +310,22 @@ namespace Gibbed.Borderlands2.SaveEdit
             return list;
         }
 
-        public IEnumerable<string> TypeAssets { get; private set; }
-
+        #region Fields
         private IEnumerable<string> _BalanceAssets;
+        private IEnumerable<string> _ManufacturerAssets;
+        private IEnumerable<string> _AlphaPartAssets;
+        private IEnumerable<string> _BetaPartAssets;
+        private IEnumerable<string> _GammaPartAssets;
+        private IEnumerable<string> _DeltaPartAssets;
+        private IEnumerable<string> _EpsilonPartAssets;
+        private IEnumerable<string> _ZetaPartAssets;
+        private IEnumerable<string> _EtaPartAssets;
+        private IEnumerable<string> _ThetaPartAssets;
+        private IEnumerable<string> _MaterialPartAssets;
+        #endregion
+
+        #region Properties
+        public IEnumerable<string> TypeAssets { get; private set; }
 
         public IEnumerable<string> BalanceAssets
         {
@@ -321,7 +337,15 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        private IEnumerable<string> _AlphaPartAssets;
+        public IEnumerable<string> ManufacturerAssets
+        {
+            get { return this._ManufacturerAssets; }
+            private set
+            {
+                this._ManufacturerAssets = value;
+                this.NotifyOfPropertyChange(() => this.ManufacturerAssets);
+            }
+        }
 
         public IEnumerable<string> AlphaPartAssets
         {
@@ -333,8 +357,6 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        private IEnumerable<string> _BetaPartAssets;
-
         public IEnumerable<string> BetaPartAssets
         {
             get { return this._BetaPartAssets; }
@@ -344,8 +366,6 @@ namespace Gibbed.Borderlands2.SaveEdit
                 this.NotifyOfPropertyChange(() => this.BetaPartAssets);
             }
         }
-
-        private IEnumerable<string> _GammaPartAssets;
 
         public IEnumerable<string> GammaPartAssets
         {
@@ -357,8 +377,6 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        private IEnumerable<string> _DeltaPartAssets;
-
         public IEnumerable<string> DeltaPartAssets
         {
             get { return this._DeltaPartAssets; }
@@ -368,8 +386,6 @@ namespace Gibbed.Borderlands2.SaveEdit
                 this.NotifyOfPropertyChange(() => this.DeltaPartAssets);
             }
         }
-
-        private IEnumerable<string> _EpsilonPartAssets;
 
         public IEnumerable<string> EpsilonPartAssets
         {
@@ -381,8 +397,6 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        private IEnumerable<string> _ZetaPartAssets;
-
         public IEnumerable<string> ZetaPartAssets
         {
             get { return this._ZetaPartAssets; }
@@ -392,8 +406,6 @@ namespace Gibbed.Borderlands2.SaveEdit
                 this.NotifyOfPropertyChange(() => this.ZetaPartAssets);
             }
         }
-
-        private IEnumerable<string> _EtaPartAssets;
 
         public IEnumerable<string> EtaPartAssets
         {
@@ -405,8 +417,6 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        private IEnumerable<string> _ThetaPartAssets;
-
         public IEnumerable<string> ThetaPartAssets
         {
             get { return this._ThetaPartAssets; }
@@ -417,8 +427,6 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        private IEnumerable<string> _MaterialPartAssets;
-
         public IEnumerable<string> MaterialPartAssets
         {
             get { return this._MaterialPartAssets; }
@@ -428,6 +436,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 this.NotifyOfPropertyChange(() => this.MaterialPartAssets);
             }
         }
+        #endregion
 
         private readonly string[] _NoneAssets = new[]
         {
@@ -436,19 +445,30 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         private void BuildBalanceAssets()
         {
-            this.BalanceAssets =
-                CreateAssetList(
-                    InfoManager.ItemBalanceDefinitions.Items.Where(
-                        wbd => wbd.Value.Types != null && wbd.Value.Types.Contains(this.TypeDefinition) == true).Select(
-                            wbd => wbd.Key).Distinct().OrderBy(s => s));
+            if (InfoManager.ItemTypes.ContainsKey(this.Type) == false)
+            {
+                this.BalanceAssets = CreateAssetList(null);
+            }
+            else
+            {
+                var type = InfoManager.ItemTypes[this.Type];
+                this.BalanceAssets = CreateAssetList(
+                    InfoManager.ItemBalance.Items
+                        .Where(kv => kv.Value.IsSuitableFor(type) == true)
+                        .Select(kv => kv.Key).OrderBy(s => s));
+            }
+
             this.BuildPartAssets();
         }
 
         private void BuildPartAssets()
         {
-            if (this.BalanceAssets.Contains(this.BalanceDefinition) == false ||
-                this.BalanceDefinition == "None")
+            if (InfoManager.ItemTypes.ContainsKey(this.Type) == false || 
+                this.BalanceAssets.Contains(this.Balance) == false ||
+                InfoManager.ItemBalance.ContainsKey(this.Balance) == false ||
+                this.Balance == "None")
             {
+                this.ManufacturerAssets = _NoneAssets;
                 this.AlphaPartAssets = _NoneAssets;
                 this.AlphaPartAssets = _NoneAssets;
                 this.BetaPartAssets = _NoneAssets;
@@ -462,23 +482,18 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
             else
             {
-                var balanceDefinition = InfoManager.ItemBalanceDefinitions[this.BalanceDefinition];
-                this.AlphaPartAssets = CreateAssetList(balanceDefinition.Parts.AlphaDefinitions.OrderBy(s => s).Distinct());
-                this.BetaPartAssets = CreateAssetList(balanceDefinition.Parts.BetaDefinitions.OrderBy(s => s).Distinct());
-                this.GammaPartAssets =
-                    CreateAssetList(balanceDefinition.Parts.GammaDefinitions.OrderBy(s => s).Distinct());
-                this.DeltaPartAssets =
-                    CreateAssetList(balanceDefinition.Parts.DeltaDefinitions.OrderBy(s => s).Distinct());
-                this.EpsilonPartAssets =
-                    CreateAssetList(balanceDefinition.Parts.EpsilonDefinitions.OrderBy(s => s).Distinct());
-                this.ZetaPartAssets =
-                    CreateAssetList(balanceDefinition.Parts.ZetaDefinitions.OrderBy(s => s).Distinct());
-                this.EtaPartAssets =
-                    CreateAssetList(balanceDefinition.Parts.EtaDefinitions.OrderBy(s => s).Distinct());
-                this.ThetaPartAssets =
-                    CreateAssetList(balanceDefinition.Parts.ThetaDefinitions.OrderBy(s => s).Distinct());
-                this.MaterialPartAssets =
-                    CreateAssetList(balanceDefinition.Parts.MaterialDefinitions.OrderBy(s => s).Distinct());
+                var type = InfoManager.ItemTypes[this.Type];
+                var balance = InfoManager.ItemBalance[this.Balance].Merge(type);
+                this.ManufacturerAssets = CreateAssetList(balance.Manufacturers.OrderBy(s => s).Distinct());
+                this.AlphaPartAssets = CreateAssetList(balance.Parts.AlphaParts.OrderBy(s => s).Distinct());
+                this.BetaPartAssets = CreateAssetList(balance.Parts.BetaParts.OrderBy(s => s).Distinct());
+                this.GammaPartAssets = CreateAssetList(balance.Parts.GammaParts.OrderBy(s => s).Distinct());
+                this.DeltaPartAssets = CreateAssetList(balance.Parts.DeltaParts.OrderBy(s => s).Distinct());
+                this.EpsilonPartAssets = CreateAssetList(balance.Parts.EpsilonParts.OrderBy(s => s).Distinct());
+                this.ZetaPartAssets = CreateAssetList(balance.Parts.ZetaParts.OrderBy(s => s).Distinct());
+                this.EtaPartAssets = CreateAssetList(balance.Parts.EtaParts.OrderBy(s => s).Distinct());
+                this.ThetaPartAssets = CreateAssetList(balance.Parts.ThetaParts.OrderBy(s => s).Distinct());
+                this.MaterialPartAssets = CreateAssetList(balance.Parts.MaterialParts.OrderBy(s => s).Distinct());
             }
         }
         #endregion

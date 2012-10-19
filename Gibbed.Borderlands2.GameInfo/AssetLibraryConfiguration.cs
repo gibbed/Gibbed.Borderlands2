@@ -20,36 +20,30 @@
  *    distribution.
  */
 
-#pragma warning disable 649
-
-using Newtonsoft.Json;
-
 namespace Gibbed.Borderlands2.GameInfo
 {
-    [JsonObject(MemberSerialization.OptIn)]
     public sealed class AssetLibraryConfiguration
     {
         internal AssetLibraryConfiguration()
         {
         }
 
+        public AssetGroup Group { get; internal set; }
+
         /// <summary>
         /// The Native/UnrealScript type of assets in the library.
         /// </summary>
-        [JsonProperty(PropertyName = "type", Required = Required.Always)]
-        public string Type;
+        public string Type { get; internal set; }
 
         /// <summary>
         /// The number of bits required to represent the sublibrary index.
         /// </summary>
-        [JsonProperty(PropertyName = "sublibrary_bits", Required = Required.Always)]
-        public int SublibraryBits;
+        public int SublibraryBits { get; internal set; }
 
         /// <summary>
         /// The number of bits required to represent the sublibrary assets index.
         /// </summary>
-        [JsonProperty(PropertyName = "asset_bits", Required = Required.Always)]
-        public int AssetBits;
+        public int AssetBits { get; internal set; }
 
         public uint NoneIndex
         {
@@ -72,5 +66,3 @@ namespace Gibbed.Borderlands2.GameInfo
         }
     }
 }
-
-#pragma warning restore 649

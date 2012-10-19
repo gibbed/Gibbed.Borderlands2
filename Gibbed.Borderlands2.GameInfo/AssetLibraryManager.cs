@@ -20,29 +20,20 @@
  *    distribution.
  */
 
-#pragma warning disable 649
-
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
 
 namespace Gibbed.Borderlands2.GameInfo
 {
-    [JsonObject(MemberSerialization.OptIn)]
     public sealed class AssetLibraryManager
     {
         internal AssetLibraryManager()
         {
         }
 
-        [JsonProperty(PropertyName = "version", Required = Required.Always)]
-        public int Version;
-
-        [JsonProperty(PropertyName = "configs")]
-        public Dictionary<AssetGroup, AssetLibraryConfiguration> Configurations = new Dictionary<AssetGroup, AssetLibraryConfiguration>();
-
-        [JsonProperty(PropertyName = "sets")]
-        public List<AssetLibrarySet> Sets = new List<AssetLibrarySet>();
+        public int Version { get; internal set; }
+        public Dictionary<AssetGroup, AssetLibraryConfiguration> Configurations { get; internal set; }
+        public List<AssetLibrarySet> Sets { get; internal set; }
 
         public AssetLibrarySet GetSet(int id)
         {
@@ -50,5 +41,3 @@ namespace Gibbed.Borderlands2.GameInfo
         }
     }
 }
-
-#pragma warning restore 649

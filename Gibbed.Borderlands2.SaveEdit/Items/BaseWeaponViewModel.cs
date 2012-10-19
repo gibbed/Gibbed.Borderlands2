@@ -49,41 +49,41 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             this.TypeAssets =
                 CreateAssetList(
-                    InfoManager.WeaponBalanceDefinitions.Items.Where(wbd => wbd.Value.Types != null).SelectMany(
-                        wbd => wbd.Value.Types).Distinct().OrderBy(s => s));
+                    InfoManager.WeaponBalance.Items.Where(kv => kv.Value.Type != null).Select(
+                        kv => kv.Value.Type.ResourcePath).Distinct().OrderBy(s => s));
             this.BuildBalanceAssets();
         }
 
         #region Properties
-        public string TypeDefinition
+        public string Type
         {
-            get { return this._Weapon.TypeDefinition; }
+            get { return this._Weapon.Type; }
             set
             {
-                this._Weapon.TypeDefinition = value;
-                this.NotifyOfPropertyChange(() => this.TypeDefinition);
+                this._Weapon.Type = value;
+                this.NotifyOfPropertyChange(() => this.Type);
                 this.BuildBalanceAssets();
             }
         }
 
-        public string BalanceDefinition
+        public string Balance
         {
-            get { return this._Weapon.BalanceDefinition; }
+            get { return this._Weapon.Balance; }
             set
             {
-                this._Weapon.BalanceDefinition = value;
-                this.NotifyOfPropertyChange(() => this.BalanceDefinition);
+                this._Weapon.Balance = value;
+                this.NotifyOfPropertyChange(() => this.Balance);
                 this.BuildPartAssets();
             }
         }
 
-        public string ManufacturerDefinition
+        public string Manufacturer
         {
-            get { return this._Weapon.ManufacturerDefinition; }
+            get { return this._Weapon.Manufacturer; }
             set
             {
-                this._Weapon.ManufacturerDefinition = value;
-                this.NotifyOfPropertyChange(() => this.ManufacturerDefinition);
+                this._Weapon.Manufacturer = value;
+                this.NotifyOfPropertyChange(() => this.Manufacturer);
             }
         }
 
@@ -97,113 +97,113 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        public string BodyPartDefinition
+        public string BodyPart
         {
-            get { return this._Weapon.BodyPartDefinition; }
+            get { return this._Weapon.BodyPart; }
             set
             {
-                this._Weapon.BodyPartDefinition = value;
-                this.NotifyOfPropertyChange(() => this.BodyPartDefinition);
+                this._Weapon.BodyPart = value;
+                this.NotifyOfPropertyChange(() => this.BodyPart);
             }
         }
 
-        public string GripPartDefinition
+        public string GripPart
         {
-            get { return this._Weapon.GripPartDefinition; }
+            get { return this._Weapon.GripPart; }
             set
             {
-                this._Weapon.GripPartDefinition = value;
-                this.NotifyOfPropertyChange(() => this.GripPartDefinition);
+                this._Weapon.GripPart = value;
+                this.NotifyOfPropertyChange(() => this.GripPart);
             }
         }
 
-        public string BarrelPartDefinition
+        public string BarrelPart
         {
-            get { return this._Weapon.BarrelPartDefinition; }
+            get { return this._Weapon.BarrelPart; }
             set
             {
-                this._Weapon.BarrelPartDefinition = value;
-                this.NotifyOfPropertyChange(() => this.BarrelPartDefinition);
+                this._Weapon.BarrelPart = value;
+                this.NotifyOfPropertyChange(() => this.BarrelPart);
             }
         }
 
-        public string SightPartDefinition
+        public string SightPart
         {
-            get { return this._Weapon.SightPartDefinition; }
+            get { return this._Weapon.SightPart; }
             set
             {
-                this._Weapon.SightPartDefinition = value;
-                this.NotifyOfPropertyChange(() => this.SightPartDefinition);
+                this._Weapon.SightPart = value;
+                this.NotifyOfPropertyChange(() => this.SightPart);
             }
         }
 
-        public string StockPartDefinition
+        public string StockPart
         {
-            get { return this._Weapon.StockPartDefinition; }
+            get { return this._Weapon.StockPart; }
             set
             {
-                this._Weapon.StockPartDefinition = value;
-                this.NotifyOfPropertyChange(() => this.StockPartDefinition);
+                this._Weapon.StockPart = value;
+                this.NotifyOfPropertyChange(() => this.StockPart);
             }
         }
 
-        public string ElementalPartDefinition
+        public string ElementalPart
         {
-            get { return this._Weapon.ElementalPartDefinition; }
+            get { return this._Weapon.ElementalPart; }
             set
             {
-                this._Weapon.ElementalPartDefinition = value;
-                this.NotifyOfPropertyChange(() => this.ElementalPartDefinition);
+                this._Weapon.ElementalPart = value;
+                this.NotifyOfPropertyChange(() => this.ElementalPart);
             }
         }
 
-        public string Accessory1PartDefinition
+        public string Accessory1Part
         {
-            get { return this._Weapon.Accessory1PartDefinition; }
+            get { return this._Weapon.Accessory1Part; }
             set
             {
-                this._Weapon.Accessory1PartDefinition = value;
-                this.NotifyOfPropertyChange(() => this.Accessory1PartDefinition);
+                this._Weapon.Accessory1Part = value;
+                this.NotifyOfPropertyChange(() => this.Accessory1Part);
             }
         }
 
-        public string Accessory2PartDefinition
+        public string Accessory2Part
         {
-            get { return this._Weapon.Accessory2PartDefinition; }
+            get { return this._Weapon.Accessory2Part; }
             set
             {
-                this._Weapon.Accessory2PartDefinition = value;
-                this.NotifyOfPropertyChange(() => this.Accessory2PartDefinition);
+                this._Weapon.Accessory2Part = value;
+                this.NotifyOfPropertyChange(() => this.Accessory2Part);
             }
         }
 
-        public string MaterialPartDefinition
+        public string MaterialPart
         {
-            get { return this._Weapon.MaterialPartDefinition; }
+            get { return this._Weapon.MaterialPart; }
             set
             {
-                this._Weapon.MaterialPartDefinition = value;
-                this.NotifyOfPropertyChange(() => this.MaterialPartDefinition);
+                this._Weapon.MaterialPart = value;
+                this.NotifyOfPropertyChange(() => this.MaterialPart);
             }
         }
 
-        public string PrefixPartDefinition
+        public string PrefixPart
         {
-            get { return this._Weapon.PrefixPartDefinition; }
+            get { return this._Weapon.PrefixPart; }
             set
             {
-                this._Weapon.PrefixPartDefinition = value;
-                this.NotifyOfPropertyChange(() => this.PrefixPartDefinition);
+                this._Weapon.PrefixPart = value;
+                this.NotifyOfPropertyChange(() => this.PrefixPart);
             }
         }
 
-        public string TitlePartDefinition
+        public string TitlePart
         {
-            get { return this._Weapon.TitlePartDefinition; }
+            get { return this._Weapon.TitlePart; }
             set
             {
-                this._Weapon.TitlePartDefinition = value;
-                this.NotifyOfPropertyChange(() => this.TitlePartDefinition);
+                this._Weapon.TitlePart = value;
+                this.NotifyOfPropertyChange(() => this.TitlePart);
             }
         }
 
@@ -250,7 +250,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         }
         #endregion
 
-        #region Asset Properties
+        #region Assets
         private static IEnumerable<string> CreateAssetList(IEnumerable<string> items)
         {
             var list = new List<string>
@@ -266,9 +266,22 @@ namespace Gibbed.Borderlands2.SaveEdit
             return list;
         }
 
-        public IEnumerable<string> TypeAssets { get; private set; }
-
+        #region Fields
         private IEnumerable<string> _BalanceAssets;
+        private IEnumerable<string> _ManufacturerAssets;
+        private IEnumerable<string> _BodyPartAssets;
+        private IEnumerable<string> _GripPartAssets;
+        private IEnumerable<string> _BarrelPartAssets;
+        private IEnumerable<string> _SightPartAssets;
+        private IEnumerable<string> _StockPartAssets;
+        private IEnumerable<string> _ElementalPartAssets;
+        private IEnumerable<string> _Accessory1PartAssets;
+        private IEnumerable<string> _Accessory2PartAssets;
+        private IEnumerable<string> _MaterialPartAssets;
+        #endregion
+
+        #region Properties
+        public IEnumerable<string> TypeAssets { get; private set; }
 
         public IEnumerable<string> BalanceAssets
         {
@@ -280,7 +293,15 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        private IEnumerable<string> _BodyPartAssets;
+        public IEnumerable<string> ManufacturerAssets
+        {
+            get { return this._ManufacturerAssets; }
+            private set
+            {
+                this._ManufacturerAssets = value;
+                this.NotifyOfPropertyChange(() => this.ManufacturerAssets);
+            }
+        }
 
         public IEnumerable<string> BodyPartAssets
         {
@@ -292,8 +313,6 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        private IEnumerable<string> _GripPartAssets;
-
         public IEnumerable<string> GripPartAssets
         {
             get { return this._GripPartAssets; }
@@ -303,8 +322,6 @@ namespace Gibbed.Borderlands2.SaveEdit
                 this.NotifyOfPropertyChange(() => this.GripPartAssets);
             }
         }
-
-        private IEnumerable<string> _BarrelPartAssets;
 
         public IEnumerable<string> BarrelPartAssets
         {
@@ -316,8 +333,6 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        private IEnumerable<string> _SightPartAssets;
-
         public IEnumerable<string> SightPartAssets
         {
             get { return this._SightPartAssets; }
@@ -327,8 +342,6 @@ namespace Gibbed.Borderlands2.SaveEdit
                 this.NotifyOfPropertyChange(() => this.SightPartAssets);
             }
         }
-
-        private IEnumerable<string> _StockPartAssets;
 
         public IEnumerable<string> StockPartAssets
         {
@@ -340,8 +353,6 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        private IEnumerable<string> _ElementalPartAssets;
-
         public IEnumerable<string> ElementalPartAssets
         {
             get { return this._ElementalPartAssets; }
@@ -351,8 +362,6 @@ namespace Gibbed.Borderlands2.SaveEdit
                 this.NotifyOfPropertyChange(() => this.ElementalPartAssets);
             }
         }
-
-        private IEnumerable<string> _Accessory1PartAssets;
 
         public IEnumerable<string> Accessory1PartAssets
         {
@@ -364,8 +373,6 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        private IEnumerable<string> _Accessory2PartAssets;
-
         public IEnumerable<string> Accessory2PartAssets
         {
             get { return this._Accessory2PartAssets; }
@@ -376,8 +383,6 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        private IEnumerable<string> _MaterialPartAssets;
-
         public IEnumerable<string> MaterialPartAssets
         {
             get { return this._MaterialPartAssets; }
@@ -387,6 +392,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 this.NotifyOfPropertyChange(() => this.MaterialPartAssets);
             }
         }
+        #endregion
 
         private readonly string[] _NoneAssets = new[]
         {
@@ -395,19 +401,31 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         private void BuildBalanceAssets()
         {
-            this.BalanceAssets =
-                CreateAssetList(
-                    InfoManager.WeaponBalanceDefinitions.Items.Where(
-                        wbd => wbd.Value.Types != null && wbd.Value.Types.Contains(this.TypeDefinition) == true).Select(
-                            wbd => wbd.Key).Distinct().OrderBy(s => s));
+            if (InfoManager.WeaponTypes.ContainsKey(this.Type) == false)
+            {
+                this.BalanceAssets = CreateAssetList(null);
+            }
+            else
+            {
+                var type = InfoManager.WeaponTypes[this.Type];
+                this.BalanceAssets =
+                    CreateAssetList(
+                        InfoManager.WeaponBalance.Items
+                            .Where(bd => bd.Value.IsSuitableFor(type) == true)
+                            .Select(kv => kv.Key).Distinct().OrderBy(s => s));
+            }
+
             this.BuildPartAssets();
         }
 
         private void BuildPartAssets()
         {
-            if (this.BalanceAssets.Contains(this.BalanceDefinition) == false ||
-                this.BalanceDefinition == "None")
+            if (InfoManager.WeaponTypes.ContainsKey(this.Type) == false ||
+                this.BalanceAssets.Contains(this.Balance) == false ||
+                InfoManager.WeaponBalance.ContainsKey(this.Balance) == false ||
+                this.Balance == "None")
             {
+                this.ManufacturerAssets = _NoneAssets;
                 this.BodyPartAssets = _NoneAssets;
                 this.BodyPartAssets = _NoneAssets;
                 this.GripPartAssets = _NoneAssets;
@@ -421,23 +439,18 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
             else
             {
-                var balanceDefinition = InfoManager.WeaponBalanceDefinitions[this.BalanceDefinition];
-                this.BodyPartAssets = CreateAssetList(balanceDefinition.Parts.BodyDefinitions.OrderBy(s => s).Distinct());
-                this.GripPartAssets = CreateAssetList(balanceDefinition.Parts.GripDefinitions.OrderBy(s => s).Distinct());
-                this.BarrelPartAssets =
-                    CreateAssetList(balanceDefinition.Parts.BarrelDefinitions.OrderBy(s => s).Distinct());
-                this.SightPartAssets =
-                    CreateAssetList(balanceDefinition.Parts.SightDefinitions.OrderBy(s => s).Distinct());
-                this.StockPartAssets =
-                    CreateAssetList(balanceDefinition.Parts.StockDefinitions.OrderBy(s => s).Distinct());
-                this.ElementalPartAssets =
-                    CreateAssetList(balanceDefinition.Parts.ElementalDefinitions.OrderBy(s => s).Distinct());
-                this.Accessory1PartAssets =
-                    CreateAssetList(balanceDefinition.Parts.Accessory1Definitions.OrderBy(s => s).Distinct());
-                this.Accessory2PartAssets =
-                    CreateAssetList(balanceDefinition.Parts.Accessory2Definitions.OrderBy(s => s).Distinct());
-                this.MaterialPartAssets =
-                    CreateAssetList(balanceDefinition.Parts.MaterialDefinitions.OrderBy(s => s).Distinct());
+                var type = InfoManager.WeaponTypes[this.Type];
+                var balance = InfoManager.WeaponBalance[this.Balance].Merge(type);
+                this.ManufacturerAssets = CreateAssetList(balance.Manufacturers.OrderBy(s => s).Distinct());
+                this.BodyPartAssets = CreateAssetList(balance.Parts.BodyParts.OrderBy(s => s).Distinct());
+                this.GripPartAssets = CreateAssetList(balance.Parts.GripParts.OrderBy(s => s).Distinct());
+                this.BarrelPartAssets = CreateAssetList(balance.Parts.BarrelParts.OrderBy(s => s).Distinct());
+                this.SightPartAssets = CreateAssetList(balance.Parts.SightParts.OrderBy(s => s).Distinct());
+                this.StockPartAssets = CreateAssetList(balance.Parts.StockParts.OrderBy(s => s).Distinct());
+                this.ElementalPartAssets = CreateAssetList(balance.Parts.ElementalParts.OrderBy(s => s).Distinct());
+                this.Accessory1PartAssets = CreateAssetList(balance.Parts.Accessory1Parts.OrderBy(s => s).Distinct());
+                this.Accessory2PartAssets = CreateAssetList(balance.Parts.Accessory2Parts.OrderBy(s => s).Distinct());
+                this.MaterialPartAssets = CreateAssetList(balance.Parts.MaterialParts.OrderBy(s => s).Distinct());
             }
         }
         #endregion

@@ -28,21 +28,21 @@ namespace Gibbed.Borderlands2.FileFormats.Items
     public class BaseWeapon : IBaseSlot, IPackable, INotifyPropertyChanged
     {
         #region Fields
-        private string _TypeDefinition = "None";
-        private string _BalanceDefinition = "None";
-        private string _ManufacturerDefinition = "None";
+        private string _Type = "None";
+        private string _Balance = "None";
+        private string _Manufacturer = "None";
         private int _ManufacturerGradeIndex;
-        private string _BodyPartDefinition = "None";
-        private string _GripPartDefinition = "None";
-        private string _BarrelPartDefinition = "None";
-        private string _SightPartDefinition = "None";
-        private string _StockPartDefinition = "None";
-        private string _ElementalPartDefinition = "None";
-        private string _Accessory1PartDefinition = "None";
-        private string _Accessory2PartDefinition = "None";
-        private string _MaterialPartDefinition = "None";
-        private string _PrefixPartDefinition = "None";
-        private string _TitlePartDefinition = "None";
+        private string _BodyPart = "None";
+        private string _GripPart = "None";
+        private string _BarrelPart = "None";
+        private string _SightPart = "None";
+        private string _StockPart = "None";
+        private string _ElementalPart = "None";
+        private string _Accessory1Part = "None";
+        private string _Accessory2Part = "None";
+        private string _MaterialPart = "None";
+        private string _PrefixPart = "None";
+        private string _TitlePart = "None";
         private int _GameStage;
         private int _UniqueId;
         private int _AssetLibrarySetId;
@@ -53,83 +53,83 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         {
             var alm = InfoManager.AssetLibraryManager;
 
-            this.TypeDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponTypes);
-            this.BalanceDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.BalanceDefs);
-            this.ManufacturerDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.Manufacturers);
+            this.Type = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponTypes);
+            this.Balance = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.BalanceDefs);
+            this.Manufacturer = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.Manufacturers);
             this.ManufacturerGradeIndex = reader.ReadInt32(7);
             this.GameStage = reader.ReadInt32(7);
-            this.BodyPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.GripPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.BarrelPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.SightPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.StockPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.ElementalPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.Accessory1PartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.Accessory2PartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.MaterialPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.PrefixPartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.TitlePartDefinition = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
+            this.BodyPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
+            this.GripPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
+            this.BarrelPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
+            this.SightPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
+            this.StockPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
+            this.ElementalPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
+            this.Accessory1Part = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
+            this.Accessory2Part = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
+            this.MaterialPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
+            this.PrefixPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
+            this.TitlePart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.WeaponParts);
         }
 
         public void Write(BitWriter writer)
         {
             var alm = InfoManager.AssetLibraryManager;
 
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponTypes, this.TypeDefinition);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.BalanceDefs, this.BalanceDefinition);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.Manufacturers, this.ManufacturerDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponTypes, this.Type);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.BalanceDefs, this.Balance);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.Manufacturers, this.Manufacturer);
             writer.WriteInt32(this.ManufacturerGradeIndex, 7);
             writer.WriteInt32(this.GameStage, 7);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.BodyPartDefinition);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.GripPartDefinition);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.BarrelPartDefinition);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.SightPartDefinition);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.StockPartDefinition);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.ElementalPartDefinition);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.Accessory1PartDefinition);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.Accessory2PartDefinition);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.MaterialPartDefinition);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.PrefixPartDefinition);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.TitlePartDefinition);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.BodyPart);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.GripPart);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.BarrelPart);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.SightPart);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.StockPart);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.ElementalPart);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.Accessory1Part);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.Accessory2Part);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.MaterialPart);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.PrefixPart);
+            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.WeaponParts, this.TitlePart);
         }
         #endregion
 
         #region Properties
-        public string TypeDefinition
+        public string Type
         {
-            get { return this._TypeDefinition; }
+            get { return this._Type; }
             set
             {
-                if (value != this._TypeDefinition)
+                if (value != this._Type)
                 {
-                    this._TypeDefinition = value;
-                    this.NotifyPropertyChanged("TypeDefinition");
+                    this._Type = value;
+                    this.NotifyPropertyChanged("Type");
                 }
             }
         }
 
-        public string BalanceDefinition
+        public string Balance
         {
-            get { return this._BalanceDefinition; }
+            get { return this._Balance; }
             set
             {
-                if (value != this._BalanceDefinition)
+                if (value != this._Balance)
                 {
-                    this._BalanceDefinition = value;
-                    this.NotifyPropertyChanged("BalanceDefinition");
+                    this._Balance = value;
+                    this.NotifyPropertyChanged("Balance");
                 }
             }
         }
 
-        public string ManufacturerDefinition
+        public string Manufacturer
         {
-            get { return this._ManufacturerDefinition; }
+            get { return this._Manufacturer; }
             set
             {
-                if (value != this._ManufacturerDefinition)
+                if (value != this._Manufacturer)
                 {
-                    this._ManufacturerDefinition = value;
-                    this.NotifyPropertyChanged("ManufacturerDefinition");
+                    this._Manufacturer = value;
+                    this.NotifyPropertyChanged("Manufacturer");
                 }
             }
         }
@@ -147,145 +147,145 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string BodyPartDefinition
+        public string BodyPart
         {
-            get { return this._BodyPartDefinition; }
+            get { return this._BodyPart; }
             set
             {
-                if (value != this._BodyPartDefinition)
+                if (value != this._BodyPart)
                 {
-                    this._BodyPartDefinition = value;
-                    this.NotifyPropertyChanged("BodyPartDefinition");
+                    this._BodyPart = value;
+                    this.NotifyPropertyChanged("BodyPart");
                 }
             }
         }
 
-        public string GripPartDefinition
+        public string GripPart
         {
-            get { return this._GripPartDefinition; }
+            get { return this._GripPart; }
             set
             {
-                if (value != this._GripPartDefinition)
+                if (value != this._GripPart)
                 {
-                    this._GripPartDefinition = value;
-                    this.NotifyPropertyChanged("GripPartDefinition");
+                    this._GripPart = value;
+                    this.NotifyPropertyChanged("GripPart");
                 }
             }
         }
 
-        public string BarrelPartDefinition
+        public string BarrelPart
         {
-            get { return this._BarrelPartDefinition; }
+            get { return this._BarrelPart; }
             set
             {
-                if (value != this._BarrelPartDefinition)
+                if (value != this._BarrelPart)
                 {
-                    this._BarrelPartDefinition = value;
-                    this.NotifyPropertyChanged("BarrelPartDefinition");
+                    this._BarrelPart = value;
+                    this.NotifyPropertyChanged("BarrelPart");
                 }
             }
         }
 
-        public string SightPartDefinition
+        public string SightPart
         {
-            get { return this._SightPartDefinition; }
+            get { return this._SightPart; }
             set
             {
-                if (value != this._SightPartDefinition)
+                if (value != this._SightPart)
                 {
-                    this._SightPartDefinition = value;
-                    this.NotifyPropertyChanged("SightPartDefinition");
+                    this._SightPart = value;
+                    this.NotifyPropertyChanged("SightPart");
                 }
             }
         }
 
-        public string StockPartDefinition
+        public string StockPart
         {
-            get { return this._StockPartDefinition; }
+            get { return this._StockPart; }
             set
             {
-                if (value != this._StockPartDefinition)
+                if (value != this._StockPart)
                 {
-                    this._StockPartDefinition = value;
-                    this.NotifyPropertyChanged("StockPartDefinition");
+                    this._StockPart = value;
+                    this.NotifyPropertyChanged("StockPart");
                 }
             }
         }
 
-        public string ElementalPartDefinition
+        public string ElementalPart
         {
-            get { return this._ElementalPartDefinition; }
+            get { return this._ElementalPart; }
             set
             {
-                if (value != this._ElementalPartDefinition)
+                if (value != this._ElementalPart)
                 {
-                    this._ElementalPartDefinition = value;
-                    this.NotifyPropertyChanged("ElementalPartDefinition");
+                    this._ElementalPart = value;
+                    this.NotifyPropertyChanged("ElementalPart");
                 }
             }
         }
 
-        public string Accessory1PartDefinition
+        public string Accessory1Part
         {
-            get { return this._Accessory1PartDefinition; }
+            get { return this._Accessory1Part; }
             set
             {
-                if (value != this._Accessory1PartDefinition)
+                if (value != this._Accessory1Part)
                 {
-                    this._Accessory1PartDefinition = value;
-                    this.NotifyPropertyChanged("Accessory1PartDefinition");
+                    this._Accessory1Part = value;
+                    this.NotifyPropertyChanged("Accessory1Part");
                 }
             }
         }
 
-        public string Accessory2PartDefinition
+        public string Accessory2Part
         {
-            get { return this._Accessory2PartDefinition; }
+            get { return this._Accessory2Part; }
             set
             {
-                if (value != this._Accessory2PartDefinition)
+                if (value != this._Accessory2Part)
                 {
-                    this._Accessory2PartDefinition = value;
-                    this.NotifyPropertyChanged("Accessory2PartDefinition");
+                    this._Accessory2Part = value;
+                    this.NotifyPropertyChanged("Accessory2Part");
                 }
             }
         }
 
-        public string MaterialPartDefinition
+        public string MaterialPart
         {
-            get { return this._MaterialPartDefinition; }
+            get { return this._MaterialPart; }
             set
             {
-                if (value != this._MaterialPartDefinition)
+                if (value != this._MaterialPart)
                 {
-                    this._MaterialPartDefinition = value;
-                    this.NotifyPropertyChanged("MaterialPartDefinition");
+                    this._MaterialPart = value;
+                    this.NotifyPropertyChanged("MaterialPart");
                 }
             }
         }
 
-        public string PrefixPartDefinition
+        public string PrefixPart
         {
-            get { return this._PrefixPartDefinition; }
+            get { return this._PrefixPart; }
             set
             {
-                if (value != this._PrefixPartDefinition)
+                if (value != this._PrefixPart)
                 {
-                    this._PrefixPartDefinition = value;
-                    this.NotifyPropertyChanged("PrefixPartDefinition");
+                    this._PrefixPart = value;
+                    this.NotifyPropertyChanged("PrefixPart");
                 }
             }
         }
 
-        public string TitlePartDefinition
+        public string TitlePart
         {
-            get { return this._TitlePartDefinition; }
+            get { return this._TitlePart; }
             set
             {
-                if (value != this._TitlePartDefinition)
+                if (value != this._TitlePart)
                 {
-                    this._TitlePartDefinition = value;
-                    this.NotifyPropertyChanged("TitlePartDefinition");
+                    this._TitlePart = value;
+                    this.NotifyPropertyChanged("TitlePart");
                 }
             }
         }
@@ -335,21 +335,21 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         {
             return new BaseWeapon()
             {
-                TypeDefinition = this.TypeDefinition,
-                BalanceDefinition = this.BalanceDefinition,
-                ManufacturerDefinition = this.ManufacturerDefinition,
+                Type = this.Type,
+                Balance = this.Balance,
+                Manufacturer = this.Manufacturer,
                 ManufacturerGradeIndex = this.ManufacturerGradeIndex,
-                BodyPartDefinition = this.BodyPartDefinition,
-                GripPartDefinition = this.GripPartDefinition,
-                BarrelPartDefinition = this.BarrelPartDefinition,
-                SightPartDefinition = this.SightPartDefinition,
-                StockPartDefinition = this.StockPartDefinition,
-                ElementalPartDefinition = this.ElementalPartDefinition,
-                Accessory1PartDefinition = this.Accessory1PartDefinition,
-                Accessory2PartDefinition = this.Accessory2PartDefinition,
-                MaterialPartDefinition = this.MaterialPartDefinition,
-                PrefixPartDefinition = this.PrefixPartDefinition,
-                TitlePartDefinition = this.TitlePartDefinition,
+                BodyPart = this.BodyPart,
+                GripPart = this.GripPart,
+                BarrelPart = this.BarrelPart,
+                SightPart = this.SightPart,
+                StockPart = this.StockPart,
+                ElementalPart = this.ElementalPart,
+                Accessory1Part = this.Accessory1Part,
+                Accessory2Part = this.Accessory2Part,
+                MaterialPart = this.MaterialPart,
+                PrefixPart = this.PrefixPart,
+                TitlePart = this.TitlePart,
                 GameStage = this.GameStage,
                 UniqueId = this.UniqueId,
                 AssetLibrarySetId = this.AssetLibrarySetId,
