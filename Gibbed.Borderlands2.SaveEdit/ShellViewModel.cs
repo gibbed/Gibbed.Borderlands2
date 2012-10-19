@@ -177,7 +177,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                              .WithIcon(MessageBoxImage.Error).AsCoroutine())
                 .Rescue().Execute(
                     x =>
-                    new MyMessageBox("An exception was thrown (press Ctrl+C to copy this text):\n\n" + x.ToString(),
+                    new MyMessageBox("An exception was thrown (press Ctrl+C to copy):\n\n" + x.ToString(),
                                      "Error")
                         .WithIcon(MessageBoxImage.Error).AsCoroutine());
         }
@@ -231,7 +231,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 }
             }).Rescue().Execute(
                 x =>
-                new MyMessageBox("An exception was thrown (press Ctrl+C to copy this text):\n\n" + x.ToString(), "Error")
+                new MyMessageBox("An exception was thrown (press Ctrl+C to copy):\n\n" + x.ToString(), "Error")
                     .WithIcon(MessageBoxImage.Error).AsCoroutine());
         }
     }

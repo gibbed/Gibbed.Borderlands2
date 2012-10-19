@@ -97,7 +97,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An exception was thrown (press Ctrl+C to copy this text):\n\n" + ex,
+                MessageBox.Show("An exception was thrown (press Ctrl+C to copy):\n\n" + ex,
                                 "Error",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Error);
