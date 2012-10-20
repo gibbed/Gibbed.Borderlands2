@@ -33,6 +33,7 @@ namespace Gibbed.Borderlands2.GameInfo
         public static InfoDictionary<WeaponBalanceDefinition> WeaponBalance { get; private set; }
         public static InfoDictionary<ItemBalanceDefinition> ItemBalance { get; private set; }
         public static InfoDictionary<CustomizationDefinition> Customizations { get; private set; }
+        public static InfoDictionary<TravelStationDefinition> TravelStations { get; private set; }
 
         static InfoManager()
         {
@@ -47,6 +48,8 @@ namespace Gibbed.Borderlands2.GameInfo
             WeaponBalance = Loaders.WeaponBalanceDefinitionLoader.Load(WeaponTypes);
             ItemBalance = Loaders.ItemBalanceDefinitionLoader.Load(ItemTypes);
             Customizations = Loaders.CustomizationDefinitionLoader.Load(DownloadableContents);
+
+            TravelStations = Loaders.TravelStationDefinitionLoader.Load(DownloadableContents);
         }
 
         // Just a way to get the static initializer called.
