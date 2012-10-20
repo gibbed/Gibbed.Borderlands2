@@ -112,18 +112,35 @@
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Experience Level:" />
-        <xctk:IntegerUpDown Grid.Row="2"
-                            Grid.Column="1"
-                            Margin="3"
-                            Value="{Binding Path=ExpLevel, UpdateSourceTrigger=PropertyChanged}" />
+        <DockPanel LastChildFill="True"
+                   Grid.Row="2"
+                   Grid.Column="1"
+                   Margin="3">
+          <Button x:Name="SynchronizeExpLevel"
+                  DockPanel.Dock="Right"
+                  ToolTip="Synchronize experience level from experience points">
+            Sync
+          </Button>
+          <xctk:IntegerUpDown HorizontalAlignment="Stretch"
+                              Minimum="1"
+                              Value="{Binding Path=ExpLevel, UpdateSourceTrigger=PropertyChanged}" />
+        </DockPanel>
         <Label Grid.Row="3"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Experience Points:" />
-        <xctk:IntegerUpDown Grid.Row="3"
-                            Grid.Column="1"
-                            Margin="3"
-                            Value="{Binding Path=ExpPoints, UpdateSourceTrigger=PropertyChanged}" />
+        <DockPanel LastChildFill="True"
+                   Grid.Row="3"
+                   Grid.Column="1"
+                   Margin="3">
+          <Button x:Name="SynchronizeExpPoints"
+                  DockPanel.Dock="Right"
+                  ToolTip="Synchronize experience points from experience level">
+            Sync
+          </Button>
+          <xctk:IntegerUpDown Minimum="0"
+                              Value="{Binding Path=ExpPoints, UpdateSourceTrigger=PropertyChanged}" />
+        </DockPanel>
         <Label Grid.Row="4"
                Grid.Column="0"
                HorizontalContentAlignment="Right"

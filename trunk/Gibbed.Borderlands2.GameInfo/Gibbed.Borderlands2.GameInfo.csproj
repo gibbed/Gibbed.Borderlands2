@@ -57,6 +57,7 @@
     <Compile Include="DownloadableContentDefinition.cs" />
     <Compile Include="DownloadableContentType.cs" />
     <Compile Include="DownloadablePackageDefinition.cs" />
+    <Compile Include="Experience.cs" />
     <Compile Include="InfoDictionary.cs" />
     <Compile Include="InfoLoadException.cs" />
     <Compile Include="InfoManager.cs" />
