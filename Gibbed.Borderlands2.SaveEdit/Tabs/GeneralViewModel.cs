@@ -20,6 +20,7 @@
  *    distribution.
  */
 
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
@@ -315,13 +316,47 @@ namespace Gibbed.Borderlands2.SaveEdit
             this.SelectedSkin = selectedSkin;
         }
 
+        public void SynchronizeExpLevel()
+        {
+            this.ExpLevel = Experience.GetLevelForPoints(this.ExpPoints);
+        }
+
+        public void SynchronizeExpPoints()
+        {
+            var minimum = Experience.GetPointsForLevel(this.ExpLevel + 0);
+            var maximum = Experience.GetPointsForLevel(this.ExpLevel + 1) - 1;
+
+            if (this.ExpPoints < minimum)
+            {
+                this.ExpPoints = minimum;
+            }
+            else if (this.ExpPoints > maximum)
+            {
+                this.ExpPoints = maximum;
+            }
+        }
+
         public void ImportData(WillowTwoPlayerSaveGame saveGame, Endian endian)
         {
             this.Endian = endian;
             this.SaveGameId = saveGame.SaveGameId;
             this.PlayerClass = saveGame.PlayerClassDefinition;
-            this.ExpLevel = saveGame.ExpLevel;
-            this.ExpPoints = saveGame.ExpPoints;
+
+            var expLevel = saveGame.ExpLevel;
+            var expPoints = saveGame.ExpPoints;
+
+            if (expPoints < 0)
+            {
+                expPoints = 0;
+            }
+
+            if (expLevel <= 0)
+            {
+                expLevel = Math.Max(1, Experience.GetLevelForPoints(expPoints));
+            }
+
+            this.ExpLevel = expLevel;
+            this.ExpPoints = expPoints;
             this.GeneralSkillPoints = saveGame.GeneralSkillPoints;
             this.SpecialistSkillPoints = saveGame.SpecialistSkillPoints;
             this.CharacterName = Encoding.UTF8.GetString(saveGame.UIPreferences.CharacterName);
