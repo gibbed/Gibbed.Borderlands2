@@ -53,16 +53,26 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             var settings = new JsonSerializerSettings()
             {
                 MissingMemberHandling = MissingMemberHandling.Error,
+                TypeNameHandling = TypeNameHandling.Auto,
+                Binder =
+                    new TypeNameSerializationBinder("Gibbed.Borderlands2.GameInfo.Raw.{0}, Gibbed.Borderlands2.GameInfo")
             };
             settings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
 
-            var serializer = JsonSerializer.Create(settings);
-
-            using (var input = GetUnmanagedMemoryStream(embeddedResourceName))
-            using (var textReader = new StreamReader(input))
-            using (var jsonReader = new JsonTextReader(textReader))
+            try
             {
-                return serializer.Deserialize<TType>(jsonReader);
+                var serializer = JsonSerializer.Create(settings);
+
+                using (var input = GetUnmanagedMemoryStream(embeddedResourceName))
+                using (var textReader = new StreamReader(input))
+                using (var jsonReader = new JsonTextReader(textReader))
+                {
+                    return serializer.Deserialize<TType>(jsonReader);
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
             }
         }
     }

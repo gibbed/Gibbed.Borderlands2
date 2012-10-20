@@ -58,6 +58,7 @@
     <Compile Include="DownloadableContentType.cs" />
     <Compile Include="DownloadablePackageDefinition.cs" />
     <Compile Include="Experience.cs" />
+    <Compile Include="FastTravelStationDefinition.cs" />
     <Compile Include="InfoDictionary.cs" />
     <Compile Include="InfoLoadException.cs" />
     <Compile Include="InfoManager.cs" />
@@ -65,16 +66,22 @@
     <Compile Include="ItemBalancePartCollection.cs" />
     <Compile Include="ItemType.cs" />
     <Compile Include="ItemTypeDefinition.cs" />
+    <Compile Include="LevelTravelStationDefinition.cs" />
     <Compile Include="Loaders\AssetLibraryManagerLoader.cs" />
     <Compile Include="Loaders\CustomizationDefinitionLoader.cs" />
     <Compile Include="Loaders\DownloadableContentDefinitionLoader.cs" />
     <Compile Include="Loaders\DownloadablePackageDefinitionLoader.cs" />
+    <Compile Include="Loaders\TravelStationDefinitionLoader.cs" />
     <Compile Include="Loaders\ItemBalanceDefinitionLoader.cs" />
     <Compile Include="Loaders\ItemTypeDefinitionLoader.cs" />
     <Compile Include="Loaders\LoaderHelper.cs" />
     <Compile Include="Loaders\PlayerClassDefinitionLoader.cs" />
+    <Compile Include="Loaders\TypeNameSerializationBinder.cs" />
     <Compile Include="Loaders\WeaponBalanceDefinitionLoader.cs" />
     <Compile Include="Loaders\WeaponTypeDefinitionLoader.cs" />
+    <Compile Include="MissionStatus.cs" />
+    <Compile Include="MissionStatusData.cs" />
+    <Compile Include="ObjectiveDependencyStatus.cs" />
     <Compile Include="Raw\AssetLibraryConfiguration.cs" />
     <Compile Include="Raw\AssetLibraryDefinition.cs" />
     <Compile Include="Raw\AssetLibraryManager.cs" />
@@ -83,16 +90,21 @@
     <Compile Include="Raw\CustomizationDefinition.cs" />
     <Compile Include="Raw\DownloadableContentDefinition.cs" />
     <Compile Include="Raw\DownloadablePackage.cs" />
+    <Compile Include="Raw\FastTravelStationDefinition.cs" />
     <Compile Include="Raw\ItemBalanceDefinition.cs" />
     <Compile Include="Raw\ItemBalancePartCollection.cs" />
     <Compile Include="Raw\ItemTypeDefinition.cs" />
+    <Compile Include="Raw\LevelTravelStationDefinition.cs" />
+    <Compile Include="Raw\MissionStatusData.cs" />
     <Compile Include="Raw\PlayerClassDefinition.cs" />
     <Compile Include="PartReplacementMode.cs" />
     <Compile Include="PlayerClassDefinition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Raw\TravelStationDefinition.cs" />
     <Compile Include="Raw\WeaponBalanceDefinition.cs" />
     <Compile Include="Raw\WeaponBalancePartCollection.cs" />
     <Compile Include="Raw\WeaponTypeDefinition.cs" />
+    <Compile Include="TravelStationDefinition.cs" />
     <Compile Include="WeaponBalanceDefinition.cs" />
     <Compile Include="WeaponBalancePartCollection.cs" />
     <Compile Include="WeaponType.cs" />
@@ -112,6 +124,7 @@
     <EmbeddedResource Include="Resources\Player Classes.json" />
     <EmbeddedResource Include="Resources\Downloadable Contents.json" />
     <EmbeddedResource Include="Resources\Downloadable Packages.json" />
+    <EmbeddedResource Include="Resources\Travel Stations.json" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
