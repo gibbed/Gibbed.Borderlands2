@@ -31,7 +31,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
     public class WillowTwoPlayerSaveGame : IComposable, INotifyPropertyChanged
     {
         #region Fields
-        private string _PlayerClassDefinition;
+        private string _PlayerClass;
         private int _ExpLevel;
         private int _ExpPoints;
         private int _GeneralSkillPoints;
@@ -580,15 +580,15 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         #region Properties
         [ProtoMember(1, IsRequired = true)]
-        public string PlayerClassDefinition
+        public string PlayerClass
         {
-            get { return this._PlayerClassDefinition; }
+            get { return this._PlayerClass; }
             set
             {
-                if (value != this._PlayerClassDefinition)
+                if (value != this._PlayerClass)
                 {
-                    this._PlayerClassDefinition = value;
-                    this.NotifyPropertyChanged("PlayerClassDefinition");
+                    this._PlayerClass = value;
+                    this.NotifyPropertyChanged("PlayerClass");
                 }
             }
         }
@@ -1011,8 +1011,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
             {
                 if (value != this._IsBadassModeSaveGame)
                 {
-                    //this._IsBadassModeSaveGame = value;
-                    this._IsBadassModeSaveGame = false;
+                    this._IsBadassModeSaveGame = value;
                     this.NotifyPropertyChanged("IsBadassModeSaveGame");
                 }
             }

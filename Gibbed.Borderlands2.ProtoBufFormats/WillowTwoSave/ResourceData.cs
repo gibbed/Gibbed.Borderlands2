@@ -29,8 +29,8 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
     public class ResourceData : IComposable, INotifyPropertyChanged
     {
         #region Fields
-        private string _ResourceDefinition;
-        private string _ResourcePoolDefinition;
+        private string _Resource;
+        private string _Pool;
         private float _Amount;
         private int _UpgradeLevel;
         #endregion
@@ -47,29 +47,29 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         #region Properties
         [ProtoMember(1, IsRequired = true)]
-        public string ResourceDefinition
+        public string Resource
         {
-            get { return this._ResourceDefinition; }
+            get { return this._Resource; }
             set
             {
-                if (value != this._ResourceDefinition)
+                if (value != this._Resource)
                 {
-                    this._ResourceDefinition = value;
-                    this.NotifyPropertyChanged("ResourceDefinition");
+                    this._Resource = value;
+                    this.NotifyPropertyChanged("Resource");
                 }
             }
         }
 
         [ProtoMember(2, IsRequired = true)]
-        public string ResourcePoolDefinition
+        public string Pool
         {
-            get { return this._ResourcePoolDefinition; }
+            get { return this._Pool; }
             set
             {
-                if (value != this._ResourcePoolDefinition)
+                if (value != this._Pool)
                 {
-                    this._ResourcePoolDefinition = value;
-                    this.NotifyPropertyChanged("ResourcePoolDefinition");
+                    this._Pool = value;
+                    this.NotifyPropertyChanged("Pool");
                 }
             }
         }
@@ -117,7 +117,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         public override string ToString()
         {
-            return this.ResourceDefinition ?? base.ToString();
+            return this.Resource ?? base.ToString();
         }
     }
 }

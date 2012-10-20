@@ -29,7 +29,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
     public class SkillData : IComposable, INotifyPropertyChanged
     {
         #region Fields
-        private string _SkillDefinition;
+        private string _Skill;
         private int _Grade;
         private int _GradePoints;
         private int _EquippedSlotIndex;
@@ -47,15 +47,15 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         #region Properties
         [ProtoMember(1, IsRequired = true)]
-        public string SkillDefinition
+        public string Skill
         {
-            get { return this._SkillDefinition; }
+            get { return this._Skill; }
             set
             {
-                if (value != this._SkillDefinition)
+                if (value != this._Skill)
                 {
-                    this._SkillDefinition = value;
-                    this.NotifyPropertyChanged("SkillDefinition");
+                    this._Skill = value;
+                    this.NotifyPropertyChanged("Skill");
                 }
             }
         }
@@ -117,7 +117,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         public override string ToString()
         {
-            return this.SkillDefinition ?? base.ToString();
+            return this.Skill ?? base.ToString();
         }
     }
 }

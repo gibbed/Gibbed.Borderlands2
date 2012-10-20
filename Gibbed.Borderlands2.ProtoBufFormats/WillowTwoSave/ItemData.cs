@@ -30,19 +30,19 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
     {
         #region Fields
         private string _Balance;
-        private string _ItemDefinition;
-        private string _AlphaItemPartDefinition;
-        private string _BetaItemPartDefinition;
-        private string _GammaItemPartDefinition;
-        private string _DeltaItemPartDefinition;
-        private string _EpsilonItemPartDefinition;
-        private string _ZetaItemPartDefinition;
-        private string _EtaItemPartDefinition;
-        private string _ThetaItemPartDefinition;
-        private string _MaterialItemPartDefinition;
-        private string _ManufacturerDefinition;
-        private string _PrefixItemNamePartDefinition;
-        private string _TitleItemNamePartDefinition;
+        private string _Type;
+        private string _AlphaPart;
+        private string _BetaPart;
+        private string _GammaPart;
+        private string _DeltaPart;
+        private string _EpsilonPart;
+        private string _ZetaPart;
+        private string _EtaPart;
+        private string _ThetaPart;
+        private string _MaterialPart;
+        private string _Manufacturer;
+        private string _PrefixPart;
+        private string _TitlePart;
         private int _Quantity;
         private int _ManufacturerGradeIndex;
         private bool _Equipped;
@@ -61,7 +61,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         #region Properties
         [ProtoMember(1, IsRequired = true)]
-        public string Unknown1
+        public string Balance
         {
             get { return this._Balance; }
             set
@@ -69,195 +69,195 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Balance)
                 {
                     this._Balance = value;
-                    this.NotifyPropertyChanged("Unknown1");
+                    this.NotifyPropertyChanged("Balance");
                 }
             }
         }
 
         [ProtoMember(2, IsRequired = true)]
-        public string Unknown2
+        public string Type
         {
-            get { return this._ItemDefinition; }
+            get { return this._Type; }
             set
             {
-                if (value != this._ItemDefinition)
+                if (value != this._Type)
                 {
-                    this._ItemDefinition = value;
-                    this.NotifyPropertyChanged("Unknown2");
+                    this._Type = value;
+                    this.NotifyPropertyChanged("Type");
                 }
             }
         }
 
         [ProtoMember(3, IsRequired = true)]
-        public string Unknown3
+        public string AlphaPart
         {
-            get { return this._AlphaItemPartDefinition; }
+            get { return this._AlphaPart; }
             set
             {
-                if (value != this._AlphaItemPartDefinition)
+                if (value != this._AlphaPart)
                 {
-                    this._AlphaItemPartDefinition = value;
-                    this.NotifyPropertyChanged("Unknown3");
+                    this._AlphaPart = value;
+                    this.NotifyPropertyChanged("AlphaPart");
                 }
             }
         }
 
         [ProtoMember(4, IsRequired = true)]
-        public string Unknown4
+        public string BetaPart
         {
-            get { return this._BetaItemPartDefinition; }
+            get { return this._BetaPart; }
             set
             {
-                if (value != this._BetaItemPartDefinition)
+                if (value != this._BetaPart)
                 {
-                    this._BetaItemPartDefinition = value;
-                    this.NotifyPropertyChanged("Unknown4");
+                    this._BetaPart = value;
+                    this.NotifyPropertyChanged("BetaPart");
                 }
             }
         }
 
         [ProtoMember(5, IsRequired = true)]
-        public string Unknown5
+        public string GammaPart
         {
-            get { return this._GammaItemPartDefinition; }
+            get { return this._GammaPart; }
             set
             {
-                if (value != this._GammaItemPartDefinition)
+                if (value != this._GammaPart)
                 {
-                    this._GammaItemPartDefinition = value;
-                    this.NotifyPropertyChanged("Unknown5");
+                    this._GammaPart = value;
+                    this.NotifyPropertyChanged("GammaPart");
                 }
             }
         }
 
         [ProtoMember(6, IsRequired = true)]
-        public string Unknown6
+        public string DeltaPart
         {
-            get { return this._DeltaItemPartDefinition; }
+            get { return this._DeltaPart; }
             set
             {
-                if (value != this._DeltaItemPartDefinition)
+                if (value != this._DeltaPart)
                 {
-                    this._DeltaItemPartDefinition = value;
-                    this.NotifyPropertyChanged("Unknown6");
+                    this._DeltaPart = value;
+                    this.NotifyPropertyChanged("DeltaPart");
                 }
             }
         }
 
         [ProtoMember(7, IsRequired = true)]
-        public string Unknown7
+        public string EpsilonPart
         {
-            get { return this._EpsilonItemPartDefinition; }
+            get { return this._EpsilonPart; }
             set
             {
-                if (value != this._EpsilonItemPartDefinition)
+                if (value != this._EpsilonPart)
                 {
-                    this._EpsilonItemPartDefinition = value;
-                    this.NotifyPropertyChanged("Unknown7");
+                    this._EpsilonPart = value;
+                    this.NotifyPropertyChanged("EpsilonPart");
                 }
             }
         }
 
         [ProtoMember(8, IsRequired = true)]
-        public string Unknown8
+        public string ZetaPart
         {
-            get { return this._ZetaItemPartDefinition; }
+            get { return this._ZetaPart; }
             set
             {
-                if (value != this._ZetaItemPartDefinition)
+                if (value != this._ZetaPart)
                 {
-                    this._ZetaItemPartDefinition = value;
-                    this.NotifyPropertyChanged("Unknown8");
+                    this._ZetaPart = value;
+                    this.NotifyPropertyChanged("ZetaPart");
                 }
             }
         }
 
         [ProtoMember(9, IsRequired = true)]
-        public string Unknown9
+        public string EtaPart
         {
-            get { return this._EtaItemPartDefinition; }
+            get { return this._EtaPart; }
             set
             {
-                if (value != this._EtaItemPartDefinition)
+                if (value != this._EtaPart)
                 {
-                    this._EtaItemPartDefinition = value;
-                    this.NotifyPropertyChanged("Unknown9");
+                    this._EtaPart = value;
+                    this.NotifyPropertyChanged("EtaPart");
                 }
             }
         }
 
         [ProtoMember(10, IsRequired = true)]
-        public string Unknown10
+        public string ThetaPart
         {
-            get { return this._ThetaItemPartDefinition; }
+            get { return this._ThetaPart; }
             set
             {
-                if (value != this._ThetaItemPartDefinition)
+                if (value != this._ThetaPart)
                 {
-                    this._ThetaItemPartDefinition = value;
-                    this.NotifyPropertyChanged("Unknown10");
+                    this._ThetaPart = value;
+                    this.NotifyPropertyChanged("ThetaPart");
                 }
             }
         }
 
         [ProtoMember(11, IsRequired = true)]
-        public string Unknown11
+        public string MaterialPart
         {
-            get { return this._MaterialItemPartDefinition; }
+            get { return this._MaterialPart; }
             set
             {
-                if (value != this._MaterialItemPartDefinition)
+                if (value != this._MaterialPart)
                 {
-                    this._MaterialItemPartDefinition = value;
-                    this.NotifyPropertyChanged("Unknown11");
+                    this._MaterialPart = value;
+                    this.NotifyPropertyChanged("MaterialPart");
                 }
             }
         }
 
         [ProtoMember(12, IsRequired = true)]
-        public string Unknown12
+        public string Manufacturer
         {
-            get { return this._ManufacturerDefinition; }
+            get { return this._Manufacturer; }
             set
             {
-                if (value != this._ManufacturerDefinition)
+                if (value != this._Manufacturer)
                 {
-                    this._ManufacturerDefinition = value;
-                    this.NotifyPropertyChanged("Unknown12");
+                    this._Manufacturer = value;
+                    this.NotifyPropertyChanged("Manufacturer");
                 }
             }
         }
 
         [ProtoMember(13, IsRequired = true)]
-        public string Unknown13
+        public string PrefixPart
         {
-            get { return this._PrefixItemNamePartDefinition; }
+            get { return this._PrefixPart; }
             set
             {
-                if (value != this._PrefixItemNamePartDefinition)
+                if (value != this._PrefixPart)
                 {
-                    this._PrefixItemNamePartDefinition = value;
-                    this.NotifyPropertyChanged("Unknown13");
+                    this._PrefixPart = value;
+                    this.NotifyPropertyChanged("PrefixPart");
                 }
             }
         }
 
         [ProtoMember(14, IsRequired = true)]
-        public string Unknown14
+        public string TitlePart
         {
-            get { return this._TitleItemNamePartDefinition; }
+            get { return this._TitlePart; }
             set
             {
-                if (value != this._TitleItemNamePartDefinition)
+                if (value != this._TitlePart)
                 {
-                    this._TitleItemNamePartDefinition = value;
-                    this.NotifyPropertyChanged("Unknown14");
+                    this._TitlePart = value;
+                    this.NotifyPropertyChanged("TitlePart");
                 }
             }
         }
 
         [ProtoMember(15, IsRequired = true)]
-        public int Unknown15
+        public int Quantity
         {
             get { return this._Quantity; }
             set
@@ -265,13 +265,13 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Quantity)
                 {
                     this._Quantity = value;
-                    this.NotifyPropertyChanged("Unknown15");
+                    this.NotifyPropertyChanged("Quantity");
                 }
             }
         }
 
         [ProtoMember(16, IsRequired = true)]
-        public int Unknown16
+        public int ManufacturerGradeIndex
         {
             get { return this._ManufacturerGradeIndex; }
             set
@@ -279,13 +279,13 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._ManufacturerGradeIndex)
                 {
                     this._ManufacturerGradeIndex = value;
-                    this.NotifyPropertyChanged("Unknown16");
+                    this.NotifyPropertyChanged("ManufacturerGradeIndex");
                 }
             }
         }
 
         [ProtoMember(17, IsRequired = true)]
-        public bool Unknown17
+        public bool Equipped
         {
             get { return this._Equipped; }
             set
@@ -293,13 +293,13 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Equipped)
                 {
                     this._Equipped = value;
-                    this.NotifyPropertyChanged("Unknown17");
+                    this.NotifyPropertyChanged("Equipped");
                 }
             }
         }
 
         [ProtoMember(18, IsRequired = true)]
-        public PlayerMark Unknown18
+        public PlayerMark Mark
         {
             get { return this._Mark; }
             set
@@ -307,7 +307,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Mark)
                 {
                     this._Mark = value;
-                    this.NotifyPropertyChanged("Unknown18");
+                    this.NotifyPropertyChanged("Mark");
                 }
             }
         }
