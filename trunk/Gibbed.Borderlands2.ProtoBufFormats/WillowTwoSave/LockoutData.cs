@@ -29,8 +29,8 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
     public class LockoutData : IComposable, INotifyPropertyChanged
     {
         #region Fields
-        private string _LockoutDefinition;
-        private int _LockoutTime;
+        private string _Lockout;
+        private int _Time;
         private bool _IsFromDLC;
         private int _DLCPackageId;
         #endregion
@@ -47,29 +47,29 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         #region Properties
         [ProtoMember(1, IsRequired = true)]
-        public string LockoutDefinition
+        public string Lockout
         {
-            get { return this._LockoutDefinition; }
+            get { return this._Lockout; }
             set
             {
-                if (value != this._LockoutDefinition)
+                if (value != this._Lockout)
                 {
-                    this._LockoutDefinition = value;
-                    this.NotifyPropertyChanged("LockoutDefinition");
+                    this._Lockout = value;
+                    this.NotifyPropertyChanged("Lockout");
                 }
             }
         }
 
         [ProtoMember(2, IsRequired = true)]
-        public int LockoutTime
+        public int Time
         {
-            get { return this._LockoutTime; }
+            get { return this._Time; }
             set
             {
-                if (value != this._LockoutTime)
+                if (value != this._Time)
                 {
-                    this._LockoutTime = value;
-                    this.NotifyPropertyChanged("LockoutTime");
+                    this._Time = value;
+                    this.NotifyPropertyChanged("Time");
                 }
             }
         }

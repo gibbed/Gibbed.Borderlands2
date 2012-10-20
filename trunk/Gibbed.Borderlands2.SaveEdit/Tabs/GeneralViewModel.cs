@@ -340,7 +340,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             this.Endian = endian;
             this.SaveGameId = saveGame.SaveGameId;
-            this.PlayerClass = saveGame.PlayerClassDefinition;
+            this.PlayerClass = saveGame.PlayerClass;
 
             var expLevel = saveGame.ExpLevel;
             var expPoints = saveGame.ExpPoints;
@@ -369,7 +369,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             endian = this.Endian;
             saveGame.SaveGameId = this.SaveGameId;
-            saveGame.PlayerClassDefinition = this.PlayerClass;
+            saveGame.PlayerClass = this.PlayerClass;
             saveGame.ExpLevel = this.ExpLevel;
             saveGame.ExpPoints = this.ExpPoints;
             saveGame.GeneralSkillPoints = this.GeneralSkillPoints;

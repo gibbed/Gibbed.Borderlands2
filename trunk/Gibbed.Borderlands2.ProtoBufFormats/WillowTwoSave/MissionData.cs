@@ -31,7 +31,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
     public class MissionData : IComposable, INotifyPropertyChanged
     {
         #region Fields
-        private string _MissionDefinition;
+        private string _Mission;
         private MissionStatus _Status;
         private bool _IsFromDLC;
         private int _DLCPackageId;
@@ -90,15 +90,15 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         #region Properties
         [ProtoMember(1, IsRequired = true)]
-        public string MissionDefinition
+        public string Mission
         {
-            get { return this._MissionDefinition; }
+            get { return this._Mission; }
             set
             {
-                if (value != this._MissionDefinition)
+                if (value != this._Mission)
                 {
-                    this._MissionDefinition = value;
-                    this.NotifyPropertyChanged("MissionDefinition");
+                    this._Mission = value;
+                    this.NotifyPropertyChanged("Mission");
                 }
             }
         }
@@ -258,7 +258,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         public override string ToString()
         {
-            return this.MissionDefinition ?? base.ToString();
+            return this.Mission ?? base.ToString();
         }
     }
 }

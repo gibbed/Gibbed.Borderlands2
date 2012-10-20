@@ -29,28 +29,28 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
     public class WeaponData : IComposable, INotifyPropertyChanged
     {
         #region Fields
-        private string _BalanceDefinition;
-        private string _ManufacturerDefinition;
-        private string _WeaponTypeDefinition;
-        private string _BodyPartDefinition;
-        private string _GripPartDefinition;
-        private string _BarrelPartDefinition;
-        private string _SightPartDefinition;
-        private string _StockPartDefinition;
+        private string _Balance;
+        private string _Manufacturer;
+        private string _Type;
+        private string _BodyPart;
+        private string _GripPart;
+        private string _BarrelPart;
+        private string _SightPart;
+        private string _StockPart;
         private string _Unknown9; // unused?
         private string _Unknown10; // unused?
         private string _Unknown11; // unused?
         private string _Unknown12; // unused?
-        private string _MaterialPartDefinition;
-        private string _PrefixPartDefinition;
-        private string _TitlePartDefinition;
+        private string _MaterialPart;
+        private string _PrefixPart;
+        private string _TitlePart;
         private int _Unknown16; // unused?
         private int _ManufacturerGradeIndex;
         private QuickWeaponSlot _QuickSlot;
         private PlayerMark _Mark;
-        private string _ElementalPartDefinition;
-        private string _Accessory1PartDefinition;
-        private string _Accessory2PartDefinition;
+        private string _ElementalPart;
+        private string _Accessory1Part;
+        private string _Accessory2Part;
         #endregion
 
         #region IComposable Members
@@ -65,113 +65,113 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         #region Properties
         [ProtoMember(1, IsRequired = true)]
-        public string BalanceDefinition
+        public string Balance
         {
-            get { return this._BalanceDefinition; }
+            get { return this._Balance; }
             set
             {
-                if (value != this._BalanceDefinition)
+                if (value != this._Balance)
                 {
-                    this._BalanceDefinition = value;
-                    this.NotifyPropertyChanged("BalanceDefinition");
+                    this._Balance = value;
+                    this.NotifyPropertyChanged("Balance");
                 }
             }
         }
 
         [ProtoMember(2, IsRequired = true)]
-        public string ManufacturerDefinition
+        public string Manufacturer
         {
-            get { return this._ManufacturerDefinition; }
+            get { return this._Manufacturer; }
             set
             {
-                if (value != this._ManufacturerDefinition)
+                if (value != this._Manufacturer)
                 {
-                    this._ManufacturerDefinition = value;
-                    this.NotifyPropertyChanged("ManufacturerDefinition");
+                    this._Manufacturer = value;
+                    this.NotifyPropertyChanged("Manufacturer");
                 }
             }
         }
 
         [ProtoMember(3, IsRequired = true)]
-        public string WeaponTypeDefinition
+        public string Type
         {
-            get { return this._WeaponTypeDefinition; }
+            get { return this._Type; }
             set
             {
-                if (value != this._WeaponTypeDefinition)
+                if (value != this._Type)
                 {
-                    this._WeaponTypeDefinition = value;
-                    this.NotifyPropertyChanged("WeaponTypeDefinition");
+                    this._Type = value;
+                    this.NotifyPropertyChanged("Type");
                 }
             }
         }
 
         [ProtoMember(4, IsRequired = true)]
-        public string BodyPartDefinition
+        public string BodyPart
         {
-            get { return this._BodyPartDefinition; }
+            get { return this._BodyPart; }
             set
             {
-                if (value != this._BodyPartDefinition)
+                if (value != this._BodyPart)
                 {
-                    this._BodyPartDefinition = value;
-                    this.NotifyPropertyChanged("Unknown4");
+                    this._BodyPart = value;
+                    this.NotifyPropertyChanged("BodyPart");
                 }
             }
         }
 
         [ProtoMember(5, IsRequired = true)]
-        public string GripPartDefinition
+        public string GripPart
         {
-            get { return this._GripPartDefinition; }
+            get { return this._GripPart; }
             set
             {
-                if (value != this._GripPartDefinition)
+                if (value != this._GripPart)
                 {
-                    this._GripPartDefinition = value;
-                    this.NotifyPropertyChanged("GripPartDefinition");
+                    this._GripPart = value;
+                    this.NotifyPropertyChanged("GripPart");
                 }
             }
         }
 
         [ProtoMember(6, IsRequired = true)]
-        public string BarrelPartDefinition
+        public string BarrelPart
         {
-            get { return this._BarrelPartDefinition; }
+            get { return this._BarrelPart; }
             set
             {
-                if (value != this._BarrelPartDefinition)
+                if (value != this._BarrelPart)
                 {
-                    this._BarrelPartDefinition = value;
-                    this.NotifyPropertyChanged("BarrelPartDefinition");
+                    this._BarrelPart = value;
+                    this.NotifyPropertyChanged("BarrelPart");
                 }
             }
         }
 
         [ProtoMember(7, IsRequired = true)]
-        public string SightPartDefinition
+        public string SightPart
         {
-            get { return this._SightPartDefinition; }
+            get { return this._SightPart; }
             set
             {
-                if (value != this._SightPartDefinition)
+                if (value != this._SightPart)
                 {
-                    this._SightPartDefinition = value;
-                    this.NotifyPropertyChanged("SightPartDefinition");
+                    this._SightPart = value;
+                    this.NotifyPropertyChanged("SightPart");
                 }
             }
         }
 
         [ProtoMember(8, IsRequired = true)]
-        public string StockPartDefinition
+        public string StockPart
         {
-            get { return this._StockPartDefinition; }
+            get { return this._StockPart; }
             set
             {
-                if (value != this._StockPartDefinition)
+                if (value != this._StockPart)
                 {
-                    this._StockPartDefinition = value;
-                    this.NotifyPropertyChanged("StockPartDefinition");
+                    this._StockPart = value;
+                    this.NotifyPropertyChanged("StockPart");
                 }
             }
         }
@@ -233,43 +233,43 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(13, IsRequired = true)]
-        public string MaterialPartDefinition
+        public string MaterialPart
         {
-            get { return this._MaterialPartDefinition; }
+            get { return this._MaterialPart; }
             set
             {
-                if (value != this._MaterialPartDefinition)
+                if (value != this._MaterialPart)
                 {
-                    this._MaterialPartDefinition = value;
-                    this.NotifyPropertyChanged("MaterialPartDefinition");
+                    this._MaterialPart = value;
+                    this.NotifyPropertyChanged("MaterialPart");
                 }
             }
         }
 
         [ProtoMember(14, IsRequired = true)]
-        public string PrefixPartDefinition
+        public string PrefixPart
         {
-            get { return this._PrefixPartDefinition; }
+            get { return this._PrefixPart; }
             set
             {
-                if (value != this._PrefixPartDefinition)
+                if (value != this._PrefixPart)
                 {
-                    this._PrefixPartDefinition = value;
-                    this.NotifyPropertyChanged("PrefixPartDefinition");
+                    this._PrefixPart = value;
+                    this.NotifyPropertyChanged("PrefixPart");
                 }
             }
         }
 
         [ProtoMember(15, IsRequired = true)]
-        public string TitlePartDefinition
+        public string TitlePart
         {
-            get { return this._TitlePartDefinition; }
+            get { return this._TitlePart; }
             set
             {
-                if (value != this._TitlePartDefinition)
+                if (value != this._TitlePart)
                 {
-                    this._TitlePartDefinition = value;
-                    this.NotifyPropertyChanged("TitlePartDefinition");
+                    this._TitlePart = value;
+                    this.NotifyPropertyChanged("TitlePart");
                 }
             }
         }
@@ -331,43 +331,43 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(20, IsRequired = true)]
-        public string ElementalPartDefinition
+        public string ElementalPart
         {
-            get { return this._ElementalPartDefinition; }
+            get { return this._ElementalPart; }
             set
             {
-                if (value != this._ElementalPartDefinition)
+                if (value != this._ElementalPart)
                 {
-                    this._ElementalPartDefinition = value;
-                    this.NotifyPropertyChanged("ElementalPartDefinition");
+                    this._ElementalPart = value;
+                    this.NotifyPropertyChanged("ElementalPart");
                 }
             }
         }
 
         [ProtoMember(21, IsRequired = true)]
-        public string Accessory1PartDefinition
+        public string Accessory1Part
         {
-            get { return this._Accessory1PartDefinition; }
+            get { return this._Accessory1Part; }
             set
             {
-                if (value != this._Accessory1PartDefinition)
+                if (value != this._Accessory1Part)
                 {
-                    this._Accessory1PartDefinition = value;
-                    this.NotifyPropertyChanged("Accessory1PartDefinition");
+                    this._Accessory1Part = value;
+                    this.NotifyPropertyChanged("Accessory1Part");
                 }
             }
         }
 
         [ProtoMember(22, IsRequired = true)]
-        public string Accessory2PartDefinition
+        public string Accessory2Part
         {
-            get { return this._Accessory2PartDefinition; }
+            get { return this._Accessory2Part; }
             set
             {
-                if (value != this._Accessory2PartDefinition)
+                if (value != this._Accessory2Part)
                 {
-                    this._Accessory2PartDefinition = value;
-                    this.NotifyPropertyChanged("Accessory2PartDefinition");
+                    this._Accessory2Part = value;
+                    this.NotifyPropertyChanged("Accessory2Part");
                 }
             }
         }
