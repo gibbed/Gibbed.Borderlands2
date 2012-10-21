@@ -32,8 +32,10 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
         {
             try
             {
-                var raws = LoaderHelper.DeserializeJson<Dictionary<string, Raw.ItemTypeDefinition>>("Item Types");
-                return new InfoDictionary<ItemTypeDefinition>(raws.ToDictionary(kv => kv.Key, GetItemTypeDefinition));
+                var raws = LoaderHelper
+                    .DeserializeJson<Dictionary<string, Raw.ItemTypeDefinition>>("Item Types");
+                return new InfoDictionary<ItemTypeDefinition>(
+                    raws.ToDictionary(kv => kv.Key, GetItemTypeDefinition));
             }
             catch (Exception e)
             {

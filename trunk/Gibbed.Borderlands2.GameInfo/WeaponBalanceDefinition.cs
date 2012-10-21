@@ -125,7 +125,9 @@ namespace Gibbed.Borderlands2.GameInfo
 
             if (merged.Type != type)
             {
-                throw new KeyNotFoundException("weapon type '" + type.ResourcePath + "' not valid for '" + this.ResourcePath + "'");
+                throw new ResourceNotFoundException(string.Format("weapon type '{0}' is not valid for '{1}'",
+                                                                  type.ResourcePath,
+                                                                  this.ResourcePath));
             }
 
             return merged;
