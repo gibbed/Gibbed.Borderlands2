@@ -104,6 +104,7 @@
     <Compile Include="Raw\WeaponBalanceDefinition.cs" />
     <Compile Include="Raw\WeaponBalancePartCollection.cs" />
     <Compile Include="Raw\WeaponTypeDefinition.cs" />
+    <Compile Include="ResourceNotFoundException.cs" />
     <Compile Include="TravelStationDefinition.cs" />
     <Compile Include="WeaponBalanceDefinition.cs" />
     <Compile Include="WeaponBalancePartCollection.cs" />

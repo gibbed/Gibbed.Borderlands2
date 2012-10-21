@@ -101,10 +101,7 @@
                    Content="Fast Travel" />
           </StackPanel>
         </TabItem.Header>
-        <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto"
-                      ScrollViewer.HorizontalScrollBarVisibility="Auto">
-          <ContentControl x:Name="FastTravel" />
-        </ScrollViewer>
+        <ContentControl x:Name="FastTravel" />
       </TabItem>
       <TabItem>
         <TabItem.Header>

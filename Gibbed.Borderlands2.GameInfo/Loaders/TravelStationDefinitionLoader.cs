@@ -89,6 +89,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             return new FastTravelStationDefinition()
             {
                 ResourcePath = kv.Key,
+                ResourceName = raw.ResourceName,
                 LevelName = raw.LevelName,
                 DLCExpansion = dlcExpansion,
                 DisplayName = raw.DisplayName,
@@ -110,6 +111,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             return new LevelTravelStationDefinition()
             {
                 ResourcePath = kv.Key,
+                ResourceName = raw.ResourceName,
                 LevelName = raw.LevelName,
                 DLCExpansion = dlcExpansion,
                 DisplayName = raw.DisplayName,

@@ -20,22 +20,13 @@
  *    distribution.
  */
 
-using System.Collections.Generic;
-
-namespace Gibbed.Borderlands2.GameInfo
+namespace Gibbed.Borderlands2.SaveEdit
 {
-    public abstract class TravelStationDefinition
+    public partial class FastTravelView
     {
-        internal TravelStationDefinition()
+        public FastTravelView()
         {
+            this.InitializeComponent();
         }
-
-        public string ResourcePath { get; internal set; }
-        public string ResourceName { get; internal set; }
-        public string LevelName { get; internal set; }
-        public DownloadableContentDefinition DLCExpansion { get; internal set; }
-        public TravelStationDefinition PreviousStation { get; set; }
-        public string DisplayName { get; set; }
-        public List<MissionStatusData> MissionDependencies { get; set; }
     }
 }

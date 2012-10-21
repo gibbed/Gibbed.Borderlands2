@@ -121,6 +121,9 @@
       <DependentUpon>BaseWeaponView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\MyComboBox.cs" />
+    <Compile Include="Tabs\FastTravelView.xaml.cs">
+      <DependentUpon>FastTravelView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tabs\FastTravelViewModel.cs" />
     <Compile Include="Tabs\GeneralView.xaml.cs">
       <DependentUpon>GeneralView.xaml</DependentUpon>
@@ -199,6 +202,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ShellView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tabs\FastTravelView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
