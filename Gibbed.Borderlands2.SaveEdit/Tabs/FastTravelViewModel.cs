@@ -68,10 +68,13 @@ namespace Gibbed.Borderlands2.SaveEdit
                 string group = kv.Value.DLCExpansion == null ? "Base Game" : kv.Value.DLCExpansion.Package.DisplayName;
                 foreach (var station in kv.Value.Stations)
                 {
+                    string displayName = string.IsNullOrEmpty(station.Sign) == false
+                                             ? station.Sign
+                                             : station.DisplayName;
                     this.AvailableTeleporters.Add(new AssetDisplay(station.DisplayName, station.ResourceName, group));
                     this.VisitedTeleporters.Add(new VisitedTeleporterDisplay()
                     {
-                        DisplayName = station.DisplayName,
+                        DisplayName = displayName,
                         ResourceName = station.ResourceName,
                         Visited = false,
                         Custom = false,
@@ -83,11 +86,14 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             foreach (var station in stations)
             {
+                string displayName = string.IsNullOrEmpty(station.Sign) == false
+                                         ? station.Sign
+                                         : station.DisplayName;
                 var group = "Unknown";
                 this.AvailableTeleporters.Add(new AssetDisplay(station.DisplayName, station.ResourceName, group));
                 this.VisitedTeleporters.Add(new VisitedTeleporterDisplay()
                 {
-                    DisplayName = station.DisplayName,
+                    DisplayName = displayName,
                     ResourceName = station.ResourceName,
                     Visited = false,
                     Custom = false,
