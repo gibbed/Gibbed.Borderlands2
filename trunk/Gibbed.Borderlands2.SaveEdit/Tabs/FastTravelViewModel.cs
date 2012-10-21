@@ -56,26 +56,43 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             this.AvailableTeleporters = new ObservableCollection<AssetDisplay>();
             this.VisitedTeleporters = new ObservableCollection<VisitedTeleporterDisplay>();
-            foreach (var kv in InfoManager.TravelStations.Items.OrderBy(kv => kv.Value.DisplayName))
-            {
-                if (kv.Value is FastTravelStationDefinition)
-                {
-                    var fastTravelStation = (FastTravelStationDefinition)kv.Value;
-                    var displayName =
-                        fastTravelStation.DisplayName = string.IsNullOrEmpty(fastTravelStation.Sign) == true
-                                                            ? fastTravelStation.DisplayName
-                                                            : fastTravelStation.Sign;
-                    var resourceName = fastTravelStation.ResourceName;
 
-                    this.AvailableTeleporters.Add(new AssetDisplay(displayName, resourceName));
+            var stations = InfoManager.TravelStations.Items
+                .Where(kv => kv.Value is FastTravelStationDefinition)
+                .Select(kv => kv.Value)
+                .Cast<FastTravelStationDefinition>()
+                .ToList();
+
+            foreach (var kv in InfoManager.FastTravelStationOrdering.Items)
+            {
+                string group = kv.Value.DLCExpansion == null ? "Base Game" : kv.Value.DLCExpansion.Package.DisplayName;
+                foreach (var station in kv.Value.Stations)
+                {
+                    this.AvailableTeleporters.Add(new AssetDisplay(station.DisplayName, station.ResourceName, group));
                     this.VisitedTeleporters.Add(new VisitedTeleporterDisplay()
                     {
-                        DisplayName = displayName,
-                        ResourceName = resourceName,
+                        DisplayName = station.DisplayName,
+                        ResourceName = station.ResourceName,
                         Visited = false,
                         Custom = false,
+                        Group = group,
                     });
+                    stations.Remove(station);
                 }
+            }
+
+            foreach (var station in stations)
+            {
+                var group = "Unknown";
+                this.AvailableTeleporters.Add(new AssetDisplay(station.DisplayName, station.ResourceName, group));
+                this.VisitedTeleporters.Add(new VisitedTeleporterDisplay()
+                {
+                    DisplayName = station.DisplayName,
+                    ResourceName = station.ResourceName,
+                    Visited = false,
+                    Custom = false,
+                    Group = group,
+                });
             }
         }
 
@@ -109,6 +126,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                     ResourceName = visitedStation,
                     Visited = true,
                     Custom = true,
+                    Group = "Unknown",
                 });
             }
         }
@@ -134,6 +152,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             private string _ResourceName;
             private bool _Visited;
             private bool _Custom;
+            private string _Group;
             #endregion
 
             #region Properties
@@ -174,6 +193,16 @@ namespace Gibbed.Borderlands2.SaveEdit
                 {
                     this._Custom = value;
                     this.NotifyOfPropertyChange(() => this.Custom);
+                }
+            }
+
+            public string Group
+            {
+                get { return this._Group; }
+                set
+                {
+                    this._Group = value;
+                    this.NotifyOfPropertyChange(() => this.Group);
                 }
             }
             #endregion

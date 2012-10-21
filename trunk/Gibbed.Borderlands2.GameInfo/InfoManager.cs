@@ -34,6 +34,7 @@ namespace Gibbed.Borderlands2.GameInfo
         public static InfoDictionary<ItemBalanceDefinition> ItemBalance { get; private set; }
         public static InfoDictionary<CustomizationDefinition> Customizations { get; private set; }
         public static InfoDictionary<TravelStationDefinition> TravelStations { get; private set; }
+        public static InfoDictionary<FastTravelStationOrdering> FastTravelStationOrdering { get; private set; }
 
         static InfoManager()
         {
@@ -50,6 +51,7 @@ namespace Gibbed.Borderlands2.GameInfo
             Customizations = Loaders.CustomizationDefinitionLoader.Load(DownloadableContents);
 
             TravelStations = Loaders.TravelStationDefinitionLoader.Load(DownloadableContents);
+            FastTravelStationOrdering = Loaders.FastTravelStationOrderingLoader.Load(TravelStations, DownloadableContents);
         }
 
         // Just a way to get the static initializer called.

@@ -29,18 +29,55 @@
              mc:Ignorable="d"
              d:DesignWidth="720"
              d:DesignHeight="480">
+  <UserControl.Resources>
+    <CollectionViewSource x:Key="GroupedAvailableTeleporters"
+                          Source="{Binding Path=AvailableTeleporters}">
+      <CollectionViewSource.GroupDescriptions>
+        <PropertyGroupDescription PropertyName="Group"></PropertyGroupDescription>
+      </CollectionViewSource.GroupDescriptions>
+    </CollectionViewSource>
+    <CollectionViewSource x:Key="GroupedVisitedTeleporters"
+                          Source="{Binding Path=VisitedTeleporters}">
+      <CollectionViewSource.GroupDescriptions>
+        <PropertyGroupDescription PropertyName="Group"></PropertyGroupDescription>
+      </CollectionViewSource.GroupDescriptions>
+    </CollectionViewSource>
+  </UserControl.Resources>
   <DockPanel LastChildFill="True">
     <GroupBox DockPanel.Dock="Top"
               Header="Last Visited Teleporter">
-      <ComboBox ItemsSource="{Binding Path=AvailableTeleporters}"
+      <ComboBox ItemsSource="{Binding Source={StaticResource GroupedAvailableTeleporters}}"
                 SelectedValue="{Binding Path=LastVisitedTeleporter}"
                 DisplayMemberPath="Name"
-                SelectedValuePath="Path" />
+                SelectedValuePath="Path">
+        <ComboBox.GroupStyle>
+          <GroupStyle>
+            <GroupStyle.HeaderTemplate>
+              <DataTemplate>
+                <TextBlock FontSize="15"
+                           FontWeight="Bold"
+                           Text="{Binding Path=Name}" />
+              </DataTemplate>
+            </GroupStyle.HeaderTemplate>
+          </GroupStyle>
+        </ComboBox.GroupStyle>
+      </ComboBox>
     </GroupBox>
     <GroupBox Header="Visited Teleporters">
       <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                     VerticalScrollBarVisibility="Auto">
-        <ItemsControl ItemsSource="{Binding Path=VisitedTeleporters}">
+        <ItemsControl ItemsSource="{Binding Source={StaticResource GroupedVisitedTeleporters}}">
+          <ItemsControl.GroupStyle>
+            <GroupStyle>
+              <GroupStyle.HeaderTemplate>
+                <DataTemplate>
+                  <TextBlock FontSize="15"
+                             FontWeight="Bold"
+                             Text="{Binding Path=Name}" />
+                </DataTemplate>
+              </GroupStyle.HeaderTemplate>
+            </GroupStyle>
+          </ItemsControl.GroupStyle>
           <ItemsControl.ItemTemplate>
             <DataTemplate>
               <CheckBox IsChecked="{Binding Path=Visited}"
