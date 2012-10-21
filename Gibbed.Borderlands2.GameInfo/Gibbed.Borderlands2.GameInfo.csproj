@@ -59,6 +59,7 @@
     <Compile Include="DownloadablePackageDefinition.cs" />
     <Compile Include="Experience.cs" />
     <Compile Include="FastTravelStationDefinition.cs" />
+    <Compile Include="FastTravelStationOrdering.cs" />
     <Compile Include="InfoDictionary.cs" />
     <Compile Include="InfoLoadException.cs" />
     <Compile Include="InfoManager.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Loaders\CustomizationDefinitionLoader.cs" />
     <Compile Include="Loaders\DownloadableContentDefinitionLoader.cs" />
     <Compile Include="Loaders\DownloadablePackageDefinitionLoader.cs" />
+    <Compile Include="Loaders\FastTravelStationOrderingLoader.cs" />
     <Compile Include="Loaders\TravelStationDefinitionLoader.cs" />
     <Compile Include="Loaders\ItemBalanceDefinitionLoader.cs" />
     <Compile Include="Loaders\ItemTypeDefinitionLoader.cs" />
@@ -91,6 +93,7 @@
     <Compile Include="Raw\DownloadableContentDefinition.cs" />
     <Compile Include="Raw\DownloadablePackage.cs" />
     <Compile Include="Raw\FastTravelStationDefinition.cs" />
+    <Compile Include="Raw\FastTravelStationOrdering.cs" />
     <Compile Include="Raw\ItemBalanceDefinition.cs" />
     <Compile Include="Raw\ItemBalancePartCollection.cs" />
     <Compile Include="Raw\ItemTypeDefinition.cs" />
@@ -126,6 +129,7 @@
     <EmbeddedResource Include="Resources\Downloadable Contents.json" />
     <EmbeddedResource Include="Resources\Downloadable Packages.json" />
     <EmbeddedResource Include="Resources\Travel Stations.json" />
+    <EmbeddedResource Include="Resources\Fast Travel Station Ordering.json" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
