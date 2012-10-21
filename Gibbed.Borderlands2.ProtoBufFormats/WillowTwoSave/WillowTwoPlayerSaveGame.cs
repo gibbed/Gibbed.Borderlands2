@@ -21,7 +21,7 @@
  */
 
 using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.ComponentModel;
 using ProtoBuf;
 
@@ -36,55 +36,55 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         private int _ExpPoints;
         private int _GeneralSkillPoints;
         private int _SpecialistSkillPoints;
-        private ObservableCollection<int> _CurrencyOnHand;
+        private List<int> _CurrencyOnHand;
         private int _PlaythroughsCompleted;
-        private ObservableCollection<SkillData> _SkillData;
-        private ObservableCollection<int> _Unknown9;
-        private ObservableCollection<int> _Unknown10;
-        private ObservableCollection<ResourceData> _ResourceData;
-        private ObservableCollection<ItemData> _ItemData;
+        private List<SkillData> _SkillData;
+        private List<int> _Unknown9;
+        private List<int> _Unknown10;
+        private List<ResourceData> _ResourceData;
+        private List<ItemData> _ItemData;
         private InventorySlotData _InventorySlotData;
-        private ObservableCollection<WeaponData> _WeaponData;
+        private List<WeaponData> _WeaponData;
         private byte[] _StatsData;
-        private ObservableCollection<string> _VisitedTeleporters;
+        private List<string> _VisitedTeleporters;
         private string _LastVisitedTeleporter;
-        private ObservableCollection<MissionPlaythroughData> _MissionPlaythroughs;
+        private List<MissionPlaythroughData> _MissionPlaythroughs;
         private UIPreferencesData _UIPreferences;
         private int _SaveGameId;
         private int _PlotMissionNumber;
         private int _Unknown22;
-        private ObservableCollection<int> _UsedMarketingCodes;
-        private ObservableCollection<int> _MarketingCodesNeedingNotification;
+        private List<int> _UsedMarketingCodes;
+        private List<int> _MarketingCodesNeedingNotification;
         private int _TotalPlayTime;
         private string _LastSavedDate;
-        private ObservableCollection<DLCExpansionData> _DLCExpansionData;
-        private ObservableCollection<string> _Unknown28;
-        private ObservableCollection<RegionGameStageData> _RegionGameStages;
-        private ObservableCollection<WorldDiscoveryData> _WorldDiscoveryList;
+        private List<DLCExpansionData> _DLCExpansionData;
+        private List<string> _Unknown28;
+        private List<RegionGameStageData> _RegionGameStages;
+        private List<WorldDiscoveryData> _WorldDiscoveryList;
         private bool _IsBadassModeSaveGame;
-        private ObservableCollection<WeaponMemento> _Unknown32;
-        private ObservableCollection<ItemMemento> _Unknown33;
+        private List<WeaponMemento> _Unknown32;
+        private List<ItemMemento> _Unknown33;
         private Guid _SaveGuid;
-        private ObservableCollection<string> _AppliedCustomizations;
-        private ObservableCollection<int> _BlackMarketUpgrades;
+        private List<string> _AppliedCustomizations;
+        private List<int> _BlackMarketUpgrades;
         private int _ActiveMissionNumber;
-        private ObservableCollection<ChallengeData> _ChallengeList;
-        private ObservableCollection<int> _LevelChallengeUnlocks;
-        private ObservableCollection<OneOffLevelChallengeData> _OneOffLevelChallengeCompletion;
-        private ObservableCollection<BankSlot> _BankSlots;
+        private List<ChallengeData> _ChallengeList;
+        private List<int> _LevelChallengeUnlocks;
+        private List<OneOffLevelChallengeData> _OneOffLevelChallengeCompletion;
+        private List<BankSlot> _BankSlots;
         private int _NumChallengePrestiges;
-        private ObservableCollection<LockoutData> _LockoutList;
+        private List<LockoutData> _LockoutList;
         private bool _IsDLCPlayerClass;
         private int _DLCPlayerClassPackageId;
-        private ObservableCollection<string> _FullyExploredAreas;
-        private ObservableCollection<GoldenKeys> _Unknown47;
+        private List<string> _FullyExploredAreas;
+        private List<GoldenKeys> _Unknown47;
         private int _NumGoldenKeysNotified;
         private int _LastPlaythroughNumber;
         private bool _ShowNewPlaythroughNotification;
         private bool _ReceivedDefaultWeapon;
-        private ObservableCollection<string> _QueuedTrainingMessages;
-        private ObservableCollection<PackedItemData> _PackedItemData;
-        private ObservableCollection<PackedWeaponData> _PackedWeaponData;
+        private List<string> _QueuedTrainingMessages;
+        private List<PackedItemData> _PackedItemData;
+        private List<PackedWeaponData> _PackedWeaponData;
         private bool _AwesomeSkillDisabled;
         private int _MaxBankSlots;
         #endregion
@@ -359,12 +359,12 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
             if (this.CurrencyOnHand == null)
             {
-                this.CurrencyOnHand = new ObservableCollection<int>();
+                this.CurrencyOnHand = new List<int>();
             }
 
             if (this.SkillData == null)
             {
-                this.SkillData = new ObservableCollection<SkillData>();
+                this.SkillData = new List<SkillData>();
             }
             else
             {
@@ -373,17 +373,17 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
             if (this.Unknown9 == null)
             {
-                this.Unknown9 = new ObservableCollection<int>();
+                this.Unknown9 = new List<int>();
             }
 
             if (this.Unknown10 == null)
             {
-                this.Unknown10 = new ObservableCollection<int>();
+                this.Unknown10 = new List<int>();
             }
 
             if (this.ResourceData == null)
             {
-                this.ResourceData = new ObservableCollection<ResourceData>();
+                this.ResourceData = new List<ResourceData>();
             }
             else
             {
@@ -392,7 +392,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
             if (this.ItemData == null)
             {
-                this.ItemData = new ObservableCollection<ItemData>();
+                this.ItemData = new List<ItemData>();
             }
             else
             {
@@ -403,7 +403,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
             if (this.WeaponData == null)
             {
-                this.WeaponData = new ObservableCollection<WeaponData>();
+                this.WeaponData = new List<WeaponData>();
             }
             else
             {
@@ -412,12 +412,12 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
             if (this.VisitedTeleporters == null)
             {
-                this.VisitedTeleporters = new ObservableCollection<string>();
+                this.VisitedTeleporters = new List<string>();
             }
 
             if (this.MissionPlaythroughs == null)
             {
-                this.MissionPlaythroughs = new ObservableCollection<MissionPlaythroughData>();
+                this.MissionPlaythroughs = new List<MissionPlaythroughData>();
             }
             else
             {
@@ -428,17 +428,17 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
             if (this.UsedMarketingCodes == null)
             {
-                this.UsedMarketingCodes = new ObservableCollection<int>();
+                this.UsedMarketingCodes = new List<int>();
             }
 
             if (this.MarketingCodesNeedingNotification == null)
             {
-                this.MarketingCodesNeedingNotification = new ObservableCollection<int>();
+                this.MarketingCodesNeedingNotification = new List<int>();
             }
 
             if (this.DLCExpansionData == null)
             {
-                this.DLCExpansionData = new ObservableCollection<DLCExpansionData>();
+                this.DLCExpansionData = new List<DLCExpansionData>();
             }
             else
             {
@@ -447,12 +447,12 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
             if (this.Unknown28 == null)
             {
-                this.Unknown28 = new ObservableCollection<string>();
+                this.Unknown28 = new List<string>();
             }
 
             if (this.RegionGameStages == null)
             {
-                this.RegionGameStages = new ObservableCollection<RegionGameStageData>();
+                this.RegionGameStages = new List<RegionGameStageData>();
             }
             else
             {
@@ -461,7 +461,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
             if (this.WorldDiscoveryList == null)
             {
-                this.WorldDiscoveryList = new ObservableCollection<WorldDiscoveryData>();
+                this.WorldDiscoveryList = new List<WorldDiscoveryData>();
             }
             else
             {
@@ -470,7 +470,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
             if (this.Unknown32 == null)
             {
-                this.Unknown32 = new ObservableCollection<WeaponMemento>();
+                this.Unknown32 = new List<WeaponMemento>();
             }
             else
             {
@@ -479,7 +479,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
             if (this.Unknown33 == null)
             {
-                this.Unknown33 = new ObservableCollection<ItemMemento>();
+                this.Unknown33 = new List<ItemMemento>();
             }
             else
             {
@@ -490,17 +490,17 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
             if (this.AppliedCustomizations == null)
             {
-                this.AppliedCustomizations = new ObservableCollection<string>();
+                this.AppliedCustomizations = new List<string>();
             }
 
             if (this.BlackMarketUpgrades == null)
             {
-                this.BlackMarketUpgrades = new ObservableCollection<int>();
+                this.BlackMarketUpgrades = new List<int>();
             }
 
             if (this.ChallengeList == null)
             {
-                this.ChallengeList = new ObservableCollection<ChallengeData>();
+                this.ChallengeList = new List<ChallengeData>();
             }
             else
             {
@@ -509,12 +509,12 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
             if (this.LevelChallengeUnlocks == null)
             {
-                this.LevelChallengeUnlocks = new ObservableCollection<int>();
+                this.LevelChallengeUnlocks = new List<int>();
             }
 
             if (this.OneOffLevelChallengeCompletion == null)
             {
-                this.OneOffLevelChallengeCompletion = new ObservableCollection<OneOffLevelChallengeData>();
+                this.OneOffLevelChallengeCompletion = new List<OneOffLevelChallengeData>();
             }
             else
             {
@@ -523,7 +523,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
             if (this.BankSlots == null)
             {
-                this.BankSlots = new ObservableCollection<BankSlot>();
+                this.BankSlots = new List<BankSlot>();
             }
             else
             {
@@ -532,7 +532,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
             if (this.LockoutList == null)
             {
-                this.LockoutList = new ObservableCollection<LockoutData>();
+                this.LockoutList = new List<LockoutData>();
             }
             else
             {
@@ -541,12 +541,12 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
             if (this.FullyExploredAreas == null)
             {
-                this.FullyExploredAreas = new ObservableCollection<string>();
+                this.FullyExploredAreas = new List<string>();
             }
 
             if (this.Unknown47 == null)
             {
-                this.Unknown47 = new ObservableCollection<GoldenKeys>();
+                this.Unknown47 = new List<GoldenKeys>();
             }
             else
             {
@@ -555,12 +555,12 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
             if (this.QueuedTrainingMessages == null)
             {
-                this.QueuedTrainingMessages = new ObservableCollection<string>();
+                this.QueuedTrainingMessages = new List<string>();
             }
 
             if (this.PackedItemData == null)
             {
-                this.PackedItemData = new ObservableCollection<PackedItemData>();
+                this.PackedItemData = new List<PackedItemData>();
             }
             else
             {
@@ -569,7 +569,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
             if (this.PackedWeaponData == null)
             {
-                this.PackedWeaponData = new ObservableCollection<PackedWeaponData>();
+                this.PackedWeaponData = new List<PackedWeaponData>();
             }
             else
             {
@@ -650,7 +650,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(6, IsRequired = true, IsPacked = true)]
-        public ObservableCollection<int> CurrencyOnHand
+        public List<int> CurrencyOnHand
         {
             get { return this._CurrencyOnHand; }
             set
@@ -678,7 +678,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(8, IsRequired = true)]
-        public ObservableCollection<SkillData> SkillData
+        public List<SkillData> SkillData
         {
             get { return this._SkillData; }
             set
@@ -693,7 +693,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         // Deprecated?
         [ProtoMember(9, IsRequired = true)]
-        public ObservableCollection<int> Unknown9
+        public List<int> Unknown9
         {
             get { return this._Unknown9; }
             set
@@ -708,7 +708,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         // Deprecated?
         [ProtoMember(10, IsRequired = true)]
-        public ObservableCollection<int> Unknown10
+        public List<int> Unknown10
         {
             get { return this._Unknown10; }
             set
@@ -722,7 +722,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(11, IsRequired = true)]
-        public ObservableCollection<ResourceData> ResourceData
+        public List<ResourceData> ResourceData
         {
             get { return this._ResourceData; }
             set
@@ -736,7 +736,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(12, IsRequired = true)]
-        public ObservableCollection<ItemData> ItemData
+        public List<ItemData> ItemData
         {
             get { return this._ItemData; }
             set
@@ -764,7 +764,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(14, IsRequired = true)]
-        public ObservableCollection<WeaponData> WeaponData
+        public List<WeaponData> WeaponData
         {
             get { return this._WeaponData; }
             set
@@ -792,7 +792,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(16, IsRequired = true)]
-        public ObservableCollection<string> VisitedTeleporters
+        public List<string> VisitedTeleporters
         {
             get { return this._VisitedTeleporters; }
             set
@@ -820,7 +820,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(18, IsRequired = true)]
-        public ObservableCollection<MissionPlaythroughData> MissionPlaythroughs
+        public List<MissionPlaythroughData> MissionPlaythroughs
         {
             get { return this._MissionPlaythroughs; }
             set
@@ -891,7 +891,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(23, IsRequired = false, IsPacked = true)]
-        public ObservableCollection<int> UsedMarketingCodes
+        public List<int> UsedMarketingCodes
         {
             get { return this._UsedMarketingCodes; }
             set
@@ -905,7 +905,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(24, IsRequired = false, IsPacked = true)]
-        public ObservableCollection<int> MarketingCodesNeedingNotification
+        public List<int> MarketingCodesNeedingNotification
         {
             get { return this._MarketingCodesNeedingNotification; }
             set
@@ -947,7 +947,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(27, IsRequired = true)]
-        public ObservableCollection<DLCExpansionData> DLCExpansionData
+        public List<DLCExpansionData> DLCExpansionData
         {
             get { return this._DLCExpansionData; }
             set
@@ -962,7 +962,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         // Deprecated?
         [ProtoMember(28, IsRequired = true)]
-        public ObservableCollection<string> Unknown28
+        public List<string> Unknown28
         {
             get { return this._Unknown28; }
             set
@@ -976,7 +976,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(29, IsRequired = true)]
-        public ObservableCollection<RegionGameStageData> RegionGameStages
+        public List<RegionGameStageData> RegionGameStages
         {
             get { return this._RegionGameStages; }
             set
@@ -990,7 +990,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(30, IsRequired = true)]
-        public ObservableCollection<WorldDiscoveryData> WorldDiscoveryList
+        public List<WorldDiscoveryData> WorldDiscoveryList
         {
             get { return this._WorldDiscoveryList; }
             set
@@ -1018,7 +1018,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(32, IsRequired = true)]
-        public ObservableCollection<WeaponMemento> Unknown32
+        public List<WeaponMemento> Unknown32
         {
             get { return this._Unknown32; }
             set
@@ -1032,7 +1032,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(33, IsRequired = true)]
-        public ObservableCollection<ItemMemento> Unknown33
+        public List<ItemMemento> Unknown33
         {
             get { return this._Unknown33; }
             set
@@ -1060,7 +1060,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(35, IsRequired = true)]
-        public ObservableCollection<string> AppliedCustomizations
+        public List<string> AppliedCustomizations
         {
             get { return this._AppliedCustomizations; }
             set
@@ -1074,7 +1074,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(36, IsRequired = true, IsPacked = true)]
-        public ObservableCollection<int> BlackMarketUpgrades
+        public List<int> BlackMarketUpgrades
         {
             get { return this._BlackMarketUpgrades; }
             set
@@ -1102,7 +1102,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(38, IsRequired = true)]
-        public ObservableCollection<ChallengeData> ChallengeList
+        public List<ChallengeData> ChallengeList
         {
             get { return this._ChallengeList; }
             set
@@ -1116,7 +1116,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(39, IsRequired = true, IsPacked = true)]
-        public ObservableCollection<int> LevelChallengeUnlocks
+        public List<int> LevelChallengeUnlocks
         {
             get { return this._LevelChallengeUnlocks; }
             set
@@ -1130,7 +1130,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(40, IsRequired = true)]
-        public ObservableCollection<OneOffLevelChallengeData> OneOffLevelChallengeCompletion
+        public List<OneOffLevelChallengeData> OneOffLevelChallengeCompletion
         {
             get { return this._OneOffLevelChallengeCompletion; }
             set
@@ -1144,7 +1144,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(41, IsRequired = true)]
-        public ObservableCollection<BankSlot> BankSlots
+        public List<BankSlot> BankSlots
         {
             get { return this._BankSlots; }
             set
@@ -1172,7 +1172,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(43, IsRequired = true)]
-        public ObservableCollection<LockoutData> LockoutList
+        public List<LockoutData> LockoutList
         {
             get { return this._LockoutList; }
             set
@@ -1214,7 +1214,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(46, IsRequired = false)]
-        public ObservableCollection<string> FullyExploredAreas
+        public List<string> FullyExploredAreas
         {
             get { return this._FullyExploredAreas; }
             set
@@ -1229,7 +1229,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         // Deprecated?
         [ProtoMember(47, IsRequired = false)]
-        public ObservableCollection<GoldenKeys> Unknown47
+        public List<GoldenKeys> Unknown47
         {
             get { return this._Unknown47; }
             set
@@ -1299,7 +1299,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(52, IsRequired = true)]
-        public ObservableCollection<string> QueuedTrainingMessages
+        public List<string> QueuedTrainingMessages
         {
             get { return this._QueuedTrainingMessages; }
             set
@@ -1313,7 +1313,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(53, IsRequired = true)]
-        public ObservableCollection<PackedItemData> PackedItemData
+        public List<PackedItemData> PackedItemData
         {
             get { return this._PackedItemData; }
             set
@@ -1327,7 +1327,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(54, IsRequired = true)]
-        public ObservableCollection<PackedWeaponData> PackedWeaponData
+        public List<PackedWeaponData> PackedWeaponData
         {
             get { return this._PackedWeaponData; }
             set
