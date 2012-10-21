@@ -160,11 +160,11 @@ namespace Gibbed.Borderlands2.SaveEdit
                     saveFile = FileFormats.SaveFile.Deserialize(input, FileFormats.SaveFile.DeserializeSettings.None);
                 }
 
-                this.SaveFile = saveFile;
                 this.General.ImportData(saveFile.SaveGame, saveFile.Endian);
                 this.CurrencyOnHand.ImportData(saveFile.SaveGame);
                 this.Backpack.ImportData(saveFile.SaveGame);
                 this.Bank.ImportData(saveFile.SaveGame);
+                this.SaveFile = saveFile;
             })
                 .Rescue<DllNotFoundException>().Execute(
                     x => new MyMessageBox("Failed to load save: " + x.Message, "Error")
