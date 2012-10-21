@@ -42,10 +42,8 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
                 {
                     if (defs.ContainsKey(kv.Value.PreviousStation) == false)
                     {
-                        throw new KeyNotFoundException("could not find travel station '" + kv.Value.PreviousStation +
-                                                       "'");
+                        throw ResourceNotFoundException.Create("travel station", kv.Value.PreviousStation);
                     }
-
                     defs[kv.Key].PreviousStation = defs[kv.Value.PreviousStation];
                 }
                 return defs;
@@ -65,7 +63,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             {
                 if (downloadableContents.ContainsKey(kv.Value.DLCExpansion) == false)
                 {
-                    throw new KeyNotFoundException("could not find downloadable content '" + kv.Value.DLCExpansion + "'");
+                    throw ResourceNotFoundException.Create("downloadable content", kv.Value.DLCExpansion);
                 }
                 dlcExpansion = downloadableContents[kv.Value.DLCExpansion];
             }

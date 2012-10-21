@@ -32,20 +32,17 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
         {
             try
             {
-                var raws =
-                    LoaderHelper.DeserializeJson<Dictionary<string, Raw.WeaponBalanceDefinition>>("Weapon Balance");
-                var defs =
-                    new InfoDictionary<WeaponBalanceDefinition>(raws.ToDictionary(kv => kv.Key,
-                                                                                  kv =>
-                                                                                  GetWeaponBalanceDefinition(
-                                                                                      weaponTypes, kv)));
+                var raws = LoaderHelper
+                    .DeserializeJson<Dictionary<string, Raw.WeaponBalanceDefinition>>("Weapon Balance");
+                var defs = new InfoDictionary<WeaponBalanceDefinition>(
+                    raws.ToDictionary(kv => kv.Key,
+                                      kv => GetWeaponBalanceDefinition(weaponTypes, kv)));
                 foreach (var kv in raws.Where(kv => string.IsNullOrEmpty(kv.Value.Base) == false))
                 {
                     if (defs.ContainsKey(kv.Value.Base) == false)
                     {
-                        throw new KeyNotFoundException("could not find weapon balance '" + kv.Value.Base + "'");
+                        throw ResourceNotFoundException.Create("weapon balance", kv.Value.Base);
                     }
-
                     defs[kv.Key].Base = defs[kv.Value.Base];
                 }
                 return defs;
@@ -77,7 +74,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
 
             if (weaponTypes.ContainsKey(type) == false)
             {
-                throw new KeyNotFoundException("could not find weapon type '" + type + "'");
+                throw ResourceNotFoundException.Create("weapon type", type);
             }
 
             return weaponTypes[type];
@@ -106,7 +103,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             {
                 if (weaponTypes.ContainsKey(raw.Type) == false)
                 {
-                    throw new KeyNotFoundException("could not find weapon type '" + raw.Type + "'");
+                    throw ResourceNotFoundException.Create("weapon type", raw.Type);
                 }
 
                 type = weaponTypes[raw.Type];

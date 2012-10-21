@@ -33,14 +33,11 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
         {
             try
             {
-                var raws =
-                    LoaderHelper.DeserializeJson<Dictionary<string, Raw.DownloadableContentDefinition>>(
-                        "Downloadable Contents");
-                return
-                    new InfoDictionary<DownloadableContentDefinition>(raws.ToDictionary(kv => kv.Key,
-                                                                                        kv =>
-                                                                                        GetDownloadableContent(
-                                                                                            downloadablePackages, kv)));
+                var raws = LoaderHelper
+                    .DeserializeJson<Dictionary<string, Raw.DownloadableContentDefinition>>("Downloadable Contents");
+                return new InfoDictionary<DownloadableContentDefinition>(
+                    raws.ToDictionary(kv => kv.Key,
+                                      kv => GetDownloadableContent(downloadablePackages, kv)));
             }
             catch (Exception e)
             {
@@ -57,7 +54,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             {
                 if (downloadablePackages.ContainsKey(kv.Value.Package) == false)
                 {
-                    throw new KeyNotFoundException("could not find downloadable package " + kv.Value.Package);
+                    throw ResourceNotFoundException.Create("downloadable package", kv.Value.Package);
                 }
                 package = downloadablePackages[kv.Value.Package];
             }
