@@ -43,6 +43,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         private CurrencyOnHandViewModel _CurrencyOnHand;
         private BackpackViewModel _Backpack;
         private BankViewModel _Bank;
+        private FastTravelViewModel _FastTravel;
         #endregion
 
         #region Properties
@@ -106,6 +107,18 @@ namespace Gibbed.Borderlands2.SaveEdit
                 this.NotifyOfPropertyChange(() => this.Bank);
             }
         }
+
+        [Import(typeof(FastTravelViewModel))]
+        public FastTravelViewModel FastTravel
+        {
+            get { return this._FastTravel; }
+
+            set
+            {
+                this._FastTravel = value;
+                this.NotifyOfPropertyChange(() => this.FastTravel);
+            }
+        }
         #endregion
 
         [ImportingConstructor]
@@ -164,6 +177,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 this.CurrencyOnHand.ImportData(saveFile.SaveGame);
                 this.Backpack.ImportData(saveFile.SaveGame);
                 this.Bank.ImportData(saveFile.SaveGame);
+                this.FastTravel.ImportData(saveFile.SaveGame);
                 this.SaveFile = saveFile;
             })
                 .Rescue<DllNotFoundException>().Execute(
@@ -223,6 +237,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 this.CurrencyOnHand.ExportData(saveFile.SaveGame);
                 this.Backpack.ExportData(saveFile.SaveGame);
                 this.Bank.ExportData(saveFile.SaveGame);
+                this.FastTravel.ExportData(saveFile.SaveGame);
 
                 using (var output = File.Create(fileName))
                 {

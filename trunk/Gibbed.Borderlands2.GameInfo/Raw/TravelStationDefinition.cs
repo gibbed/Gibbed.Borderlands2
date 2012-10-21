@@ -35,6 +35,9 @@ namespace Gibbed.Borderlands2.GameInfo.Raw
             this.MissionDependencies = new List<MissionStatusData>();
         }
 
+        [JsonProperty(PropertyName = "resource_name", Required = Required.Always)]
+        public string ResourceName { get; set; }
+
         [JsonProperty(PropertyName = "level_name")]
         public string LevelName { get; set; }
 
