@@ -55,6 +55,8 @@ namespace Gibbed.Borderlands2.SaveEdit
         public FastTravelViewModel()
         {
             this.AvailableTeleporters = new ObservableCollection<AssetDisplay>();
+            this.AvailableTeleporters.Add(new AssetDisplay("None", "None", "Base Game"));
+
             this.VisitedTeleporters = new ObservableCollection<VisitedTeleporterDisplay>();
 
             var stations = InfoManager.TravelStations.Items
