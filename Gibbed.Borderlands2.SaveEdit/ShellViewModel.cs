@@ -203,7 +203,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 saveFile.SaveGame.IsBadassModeSaveGame = false;
                 yield return
                     new MyMessageBox("Your save file was set as 'Badass Mode', and this has now been cleared.\n\n" +
-                                     "See http://l.gamespot.com/ScYRld for more details.",
+                                     "See http://bit.ly/graveyardsav for more details.",
                                      "Information")
                         .WithIcon(MessageBoxImage.Information);
             }
