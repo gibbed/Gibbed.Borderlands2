@@ -165,9 +165,10 @@ namespace Gibbed.Borderlands2.SaveEdit
                 yield break;
             }
 
+            FileFormats.SaveFile saveFile = null;
+
             yield return new DelegateResult(() =>
             {
-                FileFormats.SaveFile saveFile;
                 using (var input = File.OpenRead(fileName))
                 {
                     saveFile = FileFormats.SaveFile.Deserialize(input, FileFormats.SaveFile.DeserializeSettings.None);
@@ -194,6 +195,18 @@ namespace Gibbed.Borderlands2.SaveEdit
                     new MyMessageBox("An exception was thrown (press Ctrl+C to copy):\n\n" + x.ToString(),
                                      "Error")
                         .WithIcon(MessageBoxImage.Error).AsCoroutine());
+
+
+            if (saveFile != null &&
+                saveFile.SaveGame.IsBadassModeSaveGame == true)
+            {
+                saveFile.SaveGame.IsBadassModeSaveGame = false;
+                yield return
+                    new MyMessageBox("Your save file was set as 'Badass Mode', and this has now been cleared.\n\n" +
+                                     "See http://l.gamespot.com/ScYRld for more details.",
+                                     "Information")
+                        .WithIcon(MessageBoxImage.Information);
+            }
         }
 
         public IEnumerable<IResult> WriteSave()
@@ -248,11 +261,6 @@ namespace Gibbed.Borderlands2.SaveEdit
                 x =>
                 new MyMessageBox("An exception was thrown (press Ctrl+C to copy):\n\n" + x.ToString(), "Error")
                     .WithIcon(MessageBoxImage.Error).AsCoroutine());
-
-            if (saveFile.SaveGame.IsBadassModeSaveGame == true)
-            {
-                saveFile.SaveGame.IsBadassModeSaveGame = false;
-            }
         }
     }
 }
