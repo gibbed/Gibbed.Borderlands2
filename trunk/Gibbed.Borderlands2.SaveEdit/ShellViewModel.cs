@@ -248,6 +248,11 @@ namespace Gibbed.Borderlands2.SaveEdit
                 x =>
                 new MyMessageBox("An exception was thrown (press Ctrl+C to copy):\n\n" + x.ToString(), "Error")
                     .WithIcon(MessageBoxImage.Error).AsCoroutine());
+
+            if (saveFile.SaveGame.IsBadassModeSaveGame == true)
+            {
+                saveFile.SaveGame.IsBadassModeSaveGame = false;
+            }
         }
     }
 }
