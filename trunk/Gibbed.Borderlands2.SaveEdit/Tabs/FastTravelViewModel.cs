@@ -113,12 +113,13 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             foreach (var levelTravelStation in levelTravelStations.OrderBy(lts => lts.ResourceName))
             {
+                string group = levelTravelStation.DLCExpansion == null ? "Base Game" : levelTravelStation.DLCExpansion.Package.DisplayName;
                 var displayName = string.IsNullOrEmpty(levelTravelStation.DisplayName) == false
                                       ? levelTravelStation.DisplayName
                                       : levelTravelStation.ResourceName;
                 this.AvailableTeleporters.Add(new AssetDisplay(displayName,
                                                                levelTravelStation.ResourceName,
-                                                               "Level Transitions"));
+                                                               "Level Transitions (" + group + ")"));
             }
         }
 
