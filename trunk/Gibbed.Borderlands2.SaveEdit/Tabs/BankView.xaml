@@ -55,11 +55,21 @@
           <Label Content="New Item" />
         </StackPanel>
       </Button>
+      <Separator />
       <Button x:Name="PasteCode">
         <StackPanel Orientation="Horizontal">
           <Image Height="24"
                  Source="..\Resources\fugue\scanner.png" />
           <Label Content="Paste Code" />
+        </StackPanel>
+      </Button>
+      <Separator />
+      <Button x:Name="SyncAllLevels"
+              ToolTip="Synchronize all weapons and items to current experience level">
+        <StackPanel Orientation="Horizontal">
+          <Image Height="24"
+                 Source="..\Resources\fugue\control-double-090.png" />
+          <Label Content="Sync All" />
         </StackPanel>
       </Button>
     </ToolBar>

@@ -46,6 +46,12 @@ namespace Gibbed.Borderlands2.SaveEdit
         #endregion
 
         #region Properties
+        [Import]
+        private GeneralViewModel _General { get; set; }
+
+        [Import]
+        private BankViewModel _Bank { get; set; }
+
         public ObservableCollection<IBackpackSlotViewModel> Slots
         {
             get { return this._Slots; }
@@ -291,6 +297,66 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             this.Slots.Remove(this.SelectedSlot);
             this.SelectedSlot = this.Slots.FirstOrDefault();
+        }
+
+        public void SyncEquippedLevels()
+        {
+            foreach (var viewModel in this.Slots)
+            {
+                if (viewModel is BackpackWeaponViewModel)
+                {
+                    var weapon = (BackpackWeaponViewModel)viewModel;
+                    if (weapon.QuickSlot != QuickWeaponSlot.None &&
+                        (weapon.ManufacturerGradeIndex + weapon.GameStage) >= 2)
+                    {
+                        weapon.ManufacturerGradeIndex = this._General.ExpLevel;
+                        weapon.GameStage = this._General.ExpLevel;
+                    }
+                }
+                else if (viewModel is BackpackItemViewModel)
+                {
+                    var item = (BackpackItemViewModel)viewModel;
+                    if (item.Equipped == true &&
+                        (item.ManufacturerGradeIndex + item.GameStage) >= 2)
+                    {
+                        item.ManufacturerGradeIndex = this._General.ExpLevel;
+                        item.GameStage = this._General.ExpLevel;
+                    }
+                }
+                else
+                {
+                    throw new NotSupportedException();
+                }
+            }
+        }
+
+        public void SyncAllLevels()
+        {
+            foreach (var viewModel in this.Slots)
+            {
+                if (viewModel is BackpackWeaponViewModel)
+                {
+                    var weapon = (BackpackWeaponViewModel)viewModel;
+                    if ((weapon.ManufacturerGradeIndex + weapon.GameStage) >= 2)
+                    {
+                        weapon.ManufacturerGradeIndex = this._General.ExpLevel;
+                        weapon.GameStage = this._General.ExpLevel;
+                    }
+                }
+                else if (viewModel is BackpackItemViewModel)
+                {
+                    var item = (BackpackItemViewModel)viewModel;
+                    if ((item.ManufacturerGradeIndex + item.GameStage) >= 2)
+                    {
+                        item.ManufacturerGradeIndex = this._General.ExpLevel;
+                        item.GameStage = this._General.ExpLevel;
+                    }
+                }
+                else
+                {
+                    throw new NotSupportedException();
+                }
+            }
         }
 
         public void ImportData(WillowTwoPlayerSaveGame saveGame)
