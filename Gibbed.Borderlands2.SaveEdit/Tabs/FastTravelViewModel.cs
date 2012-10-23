@@ -73,7 +73,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                     string displayName = string.IsNullOrEmpty(station.Sign) == false
                                              ? station.Sign
                                              : station.DisplayName;
-                    this.AvailableTeleporters.Add(new AssetDisplay(station.DisplayName, station.ResourceName, group));
+                    this.AvailableTeleporters.Add(new AssetDisplay(displayName, station.ResourceName, group));
                     this.VisitedTeleporters.Add(new VisitedTeleporterDisplay()
                     {
                         DisplayName = displayName,
