@@ -46,6 +46,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             this._Item = item;
         }
 
+        #region Properties
         public int Quantity
         {
             get { return this._Item.Quantity; }
@@ -76,12 +77,9 @@ namespace Gibbed.Borderlands2.SaveEdit
                 this.NotifyOfPropertyChange(() => this.Mark);
             }
         }
+        #endregion
 
-        public override string DisplayName
-        {
-            get { return "Backpack Item"; }
-        }
-
+        #region Display Properties
         public override string DisplayGroup
         {
             get
@@ -94,5 +92,6 @@ namespace Gibbed.Borderlands2.SaveEdit
                 return base.DisplayGroup;
             }
         }
+        #endregion
     }
 }

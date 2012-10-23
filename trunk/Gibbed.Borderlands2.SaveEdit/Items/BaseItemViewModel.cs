@@ -32,6 +32,7 @@ namespace Gibbed.Borderlands2.SaveEdit
     internal class BaseItemViewModel : PropertyChangedBase, IBaseSlotViewModel
     {
         private readonly BaseItem _Item;
+        private string _DisplayName = "Unknown Item";
 
         public IBaseSlot BaseSlot
         {
@@ -55,6 +56,40 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             this.TypeAssets = CreateAssetList(resources.Distinct().Select(t => t.ResourcePath).OrderBy(s => s));
             this.BuildBalanceAssets();
+            this.UpdateDisplayName();
+        }
+
+        private static string GenerateDisplayName(string type, string prefixPart, string titlePart)
+        {
+            if (titlePart != "None" &&
+                InfoManager.ItemNameParts.ContainsKey(titlePart) == true &&
+                string.IsNullOrEmpty(InfoManager.ItemNameParts[titlePart].Name) == false)
+            {
+                var text = InfoManager.ItemNameParts[titlePart].Name;
+
+                if (prefixPart != "None" &&
+                    InfoManager.ItemNameParts.ContainsKey(prefixPart) == true &&
+                    string.IsNullOrEmpty(InfoManager.ItemNameParts[prefixPart].Name) == false)
+                {
+                    text = InfoManager.ItemNameParts[prefixPart].Name + " " + text;
+                }
+
+                return text;
+            }
+
+            if (type != "None" &&
+                InfoManager.ItemTypes.ContainsKey(type) == true &&
+                string.IsNullOrEmpty(InfoManager.ItemTypes[type].Name) == false)
+            {
+                return InfoManager.ItemTypes[type].Name;
+            }
+
+            return "Unknown Item";
+        }
+
+        private void UpdateDisplayName()
+        {
+            this.DisplayName = GenerateDisplayName(this.Type, this.PrefixPart, this.TitlePart);
         }
 
         #region Properties
@@ -66,6 +101,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 this._Item.Type = value;
                 this.NotifyOfPropertyChange(() => this.Type);
                 this.BuildBalanceAssets();
+                this.UpdateDisplayName();
             }
         }
 
@@ -197,6 +233,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             {
                 this._Item.PrefixPart = value;
                 this.NotifyOfPropertyChange(() => this.PrefixPart);
+                this.UpdateDisplayName();
             }
         }
 
@@ -207,6 +244,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             {
                 this._Item.TitlePart = value;
                 this.NotifyOfPropertyChange(() => this.TitlePart);
+                this.UpdateDisplayName();
             }
         }
 
@@ -244,7 +282,12 @@ namespace Gibbed.Borderlands2.SaveEdit
         #region Display Properties
         public virtual string DisplayName
         {
-            get { return "Base Item"; }
+            get { return this._DisplayName; }
+            private set
+            {
+                this._DisplayName = value;
+                this.NotifyOfPropertyChange(() => this.DisplayName);
+            }
         }
 
         public virtual string DisplayGroup
@@ -463,7 +506,7 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         private void BuildPartAssets()
         {
-            if (InfoManager.ItemTypes.ContainsKey(this.Type) == false || 
+            if (InfoManager.ItemTypes.ContainsKey(this.Type) == false ||
                 this.BalanceAssets.Contains(this.Balance) == false ||
                 InfoManager.ItemBalance.ContainsKey(this.Balance) == false ||
                 this.Balance == "None")

@@ -65,6 +65,7 @@
     <Compile Include="InfoManager.cs" />
     <Compile Include="ItemBalanceDefinition.cs" />
     <Compile Include="ItemBalancePartCollection.cs" />
+    <Compile Include="ItemNamePartDefinition.cs" />
     <Compile Include="ItemType.cs" />
     <Compile Include="ItemTypeDefinition.cs" />
     <Compile Include="LevelTravelStationDefinition.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Loaders\DownloadableContentDefinitionLoader.cs" />
     <Compile Include="Loaders\DownloadablePackageDefinitionLoader.cs" />
     <Compile Include="Loaders\FastTravelStationOrderingLoader.cs" />
+    <Compile Include="Loaders\ItemNamePartDefinitionLoader.cs" />
     <Compile Include="Loaders\TravelStationDefinitionLoader.cs" />
     <Compile Include="Loaders\ItemBalanceDefinitionLoader.cs" />
     <Compile Include="Loaders\ItemTypeDefinitionLoader.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="Loaders\PlayerClassDefinitionLoader.cs" />
     <Compile Include="Loaders\TypeNameSerializationBinder.cs" />
     <Compile Include="Loaders\WeaponBalanceDefinitionLoader.cs" />
+    <Compile Include="Loaders\WeaponNamePartDefinitionLoader.cs" />
     <Compile Include="Loaders\WeaponTypeDefinitionLoader.cs" />
     <Compile Include="MissionStatus.cs" />
     <Compile Include="MissionStatusData.cs" />
@@ -96,6 +99,7 @@
     <Compile Include="Raw\FastTravelStationOrdering.cs" />
     <Compile Include="Raw\ItemBalanceDefinition.cs" />
     <Compile Include="Raw\ItemBalancePartCollection.cs" />
+    <Compile Include="Raw\ItemNamePartDefinition.cs" />
     <Compile Include="Raw\ItemTypeDefinition.cs" />
     <Compile Include="Raw\LevelTravelStationDefinition.cs" />
     <Compile Include="Raw\MissionStatusData.cs" />
@@ -106,11 +110,13 @@
     <Compile Include="Raw\TravelStationDefinition.cs" />
     <Compile Include="Raw\WeaponBalanceDefinition.cs" />
     <Compile Include="Raw\WeaponBalancePartCollection.cs" />
+    <Compile Include="Raw\WeaponNamePartDefinition.cs" />
     <Compile Include="Raw\WeaponTypeDefinition.cs" />
     <Compile Include="ResourceNotFoundException.cs" />
     <Compile Include="TravelStationDefinition.cs" />
     <Compile Include="WeaponBalanceDefinition.cs" />
     <Compile Include="WeaponBalancePartCollection.cs" />
+    <Compile Include="WeaponNamePartDefinition.cs" />
     <Compile Include="WeaponType.cs" />
     <Compile Include="WeaponTypeDefinition.cs" />
   </ItemGroup>
@@ -130,6 +136,8 @@
     <EmbeddedResource Include="Resources\Downloadable Packages.json" />
     <EmbeddedResource Include="Resources\Travel Stations.json" />
     <EmbeddedResource Include="Resources\Fast Travel Station Ordering.json" />
+    <EmbeddedResource Include="Resources\Item Name Parts.json" />
+    <EmbeddedResource Include="Resources\Weapon Name Parts.json" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
