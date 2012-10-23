@@ -46,6 +46,12 @@ namespace Gibbed.Borderlands2.SaveEdit
         #endregion
 
         #region Properties
+        [Import]
+        private GeneralViewModel _General { get; set; }
+
+        [Import]
+        private BackpackViewModel _Backpack { get; set; }
+
         public ObservableCollection<IBaseSlotViewModel> Slots
         {
             get { return this._Slots; }
@@ -267,6 +273,35 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             this.Slots.Remove(this.SelectedSlot);
             this.SelectedSlot = this.Slots.FirstOrDefault();
+        }
+
+        public void SyncAllLevels()
+        {
+            foreach (var viewModel in this.Slots)
+            {
+                if (viewModel is BaseWeaponViewModel)
+                {
+                    var weapon = (BaseWeaponViewModel)viewModel;
+                    if ((weapon.ManufacturerGradeIndex + weapon.GameStage) >= 2)
+                    {
+                        weapon.ManufacturerGradeIndex = this._General.ExpLevel;
+                        weapon.GameStage = this._General.ExpLevel;
+                    }
+                }
+                else if (viewModel is BaseItemViewModel)
+                {
+                    var item = (BaseItemViewModel)viewModel;
+                    if ((item.ManufacturerGradeIndex + item.GameStage) >= 2)
+                    {
+                        item.ManufacturerGradeIndex = this._General.ExpLevel;
+                        item.GameStage = this._General.ExpLevel;
+                    }
+                }
+                else
+                {
+                    throw new NotSupportedException();
+                }
+            }
         }
 
         public void ImportData(WillowTwoPlayerSaveGame saveGame)
