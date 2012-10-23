@@ -106,6 +106,19 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         public void ImportData(WillowTwoPlayerSaveGame saveGame)
         {
+            foreach (var teleporter in this.AvailableTeleporters.Where(t => t.Custom == true).ToList())
+            {
+                this.AvailableTeleporters.Remove(teleporter);
+            }
+
+            if (this.AvailableTeleporters.Any(t => t.Path == saveGame.LastVisitedTeleporter) == false)
+            {
+                this.AvailableTeleporters.Add(new AssetDisplay(saveGame.LastVisitedTeleporter,
+                                                               saveGame.LastVisitedTeleporter,
+                                                               "Unknown",
+                                                               true));
+            }
+
             this.LastVisitedTeleporter = saveGame.LastVisitedTeleporter;
 
             var visitedStations = saveGame.VisitedTeleporters.ToList();
