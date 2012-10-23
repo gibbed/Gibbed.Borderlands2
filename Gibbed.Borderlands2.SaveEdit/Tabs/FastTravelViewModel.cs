@@ -111,7 +111,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 });
             }
 
-            foreach (var levelTravelStation in levelTravelStations.OrderBy(lts => lts.StationDisplayName))
+            foreach (var levelTravelStation in levelTravelStations.OrderBy(lts => lts.ResourceName))
             {
                 var displayName = string.IsNullOrEmpty(levelTravelStation.DisplayName) == false
                                       ? levelTravelStation.DisplayName
