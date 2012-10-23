@@ -46,6 +46,22 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
                     }
                     defs[kv.Key].PreviousStation = defs[kv.Value.PreviousStation];
                 }
+                foreach (var kv in raws
+                    .Where(
+                        kv =>
+                        (kv.Value is Raw.LevelTravelStationDefinition) &&
+                        string.IsNullOrEmpty(((Raw.LevelTravelStationDefinition)kv.Value).DestinationStation) == false))
+                {
+                    var rawLevelTravelStation = (Raw.LevelTravelStationDefinition)kv.Value;
+                    if (defs.ContainsKey(rawLevelTravelStation.DestinationStation) == false)
+                    {
+                        throw ResourceNotFoundException.Create("level travel station",
+                                                               rawLevelTravelStation.DestinationStation);
+                    }
+                    var levelTravelStation = (LevelTravelStationDefinition)defs[kv.Key];
+                    levelTravelStation.DestinationStation =
+                        (LevelTravelStationDefinition)defs[rawLevelTravelStation.DestinationStation];
+                }
                 return defs;
             }
             catch (Exception e)
@@ -92,7 +108,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
                 ResourceName = raw.ResourceName,
                 LevelName = raw.LevelName,
                 DLCExpansion = dlcExpansion,
-                DisplayName = raw.DisplayName,
+                StationDisplayName = raw.StationDisplayName,
                 MissionDependencies = GetMissionStatusData(raw.MissionDependencies),
                 InitiallyActive = raw.InitiallyActive,
                 SendOnly = raw.SendOnly,
@@ -114,7 +130,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
                 ResourceName = raw.ResourceName,
                 LevelName = raw.LevelName,
                 DLCExpansion = dlcExpansion,
-                DisplayName = raw.DisplayName,
+                StationDisplayName = raw.StationDisplayName,
                 MissionDependencies = GetMissionStatusData(kv.Value.MissionDependencies),
             };
         }

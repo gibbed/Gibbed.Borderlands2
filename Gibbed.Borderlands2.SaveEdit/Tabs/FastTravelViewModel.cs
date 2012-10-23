@@ -59,10 +59,16 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             this.VisitedTeleporters = new ObservableCollection<VisitedTeleporterDisplay>();
 
-            var stations = InfoManager.TravelStations.Items
+            var fastTravelStations = InfoManager.TravelStations.Items
                 .Where(kv => kv.Value is FastTravelStationDefinition)
                 .Select(kv => kv.Value)
                 .Cast<FastTravelStationDefinition>()
+                .ToList();
+
+            var levelTravelStations = InfoManager.TravelStations.Items
+                .Where(kv => kv.Value is LevelTravelStationDefinition)
+                .Select(kv => kv.Value)
+                .Cast<LevelTravelStationDefinition>()
                 .ToList();
 
             foreach (var kv in InfoManager.FastTravelStationOrdering.Items)
@@ -72,7 +78,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 {
                     string displayName = string.IsNullOrEmpty(station.Sign) == false
                                              ? station.Sign
-                                             : station.DisplayName;
+                                             : station.StationDisplayName;
                     this.AvailableTeleporters.Add(new AssetDisplay(displayName, station.ResourceName, group));
                     this.VisitedTeleporters.Add(new VisitedTeleporterDisplay()
                     {
@@ -82,25 +88,37 @@ namespace Gibbed.Borderlands2.SaveEdit
                         Custom = false,
                         Group = group,
                     });
-                    stations.Remove(station);
+                    fastTravelStations.Remove(station);
                 }
             }
 
-            foreach (var station in stations)
+            foreach (var fastTravelStation in fastTravelStations)
             {
-                string displayName = string.IsNullOrEmpty(station.Sign) == false
-                                         ? station.Sign
-                                         : station.DisplayName;
+                string displayName = string.IsNullOrEmpty(fastTravelStation.Sign) == false
+                                         ? fastTravelStation.Sign
+                                         : fastTravelStation.StationDisplayName;
                 var group = "Unknown";
-                this.AvailableTeleporters.Add(new AssetDisplay(station.DisplayName, station.ResourceName, group));
+                this.AvailableTeleporters.Add(new AssetDisplay(fastTravelStation.StationDisplayName,
+                                                               fastTravelStation.ResourceName,
+                                                               group));
                 this.VisitedTeleporters.Add(new VisitedTeleporterDisplay()
                 {
                     DisplayName = displayName,
-                    ResourceName = station.ResourceName,
+                    ResourceName = fastTravelStation.ResourceName,
                     Visited = false,
                     Custom = false,
                     Group = group,
                 });
+            }
+
+            foreach (var levelTravelStation in levelTravelStations.OrderBy(lts => lts.StationDisplayName))
+            {
+                var displayName = string.IsNullOrEmpty(levelTravelStation.DisplayName) == false
+                                      ? levelTravelStation.DisplayName
+                                      : levelTravelStation.ResourceName;
+                this.AvailableTeleporters.Add(new AssetDisplay(displayName,
+                                                               levelTravelStation.ResourceName,
+                                                               "Level Transitions"));
             }
         }
 
