@@ -29,8 +29,10 @@ namespace Gibbed.Borderlands2.GameInfo
         public static AssetLibraryManager AssetLibraryManager { get; private set; }
         public static InfoDictionary<PlayerClassDefinition> PlayerClasses { get; private set; }
         public static InfoDictionary<WeaponTypeDefinition> WeaponTypes { get; private set; }
-        public static InfoDictionary<ItemTypeDefinition> ItemTypes { get; private set; }
+        public static InfoDictionary<WeaponNamePartDefinition> WeaponNameParts { get; private set; }
         public static InfoDictionary<WeaponBalanceDefinition> WeaponBalance { get; private set; }
+        public static InfoDictionary<ItemTypeDefinition> ItemTypes { get; private set; }
+        public static InfoDictionary<ItemNamePartDefinition> ItemNameParts { get; private set; }
         public static InfoDictionary<ItemBalanceDefinition> ItemBalance { get; private set; }
         public static InfoDictionary<CustomizationDefinition> Customizations { get; private set; }
         public static InfoDictionary<TravelStationDefinition> TravelStations { get; private set; }
@@ -44,10 +46,13 @@ namespace Gibbed.Borderlands2.GameInfo
             PlayerClasses = Loaders.PlayerClassDefinitionLoader.Load(DownloadableContents);
 
             WeaponTypes = Loaders.WeaponTypeDefinitionLoader.Load();
-            ItemTypes = Loaders.ItemTypeDefinitionLoader.Load();
-
+            WeaponNameParts = Loaders.WeaponNamePartDefinitionLoader.Load();
             WeaponBalance = Loaders.WeaponBalanceDefinitionLoader.Load(WeaponTypes);
+
+            ItemTypes = Loaders.ItemTypeDefinitionLoader.Load();
+            ItemNameParts = Loaders.ItemNamePartDefinitionLoader.Load();
             ItemBalance = Loaders.ItemBalanceDefinitionLoader.Load(ItemTypes);
+
             Customizations = Loaders.CustomizationDefinitionLoader.Load(DownloadableContents);
 
             TravelStations = Loaders.TravelStationDefinitionLoader.Load(DownloadableContents);
