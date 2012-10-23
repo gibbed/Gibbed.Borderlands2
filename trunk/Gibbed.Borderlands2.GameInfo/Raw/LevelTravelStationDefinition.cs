@@ -29,6 +29,11 @@ namespace Gibbed.Borderlands2.GameInfo.Raw
     [JsonObject(MemberSerialization.OptIn)]
     internal sealed class LevelTravelStationDefinition : TravelStationDefinition
     {
+        [JsonProperty(PropertyName = "display_name")]
+        public string DisplayName { get; set; }
+
+        [JsonProperty(PropertyName = "destination_station")]
+        public string DestinationStation { get; set; }
     }
 }
 
