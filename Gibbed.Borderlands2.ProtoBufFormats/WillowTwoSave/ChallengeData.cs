@@ -29,9 +29,9 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
     public class ChallengeData : IComposable, INotifyPropertyChanged
     {
         #region Fields
-        private string _Unknown1;
-        private int _Unknown2;
-        private int _Unknown3;
+        private string _Challenge;
+        private bool _IsFromDLC;
+        private int _DLCPackageId;
         #endregion
 
         #region IComposable Members
@@ -46,43 +46,43 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         #region Properties
         [ProtoMember(1, IsRequired = true)]
-        public string Unknown1
+        public string Challenge
         {
-            get { return this._Unknown1; }
+            get { return this._Challenge; }
             set
             {
-                if (value != this._Unknown1)
+                if (value != this._Challenge)
                 {
-                    this._Unknown1 = value;
-                    this.NotifyPropertyChanged("Unknown1");
+                    this._Challenge = value;
+                    this.NotifyPropertyChanged("Challenge");
                 }
             }
         }
 
         [ProtoMember(2, IsRequired = true)]
-        public int Unknown2
+        public bool IsFromDLC
         {
-            get { return this._Unknown2; }
+            get { return this._IsFromDLC; }
             set
             {
-                if (value != this._Unknown2)
+                if (value != this._IsFromDLC)
                 {
-                    this._Unknown2 = value;
-                    this.NotifyPropertyChanged("Unknown2");
+                    this._IsFromDLC = value;
+                    this.NotifyPropertyChanged("IsFromDLC");
                 }
             }
         }
 
         [ProtoMember(3, IsRequired = true)]
-        public int Unknown3
+        public int DLCPackageId
         {
-            get { return this._Unknown3; }
+            get { return this._DLCPackageId; }
             set
             {
-                if (value != this._Unknown3)
+                if (value != this._DLCPackageId)
                 {
-                    this._Unknown3 = value;
-                    this.NotifyPropertyChanged("Unknown3");
+                    this._DLCPackageId = value;
+                    this.NotifyPropertyChanged("DLCPackageId");
                 }
             }
         }

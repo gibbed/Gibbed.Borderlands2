@@ -83,7 +83,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Mark)
                 {
                     this._Mark = value;
-                    this.NotifyPropertyChanged("Unknown3");
+                    this.NotifyPropertyChanged("Mark");
                 }
             }
         }
