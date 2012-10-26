@@ -365,9 +365,9 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             foreach (var packedWeapon in saveGame.PackedWeaponData)
             {
-                var weapon = (BackpackWeapon)BackpackDataHelper.Decode(packedWeapon.Data);
+                var weapon = (BackpackWeapon)BackpackDataHelper.Decode(packedWeapon.InventorySerialNumber);
                 var test = BackpackDataHelper.Encode(weapon);
-                if (packedWeapon.Data.SequenceEqual(test) == false)
+                if (packedWeapon.InventorySerialNumber.SequenceEqual(test) == false)
                 {
                     throw new FormatException("backpack weapon reencode mismatch");
                 }
@@ -381,9 +381,9 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             foreach (var packedItem in saveGame.PackedItemData)
             {
-                var item = (BackpackItem)BackpackDataHelper.Decode(packedItem.Data);
+                var item = (BackpackItem)BackpackDataHelper.Decode(packedItem.InventorySerialNumber);
                 var test = BackpackDataHelper.Encode(item);
-                if (packedItem.Data.SequenceEqual(test) == false)
+                if (packedItem.InventorySerialNumber.SequenceEqual(test) == false)
                 {
                     throw new FormatException("backpack item reencode mismatch");
                 }
@@ -413,7 +413,7 @@ namespace Gibbed.Borderlands2.SaveEdit
 
                     saveGame.PackedWeaponData.Add(new PackedWeaponData()
                     {
-                        Data = data,
+                        InventorySerialNumber = data,
                         QuickSlot = weapon.QuickSlot,
                         Mark = weapon.Mark,
                     });
@@ -425,7 +425,7 @@ namespace Gibbed.Borderlands2.SaveEdit
 
                     saveGame.PackedItemData.Add(new PackedItemData()
                     {
-                        Data = data,
+                        InventorySerialNumber = data,
                         Quantity = item.Quantity,
                         Equipped = item.Equipped,
                         Mark = item.Mark,

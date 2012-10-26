@@ -310,9 +310,9 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             foreach (var bankSlot in saveGame.BankSlots)
             {
-                var slot = BaseDataHelper.Decode(bankSlot.Data);
+                var slot = BaseDataHelper.Decode(bankSlot.InventorySerialNumber);
                 var test = BaseDataHelper.Encode(slot);
-                if (bankSlot.Data.SequenceEqual(test) == false)
+                if (bankSlot.InventorySerialNumber.SequenceEqual(test) == false)
                 {
                     throw new FormatException("bank slot reencode mismatch");
                 }
@@ -345,7 +345,7 @@ namespace Gibbed.Borderlands2.SaveEdit
 
                     saveGame.BankSlots.Add(new BankSlot()
                     {
-                        Data = data,
+                        InventorySerialNumber = data,
                     });
                 }
                 else if (slot is BaseItem)
@@ -355,7 +355,7 @@ namespace Gibbed.Borderlands2.SaveEdit
 
                     saveGame.BankSlots.Add(new BankSlot()
                     {
-                        Data = data,
+                        InventorySerialNumber = data,
                     });
                 }
                 else
