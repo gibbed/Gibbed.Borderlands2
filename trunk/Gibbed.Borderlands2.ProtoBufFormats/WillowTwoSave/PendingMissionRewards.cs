@@ -36,8 +36,8 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         private List<ItemData> _ItemRewards;
         private List<PackedWeaponDataOptional> _PackedWeaponRewards;
         private List<PackedItemDataOptional> _PackedItemRewards;
-        private int _Unknown6;
-        private int _Unknown7;
+        private bool _IsFromDLC;
+        private int _DLCPackageId;
         #endregion
 
         #region IComposable Members
@@ -210,29 +210,29 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(6, IsRequired = true)]
-        public int Unknown6
+        public bool IsFromDLC
         {
-            get { return this._Unknown6; }
+            get { return this._IsFromDLC; }
             set
             {
-                if (value != this._Unknown6)
+                if (value != this._IsFromDLC)
                 {
-                    this._Unknown6 = value;
-                    this.NotifyPropertyChanged("Unknown6");
+                    this._IsFromDLC = value;
+                    this.NotifyPropertyChanged("IsFromDLC");
                 }
             }
         }
 
         [ProtoMember(7, IsRequired = true)]
-        public int Unknown7
+        public int DLCPackageId
         {
-            get { return this._Unknown7; }
+            get { return this._DLCPackageId; }
             set
             {
-                if (value != this._Unknown7)
+                if (value != this._DLCPackageId)
                 {
-                    this._Unknown7 = value;
-                    this.NotifyPropertyChanged("Unknown7");
+                    this._DLCPackageId = value;
+                    this.NotifyPropertyChanged("DLCPackageId");
                 }
             }
         }
