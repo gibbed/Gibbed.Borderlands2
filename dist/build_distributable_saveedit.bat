@@ -1,4 +1,5 @@
 @echo off
+call "%VS100COMNTOOLS%vsvars32.bat"
 rmdir /s /q "saveedit"
 mkdir "saveedit"
 msbuild "..\Borderlands 2.sln" /p:Configuration="SaveEdit Packaging" /p:OutputPath="%cd%\saveedit"
@@ -15,3 +16,4 @@ move *.dll assemblies\
 del *.xml
 7z a -r -tzip -mx=9 ..\saveedit.zip .
 cd ".."
+pause
