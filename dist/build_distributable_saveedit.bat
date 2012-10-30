@@ -16,4 +16,3 @@ move *.dll assemblies\
 del *.xml
 7z a -r -tzip -mx=9 ..\saveedit.zip .
 cd ".."
-pause
