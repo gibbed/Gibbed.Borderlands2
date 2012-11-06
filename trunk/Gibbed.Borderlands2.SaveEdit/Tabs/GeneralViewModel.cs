@@ -360,8 +360,8 @@ namespace Gibbed.Borderlands2.SaveEdit
             this.GeneralSkillPoints = saveGame.GeneralSkillPoints;
             this.SpecialistSkillPoints = saveGame.SpecialistSkillPoints;
             this.CharacterName = Encoding.UTF8.GetString(saveGame.UIPreferences.CharacterName);
-            this.SelectedHead = saveGame.AppliedCustomizations[0];
-            this.SelectedSkin = saveGame.AppliedCustomizations[4];
+            this.SelectedHead = saveGame.AppliedCustomizations.Count > 0 ? saveGame.AppliedCustomizations[0] : "None";
+            this.SelectedSkin = saveGame.AppliedCustomizations.Count > 4 ? saveGame.AppliedCustomizations[4] : "None";
             this.BuildCustomizationAssets();
         }
 
@@ -375,6 +375,12 @@ namespace Gibbed.Borderlands2.SaveEdit
             saveGame.GeneralSkillPoints = this.GeneralSkillPoints;
             saveGame.SpecialistSkillPoints = this.SpecialistSkillPoints;
             saveGame.UIPreferences.CharacterName = Encoding.UTF8.GetBytes(this.CharacterName);
+
+            while (saveGame.AppliedCustomizations.Count < 5)
+            {
+                saveGame.AppliedCustomizations.Add("");
+            }
+
             saveGame.AppliedCustomizations[0] = this.SelectedHead;
             saveGame.AppliedCustomizations[4] = this.SelectedSkin;
         }

@@ -84,6 +84,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Helpers\AssetCache.cs" />
+    <Compile Include="Helpers\HyperlinkExtensions.cs" />
     <Compile Include="Helpers\MyClipboard.cs" />
     <Compile Include="Helpers\MyMessageBox.cs" />
     <Compile Include="Items\BackpackItemView.xaml.cs">
@@ -308,6 +309,10 @@
   <ItemGroup>
     <Resource Include="Resources\fugue\control-090.png" />
     <Resource Include="Resources\fugue\control-double-090.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\exclamation mark.png" />
+    <Resource Include="Resources\question mark.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
