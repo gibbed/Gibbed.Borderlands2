@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
+using System.Text;
 using System.Windows;
 using Caliburn.Micro;
 using Caliburn.Micro.Contrib;
@@ -138,6 +139,57 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             this._Events = events;
             events.Subscribe(this);
+        }
+
+        public IEnumerable<IResult> NewSave()
+        {
+            yield return new DelegateResult(() =>
+            {
+                var saveFile = new FileFormats.SaveFile()
+                {
+                    Endian = Endian.Little,
+                    SaveGame = new ProtoBufFormats.WillowTwoSave.WillowTwoPlayerSaveGame()
+                    {
+                        SaveGameId = 1,
+                        SaveGuid = (ProtoBufFormats.WillowTwoSave.Guid)Guid.NewGuid(),
+                        PlayerClass = "GD_Assassin.Character.CharClass_Assassin",
+                        UIPreferences = new ProtoBufFormats.WillowTwoSave.UIPreferencesData()
+                        {
+                            CharacterName = Encoding.UTF8.GetBytes("Zero"),
+                        },
+                        AppliedCustomizations = new List<string>()
+                        {
+                            "GD_DefaultCustoms_MainGame.Assassin.Head_Default",
+                            "",
+                            "",
+                            "",
+                            "GD_DefaultCustoms_MainGame.Assassin.Skin_Default",
+                        },
+                    },
+                };
+                saveFile.SaveGame.Decompose();
+
+                this.General.ImportData(saveFile.SaveGame, saveFile.Endian);
+                this.CurrencyOnHand.ImportData(saveFile.SaveGame);
+                this.Backpack.ImportData(saveFile.SaveGame);
+                this.Bank.ImportData(saveFile.SaveGame);
+                this.FastTravel.ImportData(saveFile.SaveGame);
+                this.SaveFile = saveFile;
+            })
+                .Rescue<DllNotFoundException>().Execute(
+                    x => new MyMessageBox("Failed to create save: " + x.Message, "Error")
+                             .WithIcon(MessageBoxImage.Error).AsCoroutine())
+                .Rescue<FileFormats.SaveFormatException>().Execute(
+                    x => new MyMessageBox("Failed to create save: " + x.Message, "Error")
+                             .WithIcon(MessageBoxImage.Error).AsCoroutine())
+                .Rescue<FileFormats.SaveCorruptionException>().Execute(
+                    x => new MyMessageBox("Failed to create save: " + x.Message, "Error")
+                             .WithIcon(MessageBoxImage.Error).AsCoroutine())
+                .Rescue().Execute(
+                    x =>
+                    new MyMessageBox("An exception was thrown (press Ctrl+C to copy):\n\n" + x.ToString(),
+                                     "Error")
+                        .WithIcon(MessageBoxImage.Error).AsCoroutine());
         }
 
         public IEnumerable<IResult> ReadSave()

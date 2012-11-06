@@ -27,6 +27,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:cal="http://www.caliburnproject.org"
+             xmlns:se="clr-namespace:Gibbed.Borderlands2.SaveEdit"
              mc:Ignorable="d"
              d:DesignWidth="720"
              d:DesignHeight="480">
@@ -81,6 +82,12 @@
         </StackPanel>
       </Button>
     </ToolBar>
+    <StackPanel Orientation="Horizontal"
+                DockPanel.Dock="Bottom">
+      <TextBlock>
+        <Hyperlink NavigateUri="http://thegearcalculator.appspot.com/" se:HyperlinkExtensions.IsExternal="true">duncanfogg's Gear Calculator</Hyperlink> (<Hyperlink NavigateUri="http://forums.gearboxsoftware.com/showthread.php?t=192473" se:HyperlinkExtensions.IsExternal="true">Thread</Hyperlink>)
+      </TextBlock>
+    </StackPanel>
     <Grid>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="0.35*" />
@@ -106,8 +113,6 @@
         <ListView.ItemTemplate>
           <DataTemplate>
             <StackPanel Orientation="Horizontal">
-              <Image Width="24"
-                     Height="24" />
               <TextBlock Text="{Binding Path=DisplayName}"
                          VerticalAlignment="Center" />
             </StackPanel>

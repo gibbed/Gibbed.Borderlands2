@@ -37,7 +37,7 @@
   <DockPanel>
     <ToolBar Name="ButtonBar"
              DockPanel.Dock="Top">
-      <Button>
+      <Button x:Name="NewSave">
         <StackPanel Orientation="Horizontal">
           <Image Width="16"
                  Height="16"
@@ -63,7 +63,7 @@
         </StackPanel>
       </Button>
     </ToolBar>
-    <TabControl IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}">
+    <TabControl>
       <TabItem>
         <TabItem.Header>
           <StackPanel Orientation="Horizontal">
@@ -75,7 +75,8 @@
         </TabItem.Header>
         <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto"
                       ScrollViewer.HorizontalScrollBarVisibility="Auto">
-          <ContentControl x:Name="General" />
+          <ContentControl x:Name="General"
+                          IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" />
         </ScrollViewer>
       </TabItem>
       <TabItem>
@@ -89,7 +90,8 @@
         </TabItem.Header>
         <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto"
                       ScrollViewer.HorizontalScrollBarVisibility="Auto">
-          <ContentControl x:Name="CurrencyOnHand" />
+          <ContentControl x:Name="CurrencyOnHand"
+                          IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" />
         </ScrollViewer>
       </TabItem>
       <TabItem>
@@ -101,7 +103,8 @@
                    Content="Fast Travel" />
           </StackPanel>
         </TabItem.Header>
-        <ContentControl x:Name="FastTravel" />
+        <ContentControl x:Name="FastTravel"
+                        IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" />
       </TabItem>
       <TabItem>
         <TabItem.Header>
@@ -112,7 +115,8 @@
                    Content="Backpack" />
           </StackPanel>
         </TabItem.Header>
-        <ContentControl x:Name="Backpack" />
+        <ContentControl x:Name="Backpack"
+                        IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" />
       </TabItem>
       <TabItem>
         <TabItem.Header>
@@ -123,7 +127,8 @@
                    Content="Bank" />
           </StackPanel>
         </TabItem.Header>
-        <ContentControl x:Name="Bank" />
+        <ContentControl x:Name="Bank"
+                        IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" />
       </TabItem>
       <TabItem>
         <TabItem.Header>
@@ -136,7 +141,8 @@
         </TabItem.Header>
         <xctk:PropertyGrid AutoGenerateProperties="True"
                            SelectedObject="{Binding Path=SaveFile.SaveGame}"
-                           ShowTitle="False">
+                           ShowTitle="False"
+                           IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}">
           <xctk:PropertyGrid.EditorDefinitions>
             <xctk:EditorDefinition>
               <!-- Workaround for broken byte[] support in PropertyGrid. -->
@@ -162,6 +168,27 @@
             </xctk:EditorDefinition>
           </xctk:PropertyGrid.EditorDefinitions>
         </xctk:PropertyGrid>
+      </TabItem>
+      <TabItem>
+        <TabItem.Header>
+          <StackPanel Orientation="Horizontal">
+            <Image Height="24"
+                   Source="Resources\question mark.png" />
+            <Label VerticalAlignment="Center"
+                   Content="About" />
+          </StackPanel>
+        </TabItem.Header>
+        <DockPanel LastChildFill="True">
+          <TextBlock TextWrapping="Wrap" Margin="4">
+            Developed by <Hyperlink NavigateUri="http://gib.me/" my:HyperlinkExtensions.IsExternal="true">gibbed</Hyperlink> for use with Borderlands 2.<LineBreak/>
+            <LineBreak/>
+            With special thanks to the following people who in some way contributed to the development of this save editor:<LineBreak/>
+            — cake, Crimor, dis_astranagant, duncanfogg, evil0z, FasuXe, Foran, hi-ban, Jordan, Jusupov, Kryptos, Kyle873, Namidairo, NeuroticTurtle, pclifford, Septarius, Shyke, TechnoJacker, zylche<LineBreak />
+            — And of course Gearbox Software, for creating Borderlands to begin with!<LineBreak/>
+            <LineBreak/>
+            For anyone else I missed, you know who you are!<LineBreak />
+          </TextBlock>
+        </DockPanel>
       </TabItem>
     </TabControl>
   </DockPanel>
