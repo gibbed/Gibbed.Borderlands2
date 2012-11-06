@@ -20,6 +20,7 @@
  *    distribution.
  */
 
+using System;
 using System.ComponentModel;
 using ProtoBuf;
 
@@ -137,6 +138,34 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
             hash = hash * 23 + this._C.GetHashCode();
             hash = hash * 23 + this._D.GetHashCode();
             return hash;
+        }
+
+        public static explicit operator Guid(System.Guid guid)
+        {
+            var bytes = guid.ToByteArray();
+
+            return new Guid()
+            {
+                A = BitConverter.ToUInt32(bytes, 0),
+                B = BitConverter.ToUInt32(bytes, 4),
+                C = BitConverter.ToUInt32(bytes, 8),
+                D = BitConverter.ToUInt32(bytes, 12),
+            };
+        }
+
+        public static explicit operator System.Guid(Guid guid)
+        {
+            var a = BitConverter.GetBytes(guid.A);
+            var b = BitConverter.GetBytes(guid.B);
+            var c = BitConverter.GetBytes(guid.C);
+            var d = BitConverter.GetBytes(guid.D);
+
+            var bytes = new byte[16];
+            Array.Copy(a, 0, bytes, 0, 4);
+            Array.Copy(b, 0, bytes, 4, 4);
+            Array.Copy(c, 0, bytes, 8, 4);
+            Array.Copy(d, 0, bytes, 12, 4);
+            return new System.Guid(bytes);
         }
 
         #region INotifyPropertyChanged Members

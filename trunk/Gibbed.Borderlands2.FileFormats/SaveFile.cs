@@ -33,7 +33,7 @@ namespace Gibbed.Borderlands2.FileFormats
     public class SaveFile : INotifyPropertyChanged
     {
         #region Fields
-        private Endian _Endian;
+        private Endian _Endian = Endian.Little;
         private WillowTwoSave.WillowTwoPlayerSaveGame _SaveGame;
         #endregion
 
