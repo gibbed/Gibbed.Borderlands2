@@ -32,7 +32,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
     {
         #region Fields
         private string _PlayerClass;
-        private int _ExpLevel;
+        private int _ExpLevel = 1;
         private int _ExpPoints;
         private int _GeneralSkillPoints;
         private int _SpecialistSkillPoints;
