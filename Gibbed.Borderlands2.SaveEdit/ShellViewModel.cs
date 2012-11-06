@@ -165,6 +165,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                             "",
                             "GD_DefaultCustoms_MainGame.Assassin.Skin_Default",
                         },
+                        LastVisitedTeleporter = "None",
                     },
                 };
                 saveFile.SaveGame.Decompose();
