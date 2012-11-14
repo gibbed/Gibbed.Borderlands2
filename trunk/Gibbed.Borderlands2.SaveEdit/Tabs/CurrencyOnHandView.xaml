@@ -103,6 +103,28 @@
                           Grid.Column="1"
                           Margin="3"
                           Value="{Binding Path=SeraphCrystals, UpdateSourceTrigger=PropertyChanged}" />
+      <Grid Grid.Row="3"
+            Grid.Column="0">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="*" />
+          <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Image Grid.Column="2"
+               DockPanel.Dock="Right"
+               Source="..\Resources\torgue token.png"
+               Height="24" />
+        <Label Grid.Column="0"
+               HorizontalContentAlignment="Right"
+               Content="Torgue Tokens:" />
+      </Grid>
+      <xctk:IntegerUpDown Grid.Row="3"
+                          Grid.Column="1"
+                          Margin="3"
+                          Value="{Binding Path=TorgueTokens, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
     <Expander Header="Reserved"
               IsExpanded="False">
@@ -131,14 +153,6 @@
         <xctk:IntegerUpDown Grid.Column="1"
                             Margin="3"
                             Value="{Binding Path=ReservedA, UpdateSourceTrigger=PropertyChanged}" />
-        <Label Grid.Row="1"
-               Grid.Column="0"
-               HorizontalContentAlignment="Right"
-               Content="B:" />
-        <xctk:IntegerUpDown Grid.Row="1"
-                            Grid.Column="1"
-                            Margin="3"
-                            Value="{Binding Path=ReservedB, UpdateSourceTrigger=PropertyChanged}" />
         <Label Grid.Row="2"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
