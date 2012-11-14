@@ -31,8 +31,8 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         #region Fields
         private string _Region;
         private int _GameStage;
-        private int _DLCPackageId;
         private bool _IsFromDLC;
+        private int _DLCPackageId;
         private int _PlaythroughIndex;
         #endregion
 
@@ -76,20 +76,6 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(3, IsRequired = true)]
-        public int DLCPackageId
-        {
-            get { return this._DLCPackageId; }
-            set
-            {
-                if (value != this._DLCPackageId)
-                {
-                    this._DLCPackageId = value;
-                    this.NotifyPropertyChanged("DLCPackageId");
-                }
-            }
-        }
-
-        [ProtoMember(4, IsRequired = true)]
         public bool IsFromDLC
         {
             get { return this._IsFromDLC; }
@@ -99,6 +85,20 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 {
                     this._IsFromDLC = value;
                     this.NotifyPropertyChanged("IsFromDLC");
+                }
+            }
+        }
+
+        [ProtoMember(4, IsRequired = true)]
+        public int DLCPackageId
+        {
+            get { return this._DLCPackageId; }
+            set
+            {
+                if (value != this._DLCPackageId)
+                {
+                    this._DLCPackageId = value;
+                    this.NotifyPropertyChanged("DLCPackageId");
                 }
             }
         }
