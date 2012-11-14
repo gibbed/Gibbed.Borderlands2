@@ -34,7 +34,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         private int _Eridium;
         private int _SeraphCrystals;
         private int _ReservedA;
-        private int _ReservedB;
+        private int _TorgueTokens;
         private int _ReservedC;
         private int _ReservedD;
         private int _ReservedE;
@@ -98,15 +98,15 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        public int ReservedB
+        public int TorgueTokens
         {
-            get { return this._ReservedB; }
+            get { return this._TorgueTokens; }
             set
             {
-                if (this._ReservedB != value)
+                if (this._TorgueTokens != value)
                 {
-                    this._ReservedB = value;
-                    this.NotifyOfPropertyChange(() => this.ReservedB);
+                    this._TorgueTokens = value;
+                    this.NotifyOfPropertyChange(() => this.TorgueTokens);
                 }
             }
         }
@@ -228,7 +228,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             this.Eridium = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 1 ? saveGame.CurrencyOnHand[1] : 0;
             this.SeraphCrystals = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 2 ? saveGame.CurrencyOnHand[2] : 0;
             this.ReservedA = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 3 ? saveGame.CurrencyOnHand[3] : 0;
-            this.ReservedB = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 4 ? saveGame.CurrencyOnHand[4] : 0;
+            this.TorgueTokens = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 4 ? saveGame.CurrencyOnHand[4] : 0;
             this.ReservedC = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 5 ? saveGame.CurrencyOnHand[5] : 0;
             this.ReservedD = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 6 ? saveGame.CurrencyOnHand[6] : 0;
             this.ReservedE = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 7 ? saveGame.CurrencyOnHand[7] : 0;
@@ -246,7 +246,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             saveGame.CurrencyOnHand.Add(this.Eridium);
             saveGame.CurrencyOnHand.Add(this.SeraphCrystals);
             saveGame.CurrencyOnHand.Add(this.ReservedA);
-            saveGame.CurrencyOnHand.Add(this.ReservedB);
+            saveGame.CurrencyOnHand.Add(this.TorgueTokens);
             saveGame.CurrencyOnHand.Add(this.ReservedC);
             saveGame.CurrencyOnHand.Add(this.ReservedD);
             saveGame.CurrencyOnHand.Add(this.ReservedE);
