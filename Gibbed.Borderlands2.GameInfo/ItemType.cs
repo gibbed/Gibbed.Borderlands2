@@ -28,6 +28,7 @@ namespace Gibbed.Borderlands2.GameInfo
         Artifact,
         ClassMod,
         GrenadeMod,
+        MissionItem,
         Shield,
         UsableCustomizationItem,
         UsableItem,
