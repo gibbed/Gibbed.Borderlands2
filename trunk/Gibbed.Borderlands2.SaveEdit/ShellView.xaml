@@ -45,14 +45,40 @@
           <Label Content="New" />
         </StackPanel>
       </Button>
-      <Button x:Name="ReadSave">
+      <Separator />
+      <StackPanel Orientation="Horizontal"
+                  VerticalAlignment="Center">
+        <Image Width="16"
+               Height="16"
+               Source="Resources\fugue\folder-open-document.png" />
+
+        <Label Content="Open" />
+      </StackPanel>
+      <Button x:Name="ReadSavePC">
         <StackPanel Orientation="Horizontal">
           <Image Width="16"
                  Height="16"
-                 Source="Resources\fugue\folder-open-document.png" />
-          <Label Content="Open" />
+                 Source="Resources\fugue\computer.png" />
+          <Label Content="PC" />
         </StackPanel>
       </Button>
+      <Button x:Name="ReadSaveX360">
+        <StackPanel Orientation="Horizontal">
+          <Image Width="16"
+                 Height="16"
+                 Source="Resources\fugue\television-test.png" />
+          <Label Content="360" />
+        </StackPanel>
+      </Button>
+      <Button x:Name="ReadSavePS3">
+        <StackPanel Orientation="Horizontal">
+          <Image Width="16"
+                 Height="16"
+                 Source="Resources\fugue\television-image.png" />
+          <Label Content="PS3" />
+        </StackPanel>
+      </Button>
+      <Separator />
       <Button x:Name="WriteSave"
               IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}">
         <StackPanel Orientation="Horizontal">
@@ -178,17 +204,7 @@
                    Content="About" />
           </StackPanel>
         </TabItem.Header>
-        <DockPanel LastChildFill="True">
-          <TextBlock TextWrapping="Wrap" Margin="4">
-            Developed by <Hyperlink NavigateUri="http://gib.me/" my:HyperlinkExtensions.IsExternal="true">gibbed</Hyperlink> for use with Borderlands 2.<LineBreak/>
-            <LineBreak/>
-            With special thanks to the following people who in some way contributed to the development of this save editor:<LineBreak/>
-            — cake, Crimor, dis_astranagant, duncanfogg, evil0z, FasuXe, Foran, hi-ban, Jordan, Jusupov, Kryptos, Kyle873, Namidairo, NeuroticTurtle, pclifford, Septarius, Shyke, TechnoJacker, zylche<LineBreak />
-            — And of course Gearbox Software, for creating Borderlands to begin with!<LineBreak/>
-            <LineBreak/>
-            For anyone else I missed, you know who you are!<LineBreak />
-          </TextBlock>
-        </DockPanel>
+        <ContentControl x:Name="About" />
       </TabItem>
     </TabControl>
   </DockPanel>

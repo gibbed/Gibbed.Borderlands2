@@ -1,5 +1,6 @@
 @echo off
 call "%VS100COMNTOOLS%vsvars32.bat"
+svn update ".."
 rmdir /s /q "saveedit"
 mkdir "saveedit"
 msbuild "..\Borderlands 2.sln" /p:Configuration="SaveEdit Packaging" /p:OutputPath="%cd%\saveedit"

@@ -69,13 +69,13 @@
         <Label Grid.Row="1"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
-               Content="Endian:" />
+               Content="Platform:" />
         <SaveEdit:MyComboBox Grid.Row="1"
                              Grid.Column="1"
-                             ItemsSource="{Binding Path=Endians}"
+                             ItemsSource="{Binding Path=Platforms}"
                              DisplayMemberPath="Name"
                              SelectedValuePath="Value"
-                             SelectedValue="{Binding Path=Endian}"
+                             SelectedValue="{Binding Path=Platform}"
                              Margin="3" />
       </Grid>
     </Expander>

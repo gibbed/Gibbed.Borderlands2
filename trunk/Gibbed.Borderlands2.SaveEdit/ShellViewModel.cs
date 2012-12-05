@@ -45,6 +45,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         private BackpackViewModel _Backpack;
         private BankViewModel _Bank;
         private FastTravelViewModel _FastTravel;
+        private AboutViewModel _About;
         #endregion
 
         #region Properties
@@ -120,6 +121,18 @@ namespace Gibbed.Borderlands2.SaveEdit
                 this.NotifyOfPropertyChange(() => this.FastTravel);
             }
         }
+
+        [Import(typeof(AboutViewModel))]
+        public AboutViewModel About
+        {
+            get { return this._About; }
+
+            set
+            {
+                this._About = value;
+                this.NotifyOfPropertyChange(() => this.About);
+            }
+        }
         #endregion
 
         [ImportingConstructor]
@@ -147,7 +160,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             {
                 var saveFile = new FileFormats.SaveFile()
                 {
-                    Endian = Endian.Little,
+                    Platform = FileFormats.Platform.PC,
                     SaveGame = new ProtoBufFormats.WillowTwoSave.WillowTwoPlayerSaveGame()
                     {
                         SaveGameId = 1,
@@ -170,7 +183,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 };
                 saveFile.SaveGame.Decompose();
 
-                this.General.ImportData(saveFile.SaveGame, saveFile.Endian);
+                this.General.ImportData(saveFile.SaveGame, saveFile.Platform);
                 this.CurrencyOnHand.ImportData(saveFile.SaveGame);
                 this.Backpack.ImportData(saveFile.SaveGame);
                 this.Bank.ImportData(saveFile.SaveGame);
@@ -193,7 +206,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                         .WithIcon(MessageBoxImage.Error).AsCoroutine());
         }
 
-        public IEnumerable<IResult> ReadSave()
+        private IEnumerable<IResult> ReadSaveInternal(FileFormats.Platform platform)
         {
             string fileName = null;
 
@@ -224,10 +237,12 @@ namespace Gibbed.Borderlands2.SaveEdit
             {
                 using (var input = File.OpenRead(fileName))
                 {
-                    saveFile = FileFormats.SaveFile.Deserialize(input, FileFormats.SaveFile.DeserializeSettings.None);
+                    saveFile = FileFormats.SaveFile.Deserialize(input,
+                                                                platform,
+                                                                FileFormats.SaveFile.DeserializeSettings.None);
                 }
 
-                this.General.ImportData(saveFile.SaveGame, saveFile.Endian);
+                this.General.ImportData(saveFile.SaveGame, saveFile.Platform);
                 this.CurrencyOnHand.ImportData(saveFile.SaveGame);
                 this.Backpack.ImportData(saveFile.SaveGame);
                 this.Bank.ImportData(saveFile.SaveGame);
@@ -260,6 +275,23 @@ namespace Gibbed.Borderlands2.SaveEdit
                                      "Information")
                         .WithIcon(MessageBoxImage.Information);
             }
+        }
+
+        public IEnumerable<IResult> ReadSavePC()
+        {
+            return this.ReadSaveInternal(FileFormats.Platform.PC);
+        }
+
+        public IEnumerable<IResult> ReadSaveX360()
+        {
+            return this.ReadSaveInternal(FileFormats.Platform.X360);
+        }
+
+        // ReSharper disable InconsistentNaming
+        public IEnumerable<IResult> ReadSavePS3()
+            // ReSharper restore InconsistentNaming
+        {
+            return this.ReadSaveInternal(FileFormats.Platform.PS3);
         }
 
         public IEnumerable<IResult> WriteSave()
@@ -298,8 +330,8 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             yield return new DelegateResult(() =>
             {
-                Endian endian;
-                this.General.ExportData(saveFile.SaveGame, out endian);
+                FileFormats.Platform platform;
+                this.General.ExportData(saveFile.SaveGame, out platform);
                 this.CurrencyOnHand.ExportData(saveFile.SaveGame);
                 this.Backpack.ExportData(saveFile.SaveGame);
                 this.Bank.ExportData(saveFile.SaveGame);
@@ -307,7 +339,7 @@ namespace Gibbed.Borderlands2.SaveEdit
 
                 using (var output = File.Create(fileName))
                 {
-                    saveFile.Endian = endian;
+                    saveFile.Platform = platform;
                     saveFile.Serialize(output);
                 }
             }).Rescue().Execute(
