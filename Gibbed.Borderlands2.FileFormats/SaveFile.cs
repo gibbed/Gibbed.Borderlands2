@@ -26,6 +26,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using Gibbed.IO;
+using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using WillowTwoSave = Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave;
 
 namespace Gibbed.Borderlands2.FileFormats
@@ -33,20 +34,20 @@ namespace Gibbed.Borderlands2.FileFormats
     public class SaveFile : INotifyPropertyChanged
     {
         #region Fields
-        private Endian _Endian = Endian.Little;
+        private Platform _Platform = Platform.Invalid;
         private WillowTwoSave.WillowTwoPlayerSaveGame _SaveGame;
         #endregion
 
         #region Properties
-        public Endian Endian
+        public Platform Platform
         {
-            get { return this._Endian; }
+            get { return this._Platform; }
             set
             {
-                if (value != this._Endian)
+                if (value != this._Platform)
                 {
-                    this._Endian = value;
-                    this.NotifyPropertyChanged("Endian");
+                    this._Platform = value;
+                    this.NotifyPropertyChanged("Platform");
                 }
             }
         }
@@ -71,6 +72,13 @@ namespace Gibbed.Borderlands2.FileFormats
         {
             var saveGame = this.SaveGame;
 
+            if (this.Platform != Platform.PC &&
+                this.Platform != Platform.X360 &&
+                this.Platform != Platform.PS3)
+            {
+                throw new InvalidOperationException("unsupported platform");
+            }
+
             byte[] innerUncompressedBytes;
             using (var innerUncompressedData = new MemoryStream())
             {
@@ -90,7 +98,7 @@ namespace Gibbed.Borderlands2.FileFormats
             byte[] innerCompressedBytes;
             using (var innerCompressedData = new MemoryStream())
             {
-                var endian = this.Endian;
+                var endian = this.Platform == Platform.PC ? Endian.Little : Endian.Big;
 
                 innerCompressedData.WriteValueS32(0, Endian.Big);
                 innerCompressedData.WriteString("WSG");
@@ -114,71 +122,146 @@ namespace Gibbed.Borderlands2.FileFormats
 
             if (innerCompressedBytes.Length <= BlockSize)
             {
-                compressedBytes = new byte[innerCompressedBytes.Length +
-                                           (innerCompressedBytes.Length / 16) + 64 + 3];
-                var actualCompressedSize = compressedBytes.Length;
-
-                var result = LZO.Compress(innerCompressedBytes,
-                                          0,
-                                          innerCompressedBytes.Length,
-                                          compressedBytes,
-                                          0,
-                                          ref actualCompressedSize);
-                if (result != LZO.ErrorCode.Success)
+                if (this.Platform == Platform.PC ||
+                    this.Platform == Platform.X360)
                 {
-                    throw new SaveCorruptionException(string.Format("LZO compression failure ({0})", result));
-                }
+                    compressedBytes = new byte[innerCompressedBytes.Length +
+                                               (innerCompressedBytes.Length / 16) + 64 + 3];
+                    var actualCompressedSize = compressedBytes.Length;
 
-                Array.Resize(ref compressedBytes, actualCompressedSize);
+                    var result = LZO.Compress(innerCompressedBytes,
+                                              0,
+                                              innerCompressedBytes.Length,
+                                              compressedBytes,
+                                              0,
+                                              ref actualCompressedSize);
+                    if (result != LZO.ErrorCode.Success)
+                    {
+                        throw new SaveCorruptionException(string.Format("LZO compression failure ({0})", result));
+                    }
+
+                    Array.Resize(ref compressedBytes, actualCompressedSize);
+                }
+                else if (this.Platform == Platform.PS3)
+                {
+                    using (var temp = new MemoryStream())
+                    {
+                        var zlib = new DeflaterOutputStream(temp);
+                        zlib.WriteBytes(innerCompressedBytes);
+                        zlib.Finish();
+                        temp.Flush();
+
+                        temp.Position = 0;
+                        compressedBytes = temp.ReadBytes((uint)temp.Length);
+                    }
+                }
+                else
+                {
+                    throw new InvalidOperationException("unsupported platform");
+                }
             }
             else
             {
-                int innerCompressedOffset = 0;
-                int innerCompressedSizeLeft = innerCompressedBytes.Length;
-
-                using (var blockData = new MemoryStream())
+                if (this.Platform == Platform.PC ||
+                    this.Platform == Platform.X360)
                 {
-                    var blockCount = (innerCompressedSizeLeft + BlockSize) / BlockSize;
-                    blockData.WriteValueS32(blockCount, Endian.Big);
+                    int innerCompressedOffset = 0;
+                    int innerCompressedSizeLeft = innerCompressedBytes.Length;
 
-                    blockData.Position = 4 + (blockCount * 8);
-
-                    var blockInfos = new List<Tuple<uint, uint>>();
-                    while (innerCompressedSizeLeft > 0)
+                    using (var blockData = new MemoryStream())
                     {
-                        var blockUncompressedSize = Math.Min(BlockSize, innerCompressedSizeLeft);
+                        var blockCount = (innerCompressedSizeLeft + BlockSize) / BlockSize;
+                        blockData.WriteValueS32(blockCount, Endian.Big);
 
-                        compressedBytes = new byte[blockUncompressedSize +
-                                                   (blockUncompressedSize / 16) + 64 + 3];
-                        var actualCompressedSize = compressedBytes.Length;
+                        blockData.Position = 4 + (blockCount * 8);
 
-                        var result = LZO.Compress(innerCompressedBytes,
-                                                  innerCompressedOffset,
-                                                  blockUncompressedSize,
-                                                  compressedBytes,
-                                                  0,
-                                                  ref actualCompressedSize);
-                        if (result != LZO.ErrorCode.Success)
+                        var blockInfos = new List<Tuple<uint, uint>>();
+                        while (innerCompressedSizeLeft > 0)
                         {
-                            throw new SaveCorruptionException(string.Format("LZO compression failure ({0})", result));
+                            var blockUncompressedSize = Math.Min(BlockSize, innerCompressedSizeLeft);
+
+                            compressedBytes = new byte[blockUncompressedSize +
+                                                       (blockUncompressedSize / 16) + 64 + 3];
+                            var actualCompressedSize = compressedBytes.Length;
+
+                            var result = LZO.Compress(innerCompressedBytes,
+                                                      innerCompressedOffset,
+                                                      blockUncompressedSize,
+                                                      compressedBytes,
+                                                      0,
+                                                      ref actualCompressedSize);
+                            if (result != LZO.ErrorCode.Success)
+                            {
+                                throw new SaveCorruptionException(string.Format("LZO compression failure ({0})", result));
+                            }
+
+                            blockData.Write(compressedBytes, 0, actualCompressedSize);
+                            blockInfos.Add(new Tuple<uint, uint>((uint)actualCompressedSize, BlockSize));
+
+                            innerCompressedOffset += blockUncompressedSize;
+                            innerCompressedSizeLeft -= blockUncompressedSize;
                         }
 
-                        blockData.Write(compressedBytes, 0, actualCompressedSize);
-                        blockInfos.Add(new Tuple<uint, uint>((uint)actualCompressedSize, BlockSize));
+                        blockData.Position = 4;
+                        foreach (var blockInfo in blockInfos)
+                        {
+                            blockData.WriteValueU32(blockInfo.Item1, Endian.Big);
+                            blockData.WriteValueU32(blockInfo.Item2, Endian.Big);
+                        }
 
-                        innerCompressedOffset += blockUncompressedSize;
-                        innerCompressedSizeLeft -= blockUncompressedSize;
+                        blockData.Position = 0;
+                        compressedBytes = blockData.ReadBytes((uint)blockData.Length);
                     }
+                }
+                else if (this.Platform == Platform.PS3)
+                {
+                    int innerCompressedOffset = 0;
+                    int innerCompressedSizeLeft = innerCompressedBytes.Length;
 
-                    blockData.Position = 4;
-                    foreach (var blockInfo in blockInfos)
+                    using (var blockData = new MemoryStream())
                     {
-                        blockData.WriteValueU32(blockInfo.Item1, Endian.Big);
-                        blockData.WriteValueU32(blockInfo.Item2, Endian.Big);
-                    }
+                        var blockCount = (innerCompressedSizeLeft + BlockSize) / BlockSize;
+                        blockData.WriteValueS32(blockCount, Endian.Big);
 
-                    blockData.Position = 0;
-                    compressedBytes = blockData.ReadBytes((uint)blockData.Length);
+                        blockData.Position = 4 + (blockCount * 8);
+
+                        var blockInfos = new List<Tuple<uint, uint>>();
+                        while (innerCompressedSizeLeft > 0)
+                        {
+                            var blockUncompressedSize = Math.Min(BlockSize, innerCompressedSizeLeft);
+
+                            using (var temp = new MemoryStream())
+                            {
+                                var zlib = new DeflaterOutputStream(temp);
+                                zlib.Write(innerCompressedBytes, innerCompressedOffset, blockUncompressedSize);
+                                zlib.Finish();
+                                temp.Flush();
+
+                                temp.Position = 0;
+                                compressedBytes = temp.ReadBytes((uint)temp.Length);
+                            }
+
+                            blockData.WriteBytes(compressedBytes);
+                            blockInfos.Add(new Tuple<uint, uint>((uint)compressedBytes.Length, BlockSize));
+
+                            innerCompressedOffset += blockUncompressedSize;
+                            innerCompressedSizeLeft -= blockUncompressedSize;
+                        }
+
+                        blockData.Position = 4;
+                        foreach (var blockInfo in blockInfos)
+                        {
+                            blockData.WriteValueU32(blockInfo.Item1, Endian.Big);
+                            blockData.WriteValueU32(blockInfo.Item2, Endian.Big);
+                        }
+
+                        blockData.Position = 0;
+                        compressedBytes = blockData.ReadBytes((uint)blockData.Length);
+                    }
+                }
+                else
+                {
+                    throw new InvalidOperationException("unsupported platform");
                 }
             }
 
@@ -210,8 +293,15 @@ namespace Gibbed.Borderlands2.FileFormats
             IgnoreReencodeMismatch = 1 << 2,
         }
 
-        public static SaveFile Deserialize(Stream input, DeserializeSettings settings)
+        public static SaveFile Deserialize(Stream input, Platform platform, DeserializeSettings settings)
         {
+            if (platform != Platform.PC &&
+                platform != Platform.X360 &&
+                platform != Platform.PS3)
+            {
+                throw new ArgumentException("unsupported platform", "platform");
+            }
+
             if (input.Position + 20 > input.Length)
             {
                 throw new SaveCorruptionException("not enough data for save header");
@@ -245,67 +335,136 @@ namespace Gibbed.Borderlands2.FileFormats
                 var uncompressedBytes = new byte[uncompressedSize];
                 if (uncompressedSize <= BlockSize)
                 {
-                    var actualUncompressedSize = (int)uncompressedSize;
-                    var compressedSize = (uint)(data.Length - 4);
-                    var compressedBytes = data.ReadBytes(compressedSize);
-                    var result = LZO.Decompress(compressedBytes,
-                                                0,
-                                                (int)compressedSize,
-                                                uncompressedBytes,
-                                                0,
-                                                ref actualUncompressedSize);
-                    if (result != LZO.ErrorCode.Success)
+                    if (platform == Platform.PC ||
+                        platform == Platform.X360)
                     {
-                        throw new SaveCorruptionException(string.Format("LZO decompression failure ({0})", result));
-                    }
-
-                    if (actualUncompressedSize != (int)uncompressedSize)
-                    {
-                        throw new SaveCorruptionException("LZO decompression failure (uncompressed size mismatch)");
-                    }
-                }
-                else
-                {
-                    var blockCount = data.ReadValueU32(Endian.Big);
-                    var blockInfos = new List<Tuple<uint, uint>>();
-                    for (uint i = 0; i < blockCount; i++)
-                    {
-                        var blockCompressedSize = data.ReadValueU32(Endian.Big);
-                        var blockUncompressedSize = data.ReadValueU32(Endian.Big);
-                        blockInfos.Add(new Tuple<uint, uint>(blockCompressedSize, blockUncompressedSize));
-                    }
-
-                    int uncompressedOffset = 0;
-                    int uncompressedSizeLeft = (int)uncompressedSize;
-                    foreach (var blockInfo in blockInfos)
-                    {
-                        var blockUncompressedSize = Math.Min((int)blockInfo.Item2, uncompressedSizeLeft);
-                        var actualUncompressedSize = blockUncompressedSize;
-                        var compressedSize = (int)blockInfo.Item1;
+                        var actualUncompressedSize = (int)uncompressedSize;
+                        var compressedSize = (uint)(data.Length - 4);
                         var compressedBytes = data.ReadBytes(compressedSize);
                         var result = LZO.Decompress(compressedBytes,
                                                     0,
-                                                    compressedSize,
+                                                    (int)compressedSize,
                                                     uncompressedBytes,
-                                                    uncompressedOffset,
+                                                    0,
                                                     ref actualUncompressedSize);
                         if (result != LZO.ErrorCode.Success)
                         {
                             throw new SaveCorruptionException(string.Format("LZO decompression failure ({0})", result));
                         }
 
-                        if (actualUncompressedSize != blockUncompressedSize)
+                        if (actualUncompressedSize != (int)uncompressedSize)
                         {
                             throw new SaveCorruptionException("LZO decompression failure (uncompressed size mismatch)");
                         }
-
-                        uncompressedOffset += blockUncompressedSize;
-                        uncompressedSizeLeft -= blockUncompressedSize;
                     }
-
-                    if (uncompressedSizeLeft != 0)
+                    else
                     {
-                        throw new SaveCorruptionException("LZO decompression failure (uncompressed size left != 0)");
+                        var compressedSize = (uint)(data.Length - 4);
+                        using (var temp = data.ReadToMemoryStream(compressedSize))
+                        {
+                            var zlib = new InflaterInputStream(temp);
+                            if (zlib.Read(uncompressedBytes, 0, uncompressedBytes.Length) != uncompressedBytes.Length)
+                            {
+                                throw new SaveCorruptionException(
+                                    "zlib decompression failure (uncompressed size mismatch)");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (platform == Platform.PC ||
+                        platform == Platform.X360)
+                    {
+                        var blockCount = data.ReadValueU32(Endian.Big);
+                        var blockInfos = new List<Tuple<uint, uint>>();
+                        for (uint i = 0; i < blockCount; i++)
+                        {
+                            var blockCompressedSize = data.ReadValueU32(Endian.Big);
+                            var blockUncompressedSize = data.ReadValueU32(Endian.Big);
+                            blockInfos.Add(new Tuple<uint, uint>(blockCompressedSize, blockUncompressedSize));
+                        }
+
+                        int uncompressedOffset = 0;
+                        int uncompressedSizeLeft = (int)uncompressedSize;
+                        foreach (var blockInfo in blockInfos)
+                        {
+                            var blockUncompressedSize = Math.Min((int)blockInfo.Item2, uncompressedSizeLeft);
+                            var actualUncompressedSize = blockUncompressedSize;
+                            var compressedSize = (int)blockInfo.Item1;
+                            var compressedBytes = data.ReadBytes(compressedSize);
+                            var result = LZO.Decompress(compressedBytes,
+                                                        0,
+                                                        compressedSize,
+                                                        uncompressedBytes,
+                                                        uncompressedOffset,
+                                                        ref actualUncompressedSize);
+                            if (result != LZO.ErrorCode.Success)
+                            {
+                                throw new SaveCorruptionException(string.Format("LZO decompression failure ({0})",
+                                                                                result));
+                            }
+
+                            if (actualUncompressedSize != blockUncompressedSize)
+                            {
+                                throw new SaveCorruptionException(
+                                    "LZO decompression failure (uncompressed size mismatch)");
+                            }
+
+                            uncompressedOffset += blockUncompressedSize;
+                            uncompressedSizeLeft -= blockUncompressedSize;
+                        }
+
+                        if (uncompressedSizeLeft != 0)
+                        {
+                            throw new SaveCorruptionException("LZO decompression failure (uncompressed size left != 0)");
+                        }
+                    }
+                    else if (platform == Platform.PS3)
+                    {
+                        var blockCount = data.ReadValueU32(Endian.Big);
+                        var blockInfos = new List<Tuple<uint, uint>>();
+                        for (uint i = 0; i < blockCount; i++)
+                        {
+                            var blockCompressedSize = data.ReadValueU32(Endian.Big);
+                            var blockUncompressedSize = data.ReadValueU32(Endian.Big);
+                            blockInfos.Add(new Tuple<uint, uint>(blockCompressedSize, blockUncompressedSize));
+                        }
+
+                        int uncompressedOffset = 0;
+                        int uncompressedSizeLeft = (int)uncompressedSize;
+                        foreach (var blockInfo in blockInfos)
+                        {
+                            var blockUncompressedSize = Math.Min((int)blockInfo.Item2, uncompressedSizeLeft);
+                            int actualUncompressedSize;
+                            var compressedSize = (int)blockInfo.Item1;
+
+                            using (var temp = data.ReadToMemoryStream(compressedSize))
+                            {
+                                var zlib = new InflaterInputStream(temp);
+                                actualUncompressedSize = zlib.Read(uncompressedBytes,
+                                                                   uncompressedOffset,
+                                                                   uncompressedBytes.Length);
+                            }
+
+                            if (actualUncompressedSize != blockUncompressedSize)
+                            {
+                                throw new SaveCorruptionException(
+                                    "zlib decompression failure (uncompressed size mismatch)");
+                            }
+
+                            uncompressedOffset += blockUncompressedSize;
+                            uncompressedSizeLeft -= blockUncompressedSize;
+                        }
+
+                        if (uncompressedSizeLeft != 0)
+                        {
+                            throw new SaveCorruptionException("zlib decompression failure (uncompressed size left != 0)");
+                        }
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("unsupported platform");
                     }
                 }
 
@@ -367,7 +526,7 @@ namespace Gibbed.Borderlands2.FileFormats
                         saveGame.Decompose();
                         return new SaveFile()
                         {
-                            Endian = endian,
+                            Platform = platform,
                             SaveGame = saveGame,
                         };
                     }

@@ -37,7 +37,7 @@ namespace Gibbed.Borderlands2.SaveEdit
     internal class GeneralViewModel : PropertyChangedBase
     {
         #region Fields
-        private Endian _Endian;
+        private FileFormats.Platform _Platform;
         private int _SaveGameId;
         private string _PlayerClassDefinition = "GD_Assassin.Character.CharClass_Assassin";
         private int _ExpLevel = 1;
@@ -50,15 +50,15 @@ namespace Gibbed.Borderlands2.SaveEdit
         #endregion
 
         #region Properties
-        public Endian Endian
+        public FileFormats.Platform Platform
         {
-            get { return this._Endian; }
+            get { return this._Platform; }
             set
             {
-                if (this._Endian != value)
+                if (this._Platform != value)
                 {
-                    this._Endian = value;
-                    this.NotifyOfPropertyChange(() => this.Endian);
+                    this._Platform = value;
+                    this.NotifyOfPropertyChange(() => this.Platform);
                 }
             }
         }
@@ -157,18 +157,18 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        public ObservableCollection<EndianDisplay> Endians { get; private set; }
+        public ObservableCollection<PlatformDisplay> Platforms { get; private set; }
         public ObservableCollection<AssetDisplay> PlayerClasses { get; private set; }
         public ObservableCollection<AssetDisplay> HeadAssets { get; private set; }
         public ObservableCollection<AssetDisplay> SkinAssets { get; private set; }
         #endregion
 
-        internal class EndianDisplay
+        internal class PlatformDisplay
         {
             public string Name { get; private set; }
-            public Endian Value { get; private set; }
+            public FileFormats.Platform Value { get; private set; }
 
-            public EndianDisplay(string name, Endian value)
+            public PlatformDisplay(string name, FileFormats.Platform value)
             {
                 this.Name = name;
                 this.Value = value;
@@ -194,10 +194,11 @@ namespace Gibbed.Borderlands2.SaveEdit
         [ImportingConstructor]
         public GeneralViewModel()
         {
-            this.Endians = new ObservableCollection<EndianDisplay>
+            this.Platforms = new ObservableCollection<PlatformDisplay>
             {
-                new EndianDisplay("Little (PC)", Endian.Little),
-                new EndianDisplay("Big (360, PS3)", Endian.Big)
+                new PlatformDisplay("PC", FileFormats.Platform.PC),
+                new PlatformDisplay("360", FileFormats.Platform.X360),
+                new PlatformDisplay("PS3", FileFormats.Platform.PS3),
             };
 
             this.UpdateClassDefinitions();
@@ -336,9 +337,9 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        public void ImportData(WillowTwoPlayerSaveGame saveGame, Endian endian)
+        public void ImportData(WillowTwoPlayerSaveGame saveGame, FileFormats.Platform platform)
         {
-            this.Endian = endian;
+            this.Platform = platform;
             this.SaveGameId = saveGame.SaveGameId;
             this.PlayerClass = saveGame.PlayerClass;
 
@@ -365,9 +366,9 @@ namespace Gibbed.Borderlands2.SaveEdit
             this.BuildCustomizationAssets();
         }
 
-        public void ExportData(WillowTwoPlayerSaveGame saveGame, out Endian endian)
+        public void ExportData(WillowTwoPlayerSaveGame saveGame, out FileFormats.Platform platform)
         {
-            endian = this.Endian;
+            platform = this.Platform;
             saveGame.SaveGameId = this.SaveGameId;
             saveGame.PlayerClass = this.PlayerClass;
             saveGame.ExpLevel = this.ExpLevel;
