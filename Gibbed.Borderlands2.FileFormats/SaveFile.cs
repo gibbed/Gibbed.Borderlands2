@@ -363,10 +363,20 @@ namespace Gibbed.Borderlands2.FileFormats
                         using (var temp = data.ReadToMemoryStream(compressedSize))
                         {
                             var zlib = new InflaterInputStream(temp);
-                            if (zlib.Read(uncompressedBytes, 0, uncompressedBytes.Length) != uncompressedBytes.Length)
+                            try
                             {
-                                throw new SaveCorruptionException(
-                                    "zlib decompression failure (uncompressed size mismatch)");
+                                if (zlib.Read(uncompressedBytes, 0, uncompressedBytes.Length) !=
+                                    uncompressedBytes.Length)
+                                {
+                                    throw new SaveCorruptionException(
+                                        "zlib decompression failure (uncompressed size mismatch)");
+                                }
+                            }
+                            catch (ICSharpCode.SharpZipLib.SharpZipBaseException e)
+                            {
+                                throw new SaveCorruptionException(string.Format("zlib decompression failure ({0})",
+                                                                                e.Message),
+                                                                  e);
                             }
                         }
                     }
@@ -442,9 +452,18 @@ namespace Gibbed.Borderlands2.FileFormats
                             using (var temp = data.ReadToMemoryStream(compressedSize))
                             {
                                 var zlib = new InflaterInputStream(temp);
-                                actualUncompressedSize = zlib.Read(uncompressedBytes,
-                                                                   uncompressedOffset,
-                                                                   uncompressedBytes.Length);
+                                try
+                                {
+                                    actualUncompressedSize = zlib.Read(uncompressedBytes,
+                                                                       uncompressedOffset,
+                                                                       uncompressedBytes.Length);
+                                }
+                                catch (ICSharpCode.SharpZipLib.SharpZipBaseException e)
+                                {
+                                    throw new SaveCorruptionException(string.Format("zlib decompression failure ({0})",
+                                                                                    e.Message),
+                                                                      e);
+                                }
                             }
 
                             if (actualUncompressedSize != blockUncompressedSize)
@@ -470,6 +489,8 @@ namespace Gibbed.Borderlands2.FileFormats
 
                 using (var outerData = new MemoryStream(uncompressedBytes))
                 {
+                    var endian = platform == Platform.PC ? Endian.Little : Endian.Big;
+
                     var innerSize = outerData.ReadValueU32(Endian.Big);
                     var magic = outerData.ReadString(3);
                     if (magic != "WSG")
@@ -477,13 +498,11 @@ namespace Gibbed.Borderlands2.FileFormats
                         throw new SaveCorruptionException("invalid magic");
                     }
 
-                    var version = outerData.ReadValueU32(Endian.Little);
-                    if (version != 2 &&
-                        version.Swap() != 2)
+                    var version = outerData.ReadValueU32(endian);
+                    if (version != 2)
                     {
                         throw new SaveCorruptionException("invalid or unsupported version");
                     }
-                    var endian = version == 2 ? Endian.Little : Endian.Big;
 
                     var readCRC32Hash = outerData.ReadValueU32(endian);
                     var innerUncompressedSize = outerData.ReadValueS32(endian);
