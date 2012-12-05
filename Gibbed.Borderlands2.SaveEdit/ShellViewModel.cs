@@ -46,6 +46,8 @@ namespace Gibbed.Borderlands2.SaveEdit
         private BankViewModel _Bank;
         private FastTravelViewModel _FastTravel;
         private AboutViewModel _About;
+
+        private int _FilterIndex = 1;
         #endregion
 
         #region Properties
@@ -206,18 +208,23 @@ namespace Gibbed.Borderlands2.SaveEdit
                         .WithIcon(MessageBoxImage.Error).AsCoroutine());
         }
 
-        private IEnumerable<IResult> ReadSaveInternal(FileFormats.Platform platform)
+        public IEnumerable<IResult> ReadSave()
         {
             string fileName = null;
+            int filterIndex = 0;
 
             MyOpenFileResult ofr;
 
             ofr = new MyOpenFileResult()
                 .FilterFiles(
-                    ffc => ffc.AddFilter("sav", true)
-                               .WithDescription("Borderlands 2 Save Files")
-                               .AddAllFilesFilter())
-                .WithFileDo(s => fileName = s);
+                    ffc => ffc.AddFilter("sav", this._FilterIndex == 1)
+                               .WithDescription("Borderlands 2 PC Save Files")
+                               .AddFilter("sav", this._FilterIndex == 2)
+                               .WithDescription("Borderlands 2 X360 Save Files")
+                               .AddFilter("sav", this._FilterIndex == 3)
+                               .WithDescription("Bordrelands 2 PS3 Save Files"))
+                .WithFileDo(s => fileName = s)
+                .WithFilterIndexDo(i => filterIndex = i);
 
             if (string.IsNullOrEmpty(this._SavePath) == false &&
                 Directory.Exists(this._SavePath) == true)
@@ -226,10 +233,25 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
 
             yield return ofr;
+
             if (fileName == null)
             {
                 yield break;
             }
+
+            this._FilterIndex = filterIndex;
+
+            var platforms = new[]
+            {
+                FileFormats.Platform.Invalid,
+                FileFormats.Platform.PC,
+                FileFormats.Platform.X360,
+                FileFormats.Platform.PS3
+            };
+
+            var platform = filterIndex < 1 || filterIndex > 3
+                               ? FileFormats.Platform.PC
+                               : platforms[filterIndex];
 
             FileFormats.SaveFile saveFile = null;
 
@@ -275,23 +297,6 @@ namespace Gibbed.Borderlands2.SaveEdit
                                      "Information")
                         .WithIcon(MessageBoxImage.Information);
             }
-        }
-
-        public IEnumerable<IResult> ReadSavePC()
-        {
-            return this.ReadSaveInternal(FileFormats.Platform.PC);
-        }
-
-        public IEnumerable<IResult> ReadSaveX360()
-        {
-            return this.ReadSaveInternal(FileFormats.Platform.X360);
-        }
-
-        // ReSharper disable InconsistentNaming
-        public IEnumerable<IResult> ReadSavePS3()
-            // ReSharper restore InconsistentNaming
-        {
-            return this.ReadSaveInternal(FileFormats.Platform.PS3);
         }
 
         public IEnumerable<IResult> WriteSave()

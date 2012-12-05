@@ -36,13 +36,14 @@ namespace Gibbed.Borderlands2.SaveEdit
     /// A Caliburn.Micro result which shows an OpenFileDialog to user, allowing him to select one (default) or more files.
     /// You can also directly perform an action on the selected file(s) inside the result.
     /// </summary>
-    public class MyOpenFileResult : IResult
+    internal class MyOpenFileResult : IResult
     {
-        private readonly FileFilterCollection _Filters = new FileFilterCollection();
+        private readonly MyFileFilterCollection _Filters = new MyFileFilterCollection();
         private readonly string _Title;
         private bool _AllowMultipleFiles;
         private EventHandler<ResultCompletionEventArgs> _Completed = delegate { };
         private Action<string[]> _FileAction;
+        private Action<int> _FilterIndexAction;
         private bool _IgnoreUserCancel;
         private string _InitialDirectory;
 
@@ -69,6 +70,8 @@ namespace Gibbed.Borderlands2.SaveEdit
         /// </summary>
         public string[] FileNames { get; private set; }
 
+        public int FilterIndex { get; private set; }
+
         #region IResult Members
         void IResult.Execute(ActionExecutionContext context)
         {
@@ -86,12 +89,25 @@ namespace Gibbed.Borderlands2.SaveEdit
             var resultArgs = new ResultCompletionEventArgs();
 
             this.FileNames = dialog.FileNames;
+            this.FilterIndex = dialog.FilterIndex;
 
             if (this._FileAction != null)
             {
                 try
                 {
-                    this._FileAction(FileNames);
+                    this._FileAction(this.FileNames);
+                }
+                catch (Exception e)
+                {
+                    resultArgs.Error = e;
+                }
+            }
+
+            if (this._FilterIndexAction != null)
+            {
+                try
+                {
+                    this._FilterIndexAction(this.FilterIndex);
                 }
                 catch (Exception e)
                 {
@@ -125,6 +141,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             {
                 Title = this._Title,
                 Filter = this._Filters.CreateFilterExpression(),
+                FilterIndex = this._Filters.GetFilterIndex(),
                 InitialDirectory = this._InitialDirectory,
                 Multiselect = this._AllowMultipleFiles,
                 CheckFileExists = true,
@@ -155,12 +172,18 @@ namespace Gibbed.Borderlands2.SaveEdit
             return this;
         }
 
+        public MyOpenFileResult WithFilterIndexDo(Action<int> action)
+        {
+            this._FilterIndexAction = action;
+            return this;
+        }
+
         /// <summary>
         /// Create file filter for the dialog
         /// </summary>
         /// <param name="action"></param>
         /// <returns></returns>
-        public MyOpenFileResult FilterFiles(Action<FileFilterCollection> action)
+        public MyOpenFileResult FilterFiles(Action<MyFileFilterCollection> action)
         {
             if (action == null)
             {
@@ -177,7 +200,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         /// <returns></returns>
         public MyOpenFileResult In(string directory)
         {
-            if (!Directory.Exists(directory))
+            if (Directory.Exists(directory) == false)
             {
                 throw new ArgumentException(string.Format("Directory '{0}' doesn't exist", directory));
             }

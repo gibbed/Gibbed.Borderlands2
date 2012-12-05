@@ -45,40 +45,14 @@
           <Label Content="New" />
         </StackPanel>
       </Button>
-      <Separator />
-      <StackPanel Orientation="Horizontal"
-                  VerticalAlignment="Center">
-        <Image Width="16"
-               Height="16"
-               Source="Resources\fugue\folder-open-document.png" />
-
-        <Label Content="Open" />
-      </StackPanel>
-      <Button x:Name="ReadSavePC">
+      <Button x:Name="ReadSave">
         <StackPanel Orientation="Horizontal">
           <Image Width="16"
                  Height="16"
-                 Source="Resources\fugue\computer.png" />
-          <Label Content="PC" />
+                 Source="Resources\fugue\folder-open-document.png" />
+          <Label Content="Open" />
         </StackPanel>
       </Button>
-      <Button x:Name="ReadSaveX360">
-        <StackPanel Orientation="Horizontal">
-          <Image Width="16"
-                 Height="16"
-                 Source="Resources\fugue\television-test.png" />
-          <Label Content="360" />
-        </StackPanel>
-      </Button>
-      <Button x:Name="ReadSavePS3">
-        <StackPanel Orientation="Horizontal">
-          <Image Width="16"
-                 Height="16"
-                 Source="Resources\fugue\television-image.png" />
-          <Label Content="PS3" />
-        </StackPanel>
-      </Button>
-      <Separator />
       <Button x:Name="WriteSave"
               IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}">
         <StackPanel Orientation="Horizontal">
