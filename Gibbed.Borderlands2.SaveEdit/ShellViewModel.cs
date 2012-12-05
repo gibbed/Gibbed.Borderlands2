@@ -218,11 +218,11 @@ namespace Gibbed.Borderlands2.SaveEdit
             ofr = new MyOpenFileResult()
                 .FilterFiles(
                     ffc => ffc.AddFilter("sav", this._FilterIndex == 1)
-                               .WithDescription("Borderlands 2 PC Save Files")
+                               .WithDescription("PC Save Files")
                                .AddFilter("sav", this._FilterIndex == 2)
-                               .WithDescription("Borderlands 2 X360 Save Files")
+                               .WithDescription("X360 Save Files")
                                .AddFilter("sav", this._FilterIndex == 3)
-                               .WithDescription("Bordrelands 2 PS3 Save Files"))
+                               .WithDescription("PS3 Save Files"))
                 .WithFileDo(s => fileName = s)
                 .WithFilterIndexDo(i => filterIndex = i);
 
@@ -314,7 +314,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 .PromptForOverwrite()
                 .FilterFiles(
                     ffc => ffc.AddFilter("sav", true)
-                               .WithDescription("Borderlands 2 Save Files")
+                               .WithDescription("Save Files")
                                .AddAllFilesFilter())
                 .WithFileDo(s => fileName = s);
 
