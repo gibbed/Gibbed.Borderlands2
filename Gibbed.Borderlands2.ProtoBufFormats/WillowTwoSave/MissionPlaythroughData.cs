@@ -31,7 +31,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
     public class MissionPlaythroughData : IComposable, INotifyPropertyChanged
     {
         #region Fields
-        private int _PlayThroughNumber;
+        private int? _PlayThroughNumber;
         private string _ActiveMission;
         private List<MissionData> _MissionData;
         private List<PendingMissionRewards> _PendingMissionRewards;
@@ -110,8 +110,8 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         #endregion
 
         #region Properties
-        [ProtoMember(1, IsRequired = true)]
-        public int PlayThroughNumber
+        [ProtoMember(1, IsRequired = false)]
+        public int? PlayThroughNumber
         {
             get { return this._PlayThroughNumber; }
             set
