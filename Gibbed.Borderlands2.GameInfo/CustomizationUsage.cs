@@ -33,5 +33,6 @@ namespace Gibbed.Borderlands2.GameInfo
         Runner,
         BanditTech,
         Hovercraft,
+        FanBoat,
     }
 }
