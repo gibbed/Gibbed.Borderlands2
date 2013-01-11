@@ -179,8 +179,8 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             this.PlayerClasses = new ObservableCollection<AssetDisplay>(
                 InfoManager.PlayerClasses.Items
-                    .OrderBy(kv => kv.Value.SortOrder)
-                    .Select(kv => GetPlayerClass(kv.Value)));
+                           .OrderBy(kv => kv.Value.SortOrder)
+                           .Select(kv => GetPlayerClass(kv.Value)));
         }
 
         private static AssetDisplay GetPlayerClass(PlayerClassDefinition playerClass)
@@ -258,62 +258,80 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             var usage = this.GetCustomizationUsage();
 
-            var headAssets = new List<AssetDisplay>();
+            var headAssets = new List<KeyValuePair<AssetDisplay, int>>();
             foreach (
                 var kv in
                     InfoManager.Customizations.Items.Where(
                         kv => kv.Value.Type == CustomizationType.Head && kv.Value.Usage.Contains(usage) == true).OrderBy
                         (cd => cd.Value.Name))
             {
-                string group = "Base Game";
+                string group;
+                int priority;
 
                 if (kv.Value.DLC != null)
                 {
                     if (kv.Value.DLC.Package != null)
                     {
                         group = kv.Value.DLC.Package.DisplayName;
+                        priority = kv.Value.DLC.Package.Id;
                     }
                     else
                     {
                         group = "??? " + kv.Value.DLC.ResourcePath + " ???";
+                        priority = int.MaxValue;
                     }
                 }
+                else
+                {
+                    group = "Base Game";
+                    priority = int.MinValue;
+                }
 
-                headAssets.Add(new AssetDisplay(kv.Value.Name, kv.Key, group));
+                headAssets.Add(new KeyValuePair<AssetDisplay, int>(new AssetDisplay(kv.Value.Name, kv.Key, group),
+                                                                   priority));
             }
 
-            var skinAssets = new List<AssetDisplay>();
+            var skinAssets = new List<KeyValuePair<AssetDisplay, int>>();
             foreach (
                 var kv in
                     InfoManager.Customizations.Items.Where(
                         kv => kv.Value.Type == CustomizationType.Skin && kv.Value.Usage.Contains(usage) == true).OrderBy
                         (cd => cd.Value.Name))
             {
-                string group = "Base Game";
+                string group;
+                int priority;
 
                 if (kv.Value.DLC != null)
                 {
                     if (kv.Value.DLC.Package != null)
                     {
                         group = kv.Value.DLC.Package.DisplayName;
+                        priority = kv.Value.DLC.Package.Id;
                     }
                     else
                     {
                         group = "??? " + kv.Value.DLC.ResourcePath + " ???";
+                        priority = int.MaxValue;
                     }
                 }
+                else
+                {
+                    group = "Base Game";
+                    priority = int.MinValue;
+                }
 
-                skinAssets.Add(new AssetDisplay(kv.Value.Name, kv.Key, group));
+                skinAssets.Add(new KeyValuePair<AssetDisplay, int>(new AssetDisplay(kv.Value.Name, kv.Key, group),
+                                                                   priority));
             }
 
             var selectedHead = this.SelectedHead;
             this.HeadAssets.Clear();
-            headAssets.ForEach(a => this.HeadAssets.Add(a));
+            headAssets.OrderBy(kv => kv.Value).Apply(kv => this.HeadAssets.Add(kv.Key));
             this.SelectedHead = selectedHead;
 
             var selectedSkin = this.SelectedSkin;
             this.SkinAssets.Clear();
-            skinAssets.ForEach(a => this.SkinAssets.Add(a));
+            skinAssets.OrderBy(kv => kv.Value).Apply(kv => this.SkinAssets.Add(kv.Key));
             this.SelectedSkin = selectedSkin;
         }
 
