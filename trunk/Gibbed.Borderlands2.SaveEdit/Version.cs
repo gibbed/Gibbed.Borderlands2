@@ -20,36 +20,10 @@
  *    distribution.
  */
 
-using System;
-using System.Windows;
-using Caliburn.Micro;
-
 namespace Gibbed.Borderlands2.SaveEdit
 {
-    internal class AppWindowManager : WindowManager
+    internal static class Version
     {
-        protected override Window EnsureWindow(object model, object view, bool isDialog)
-        {
-            var window = base.EnsureWindow(model, view, isDialog);
-
-            if (model is ShellViewModel)
-            {
-                window.SizeToContent = SizeToContent.Manual;
-                window.Title = "Gibbed's Borderlands 2 Save Editor";
-
-                if (string.IsNullOrEmpty(Version.DisplayText) == false)
-                {
-                    window.Title += " (" + Version.DisplayText + ")";
-                }
-
-                window.Width = 720;
-                window.Height = 560;
-                window.Icon =
-                    System.Windows.Media.Imaging.BitmapFrame.Create(
-                        new Uri("pack://application:,,,/Resources/Handsome Jack.png", UriKind.RelativeOrAbsolute));
-            }
-
-            return window;
-        }
+        public const string DisplayText = null;
     }
 }

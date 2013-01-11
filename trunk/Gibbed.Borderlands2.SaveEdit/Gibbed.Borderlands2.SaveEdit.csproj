@@ -146,6 +146,7 @@
     <Compile Include="Validators\ManufacturerValidationRule.cs" />
     <Compile Include="Validators\WeaponPartValidationRule.cs" />
     <Compile Include="Validators\WeaponTypeValidationRule.cs" />
+    <Compile Include="Version.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppBootstrapper.cs" />
@@ -227,24 +228,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Gibbed.Borderlands2.FileFormats\Gibbed.Borderlands2.FileFormats.csproj">
-      <Project>{75063A4E-0024-4B68-BE6C-1B3D52FD4845}</Project>
-      <Name>Gibbed.Borderlands2.FileFormats</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Gibbed.Borderlands2.GameInfo\Gibbed.Borderlands2.GameInfo.csproj">
-      <Project>{9B42EE82-42E9-455C-A3DE-7B93F1FF2476}</Project>
-      <Name>Gibbed.Borderlands2.GameInfo</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Gibbed.Borderlands2.ProtoBufFormats\Gibbed.Borderlands2.ProtoBufFormats.csproj">
-      <Project>{17A51353-4224-43DC-91FE-A1407BD318EC}</Project>
-      <Name>Gibbed.Borderlands2.ProtoBufFormats</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Gibbed.IO\Gibbed.IO.csproj">
-      <Project>{047857BA-DAA3-4CA7-AFB8-A1B082B28C6A}</Project>
-      <Name>Gibbed.IO</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\fugue\disk-black.png" />
@@ -330,6 +313,24 @@
     <Resource Include="Resources\fugue\computer.png" />
     <Resource Include="Resources\fugue\television-image.png" />
     <Resource Include="Resources\fugue\television-test.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Gibbed.Borderlands2.FileFormats\Gibbed.Borderlands2.FileFormats.csproj">
+      <Project>{75063A4E-0024-4B68-BE6C-1B3D52FD4845}</Project>
+      <Name>Gibbed.Borderlands2.FileFormats</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gibbed.Borderlands2.GameInfo\Gibbed.Borderlands2.GameInfo.csproj">
+      <Project>{9B42EE82-42E9-455C-A3DE-7B93F1FF2476}</Project>
+      <Name>Gibbed.Borderlands2.GameInfo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gibbed.Borderlands2.ProtoBufFormats\Gibbed.Borderlands2.ProtoBufFormats.csproj">
+      <Project>{17A51353-4224-43DC-91FE-A1407BD318EC}</Project>
+      <Name>Gibbed.Borderlands2.ProtoBufFormats</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gibbed.IO\Gibbed.IO.csproj">
+      <Project>{047857BA-DAA3-4CA7-AFB8-A1B082B28C6A}</Project>
+      <Name>Gibbed.IO</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

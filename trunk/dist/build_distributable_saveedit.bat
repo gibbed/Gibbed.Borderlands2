@@ -1,6 +1,8 @@
 @echo off
 call "%VS100COMNTOOLS%vsvars32.bat"
+svn revert "..\Gibbed.Borderlands2.SaveEdit\Version.cs"
 svn update ".."
+subwcrev ".." "..\Gibbed.Borderlands2.SaveEdit\Version.cs.template" "..\Gibbed.Borderlands2.SaveEdit\Version.cs"
 rmdir /s /q "saveedit"
 mkdir "saveedit"
 msbuild "..\Borderlands 2.sln" /p:Configuration="SaveEdit Packaging" /p:OutputPath="%cd%\saveedit"
