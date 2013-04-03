@@ -277,6 +277,29 @@ namespace Gibbed.Borderlands2.SaveEdit
         #endregion
 
         #region Display Properties
+        public string AssetLibrarySetName
+        {
+            get
+            {
+                if (this.AssetLibrarySetId == 0)
+                {
+                    return "Base Game";
+                }
+
+                var package = InfoManager.DownloadablePackages.Items
+                                         .Select(kv => kv.Value)
+                                         .FirstOrDefault(dp => dp.Id == this.AssetLibrarySetId);
+                if (package == null)
+                {
+                    return string.Format("(unknown #{0})", this.AssetLibrarySetId);
+                }
+
+                return string.Format("{1} (#{0})",
+                                     this.AssetLibrarySetId,
+                                     package.DisplayName);
+            }
+        }
+
         public virtual string DisplayName
         {
             get { return this._DisplayName; }
@@ -454,8 +477,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                 this.BalanceAssets =
                     CreateAssetList(
                         InfoManager.WeaponBalance.Items
-                            .Where(bd => bd.Value.IsSuitableFor(type) == true)
-                            .Select(kv => kv.Key).Distinct().OrderBy(s => s));
+                                   .Where(bd => bd.Value.IsSuitableFor(type) == true)
+                                   .Select(kv => kv.Key).Distinct().OrderBy(s => s));
             }
 
             this.BuildPartAssets();

@@ -24,6 +24,7 @@ namespace Gibbed.Borderlands2.GameInfo
 {
     public enum DownloadableContentType
     {
+        BalanceModifier, 
         Character,
         CustomizationSet,
         Expansion,

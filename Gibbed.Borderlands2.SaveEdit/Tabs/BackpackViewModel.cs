@@ -29,6 +29,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Input;
 using Caliburn.Micro;
 using Caliburn.Micro.Contrib.Results;
 using Gibbed.Borderlands2.FileFormats.Items;
@@ -43,6 +44,9 @@ namespace Gibbed.Borderlands2.SaveEdit
         private readonly ObservableCollection<IBackpackSlotViewModel> _Slots;
 
         private IBackpackSlotViewModel _SelectedSlot;
+
+        private ICommand _NewWeapon;
+        private ICommand _NewItem;
         #endregion
 
         #region Properties
@@ -51,6 +55,19 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         [Import]
         private BankViewModel _Bank { get; set; }
+
+        public IEnumerable<GameInfo.DownloadablePackageDefinition> DownloadablePackages
+        {
+            get
+            {
+                return
+                    GameInfo.InfoManager.DownloadableContents.Items
+                            .Where(dc => dc.Value.Type == GameInfo.DownloadableContentType.ItemSet &&
+                                         dc.Value.Package != null)
+                            .Select(dc => dc.Value.Package).Distinct()
+                            .OrderBy(dp => dp.Id);
+            }
+        }
 
         public ObservableCollection<IBackpackSlotViewModel> Slots
         {
@@ -66,35 +83,47 @@ namespace Gibbed.Borderlands2.SaveEdit
                 this.NotifyOfPropertyChange(() => this.SelectedSlot);
             }
         }
+
+        public ICommand NewWeapon
+        {
+            get { return this._NewWeapon; }
+        }
+
+        public ICommand NewItem
+        {
+            get { return this._NewItem; }
+        }
         #endregion
 
         [ImportingConstructor]
         public BackpackViewModel(IEventAggregator events)
         {
             this._Slots = new ObservableCollection<IBackpackSlotViewModel>();
+            this._NewWeapon = new DelegateCommand<int>(x => this.DoNewWeapon(x));
+            this._NewItem = new DelegateCommand<int>(x => this.DoNewItem(x));
             events.Subscribe(this);
         }
 
-        public void NewWeapon()
+        public void DoNewWeapon(int assetLibrarySetId)
         {
             var weapon = new BackpackWeapon()
             {
                 UniqueId = new Random().Next(int.MinValue, int.MaxValue),
                 // TODO: check other item unique IDs to prevent rare collisions
-                AssetLibrarySetId = 0,
+                AssetLibrarySetId = assetLibrarySetId,
             };
             var viewModel = new BackpackWeaponViewModel(weapon);
             this.Slots.Add(viewModel);
             this.SelectedSlot = viewModel;
         }
 
-        public void NewItem()
+        public void DoNewItem(int assetLibrarySetId)
         {
             var item = new BackpackItem()
             {
                 UniqueId = new Random().Next(int.MinValue, int.MaxValue),
                 // TODO: check other item unique IDs to prevent rare collisions
-                AssetLibrarySetId = 0,
+                AssetLibrarySetId = assetLibrarySetId,
             };
             var viewModel = new BackpackItemViewModel(item);
             this.Slots.Add(viewModel);

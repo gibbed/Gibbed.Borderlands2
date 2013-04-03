@@ -84,6 +84,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Helpers\AssetCache.cs" />
+    <Compile Include="Helpers\DelegateCommand.cs" />
     <Compile Include="Helpers\HyperlinkExtensions.cs" />
     <Compile Include="Helpers\MyClipboard.cs" />
     <Compile Include="Helpers\MyFileFilterCollection.cs" />

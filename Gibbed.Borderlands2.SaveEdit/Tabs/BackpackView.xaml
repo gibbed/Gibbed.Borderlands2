@@ -28,151 +28,190 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:cal="http://www.caliburnproject.org"
              xmlns:se="clr-namespace:Gibbed.Borderlands2.SaveEdit"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:gameInfo="clr-namespace:Gibbed.Borderlands2.GameInfo;assembly=Gibbed.Borderlands2.GameInfo"
              mc:Ignorable="d"
              d:DesignWidth="720"
              d:DesignHeight="480">
-  <UserControl.Resources>
-    <CollectionViewSource x:Key="SlotCollectionViewSource"
-                          Source="{Binding Path=Slots}">
-      <CollectionViewSource.GroupDescriptions>
-        <PropertyGroupDescription PropertyName="DisplayGroup"></PropertyGroupDescription>
-      </CollectionViewSource.GroupDescriptions>
-    </CollectionViewSource>
-  </UserControl.Resources>
-  <DockPanel>
-    <ToolBar Name="ButtonBar"
-             DockPanel.Dock="Top">
-      <Button x:Name="NewWeapon">
-        <StackPanel Orientation="Horizontal">
-          <Image Height="24"
-                 Source="..\Resources\assaultrifle.png" />
-          <Label Content="New Weapon" />
-        </StackPanel>
-      </Button>
-      <Button x:Name="NewItem">
-        <StackPanel Orientation="Horizontal">
-          <Image Height="24"
-                 Source="..\Resources\shield.png" />
-          <Label Content="New Item" />
-        </StackPanel>
-      </Button>
-      <Separator />
-      <Button x:Name="PasteCode">
-        <StackPanel Orientation="Horizontal">
-          <Image Height="24"
-                 Source="..\Resources\fugue\scanner.png" />
-          <Label Content="Paste Code" />
-        </StackPanel>
-      </Button>
-      <Separator />
-      <Button x:Name="SyncEquippedLevels"
-              ToolTip="Synchronize equipped weapons and items to current experience level">
-        <StackPanel Orientation="Horizontal">
-          <Image Height="24"
-                 Source="..\Resources\fugue\control-090.png" />
-          <Label Content="Sync Equipped" />
-        </StackPanel>
-      </Button>
-      <Button x:Name="SyncAllLevels"
-              ToolTip="Synchronize all weapons and items to current experience level">
-        <StackPanel Orientation="Horizontal">
-          <Image Height="24"
-                 Source="..\Resources\fugue\control-double-090.png" />
-          <Label Content="Sync All" />
-        </StackPanel>
-      </Button>
-    </ToolBar>
-    <StackPanel Orientation="Horizontal"
-                DockPanel.Dock="Bottom">
-      <TextBlock>
-        <Hyperlink NavigateUri="http://thegearcalculator.appspot.com/" se:HyperlinkExtensions.IsExternal="true">duncanfogg's Gear Calculator</Hyperlink> (<Hyperlink NavigateUri="http://forums.gearboxsoftware.com/showthread.php?t=192473" se:HyperlinkExtensions.IsExternal="true">Thread</Hyperlink>)
-      </TextBlock>
-    </StackPanel>
-    <Grid>
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="0.35*" />
-        <ColumnDefinition Width="Auto" />
-        <ColumnDefinition Width="*" />
-      </Grid.ColumnDefinitions>
-      <ListView Grid.Column="0"
-                ItemsSource="{Binding Source={StaticResource SlotCollectionViewSource}}"
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                SelectedValue="{Binding Path=SelectedSlot}"
-                SelectionMode="Single">
-        <ListView.GroupStyle>
-          <GroupStyle>
-            <GroupStyle.HeaderTemplate>
-              <DataTemplate>
-                <TextBlock FontSize="15"
-                           FontWeight="Bold"
-                           Text="{Binding Path=Name}" />
-              </DataTemplate>
-            </GroupStyle.HeaderTemplate>
-          </GroupStyle>
-        </ListView.GroupStyle>
-        <ListView.ItemTemplate>
-          <DataTemplate>
-            <StackPanel Orientation="Horizontal">
-              <TextBlock Text="{Binding Path=DisplayName}"
-                         VerticalAlignment="Center" />
-            </StackPanel>
-          </DataTemplate>
-        </ListView.ItemTemplate>
-        <ListView.ContextMenu>
-          <ContextMenu>
-            <MenuItem>
-              <MenuItem.Icon>
-                <Image Source="..\Resources\fugue\printer.png"
-                       Height="16" />
-              </MenuItem.Icon>
-              <MenuItem.Header>Copy Code</MenuItem.Header>
-              <cal:Message.Attach>
-                CopySelectedSlotCode()
-              </cal:Message.Attach>
-            </MenuItem>
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="SlotCollectionViewSource"
+                              Source="{Binding Path=Slots}">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="DisplayGroup"></PropertyGroupDescription>
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
+        <system:Int32 x:Key="DefaultWeaponSetId">0</system:Int32>
+        <system:Int32 x:Key="DefaultItemSetId">0</system:Int32>
+    </UserControl.Resources>
+    <DockPanel>
+        <ToolBar Name="ButtonBar"
+                 DockPanel.Dock="Top">
+            <Button Command="{Binding Path=NewWeapon}"
+                    CommandParameter="{StaticResource DefaultWeaponSetId}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Height="24"
+                           Source="..\Resources\assaultrifle.png" />
+                    <Label Content="New Weapon" />
+                </StackPanel>
+            </Button>
+            <xctk:DropDownButton>
+                <xctk:DropDownButton.DropDownContent>
+                    <ItemsControl ItemsSource="{Binding Path=DownloadablePackages}"
+                                  Width="Auto"
+                                  Height="Auto">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="gameInfo:DownloadablePackageDefinition">
+                                <Button Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}, Path=DataContext.NewWeapon}"
+                                        CommandParameter="{Binding Path=Id}">
+                                    <Label Content="{Binding Path=DisplayName}" />
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </xctk:DropDownButton.DropDownContent>
+            </xctk:DropDownButton>
+            <Button Command="{Binding Path=NewItem}"
+                    CommandParameter="{StaticResource DefaultItemSetId}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Height="24"
+                           Source="..\Resources\shield.png" />
+                    <Label Content="New Item" />
+                </StackPanel>
+            </Button>
+            <xctk:DropDownButton>
+                <xctk:DropDownButton.DropDownContent>
+                    <ItemsControl ItemsSource="{Binding Path=DownloadablePackages}"
+                                  Width="Auto"
+                                  Height="Auto">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="gameInfo:DownloadablePackageDefinition">
+                                <Button Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}, Path=DataContext.NewItem}"
+                                        CommandParameter="{Binding Path=Id}">
+                                    <Label Content="{Binding Path=DisplayName}" />
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </xctk:DropDownButton.DropDownContent>
+            </xctk:DropDownButton>
             <Separator />
-            <MenuItem>
-              <MenuItem.Icon>
-                <Image Source="..\Resources\fugue\document-copy.png"
-                       Height="16" />
-              </MenuItem.Icon>
-              <MenuItem.Header>Duplicate</MenuItem.Header>
-              <cal:Message.Attach>
-                DuplicateSelectedSlot()
-              </cal:Message.Attach>
-            </MenuItem>
-            <MenuItem>
-              <MenuItem.Icon>
-                <Image Source="..\Resources\bank.png"
-                       Height="16" />
-              </MenuItem.Icon>
-              <MenuItem.Header>Bank</MenuItem.Header>
-              <cal:Message.Attach>
-                BankSelectedSlot()
-              </cal:Message.Attach>
-            </MenuItem>
+            <Button x:Name="PasteCode">
+                <StackPanel Orientation="Horizontal">
+                    <Image Height="24"
+                           Source="..\Resources\fugue\scanner.png" />
+                    <Label Content="Paste Code" />
+                </StackPanel>
+            </Button>
             <Separator />
-            <MenuItem>
-              <MenuItem.Icon>
-                <Image Source="..\Resources\fugue\document-delete.png"
-                       Height="16" />
-              </MenuItem.Icon>
-              <MenuItem.Header>Delete</MenuItem.Header>
-              <cal:Message.Attach>
-                DeleteSelectedSlot()
-              </cal:Message.Attach>
-            </MenuItem>
-          </ContextMenu>
-        </ListView.ContextMenu>
-      </ListView>
-      <GridSplitter Grid.Column="1"
-                    Width="4"
-                    ResizeBehavior="PreviousAndNext" />
-      <ScrollViewer Grid.Column="2"
-                    HorizontalScrollBarVisibility="Disabled"
-                    VerticalScrollBarVisibility="Auto">
-        <ContentControl x:Name="SelectedSlot"></ContentControl>
-      </ScrollViewer>
-    </Grid>
-  </DockPanel>
+            <Button x:Name="SyncEquippedLevels"
+                    ToolTip="Synchronize equipped weapons and items to current experience level">
+                <StackPanel Orientation="Horizontal">
+                    <Image Height="24"
+                           Source="..\Resources\fugue\control-090.png" />
+                    <Label Content="Sync Equipped" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="SyncAllLevels"
+                    ToolTip="Synchronize all weapons and items to current experience level">
+                <StackPanel Orientation="Horizontal">
+                    <Image Height="24"
+                           Source="..\Resources\fugue\control-double-090.png" />
+                    <Label Content="Sync All" />
+                </StackPanel>
+            </Button>
+        </ToolBar>
+        <StackPanel Orientation="Horizontal"
+                    DockPanel.Dock="Bottom">
+            <TextBlock>
+                <Hyperlink NavigateUri="http://thegearcalculator.appspot.com/" se:HyperlinkExtensions.IsExternal="true">duncanfogg's Gear Calculator</Hyperlink> (<Hyperlink NavigateUri="http://forums.gearboxsoftware.com/showthread.php?t=192473" se:HyperlinkExtensions.IsExternal="true">Thread</Hyperlink>)
+            </TextBlock>
+        </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.35*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ListView Grid.Column="0"
+                      ItemsSource="{Binding Source={StaticResource SlotCollectionViewSource}}"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      SelectedValue="{Binding Path=SelectedSlot}"
+                      SelectionMode="Single">
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="15"
+                                           FontWeight="Bold"
+                                           Text="{Binding Path=Name}" />
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListView.GroupStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Path=DisplayName}"
+                                       VerticalAlignment="Center" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem>
+                            <MenuItem.Icon>
+                                <Image Source="..\Resources\fugue\printer.png"
+                                       Height="16" />
+                            </MenuItem.Icon>
+                            <MenuItem.Header>Copy Code</MenuItem.Header>
+                            <cal:Message.Attach>
+                                CopySelectedSlotCode()
+                            </cal:Message.Attach>
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem>
+                            <MenuItem.Icon>
+                                <Image Source="..\Resources\fugue\document-copy.png"
+                                       Height="16" />
+                            </MenuItem.Icon>
+                            <MenuItem.Header>Duplicate</MenuItem.Header>
+                            <cal:Message.Attach>
+                                DuplicateSelectedSlot()
+                            </cal:Message.Attach>
+                        </MenuItem>
+                        <MenuItem>
+                            <MenuItem.Icon>
+                                <Image Source="..\Resources\bank.png"
+                                       Height="16" />
+                            </MenuItem.Icon>
+                            <MenuItem.Header>Bank</MenuItem.Header>
+                            <cal:Message.Attach>
+                                BankSelectedSlot()
+                            </cal:Message.Attach>
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem>
+                            <MenuItem.Icon>
+                                <Image Source="..\Resources\fugue\document-delete.png"
+                                       Height="16" />
+                            </MenuItem.Icon>
+                            <MenuItem.Header>Delete</MenuItem.Header>
+                            <cal:Message.Attach>
+                                DeleteSelectedSlot()
+                            </cal:Message.Attach>
+                        </MenuItem>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+            </ListView>
+            <GridSplitter Grid.Column="1"
+                          Width="4"
+                          ResizeBehavior="PreviousAndNext" />
+            <ScrollViewer Grid.Column="2"
+                          HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Auto">
+                <ContentControl x:Name="SelectedSlot"></ContentControl>
+            </ScrollViewer>
+        </Grid>
+    </DockPanel>
 </UserControl>
