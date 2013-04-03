@@ -43,6 +43,9 @@ namespace Gibbed.Borderlands2.SaveEdit
         #region Fields
         private readonly ObservableCollection<IBackpackSlotViewModel> _Slots;
 
+        // TODO: STUPID STUPID STUPID STUPID WHY GEARBOX WHY?????????????????????
+        private readonly List<PackedItemData> _ExpansionItems;
+
         private IBackpackSlotViewModel _SelectedSlot;
 
         private ICommand _NewWeapon;
@@ -99,6 +102,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         public BackpackViewModel(IEventAggregator events)
         {
             this._Slots = new ObservableCollection<IBackpackSlotViewModel>();
+            this._ExpansionItems = new List<PackedItemData>();
             this._NewWeapon = new DelegateCommand<int>(x => this.DoNewWeapon(x));
             this._NewItem = new DelegateCommand<int>(x => this.DoNewItem(x));
             events.Subscribe(this);
@@ -408,21 +412,30 @@ namespace Gibbed.Borderlands2.SaveEdit
                 this.Slots.Add(viewModel);
             }
 
+            this._ExpansionItems.Clear();
             foreach (var packedItem in saveGame.PackedItemData)
             {
-                var item = (BackpackItem)BackpackDataHelper.Decode(packedItem.InventorySerialNumber);
-                var test = BackpackDataHelper.Encode(item);
-                if (packedItem.InventorySerialNumber.SequenceEqual(test) == false)
+                // TODO: STUPID STUPID STUPID STUPID WHY GEARBOX WHY?????????????????????
+                if (packedItem.Quantity >= 0)
                 {
-                    throw new FormatException("backpack item reencode mismatch");
+                    var item = (BackpackItem)BackpackDataHelper.Decode(packedItem.InventorySerialNumber);
+                    var test = BackpackDataHelper.Encode(item);
+                    if (packedItem.InventorySerialNumber.SequenceEqual(test) == false)
+                    {
+                        throw new FormatException("backpack item reencode mismatch");
+                    }
+
+                    item.Quantity = packedItem.Quantity;
+                    item.Equipped = packedItem.Equipped;
+                    item.Mark = packedItem.Mark;
+
+                    var viewModel = new BackpackItemViewModel(item);
+                    this.Slots.Add(viewModel);
                 }
-
-                item.Quantity = packedItem.Quantity;
-                item.Equipped = packedItem.Equipped;
-                item.Mark = packedItem.Mark;
-
-                var viewModel = new BackpackItemViewModel(item);
-                this.Slots.Add(viewModel);
+                else
+                {
+                    this._ExpansionItems.Add(packedItem);
+                }
             }
         }
 
@@ -464,6 +477,12 @@ namespace Gibbed.Borderlands2.SaveEdit
                 {
                     throw new NotSupportedException();
                 }
+            }
+
+            // TODO: STUPID STUPID STUPID STUPID WHY GEARBOX WHY?????????????????????
+            foreach (var packedItem in this._ExpansionItems)
+            {
+                saveGame.PackedItemData.Add(packedItem);
             }
         }
     }
