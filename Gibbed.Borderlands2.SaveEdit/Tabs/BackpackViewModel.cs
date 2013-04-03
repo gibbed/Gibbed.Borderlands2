@@ -427,7 +427,15 @@ namespace Gibbed.Borderlands2.SaveEdit
 
                     item.Quantity = packedItem.Quantity;
                     item.Equipped = packedItem.Equipped;
-                    item.Mark = packedItem.Mark;
+                    item.Mark = (PlayerMark)packedItem.Mark;
+
+                    // required since protobuf is no longer doing the validation for us
+                    if (item.Mark != PlayerMark.Trash &&
+                        item.Mark != PlayerMark.Standard &&
+                        item.Mark != PlayerMark.Favorite)
+                    {
+                        throw new FormatException("invalid PlayerMark value");
+                    }
 
                     var viewModel = new BackpackItemViewModel(item);
                     this.Slots.Add(viewModel);
@@ -470,7 +478,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                         InventorySerialNumber = data,
                         Quantity = item.Quantity,
                         Equipped = item.Equipped,
-                        Mark = item.Mark,
+                        Mark = (int)item.Mark,
                     });
                 }
                 else

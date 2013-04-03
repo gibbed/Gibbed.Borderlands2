@@ -32,7 +32,10 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         private byte[] _InventorySerialNumber;
         private int _Quantity;
         private bool _Equipped;
-        private PlayerMark _Mark;
+        /* Should be PlayerMark type, but due to their DLC expansion hack I
+         * can't leave it this way due to protobuf.net's handling of it.
+         */
+        private int _Mark;
         #endregion
 
         #region IComposable Members
@@ -89,7 +92,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(4, IsRequired = true)]
-        public PlayerMark Mark
+        public int Mark
         {
             get { return this._Mark; }
             set
