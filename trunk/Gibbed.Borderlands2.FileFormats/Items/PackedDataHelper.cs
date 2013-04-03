@@ -48,7 +48,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 InfoManager.AssetLibraryManager.Sets.SingleOrDefault(s => s.Id == packable.AssetLibrarySetId);
             if (assetLibrarySet == null)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("unsupported asset library set");
             }
 
             var writer = new BitWriter();
@@ -147,7 +147,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
 
             if (fileCheck != computedCheck)
             {
-                throw new FormatException();
+                throw new FormatException("checksum failure in packed data");
             }
 
             var reader = new BitReader(unobfuscatedBytes);
@@ -155,7 +155,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             var version = reader.ReadInt32(7);
             if (version != InfoManager.AssetLibraryManager.Version)
             {
-                throw new FormatException();
+                throw new FormatException("invalid version in packed data");
             }
 
             var isWeapon = reader.ReadBoolean();
@@ -169,7 +169,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             ushort check = reader.ReadUInt16(16);
             if (check != 0xFFFF)
             {
-                throw new FormatException();
+                throw new FormatException("invalid check in packed data");
             }
 
             int setId = 0;
@@ -181,11 +181,8 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             var set = InfoManager.AssetLibraryManager.GetSet(setId);
             if (set == null)
             {
-                throw new FormatException();
-            }
-
-            if (setId != 0)
-            {
+                throw new FormatException(
+                    "unknown asset library set in packed data (this generally means new DLC that is not supported yet)");
             }
 
             IPackable packable = isWeapon == true

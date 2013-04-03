@@ -69,7 +69,11 @@ namespace Gibbed.Borderlands2.SaveEdit
                 assets = InfoManager.AssetLibraryManager.GetSet(0).Libraries[group].GetAssets();
                 if (setId != 0)
                 {
-                    assets = assets.Concat(InfoManager.AssetLibraryManager.GetSet(setId).Libraries[group].GetAssets());
+                    var moreAssets = InfoManager.AssetLibraryManager.GetSet(setId);
+                    if (moreAssets != null)
+                    {
+                        assets = assets.Concat(moreAssets.Libraries[group].GetAssets());
+                    }
                 }
 
                 return assets.Distinct().OrderBy(p => p).ToArray();
