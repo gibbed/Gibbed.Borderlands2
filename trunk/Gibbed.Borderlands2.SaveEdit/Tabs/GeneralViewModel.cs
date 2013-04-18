@@ -249,6 +249,11 @@ namespace Gibbed.Borderlands2.SaveEdit
                 {
                     return CustomizationUsage.Mechromancer;
                 }
+
+                case "GD_Lilac_PlayerClass.Character.CharClass_LilacPlayerClass":
+                {
+                    return CustomizationUsage.Psycho;
+                }
             }
 
             return CustomizationUsage.Unknown;
