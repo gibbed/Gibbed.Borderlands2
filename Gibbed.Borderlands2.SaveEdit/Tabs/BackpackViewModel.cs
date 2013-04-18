@@ -67,7 +67,9 @@ namespace Gibbed.Borderlands2.SaveEdit
                     GameInfo.InfoManager.DownloadableContents.Items
                             .Where(dc => dc.Value.Type == GameInfo.DownloadableContentType.ItemSet &&
                                          dc.Value.Package != null)
-                            .Select(dc => dc.Value.Package).Distinct()
+                            .Select(dc => dc.Value.Package)
+                            .Where(dp => GameInfo.InfoManager.AssetLibraryManager.Sets.Any(s => s.Id == dp.Id) == true)
+                            .Distinct()
                             .OrderBy(dp => dp.Id);
             }
         }
