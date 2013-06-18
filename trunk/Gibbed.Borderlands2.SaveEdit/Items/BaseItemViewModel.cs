@@ -330,6 +330,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                     }
 
                     case ItemType.ClassMod:
+                    case ItemType.CrossDLCClassMod:
                     {
                         return "Class Mod";
                     }
