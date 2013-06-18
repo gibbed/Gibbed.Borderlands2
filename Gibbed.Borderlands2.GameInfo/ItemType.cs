@@ -32,5 +32,6 @@ namespace Gibbed.Borderlands2.GameInfo
         Shield,
         UsableCustomizationItem,
         UsableItem,
+        CrossDLCClassMod,
     }
 }
