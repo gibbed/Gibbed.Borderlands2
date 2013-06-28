@@ -66,4 +66,56 @@ namespace Gibbed.Borderlands2.GameInfo
             get { return this._Dictionary; }
         }
     }
+
+    public sealed class InfoDictionary<TKey, TValue>
+    {
+        private readonly Dictionary<TKey, TValue> _Dictionary;
+
+        public InfoDictionary(Dictionary<TKey, TValue> dictionary)
+        {
+            if (dictionary == null)
+            {
+                throw new ArgumentNullException("dictionary");
+            }
+
+            this._Dictionary = new Dictionary<TKey, TValue>();
+            foreach (var kv in dictionary)
+            {
+                this._Dictionary.Add(kv.Key, kv.Value);
+            }
+        }
+
+        public bool ContainsKey(TKey key)
+        {
+            return this._Dictionary.ContainsKey(key);
+        }
+
+        public TValue GetOrDefault(TKey key)
+        {
+            if (this._Dictionary.ContainsKey(key) == false)
+            {
+                return default(TValue);
+            }
+
+            return this._Dictionary[key];
+        }
+
+        public TValue this[TKey key]
+        {
+            get
+            {
+                if (this._Dictionary.ContainsKey(key) == false)
+                {
+                    throw new KeyNotFoundException();
+                }
+
+                return this._Dictionary[key];
+            }
+        }
+
+        public IEnumerable<KeyValuePair<TKey, TValue>> Items
+        {
+            get { return this._Dictionary; }
+        }
+    }
 }

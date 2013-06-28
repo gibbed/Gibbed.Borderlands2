@@ -75,6 +75,7 @@
     <Compile Include="Loaders\DownloadablePackageDefinitionLoader.cs" />
     <Compile Include="Loaders\FastTravelStationOrderingLoader.cs" />
     <Compile Include="Loaders\ItemNamePartDefinitionLoader.cs" />
+    <Compile Include="Loaders\PlatformConfigurationLoader.cs" />
     <Compile Include="Loaders\TravelStationDefinitionLoader.cs" />
     <Compile Include="Loaders\ItemBalanceDefinitionLoader.cs" />
     <Compile Include="Loaders\ItemTypeDefinitionLoader.cs" />
@@ -87,6 +88,10 @@
     <Compile Include="MissionStatus.cs" />
     <Compile Include="MissionStatusData.cs" />
     <Compile Include="ObjectiveDependencyStatus.cs" />
+    <Compile Include="Platform.cs" />
+    <Compile Include="PlatformAssetLibraryConfiguration.cs" />
+    <Compile Include="PlatformAssetLibrarySet.cs" />
+    <Compile Include="PlatformConfiguration.cs" />
     <Compile Include="Raw\AssetLibraryConfiguration.cs" />
     <Compile Include="Raw\AssetLibraryDefinition.cs" />
     <Compile Include="Raw\AssetLibraryManager.cs" />
@@ -103,6 +108,9 @@
     <Compile Include="Raw\ItemTypeDefinition.cs" />
     <Compile Include="Raw\LevelTravelStationDefinition.cs" />
     <Compile Include="Raw\MissionStatusData.cs" />
+    <Compile Include="Raw\PlatformAssetLibraryConfiguration.cs" />
+    <Compile Include="Raw\PlatformAssetLibrarySet.cs" />
+    <Compile Include="Raw\PlatformConfiguration.cs" />
     <Compile Include="Raw\PlayerClassDefinition.cs" />
     <Compile Include="PartReplacementMode.cs" />
     <Compile Include="PlayerClassDefinition.cs" />
@@ -138,6 +146,7 @@
     <EmbeddedResource Include="Resources\Fast Travel Station Ordering.json" />
     <EmbeddedResource Include="Resources\Item Name Parts.json" />
     <EmbeddedResource Include="Resources\Weapon Name Parts.json" />
+    <EmbeddedResource Include="Resources\Platform Configurations.json" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

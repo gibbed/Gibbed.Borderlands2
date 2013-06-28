@@ -29,7 +29,6 @@ using System.Text;
 using Caliburn.Micro;
 using Gibbed.Borderlands2.GameInfo;
 using Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave;
-using Gibbed.IO;
 
 namespace Gibbed.Borderlands2.SaveEdit
 {
@@ -37,7 +36,7 @@ namespace Gibbed.Borderlands2.SaveEdit
     internal class GeneralViewModel : PropertyChangedBase
     {
         #region Fields
-        private FileFormats.Platform _Platform;
+        private Platform _Platform;
         private int _SaveGameId;
         private string _PlayerClassDefinition = "GD_Assassin.Character.CharClass_Assassin";
         private int _ExpLevel = 1;
@@ -50,7 +49,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         #endregion
 
         #region Properties
-        public FileFormats.Platform Platform
+        public Platform Platform
         {
             get { return this._Platform; }
             set
@@ -166,9 +165,9 @@ namespace Gibbed.Borderlands2.SaveEdit
         internal class PlatformDisplay
         {
             public string Name { get; private set; }
-            public FileFormats.Platform Value { get; private set; }
+            public Platform Value { get; private set; }
 
-            public PlatformDisplay(string name, FileFormats.Platform value)
+            public PlatformDisplay(string name, Platform value)
             {
                 this.Name = name;
                 this.Value = value;
@@ -196,9 +195,9 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             this.Platforms = new ObservableCollection<PlatformDisplay>
             {
-                new PlatformDisplay("PC", FileFormats.Platform.PC),
-                new PlatformDisplay("360", FileFormats.Platform.X360),
-                new PlatformDisplay("PS3", FileFormats.Platform.PS3),
+                new PlatformDisplay("PC", Platform.PC),
+                new PlatformDisplay("360", Platform.X360),
+                new PlatformDisplay("PS3", Platform.PS3),
             };
 
             this.UpdateClassDefinitions();
@@ -360,7 +359,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        public void ImportData(WillowTwoPlayerSaveGame saveGame, FileFormats.Platform platform)
+        public void ImportData(WillowTwoPlayerSaveGame saveGame, Platform platform)
         {
             this.Platform = platform;
             this.SaveGameId = saveGame.SaveGameId;
@@ -389,7 +388,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             this.BuildCustomizationAssets();
         }
 
-        public void ExportData(WillowTwoPlayerSaveGame saveGame, out FileFormats.Platform platform)
+        public void ExportData(WillowTwoPlayerSaveGame saveGame, out Platform platform)
         {
             platform = this.Platform;
             saveGame.SaveGameId = this.SaveGameId;

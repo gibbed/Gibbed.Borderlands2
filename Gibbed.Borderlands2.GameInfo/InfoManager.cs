@@ -26,6 +26,7 @@ namespace Gibbed.Borderlands2.GameInfo
     {
         public static InfoDictionary<DownloadablePackageDefinition> DownloadablePackages { get; private set; }
         public static InfoDictionary<DownloadableContentDefinition> DownloadableContents { get; private set; }
+        public static InfoDictionary<Platform, PlatformConfiguration> PlatformConfigurations { get; private set; }
         public static AssetLibraryManager AssetLibraryManager { get; private set; }
         public static InfoDictionary<PlayerClassDefinition> PlayerClasses { get; private set; }
         public static InfoDictionary<WeaponTypeDefinition> WeaponTypes { get; private set; }
@@ -42,6 +43,8 @@ namespace Gibbed.Borderlands2.GameInfo
         {
             DownloadablePackages = Loaders.DownloadablePackageDefinitionLoader.Load();
             DownloadableContents = Loaders.DownloadableContentDefinitionLoader.Load(DownloadablePackages);
+
+            PlatformConfigurations = Loaders.PlatformConfigurationLoader.Load();
             AssetLibraryManager = Loaders.AssetLibraryManagerLoader.Load();
             PlayerClasses = Loaders.PlayerClassDefinitionLoader.Load(DownloadableContents);
 
@@ -56,7 +59,8 @@ namespace Gibbed.Borderlands2.GameInfo
             Customizations = Loaders.CustomizationDefinitionLoader.Load(DownloadableContents);
 
             TravelStations = Loaders.TravelStationDefinitionLoader.Load(DownloadableContents);
-            FastTravelStationOrdering = Loaders.FastTravelStationOrderingLoader.Load(TravelStations, DownloadableContents);
+            FastTravelStationOrdering = Loaders.FastTravelStationOrderingLoader.Load(TravelStations,
+                                                                                     DownloadableContents);
         }
 
         // Just a way to get the static initializer called.

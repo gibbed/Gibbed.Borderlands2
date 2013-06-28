@@ -24,12 +24,13 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using Caliburn.Micro;
 using Caliburn.Micro.Contrib;
 using Caliburn.Micro.Contrib.Results;
-using Gibbed.IO;
+using Gibbed.Borderlands2.GameInfo;
 
 namespace Gibbed.Borderlands2.SaveEdit
 {
@@ -162,7 +163,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             {
                 var saveFile = new FileFormats.SaveFile()
                 {
-                    Platform = FileFormats.Platform.PC,
+                    Platform = Platform.PC,
                     SaveGame = new ProtoBufFormats.WillowTwoSave.WillowTwoPlayerSaveGame()
                     {
                         SaveGameId = 1,
@@ -187,8 +188,8 @@ namespace Gibbed.Borderlands2.SaveEdit
 
                 this.General.ImportData(saveFile.SaveGame, saveFile.Platform);
                 this.CurrencyOnHand.ImportData(saveFile.SaveGame);
-                this.Backpack.ImportData(saveFile.SaveGame);
-                this.Bank.ImportData(saveFile.SaveGame);
+                this.Backpack.ImportData(saveFile.SaveGame, saveFile.Platform);
+                this.Bank.ImportData(saveFile.SaveGame, saveFile.Platform);
                 this.FastTravel.ImportData(saveFile.SaveGame);
                 this.SaveFile = saveFile;
             })
@@ -218,11 +219,11 @@ namespace Gibbed.Borderlands2.SaveEdit
             ofr = new MyOpenFileResult()
                 .FilterFiles(
                     ffc => ffc.AddFilter("sav", this._FilterIndex == 1)
-                               .WithDescription("PC Save Files")
-                               .AddFilter("sav", this._FilterIndex == 2)
-                               .WithDescription("X360 Save Files")
-                               .AddFilter("sav", this._FilterIndex == 3)
-                               .WithDescription("PS3 Save Files"))
+                              .WithDescription("PC Save Files")
+                              .AddFilter("sav", this._FilterIndex == 2)
+                              .WithDescription("X360 Save Files")
+                              .AddFilter("sav", this._FilterIndex == 3)
+                              .WithDescription("PS3 Save Files"))
                 .WithFileDo(s => fileName = s)
                 .WithFilterIndexDo(i => filterIndex = i);
 
@@ -243,14 +244,14 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             var platforms = new[]
             {
-                FileFormats.Platform.Invalid,
-                FileFormats.Platform.PC,
-                FileFormats.Platform.X360,
-                FileFormats.Platform.PS3
+                Platform.Invalid,
+                Platform.PC,
+                Platform.X360,
+                Platform.PS3
             };
 
             var platform = filterIndex < 1 || filterIndex > 3
-                               ? FileFormats.Platform.PC
+                               ? Platform.PC
                                : platforms[filterIndex];
 
             FileFormats.SaveFile saveFile = null;
@@ -266,8 +267,8 @@ namespace Gibbed.Borderlands2.SaveEdit
 
                 this.General.ImportData(saveFile.SaveGame, saveFile.Platform);
                 this.CurrencyOnHand.ImportData(saveFile.SaveGame);
-                this.Backpack.ImportData(saveFile.SaveGame);
-                this.Bank.ImportData(saveFile.SaveGame);
+                this.Backpack.ImportData(saveFile.SaveGame, saveFile.Platform);
+                this.Bank.ImportData(saveFile.SaveGame, saveFile.Platform);
                 this.FastTravel.ImportData(saveFile.SaveGame);
                 this.SaveFile = saveFile;
             })
@@ -314,8 +315,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                 .PromptForOverwrite()
                 .FilterFiles(
                     ffc => ffc.AddFilter("sav", true)
-                               .WithDescription("Save Files")
-                               .AddAllFilesFilter())
+                              .WithDescription("Save Files")
+                              .AddAllFilesFilter())
                 .WithFileDo(s => fileName = s);
 
             if (string.IsNullOrEmpty(this._SavePath) == false &&
@@ -335,11 +336,11 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             yield return new DelegateResult(() =>
             {
-                FileFormats.Platform platform;
+                Platform platform;
                 this.General.ExportData(saveFile.SaveGame, out platform);
                 this.CurrencyOnHand.ExportData(saveFile.SaveGame);
-                this.Backpack.ExportData(saveFile.SaveGame);
-                this.Bank.ExportData(saveFile.SaveGame);
+                this.Backpack.ExportData(saveFile.SaveGame, platform);
+                this.Bank.ExportData(saveFile.SaveGame, platform);
                 this.FastTravel.ExportData(saveFile.SaveGame);
 
                 using (var output = File.Create(fileName))

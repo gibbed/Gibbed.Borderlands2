@@ -20,17 +20,20 @@
  *    distribution.
  */
 
-using System;
-using Gibbed.Borderlands2.GameInfo;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace Gibbed.Borderlands2.FileFormats.Items
+namespace Gibbed.Borderlands2.GameInfo
 {
-    public interface IPackable : ICloneable
+    public sealed class PlatformAssetLibraryConfiguration
     {
-        int UniqueId { get; set; }
-        int AssetLibrarySetId { get; set; }
+        internal PlatformAssetLibraryConfiguration()
+        {
+        }
 
-        void Read(BitReader reader, Platform platform);
-        void Write(BitWriter writer, Platform platform);
+        public AssetGroup Group { get; internal set; }
+
+        public Dictionary<int, int> SublibraryRemappingAtoB { get; internal set; }
+        public Dictionary<int, int> SublibraryRemappingBtoA { get; internal set; }
     }
 }

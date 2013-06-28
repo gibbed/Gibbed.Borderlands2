@@ -20,17 +20,24 @@
  *    distribution.
  */
 
-using System;
-using Gibbed.Borderlands2.GameInfo;
+#pragma warning disable 649
 
-namespace Gibbed.Borderlands2.FileFormats.Items
+using System.Collections.Generic;
+using Newtonsoft.Json;
+
+namespace Gibbed.Borderlands2.GameInfo.Raw
 {
-    public interface IPackable : ICloneable
+    [JsonObject(MemberSerialization.OptIn)]
+    internal sealed class PlatformAssetLibraryConfiguration
     {
-        int UniqueId { get; set; }
-        int AssetLibrarySetId { get; set; }
+        public PlatformAssetLibraryConfiguration()
+        {
+            this.SublibraryRemapping = new Dictionary<int, int>();
+        }
 
-        void Read(BitReader reader, Platform platform);
-        void Write(BitWriter writer, Platform platform);
+        [JsonProperty(PropertyName = "sublibrary_remapping")]
+        public Dictionary<int, int> SublibraryRemapping { get; set; }
     }
 }
+
+#pragma warning restore 649
