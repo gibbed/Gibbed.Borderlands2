@@ -44,6 +44,8 @@ namespace Gibbed.Borderlands2.SaveEdit
         #region Fields
         private readonly ObservableCollection<IBaseSlotViewModel> _Slots;
 
+        private readonly List<KeyValuePair<BankSlot, Exception>> _BrokenSlots;
+
         private IBaseSlotViewModel _SelectedSlot;
 
         private ICommand _NewWeapon;
@@ -77,6 +79,11 @@ namespace Gibbed.Borderlands2.SaveEdit
             get { return this._Slots; }
         }
 
+        public List<KeyValuePair<BankSlot, Exception>> BrokenSlots
+        {
+            get { return this._BrokenSlots; }
+        }
+
         public IBaseSlotViewModel SelectedSlot
         {
             get { return this._SelectedSlot; }
@@ -102,6 +109,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         public BankViewModel(IEventAggregator events)
         {
             this._Slots = new ObservableCollection<IBaseSlotViewModel>();
+            this._BrokenSlots = new List<KeyValuePair<BankSlot, Exception>>();
             this._NewWeapon = new DelegateCommand<int>(x => this.DoNewWeapon(x));
             this._NewItem = new DelegateCommand<int>(x => this.DoNewItem(x));
             events.Subscribe(this);
@@ -339,10 +347,20 @@ namespace Gibbed.Borderlands2.SaveEdit
         public void ImportData(WillowTwoPlayerSaveGame saveGame, Platform platform)
         {
             this.Slots.Clear();
-
+            this._BrokenSlots.Clear();
             foreach (var bankSlot in saveGame.BankSlots)
             {
-                var slot = BaseDataHelper.Decode(bankSlot.InventorySerialNumber, platform);
+                IPackable slot;
+                try
+                {
+                    slot = BaseDataHelper.Decode(bankSlot.InventorySerialNumber, platform);
+                }
+                catch (Exception e)
+                {
+                    this._BrokenSlots.Add(new KeyValuePair<BankSlot, Exception>(bankSlot, e));
+                    continue;
+                }
+
                 var test = BaseDataHelper.Encode(slot, platform);
                 if (bankSlot.InventorySerialNumber.SequenceEqual(test) == false)
                 {
@@ -395,6 +413,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                     throw new NotSupportedException();
                 }
             }
+
+            this._BrokenSlots.ForEach(kv => saveGame.BankSlots.Add(kv.Key));
         }
     }
 }
