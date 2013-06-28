@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using ProtoBuf;
 
 namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
@@ -30,6 +31,15 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
     [ProtoContract]
     public class WillowTwoPlayerSaveGame : IComposable, INotifyPropertyChanged
     {
+        private static readonly byte[] _HackInventorySerialNumber = new byte[]
+        {
+            0x07, 0x00, 0x00, 0x00, 0x00, 0x39, 0x2A, 0xFF,
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        };
+
         #region Fields
         private string _PlayerClass;
         private int _ExpLevel = 1;
@@ -100,6 +110,8 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 throw new InvalidOperationException();
             }
             this._ComposeState = ComposeState.Composed;
+
+            AddExpansionSavedataToUnloadableItemData(this);
 
             if (this.CurrencyOnHand == null ||
                 this.CurrencyOnHand.Count == 0)
@@ -350,6 +362,66 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
             }
         }
 
+        private static void AddExpansionSavedataToUnloadableItemData(WillowTwoPlayerSaveGame saveGame)
+        {
+            var oldHacks = saveGame.PackedItemData.Where(pid => pid.Quantity < 0).ToArray();
+            foreach (var hack in oldHacks)
+            {
+                var type = (-hack.Quantity) & 0xFF;
+                if (type == 1 || type == 2 || type == 3)
+                {
+                    saveGame.PackedItemData.Remove(hack);
+                }
+            }
+
+            if (saveGame.CurrencyOnHand.Count >= 1 &&
+                saveGame.CurrencyOnHand[1] > 99)
+            {
+                var extraEridium = Math.Max(0, Math.Min(saveGame.CurrencyOnHand[1] - 99, 0x7FFFFF));
+                saveGame.PackedItemData.Add(new PackedItemData()
+                {
+                    InventorySerialNumber = (byte[])_HackInventorySerialNumber.Clone(),
+                    Quantity = -(1 | (extraEridium << 8)),
+                });
+                saveGame.CurrencyOnHand[1] = 99;
+            }
+
+            if (saveGame.PlaythroughsCompleted > 1 ||
+                saveGame.LastPlaythroughNumber > 1)
+            {
+                var extraPlaythroughsCompleted = 0;
+                if (saveGame.LastPlaythroughNumber > 1)
+                {
+                    extraPlaythroughsCompleted = Math.Max(0, Math.Min(saveGame.LastPlaythroughNumber - 1, 0xFF));
+                    saveGame.PlaythroughsCompleted = 1;
+                }
+
+                var extraLastPlaythroughNumber = 0;
+                if (saveGame.LastPlaythroughNumber > 1)
+                {
+                    extraLastPlaythroughNumber = Math.Max(0, Math.Min(saveGame.PlaythroughsCompleted - 1, 0x7FFFFF));
+                    saveGame.PlaythroughsCompleted = 1;
+                }
+
+                saveGame.PackedItemData.Add(new PackedItemData()
+                {
+                    InventorySerialNumber = (byte[])_HackInventorySerialNumber.Clone(),
+                    Quantity = -(2 | (extraLastPlaythroughNumber << 8)),
+                    Mark = (byte)extraPlaythroughsCompleted,
+                });
+            }
+
+            if (saveGame.ExtraShowNewPlaythroughNotification.HasValue == true)
+            {
+                var value = Math.Max(0, Math.Min(saveGame.ExtraShowNewPlaythroughNotification.Value, 0x7FFFFF));
+                saveGame.PackedItemData.Add(new PackedItemData()
+                {
+                    InventorySerialNumber = (byte[])_HackInventorySerialNumber.Clone(),
+                    Quantity = -(3 | (value << 8)),
+                });
+            }
+        }
+
         public void Decompose()
         {
             if (this._ComposeState != ComposeState.Composed)
@@ -575,6 +647,37 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
             else
             {
                 this.PackedWeaponData.Decompose();
+            }
+
+            ExtractExpansionSavedataFromUnloadableItemData(this);
+        }
+
+        private static void ExtractExpansionSavedataFromUnloadableItemData(WillowTwoPlayerSaveGame saveGame)
+        {
+            var hacks = saveGame.PackedItemData.Where(pid => pid.Quantity < 0).ToArray();
+            foreach (var hack in hacks)
+            {
+                var type = (-hack.Quantity) & 0xFF;
+                if (type == 1)
+                {
+                    if (saveGame.CurrencyOnHand.Count >= 1)
+                    {
+                        saveGame.CurrencyOnHand[1] += ((-hack.Quantity) >> 8) & 0x7FFFFF;
+                    }
+
+                    saveGame.PackedItemData.Remove(hack);
+                }
+                else if (type == 2)
+                {
+                    saveGame.LastPlaythroughNumber += ((-hack.Quantity) >> 8) & 0x7FFFFF;
+                    saveGame.PlaythroughsCompleted += (byte)hack.Mark;
+                    saveGame.PackedItemData.Remove(hack);
+                }
+                else if (type == 3)
+                {
+                    saveGame.ExtraShowNewPlaythroughNotification = ((-hack.Quantity) >> 8) & 0x7FFFFF;
+                    saveGame.PackedItemData.Remove(hack);
+                }
             }
         }
         #endregion
