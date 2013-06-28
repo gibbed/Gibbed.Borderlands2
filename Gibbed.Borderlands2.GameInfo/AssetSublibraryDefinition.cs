@@ -47,7 +47,9 @@ namespace Gibbed.Borderlands2.GameInfo
         {
             if (index < 0 || index >= this.Assets.Count)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(string.Format("invalid asset index {1} in sublibrary {0}",
+                                                                    this.Package,
+                                                                    index));
             }
 
             return this.Package + "." + this.Assets[index];

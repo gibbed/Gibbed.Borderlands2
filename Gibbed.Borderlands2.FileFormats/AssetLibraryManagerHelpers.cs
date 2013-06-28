@@ -64,8 +64,10 @@ namespace Gibbed.Borderlands2.FileFormats
                     {
                         if (platformLibrary.SublibraryRemappingAtoB.ContainsKey(sublibraryIndex) == false)
                         {
-                            throw new InvalidOperationException(string.Format("don't know how to remap {0}!",
-                                                                              sublibraryIndex));
+                            throw new InvalidOperationException(
+                                string.Format("don't know how to remap sublibrary {0} for set {1}!",
+                                              sublibraryIndex,
+                                              setId));
                         }
                         sublibraryIndex = platformLibrary.SublibraryRemappingAtoB[sublibraryIndex];
                     }
@@ -166,8 +168,10 @@ namespace Gibbed.Borderlands2.FileFormats
                     {
                         if (platformLibrary.SublibraryRemappingBtoA.ContainsKey(sublibraryIndex) == false)
                         {
-                            throw new InvalidOperationException(string.Format("don't know how to remap {0}!",
-                                                                              sublibraryIndex));
+                            throw new InvalidOperationException(
+                                string.Format("don't know how to remap sublibrary {0} for set {1}!",
+                                              sublibraryIndex,
+                                              actualSetId));
                         }
                         sublibraryIndex = platformLibrary.SublibraryRemappingBtoA[sublibraryIndex];
                     }
@@ -179,7 +183,9 @@ namespace Gibbed.Borderlands2.FileFormats
 
             if (sublibraryIndex < 0 || sublibraryIndex >= library.Sublibraries.Count)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(string.Format("invalid sublibrary index {1} in set {0}",
+                                                                    sublibraryIndex,
+                                                                    set.Id));
             }
 
             return library.Sublibraries[sublibraryIndex].GetAsset(assetIndex);
