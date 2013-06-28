@@ -87,6 +87,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         private List<PackedWeaponData> _PackedWeaponData;
         private bool _AwesomeSkillDisabled;
         private int _MaxBankSlots;
+        private int? _ExtraShowNewPlaythroughNotification;
         #endregion
 
         #region IComposable Members
@@ -1364,6 +1365,19 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 {
                     this._MaxBankSlots = value;
                     this.NotifyPropertyChanged("MaxBankSlots");
+                }
+            }
+        }
+
+        public int? ExtraShowNewPlaythroughNotification
+        {
+            get { return this._ExtraShowNewPlaythroughNotification; }
+            set
+            {
+                if (value != this._ExtraShowNewPlaythroughNotification)
+                {
+                    this._ExtraShowNewPlaythroughNotification = value;
+                    this.NotifyPropertyChanged("ExtraShowNewPlaythroughNotification");
                 }
             }
         }

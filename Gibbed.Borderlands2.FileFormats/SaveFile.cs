@@ -80,6 +80,56 @@ namespace Gibbed.Borderlands2.FileFormats
                 throw new InvalidOperationException("unsupported platform");
             }
 
+            var oldHacks = saveGame.PackedItemData.Where(pid => pid.Quantity < 0).ToArray();
+            foreach (var hack in oldHacks)
+            {
+                var type = (-hack.Quantity) & 0xFF;
+                if (type == 1 || type == 2 || type == 3)
+                {
+                    saveGame.PackedItemData.Remove(hack);
+                }
+            }
+
+            if (saveGame.CurrencyOnHand.Count >= 1 &&
+                saveGame.CurrencyOnHand[1] > 99 &&
+                saveGame.CurrencyOnHand[1] - 99 <= 0x7FFFFF)
+            {
+                saveGame.PackedItemData.Add(new WillowTwoSave.PackedItemData()
+                {
+                    Quantity = -(1 | ((saveGame.CurrencyOnHand[1] - 99) << 8)),
+                });
+                saveGame.CurrencyOnHand[1] = 99;
+            }
+
+            if (saveGame.PlaythroughsCompleted > 1 &&
+                saveGame.LastPlaythroughNumber >= 0 &&
+                saveGame.LastPlaythroughNumber - 1 <= 0x7FFFFF)
+            {
+                var extraLastPlaythroughNumber = saveGame.LastPlaythroughNumber - 1;
+                var extraPlaythroughsCompleted = saveGame.PlaythroughsCompleted - 1;
+
+                saveGame.PackedItemData.Add(new WillowTwoSave.PackedItemData()
+                {
+                    Quantity = -(2 | (extraLastPlaythroughNumber << 8)),
+                    Mark = (byte)extraPlaythroughsCompleted,
+                });
+
+                saveGame.LastPlaythroughNumber = saveGame.LastPlaythroughNumber >= 1 ? 1 : 0;
+                saveGame.PlaythroughsCompleted = 1;
+            }
+
+            if (saveGame.ExtraShowNewPlaythroughNotification.HasValue == true)
+            {
+                var value = saveGame.ExtraShowNewPlaythroughNotification.Value;
+                if (value <= 0x7FFFFF)
+                {
+                    saveGame.PackedItemData.Add(new WillowTwoSave.PackedItemData()
+                    {
+                        Quantity = -(3 | (value << 8)),
+                    });
+                }
+            }
+
             byte[] innerUncompressedBytes;
             using (var innerUncompressedData = new MemoryStream())
             {
@@ -544,6 +594,33 @@ namespace Gibbed.Borderlands2.FileFormats
                         }
 
                         saveGame.Decompose();
+
+                        var hacks = saveGame.PackedItemData.Where(pid => pid.Quantity < 0).ToArray();
+                        foreach (var hack in hacks)
+                        {
+                            var type = (-hack.Quantity) & 0xFF;
+                            if (type == 1)
+                            {
+                                if (saveGame.CurrencyOnHand.Count >= 1)
+                                {
+                                    saveGame.CurrencyOnHand[1] += ((-hack.Quantity) >> 8) & 0x7FFFFF;
+                                }
+
+                                saveGame.PackedItemData.Remove(hack);
+                            }
+                            else if (type == 2)
+                            {
+                                saveGame.LastPlaythroughNumber += ((-hack.Quantity) >> 8) & 0x7FFFFF;
+                                saveGame.PlaythroughsCompleted += (byte)hack.Mark;
+                                saveGame.PackedItemData.Remove(hack);
+                            }
+                            else if (type == 3)
+                            {
+                                saveGame.ExtraShowNewPlaythroughNotification = ((-hack.Quantity) >> 8) & 0x7FFFFF;
+                                saveGame.PackedItemData.Remove(hack);
+                            }
+                        }
+
                         return new SaveFile()
                         {
                             Platform = platform,
