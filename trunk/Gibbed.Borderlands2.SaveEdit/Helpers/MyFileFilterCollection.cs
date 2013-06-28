@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace Gibbed.Borderlands2.SaveEdit
@@ -94,7 +95,12 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             return string.Join("|",
                                this._Filters
-                                   .Select(x => string.Format("{0}|{1}", x.Description, x.FilterExpression)));
+                                   .Select(
+                                       x =>
+                                       string.Format(CultureInfo.InvariantCulture,
+                                                     "{0}|{1}",
+                                                     x.Description,
+                                                     x.FilterExpression)));
         }
 
         public int GetFilterIndex()
@@ -138,7 +144,12 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             internal string FilterExpression
             {
-                get { return string.Join(";", Extensions.Select(x => string.Format("*.{0}", x))); }
+                get
+                {
+                    return string.Join(";",
+                                       Extensions
+                                           .Select(x => string.Format(CultureInfo.InvariantCulture, "*.{0}", x)));
+                }
             }
 
             /// <summary>
@@ -166,7 +177,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             public MyFileFilterCollection WithDefaultDescription()
             {
                 var extensionString = string.Join(", ", this.Extensions.Select(Capitalize));
-                this.Description = string.Format("{0}-Files", extensionString);
+                this.Description = string.Format(CultureInfo.InvariantCulture, "{0}-Files", extensionString);
                 return this.FileFilterCollection;
             }
 
@@ -196,7 +207,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             /// <returns></returns>
             private string AppendExtensions(string s)
             {
-                return s + string.Format(" ({0})", FilterExpression);
+                return string.Format(CultureInfo.InvariantCulture, "{0} ({1})", s, FilterExpression);
             }
         }
     }

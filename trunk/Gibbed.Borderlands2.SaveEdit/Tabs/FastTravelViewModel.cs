@@ -60,18 +60,25 @@ namespace Gibbed.Borderlands2.SaveEdit
             this.VisitedTeleporters = new ObservableCollection<VisitedTeleporterDisplay>();
 
             var fastTravelStations = InfoManager.TravelStations.Items
-                .Where(kv => kv.Value is FastTravelStationDefinition)
-                .Select(kv => kv.Value)
-                .Cast<FastTravelStationDefinition>()
-                .ToList();
+                                                .Where(kv => kv.Value is FastTravelStationDefinition)
+                                                .Select(kv => kv.Value)
+                                                .Cast<FastTravelStationDefinition>()
+                                                .ToList();
 
             var levelTravelStations = InfoManager.TravelStations.Items
-                .Where(kv => kv.Value is LevelTravelStationDefinition)
-                .Select(kv => kv.Value)
-                .Cast<LevelTravelStationDefinition>()
-                .ToList();
+                                                 .Where(kv => kv.Value is LevelTravelStationDefinition)
+                                                 .Select(kv => kv.Value)
+                                                 .Cast<LevelTravelStationDefinition>()
+                                                 .ToList();
 
-            foreach (var kv in InfoManager.FastTravelStationOrdering.Items)
+            foreach (var kv in InfoManager.FastTravelStationOrdering.Items
+                                          .OrderBy(
+                                              fsto =>
+                                              fsto.Value.DLCExpansion == null
+                                                  ? 0
+                                                  : (fsto.Value.DLCExpansion.Package != null
+                                                         ? fsto.Value.DLCExpansion.Package.Id
+                                                         : int.MaxValue)))
             {
                 string group = kv.Value.DLCExpansion == null ? "Base Game" : kv.Value.DLCExpansion.Package.DisplayName;
                 foreach (var station in kv.Value.Stations)
@@ -92,7 +99,13 @@ namespace Gibbed.Borderlands2.SaveEdit
                 }
             }
 
-            foreach (var fastTravelStation in fastTravelStations)
+            foreach (var fastTravelStation in fastTravelStations
+                .OrderBy(fts =>
+                         fts.DLCExpansion == null
+                             ? 0
+                             : (fts.DLCExpansion.Package != null
+                                    ? fts.DLCExpansion.Package.Id
+                                    : int.MaxValue)))
             {
                 string displayName = string.IsNullOrEmpty(fastTravelStation.Sign) == false
                                          ? fastTravelStation.Sign
@@ -111,9 +124,19 @@ namespace Gibbed.Borderlands2.SaveEdit
                 });
             }
 
-            foreach (var levelTravelStation in levelTravelStations.OrderBy(lts => lts.ResourceName))
+            foreach (var levelTravelStation in levelTravelStations
+                .OrderBy(
+                    lts =>
+                    lts.DLCExpansion == null
+                        ? 0
+                        : (lts.DLCExpansion.Package != null
+                               ? lts.DLCExpansion.Package.Id
+                               : int.MaxValue))
+                .ThenBy(lts => lts.ResourceName))
             {
-                string group = levelTravelStation.DLCExpansion == null ? "Base Game" : levelTravelStation.DLCExpansion.Package.DisplayName;
+                string group = levelTravelStation.DLCExpansion == null
+                                   ? "Base Game"
+                                   : levelTravelStation.DLCExpansion.Package.DisplayName;
                 var displayName = string.IsNullOrEmpty(levelTravelStation.DisplayName) == false
                                       ? levelTravelStation.DisplayName
                                       : levelTravelStation.ResourceName;

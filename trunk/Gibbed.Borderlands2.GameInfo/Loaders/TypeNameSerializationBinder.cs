@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Globalization;
 using System.Runtime.Serialization;
 
 namespace Gibbed.Borderlands2.GameInfo.Loaders
@@ -42,7 +43,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
 
         public override Type BindToType(string assemblyName, string typeName)
         {
-            var resolvedTypeName = string.Format(TypeFormat, typeName);
+            var resolvedTypeName = string.Format(CultureInfo.InvariantCulture, TypeFormat, typeName);
             return Type.GetType(resolvedTypeName, true);
         }
     }
