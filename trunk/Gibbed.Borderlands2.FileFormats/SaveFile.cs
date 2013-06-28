@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using Gibbed.Borderlands2.GameInfo;
 using Gibbed.IO;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using WillowTwoSave = Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave;

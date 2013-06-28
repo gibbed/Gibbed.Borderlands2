@@ -20,17 +20,15 @@
  *    distribution.
  */
 
-using System;
-using Gibbed.Borderlands2.GameInfo;
-
-namespace Gibbed.Borderlands2.FileFormats.Items
+namespace Gibbed.Borderlands2.GameInfo
 {
-    public interface IPackable : ICloneable
+    public enum Platform
     {
-        int UniqueId { get; set; }
-        int AssetLibrarySetId { get; set; }
-
-        void Read(BitReader reader, Platform platform);
-        void Write(BitWriter writer, Platform platform);
+        // ReSharper disable InconsistentNaming
+        Invalid = 0,
+        PC,
+        X360,
+        PS3,
+        // ReSharper restore InconsistentNaming
     }
 }

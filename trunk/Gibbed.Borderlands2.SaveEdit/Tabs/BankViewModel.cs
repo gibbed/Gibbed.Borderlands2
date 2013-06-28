@@ -33,6 +33,7 @@ using System.Windows.Input;
 using Caliburn.Micro;
 using Caliburn.Micro.Contrib.Results;
 using Gibbed.Borderlands2.FileFormats.Items;
+using Gibbed.Borderlands2.GameInfo;
 using Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave;
 
 namespace Gibbed.Borderlands2.SaveEdit
@@ -56,18 +57,18 @@ namespace Gibbed.Borderlands2.SaveEdit
         [Import]
         private BackpackViewModel _Backpack { get; set; }
 
-        public IEnumerable<GameInfo.DownloadablePackageDefinition> DownloadablePackages
+        public IEnumerable<DownloadablePackageDefinition> DownloadablePackages
         {
             get
             {
                 return
-                    GameInfo.InfoManager.DownloadableContents.Items
-                            .Where(dc => dc.Value.Type == GameInfo.DownloadableContentType.ItemSet &&
-                                         dc.Value.Package != null)
-                            .Select(dc => dc.Value.Package)
-                            .Where(dp => GameInfo.InfoManager.AssetLibraryManager.Sets.Any(s => s.Id == dp.Id) == true)
-                            .Distinct()
-                            .OrderBy(dp => dp.Id);
+                    InfoManager.DownloadableContents.Items
+                               .Where(dc => dc.Value.Type == DownloadableContentType.ItemSet &&
+                                            dc.Value.Package != null)
+                               .Select(dc => dc.Value.Package)
+                               .Where(dp => InfoManager.AssetLibraryManager.Sets.Any(s => s.Id == dp.Id) == true)
+                               .Distinct()
+                               .OrderBy(dp => dp.Id);
             }
         }
 
@@ -178,7 +179,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                     try
                     {
                         var data = Convert.FromBase64String(code);
-                        packable = BaseDataHelper.Decode(data);
+                        packable = BaseDataHelper.Decode(data, Platform.PC);
                     }
                     catch (Exception)
                     {
@@ -244,7 +245,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 var copy = (IPackable)this.SelectedSlot.BaseSlot.Clone();
                 copy.UniqueId = 0;
 
-                var data = BaseDataHelper.Encode(copy);
+                var data = BaseDataHelper.Encode(copy, Platform.PC);
                 var sb = new StringBuilder();
                 sb.Append("BL2(");
                 sb.Append(Convert.ToBase64String(data, Base64FormattingOptions.None));
@@ -335,14 +336,14 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        public void ImportData(WillowTwoPlayerSaveGame saveGame)
+        public void ImportData(WillowTwoPlayerSaveGame saveGame, Platform platform)
         {
             this.Slots.Clear();
 
             foreach (var bankSlot in saveGame.BankSlots)
             {
-                var slot = BaseDataHelper.Decode(bankSlot.InventorySerialNumber);
-                var test = BaseDataHelper.Encode(slot);
+                var slot = BaseDataHelper.Decode(bankSlot.InventorySerialNumber, platform);
+                var test = BaseDataHelper.Encode(slot, platform);
                 if (bankSlot.InventorySerialNumber.SequenceEqual(test) == false)
                 {
                     throw new FormatException("bank slot reencode mismatch");
@@ -361,7 +362,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        public void ExportData(WillowTwoPlayerSaveGame saveGame)
+        public void ExportData(WillowTwoPlayerSaveGame saveGame, Platform platform)
         {
             saveGame.BankSlots.Clear();
 
@@ -372,7 +373,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 if (slot is BaseWeapon)
                 {
                     var weapon = (BaseWeapon)slot;
-                    var data = BaseDataHelper.Encode(weapon);
+                    var data = BaseDataHelper.Encode(weapon, platform);
 
                     saveGame.BankSlots.Add(new BankSlot()
                     {
@@ -382,7 +383,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 else if (slot is BaseItem)
                 {
                     var item = (BaseItem)slot;
-                    var data = BaseDataHelper.Encode(item);
+                    var data = BaseDataHelper.Encode(item, platform);
 
                     saveGame.BankSlots.Add(new BankSlot()
                     {

@@ -28,28 +28,49 @@ namespace Gibbed.Borderlands2.FileFormats
 {
     public static class AssetLibraryManagerHelpers
     {
-        private static bool GetIndex(this AssetLibraryManager alm,
+        private static bool GetIndex(this AssetLibraryManager assetLibraryManager,
+                                     Platform platform,
                                      int setId,
                                      AssetGroup group,
                                      string package,
                                      string asset,
                                      out uint index)
         {
-            var config = alm.Configurations[group];
+            var config = assetLibraryManager.Configurations[group];
 
-            var set = alm.GetSet(setId);
+            var set = assetLibraryManager.GetSet(setId);
             var library = set.Libraries[group];
 
             var sublibrary =
-                library.Sublibraries.FirstOrDefault(sl => sl.Package == package && sl.Assets.Contains(asset));
+                library.Sublibraries.FirstOrDefault(sl => sl.Package == package && sl.Assets.Contains(asset) == true);
             if (sublibrary == null)
             {
                 index = 0;
                 return false;
             }
-
             var sublibraryIndex = library.Sublibraries.IndexOf(sublibrary);
             var assetIndex = sublibrary.Assets.IndexOf(asset);
+
+            var platformConfig = InfoManager.PlatformConfigurations.GetOrDefault(platform);
+            if (platformConfig != null)
+            {
+                var platformSet = platformConfig.GetSet(setId);
+                if (platformSet != null &&
+                    platformSet.Libraries.ContainsKey(group) == true)
+                {
+                    var platformLibrary = platformSet.Libraries[group];
+                    if (platformLibrary.SublibraryRemappingAtoB != null &&
+                        platformLibrary.SublibraryRemappingAtoB.Count > 0)
+                    {
+                        if (platformLibrary.SublibraryRemappingAtoB.ContainsKey(sublibraryIndex) == false)
+                        {
+                            throw new InvalidOperationException(string.Format("don't know how to remap {0}!",
+                                                                              sublibraryIndex));
+                        }
+                        sublibraryIndex = platformLibrary.SublibraryRemappingAtoB[sublibraryIndex];
+                    }
+                }
+            }
 
             index = 0;
             index |= (((uint)assetIndex) & config.AssetMask) << 0;
@@ -63,8 +84,9 @@ namespace Gibbed.Borderlands2.FileFormats
             return true;
         }
 
-        public static void Encode(this AssetLibraryManager alm,
+        public static void Encode(this AssetLibraryManager assetLibraryManager,
                                   BitWriter writer,
+                                  Platform platform,
                                   int setId,
                                   AssetGroup group,
                                   string value)
@@ -79,7 +101,7 @@ namespace Gibbed.Borderlands2.FileFormats
                 throw new ArgumentNullException("value");
             }
 
-            var config = alm.Configurations[group];
+            var config = assetLibraryManager.Configurations[group];
 
             uint index;
             if (value == "None")
@@ -100,10 +122,9 @@ namespace Gibbed.Borderlands2.FileFormats
 
                 var package = parts[0];
                 var asset = parts[1];
-
-                if (alm.GetIndex(setId, group, package, asset, out index) == false)
+                if (assetLibraryManager.GetIndex(platform, setId, group, package, asset, out index) == false)
                 {
-                    if (alm.GetIndex(0, group, package, asset, out index) == false)
+                    if (assetLibraryManager.GetIndex(platform, 0, group, package, asset, out index) == false)
                     {
                         throw new ArgumentException("unsupported asset");
                     }
@@ -113,9 +134,13 @@ namespace Gibbed.Borderlands2.FileFormats
             writer.WriteUInt32(index, config.SublibraryBits + config.AssetBits);
         }
 
-        public static string Decode(this AssetLibraryManager alm, BitReader reader, int setId, AssetGroup group)
+        public static string Decode(this AssetLibraryManager assetLibraryManager,
+                                    BitReader reader,
+                                    Platform platform,
+                                    int setId,
+                                    AssetGroup group)
         {
-            var config = alm.Configurations[group];
+            var config = assetLibraryManager.Configurations[group];
 
             var index = reader.ReadUInt32(config.SublibraryBits + config.AssetBits);
             if (index == config.NoneIndex)
@@ -126,8 +151,30 @@ namespace Gibbed.Borderlands2.FileFormats
             var assetIndex = (int)((index >> 0) & config.AssetMask);
             var sublibraryIndex = (int)((index >> config.AssetBits) & config.SublibraryMask);
             var useSetId = ((index >> config.AssetBits) & config.UseSetIdMask) != 0;
+            var actualSetId = useSetId == false ? 0 : setId;
 
-            var set = alm.GetSet(useSetId == false ? 0 : setId);
+            var platformConfig = InfoManager.PlatformConfigurations.GetOrDefault(platform);
+            if (platformConfig != null)
+            {
+                var platformSet = platformConfig.GetSet(actualSetId);
+                if (platformSet != null &&
+                    platformSet.Libraries.ContainsKey(group) == true)
+                {
+                    var platformLibrary = platformSet.Libraries[group];
+                    if (platformLibrary.SublibraryRemappingBtoA != null &&
+                        platformLibrary.SublibraryRemappingBtoA.Count > 0)
+                    {
+                        if (platformLibrary.SublibraryRemappingBtoA.ContainsKey(sublibraryIndex) == false)
+                        {
+                            throw new InvalidOperationException(string.Format("don't know how to remap {0}!",
+                                                                              sublibraryIndex));
+                        }
+                        sublibraryIndex = platformLibrary.SublibraryRemappingBtoA[sublibraryIndex];
+                    }
+                }
+            }
+
+            var set = assetLibraryManager.GetSet(actualSetId);
             var library = set.Libraries[group];
 
             if (sublibraryIndex < 0 || sublibraryIndex >= library.Sublibraries.Count)

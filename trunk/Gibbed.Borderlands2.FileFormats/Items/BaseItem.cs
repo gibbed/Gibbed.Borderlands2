@@ -49,48 +49,48 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         #endregion
 
         #region IPackable Members
-        public void Read(BitReader reader)
+        public void Read(BitReader reader, Platform platform)
         {
             var alm = InfoManager.AssetLibraryManager;
 
-            this.Type = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemTypes);
-            this.Balance = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.BalanceDefs);
-            this.Manufacturer = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.Manufacturers);
+            this.Type = alm.Decode(reader, platform, this.AssetLibrarySetId, AssetGroup.ItemTypes);
+            this.Balance = alm.Decode(reader, platform, this.AssetLibrarySetId, AssetGroup.BalanceDefs);
+            this.Manufacturer = alm.Decode(reader, platform, this.AssetLibrarySetId, AssetGroup.Manufacturers);
             this.ManufacturerGradeIndex = reader.ReadInt32(7);
             this.GameStage = reader.ReadInt32(7);
-            this.AlphaPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.BetaPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.GammaPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.DeltaPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.EpsilonPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.ZetaPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.EtaPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.ThetaPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.MaterialPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.PrefixPart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.TitlePart = alm.Decode(reader, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.AlphaPart = alm.Decode(reader, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.BetaPart = alm.Decode(reader, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.GammaPart = alm.Decode(reader, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.DeltaPart = alm.Decode(reader, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.EpsilonPart = alm.Decode(reader, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.ZetaPart = alm.Decode(reader, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.EtaPart = alm.Decode(reader, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.ThetaPart = alm.Decode(reader, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.MaterialPart = alm.Decode(reader, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.PrefixPart = alm.Decode(reader, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.TitlePart = alm.Decode(reader, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
         }
 
-        public void Write(BitWriter writer)
+        public void Write(BitWriter writer, Platform platform)
         {
             var alm = InfoManager.AssetLibraryManager;
 
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemTypes, this.Type);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.BalanceDefs, this.Balance);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.Manufacturers, this.Manufacturer);
+            alm.Encode(writer, platform, this.AssetLibrarySetId, AssetGroup.ItemTypes, this.Type);
+            alm.Encode(writer, platform, this.AssetLibrarySetId, AssetGroup.BalanceDefs, this.Balance);
+            alm.Encode(writer, platform, this.AssetLibrarySetId, AssetGroup.Manufacturers, this.Manufacturer);
             writer.WriteInt32(this.ManufacturerGradeIndex, 7);
             writer.WriteInt32(this.GameStage, 7);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.AlphaPart);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.BetaPart);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.GammaPart);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.DeltaPart);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.EpsilonPart);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.ZetaPart);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.EtaPart);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.ThetaPart);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.MaterialPart);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.PrefixPart);
-            alm.Encode(writer, this.AssetLibrarySetId, AssetGroup.ItemParts, this.TitlePart);
+            alm.Encode(writer, platform, this.AssetLibrarySetId, AssetGroup.ItemParts, this.AlphaPart);
+            alm.Encode(writer, platform, this.AssetLibrarySetId, AssetGroup.ItemParts, this.BetaPart);
+            alm.Encode(writer, platform, this.AssetLibrarySetId, AssetGroup.ItemParts, this.GammaPart);
+            alm.Encode(writer, platform, this.AssetLibrarySetId, AssetGroup.ItemParts, this.DeltaPart);
+            alm.Encode(writer, platform, this.AssetLibrarySetId, AssetGroup.ItemParts, this.EpsilonPart);
+            alm.Encode(writer, platform, this.AssetLibrarySetId, AssetGroup.ItemParts, this.ZetaPart);
+            alm.Encode(writer, platform, this.AssetLibrarySetId, AssetGroup.ItemParts, this.EtaPart);
+            alm.Encode(writer, platform, this.AssetLibrarySetId, AssetGroup.ItemParts, this.ThetaPart);
+            alm.Encode(writer, platform, this.AssetLibrarySetId, AssetGroup.ItemParts, this.MaterialPart);
+            alm.Encode(writer, platform, this.AssetLibrarySetId, AssetGroup.ItemParts, this.PrefixPart);
+            alm.Encode(writer, platform, this.AssetLibrarySetId, AssetGroup.ItemParts, this.TitlePart);
         }
         #endregion
 

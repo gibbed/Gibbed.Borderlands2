@@ -31,7 +31,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         where TWeapon : BaseWeapon, new()
         where TItem : BaseItem, new()
     {
-        public static byte[] Encode(IPackable packable)
+        public static byte[] Encode(IPackable packable, Platform platform)
         {
             if (packable == null)
             {
@@ -57,7 +57,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             writer.WriteInt32(packable.UniqueId, 32);
             writer.WriteUInt16(0xFFFF, 16);
             writer.WriteInt32(packable.AssetLibrarySetId, 8);
-            packable.Write(writer);
+            packable.Write(writer, platform);
 
             var unobfuscatedBytes = writer.GetBuffer();
             if (unobfuscatedBytes.Length > 40)
@@ -116,7 +116,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             Array.Copy(temp, 0, buffer, offset, length);
         }
 
-        public static IPackable Decode(byte[] data)
+        public static IPackable Decode(byte[] data, Platform platform)
         {
             if (data.Length < 5 || data.Length > 40)
             {
@@ -190,7 +190,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                                      : new TItem();
             packable.UniqueId = uniqueId;
             packable.AssetLibrarySetId = setId;
-            packable.Read(reader);
+            packable.Read(reader, platform);
             return packable;
         }
 

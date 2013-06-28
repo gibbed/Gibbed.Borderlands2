@@ -33,6 +33,7 @@ using System.Windows.Input;
 using Caliburn.Micro;
 using Caliburn.Micro.Contrib.Results;
 using Gibbed.Borderlands2.FileFormats.Items;
+using Gibbed.Borderlands2.GameInfo;
 using Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave;
 
 namespace Gibbed.Borderlands2.SaveEdit
@@ -59,18 +60,18 @@ namespace Gibbed.Borderlands2.SaveEdit
         [Import]
         private BankViewModel _Bank { get; set; }
 
-        public IEnumerable<GameInfo.DownloadablePackageDefinition> DownloadablePackages
+        public IEnumerable<DownloadablePackageDefinition> DownloadablePackages
         {
             get
             {
                 return
-                    GameInfo.InfoManager.DownloadableContents.Items
-                            .Where(dc => dc.Value.Type == GameInfo.DownloadableContentType.ItemSet &&
-                                         dc.Value.Package != null)
-                            .Select(dc => dc.Value.Package)
-                            .Where(dp => GameInfo.InfoManager.AssetLibraryManager.Sets.Any(s => s.Id == dp.Id) == true)
-                            .Distinct()
-                            .OrderBy(dp => dp.Id);
+                    InfoManager.DownloadableContents.Items
+                               .Where(dc => dc.Value.Type == DownloadableContentType.ItemSet &&
+                                            dc.Value.Package != null)
+                               .Select(dc => dc.Value.Package)
+                               .Where(dp => InfoManager.AssetLibraryManager.Sets.Any(s => s.Id == dp.Id) == true)
+                               .Distinct()
+                               .OrderBy(dp => dp.Id);
             }
         }
 
@@ -173,7 +174,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 codes = Regex.Replace(codes, @"\s+", "");
 
                 foreach (var match in _CodeSignature.Matches(codes).Cast<Match>()
-                    .Where(m => m.Success == true))
+                                                    .Where(m => m.Success == true))
                 {
                     var code = match.Groups["data"].Value;
 
@@ -182,7 +183,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                     try
                     {
                         var data = Convert.FromBase64String(code);
-                        packable = BackpackDataHelper.Decode(data);
+                        packable = BackpackDataHelper.Decode(data, Platform.PC);
                     }
                     catch (Exception)
                     {
@@ -256,7 +257,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 var copy = (IPackable)this.SelectedSlot.BackpackSlot.Clone();
                 copy.UniqueId = 0;
 
-                var data = BackpackDataHelper.Encode(copy);
+                var data = BackpackDataHelper.Encode(copy, Platform.PC);
                 var sb = new StringBuilder();
                 sb.Append("BL2(");
                 sb.Append(Convert.ToBase64String(data, Base64FormattingOptions.None));
@@ -394,14 +395,14 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        public void ImportData(WillowTwoPlayerSaveGame saveGame)
+        public void ImportData(WillowTwoPlayerSaveGame saveGame, Platform platform)
         {
             this.Slots.Clear();
 
             foreach (var packedWeapon in saveGame.PackedWeaponData)
             {
-                var weapon = (BackpackWeapon)BackpackDataHelper.Decode(packedWeapon.InventorySerialNumber);
-                var test = BackpackDataHelper.Encode(weapon);
+                var weapon = (BackpackWeapon)BackpackDataHelper.Decode(packedWeapon.InventorySerialNumber, platform);
+                var test = BackpackDataHelper.Encode(weapon, platform);
                 if (packedWeapon.InventorySerialNumber.SequenceEqual(test) == false)
                 {
                     throw new FormatException("backpack weapon reencode mismatch");
@@ -420,8 +421,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                 // TODO: STUPID STUPID STUPID STUPID WHY GEARBOX WHY?????????????????????
                 if (packedItem.Quantity >= 0)
                 {
-                    var item = (BackpackItem)BackpackDataHelper.Decode(packedItem.InventorySerialNumber);
-                    var test = BackpackDataHelper.Encode(item);
+                    var item = (BackpackItem)BackpackDataHelper.Decode(packedItem.InventorySerialNumber, platform);
+                    var test = BackpackDataHelper.Encode(item, platform);
                     if (packedItem.InventorySerialNumber.SequenceEqual(test) == false)
                     {
                         throw new FormatException("backpack item reencode mismatch");
@@ -449,7 +450,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        public void ExportData(WillowTwoPlayerSaveGame saveGame)
+        public void ExportData(WillowTwoPlayerSaveGame saveGame, Platform platform)
         {
             saveGame.PackedWeaponData.Clear();
             saveGame.PackedItemData.Clear();
@@ -461,7 +462,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 if (slot is BackpackWeapon)
                 {
                     var weapon = (BackpackWeapon)slot;
-                    var data = BackpackDataHelper.Encode(weapon);
+                    var data = BackpackDataHelper.Encode(weapon, platform);
 
                     saveGame.PackedWeaponData.Add(new PackedWeaponData()
                     {
@@ -473,7 +474,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 else if (slot is BackpackItem)
                 {
                     var item = (BackpackItem)slot;
-                    var data = BackpackDataHelper.Encode(item);
+                    var data = BackpackDataHelper.Encode(item, platform);
 
                     saveGame.PackedItemData.Add(new PackedItemData()
                     {

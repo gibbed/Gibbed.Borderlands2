@@ -20,15 +20,17 @@
  *    distribution.
  */
 
-namespace Gibbed.Borderlands2.FileFormats
+using System.Collections.Generic;
+
+namespace Gibbed.Borderlands2.GameInfo
 {
-    public enum Platform
+    public sealed class PlatformAssetLibrarySet
     {
-        // ReSharper disable InconsistentNaming
-        Invalid = 0,
-        PC,
-        X360,
-        PS3,
-        // ReSharper restore InconsistentNaming
+        internal PlatformAssetLibrarySet()
+        {
+        }
+
+        public int Id { get; internal set; }
+        public Dictionary<AssetGroup, PlatformAssetLibraryConfiguration> Libraries { get; internal set; }
     }
 }

@@ -57,12 +57,12 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        public bool Equipped
+        public bool? Equipped
         {
             get { return this._Item.Equipped; }
             set
             {
-                this._Item.Equipped = value;
+                this._Item.Equipped = value.HasValue == false ? false : value.Value;
                 this.NotifyOfPropertyChange(() => this.Equipped);
                 this.NotifyOfPropertyChange(() => this.DisplayGroup);
             }
