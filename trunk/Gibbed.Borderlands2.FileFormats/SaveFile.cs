@@ -39,6 +39,15 @@ namespace Gibbed.Borderlands2.FileFormats
         private WillowTwoSave.WillowTwoPlayerSaveGame _SaveGame;
         #endregion
 
+        private static readonly byte[] _HackInventorySerialNumber = new byte[]
+        {
+            0x07, 0x00, 0x00, 0x00, 0x00, 0x39, 0x2A, 0xFF,
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        };
+
         #region Properties
         public Platform Platform
         {
@@ -96,6 +105,7 @@ namespace Gibbed.Borderlands2.FileFormats
             {
                 saveGame.PackedItemData.Add(new WillowTwoSave.PackedItemData()
                 {
+                    InventorySerialNumber = (byte[])_HackInventorySerialNumber.Clone(),
                     Quantity = -(1 | ((saveGame.CurrencyOnHand[1] - 99) << 8)),
                 });
                 saveGame.CurrencyOnHand[1] = 99;
@@ -110,6 +120,7 @@ namespace Gibbed.Borderlands2.FileFormats
 
                 saveGame.PackedItemData.Add(new WillowTwoSave.PackedItemData()
                 {
+                    InventorySerialNumber = (byte[])_HackInventorySerialNumber.Clone(),
                     Quantity = -(2 | (extraLastPlaythroughNumber << 8)),
                     Mark = (byte)extraPlaythroughsCompleted,
                 });
@@ -125,6 +136,7 @@ namespace Gibbed.Borderlands2.FileFormats
                 {
                     saveGame.PackedItemData.Add(new WillowTwoSave.PackedItemData()
                     {
+                        InventorySerialNumber = (byte[])_HackInventorySerialNumber.Clone(),
                         Quantity = -(3 | (value << 8)),
                     });
                 }
