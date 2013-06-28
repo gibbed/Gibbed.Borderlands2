@@ -264,12 +264,20 @@ namespace Gibbed.Borderlands2.SaveEdit
                                                                 FileFormats.SaveFile.DeserializeSettings.None);
                 }
 
-                this.General.ImportData(saveFile.SaveGame, saveFile.Platform);
-                this.CurrencyOnHand.ImportData(saveFile.SaveGame);
-                this.Backpack.ImportData(saveFile.SaveGame, saveFile.Platform);
-                this.Bank.ImportData(saveFile.SaveGame, saveFile.Platform);
-                this.FastTravel.ImportData(saveFile.SaveGame);
-                this.SaveFile = saveFile;
+                try
+                {
+                    this.General.ImportData(saveFile.SaveGame, saveFile.Platform);
+                    this.CurrencyOnHand.ImportData(saveFile.SaveGame);
+                    this.Backpack.ImportData(saveFile.SaveGame, saveFile.Platform);
+                    this.Bank.ImportData(saveFile.SaveGame, saveFile.Platform);
+                    this.FastTravel.ImportData(saveFile.SaveGame);
+                    this.SaveFile = saveFile;
+                }
+                catch (Exception)
+                {
+                    this.SaveFile = null;
+                    throw;
+                }
             })
                 .Rescue<DllNotFoundException>().Execute(
                     x => new MyMessageBox("Failed to load save: " + x.Message, "Error")
@@ -296,6 +304,118 @@ namespace Gibbed.Borderlands2.SaveEdit
                                      "See http://bit.ly/graveyardsav for more details.",
                                      "Information")
                         .WithIcon(MessageBoxImage.Information);
+            }
+
+
+            if (this.SaveFile != null &&
+                this.Backpack.BrokenWeapons.Count > 0)
+            {
+                var result = MessageBoxResult.No;
+                do
+                {
+                    yield return
+                        new MyMessageBox(
+                            "There were weapons in the backpack that failed to load. Do you want to remove them?\n\n" +
+                            "If you choose not to remove them, they will remain in your save but will not be editable." +
+                            (result != MessageBoxResult.Cancel ? "\n\nChoose Cancel to copy error information to the clipboard." : ""),
+                            "Warning")
+                            .WithButton(result != MessageBoxResult.Cancel ? MessageBoxButton.YesNoCancel : MessageBoxButton.YesNo)
+                            .WithDefaultResult(MessageBoxResult.No)
+                            .WithResultDo(r => result = r)
+                            .WithIcon(MessageBoxImage.Warning);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        this.Backpack.BrokenWeapons.Clear();
+                    }
+                    else if (result == MessageBoxResult.Cancel)
+                    {
+                        var sb = new StringBuilder();
+                        this.Backpack.BrokenWeapons.ForEach(kv =>
+                        {
+                            sb.AppendLine(kv.Value.ToString());
+                            sb.AppendLine();
+                        });
+                        if (MyClipboard.SetText(sb.ToString()) != MyClipboard.Result.Success)
+                        {
+                            MessageBox.Show("Clipboard failure.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                }
+                while (result == MessageBoxResult.Cancel);
+            }
+
+            if (this.SaveFile != null &&
+                this.Backpack.BrokenItems.Count > 0)
+            {
+                var result = MessageBoxResult.No;
+                do
+                {
+                    yield return
+                        new MyMessageBox(
+                            "There were items in the backpack that failed to load. Do you want to remove them?\n\n" +
+                            "If you choose not to remove them, they will remain in your save but will not be editable." +
+                            (result != MessageBoxResult.Cancel ? "\n\nChoose Cancel to copy error information to the clipboard." : ""),
+                            "Warning")
+                            .WithButton(result != MessageBoxResult.Cancel ? MessageBoxButton.YesNoCancel : MessageBoxButton.YesNo)
+                            .WithDefaultResult(MessageBoxResult.No)
+                            .WithResultDo(r => result = r)
+                            .WithIcon(MessageBoxImage.Warning);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        this.Backpack.BrokenItems.Clear();
+                    }
+                    else if (result == MessageBoxResult.Cancel)
+                    {
+                        var sb = new StringBuilder();
+                        this.Backpack.BrokenItems.ForEach(kv =>
+                        {
+                            sb.AppendLine(kv.Value.ToString());
+                            sb.AppendLine();
+                        });
+                        if (MyClipboard.SetText(sb.ToString()) != MyClipboard.Result.Success)
+                        {
+                            MessageBox.Show("Clipboard failure.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                }
+                while (result == MessageBoxResult.Cancel);
+            }
+
+            if (this.SaveFile != null &&
+                this.Bank.BrokenSlots.Count > 0)
+            {
+                var result = MessageBoxResult.No;
+                do
+                {
+                    yield return
+                        new MyMessageBox(
+                            "There were weapons or items in the bank that failed to load. Do you want to remove them?\n\n" +
+                            "If you choose not to remove them, they will remain in your save but will not be editable." +
+                            (result != MessageBoxResult.Cancel ? "\n\nChoose Cancel to copy error information to the clipboard." : ""),
+                            "Warning")
+                            .WithButton(result != MessageBoxResult.Cancel ? MessageBoxButton.YesNoCancel : MessageBoxButton.YesNo)
+                            .WithDefaultResult(MessageBoxResult.No)
+                            .WithResultDo(r => result = r)
+                            .WithIcon(MessageBoxImage.Warning);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        this.Bank.BrokenSlots.Clear();
+                    }
+                    else if (result == MessageBoxResult.Cancel)
+                    {
+                        var sb = new StringBuilder();
+                        this.Bank.BrokenSlots.ForEach(kv =>
+                        {
+                            sb.AppendLine(kv.Value.ToString());
+                            sb.AppendLine();
+                        });
+                        if (MyClipboard.SetText(sb.ToString()) != MyClipboard.Result.Success)
+                        {
+                            MessageBox.Show("Clipboard failure.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                }
+                while (result == MessageBoxResult.Cancel);
             }
         }
 

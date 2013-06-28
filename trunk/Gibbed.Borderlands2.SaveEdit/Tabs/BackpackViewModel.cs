@@ -47,6 +47,9 @@ namespace Gibbed.Borderlands2.SaveEdit
         // TODO: STUPID STUPID STUPID STUPID WHY GEARBOX WHY?????????????????????
         private readonly List<PackedItemData> _ExpansionItems;
 
+        private readonly List<KeyValuePair<PackedWeaponData, Exception>> _BrokenWeapons;
+        private readonly List<KeyValuePair<PackedItemData, Exception>> _BrokenItems;
+
         private IBackpackSlotViewModel _SelectedSlot;
 
         private ICommand _NewWeapon;
@@ -80,6 +83,16 @@ namespace Gibbed.Borderlands2.SaveEdit
             get { return this._Slots; }
         }
 
+        public List<KeyValuePair<PackedWeaponData, Exception>> BrokenWeapons
+        {
+            get { return this._BrokenWeapons; }
+        }
+
+        public List<KeyValuePair<PackedItemData, Exception>> BrokenItems
+        {
+            get { return this._BrokenItems; }
+        }
+
         public IBackpackSlotViewModel SelectedSlot
         {
             get { return this._SelectedSlot; }
@@ -106,6 +119,8 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             this._Slots = new ObservableCollection<IBackpackSlotViewModel>();
             this._ExpansionItems = new List<PackedItemData>();
+            this._BrokenWeapons = new List<KeyValuePair<PackedWeaponData, Exception>>();
+            this._BrokenItems = new List<KeyValuePair<PackedItemData, Exception>>();
             this._NewWeapon = new DelegateCommand<int>(x => this.DoNewWeapon(x));
             this._NewItem = new DelegateCommand<int>(x => this.DoNewItem(x));
             events.Subscribe(this);
@@ -399,9 +414,20 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             this.Slots.Clear();
 
+            this._BrokenWeapons.Clear();
             foreach (var packedWeapon in saveGame.PackedWeaponData)
             {
-                var weapon = (BackpackWeapon)BackpackDataHelper.Decode(packedWeapon.InventorySerialNumber, platform);
+                BackpackWeapon weapon;
+                try
+                {
+                    weapon = (BackpackWeapon)BackpackDataHelper.Decode(packedWeapon.InventorySerialNumber, platform);
+                }
+                catch (Exception e)
+                {
+                    this._BrokenWeapons.Add(new KeyValuePair<PackedWeaponData, Exception>(packedWeapon, e));
+                    continue;
+                }
+
                 var test = BackpackDataHelper.Encode(weapon, platform);
                 if (packedWeapon.InventorySerialNumber.SequenceEqual(test) == false)
                 {
@@ -416,37 +442,47 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
 
             this._ExpansionItems.Clear();
+            this._BrokenItems.Clear();
             foreach (var packedItem in saveGame.PackedItemData)
             {
                 // TODO: STUPID STUPID STUPID STUPID WHY GEARBOX WHY?????????????????????
-                if (packedItem.Quantity >= 0)
-                {
-                    var item = (BackpackItem)BackpackDataHelper.Decode(packedItem.InventorySerialNumber, platform);
-                    var test = BackpackDataHelper.Encode(item, platform);
-                    if (packedItem.InventorySerialNumber.SequenceEqual(test) == false)
-                    {
-                        throw new FormatException("backpack item reencode mismatch");
-                    }
-
-                    item.Quantity = packedItem.Quantity;
-                    item.Equipped = packedItem.Equipped;
-                    item.Mark = (PlayerMark)packedItem.Mark;
-
-                    // required since protobuf is no longer doing the validation for us
-                    if (item.Mark != PlayerMark.Trash &&
-                        item.Mark != PlayerMark.Standard &&
-                        item.Mark != PlayerMark.Favorite)
-                    {
-                        throw new FormatException("invalid PlayerMark value");
-                    }
-
-                    var viewModel = new BackpackItemViewModel(item);
-                    this.Slots.Add(viewModel);
-                }
-                else
+                if (packedItem.Quantity < 0)
                 {
                     this._ExpansionItems.Add(packedItem);
+                    continue;
                 }
+
+                BackpackItem item;
+                try
+                {
+                    item = (BackpackItem)BackpackDataHelper.Decode(packedItem.InventorySerialNumber, platform);
+                }
+                catch (Exception e)
+                {
+                    this._BrokenItems.Add(new KeyValuePair<PackedItemData, Exception>(packedItem, e));
+                    continue;
+                }
+
+                var test = BackpackDataHelper.Encode(item, platform);
+                if (packedItem.InventorySerialNumber.SequenceEqual(test) == false)
+                {
+                    throw new FormatException("backpack item reencode mismatch");
+                }
+
+                item.Quantity = packedItem.Quantity;
+                item.Equipped = packedItem.Equipped;
+                item.Mark = (PlayerMark)packedItem.Mark;
+
+                // required since protobuf is no longer doing the validation for us
+                if (item.Mark != PlayerMark.Trash &&
+                    item.Mark != PlayerMark.Standard &&
+                    item.Mark != PlayerMark.Favorite)
+                {
+                    throw new FormatException("invalid PlayerMark value");
+                }
+
+                var viewModel = new BackpackItemViewModel(item);
+                this.Slots.Add(viewModel);
             }
         }
 
@@ -489,6 +525,9 @@ namespace Gibbed.Borderlands2.SaveEdit
                     throw new NotSupportedException();
                 }
             }
+
+            this._BrokenWeapons.ForEach(kv => saveGame.PackedWeaponData.Add(kv.Key));
+            this._BrokenItems.ForEach(kv => saveGame.PackedItemData.Add(kv.Key));
 
             // TODO: STUPID STUPID STUPID STUPID WHY GEARBOX WHY?????????????????????
             foreach (var packedItem in this._ExpansionItems)
