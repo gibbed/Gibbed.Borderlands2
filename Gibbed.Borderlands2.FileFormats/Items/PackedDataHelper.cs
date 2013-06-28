@@ -182,7 +182,9 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             if (set == null)
             {
                 throw new FormatException(
-                    "unknown asset library set in packed data (this generally means new DLC that is not supported yet)");
+                    string.Format(
+                        "unknown asset library set {0} in packed data (this generally means new DLC that is not supported yet)",
+                        setId));
             }
 
             IPackable packable = isWeapon == true
