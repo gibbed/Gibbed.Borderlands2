@@ -8,7 +8,7 @@ namespace Gibbed.Borderlands2.SaveEdit
     /// <summary>
     /// http://www.11011.net/wpf-binding-properties
     /// </summary>
-    public class PropertyProxy : FrameworkElement
+    internal class PropertyProxy : FrameworkElement
     {
         public static readonly DependencyProperty InProperty;
         public static readonly DependencyProperty OutProperty;

@@ -26,7 +26,7 @@ using Caliburn.Micro;
 
 namespace Gibbed.Borderlands2.SaveEdit
 {
-    public class MyMessageBox : IResult
+    internal class MyMessageBox : IResult
     {
         private readonly string _Text;
         private readonly string _Caption;

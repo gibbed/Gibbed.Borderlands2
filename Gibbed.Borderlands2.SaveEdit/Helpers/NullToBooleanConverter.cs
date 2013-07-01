@@ -26,7 +26,7 @@ using System.Windows.Data;
 
 namespace Gibbed.Borderlands2.SaveEdit
 {
-    public class NullToBooleanConverter : IValueConverter
+    internal class NullToBooleanConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
