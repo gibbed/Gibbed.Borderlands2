@@ -32,7 +32,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Gibbed.Borderlands2.FileFormats")]
-[assembly: AssemblyCopyright("Copyright © Gibbed 2012")]
+[assembly: AssemblyCopyright("Copyright © Gibbed 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
