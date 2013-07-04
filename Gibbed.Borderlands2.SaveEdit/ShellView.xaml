@@ -31,155 +31,155 @@
              d:DesignWidth="720"
              d:DesignHeight="480"
              xmlns:my="clr-namespace:Gibbed.Borderlands2.SaveEdit">
-  <UserControl.Resources>
-    <my:NullToBooleanConverter x:Key="NullToBooleanConverter1" />
-  </UserControl.Resources>
-  <DockPanel>
-    <ToolBar Name="ButtonBar"
-             DockPanel.Dock="Top">
-      <Button x:Name="NewSave">
-        <StackPanel Orientation="Horizontal">
-          <Image Width="16"
-                 Height="16"
-                 Source="Resources\fugue\document.png" />
-          <Label Content="New" />
-        </StackPanel>
-      </Button>
-      <Button x:Name="ReadSave">
-        <StackPanel Orientation="Horizontal">
-          <Image Width="16"
-                 Height="16"
-                 Source="Resources\fugue\folder-open-document.png" />
-          <Label Content="Open" />
-        </StackPanel>
-      </Button>
-      <Button x:Name="WriteSave"
-              IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}">
-        <StackPanel Orientation="Horizontal">
-          <Image Width="16"
-                 Height="16"
-                 Source="Resources\fugue\disk-black.png" />
-          <Label Content="Save" />
-        </StackPanel>
-      </Button>
-    </ToolBar>
-    <TabControl>
-      <TabItem>
-        <TabItem.Header>
-          <StackPanel Orientation="Horizontal">
-            <Image Height="24"
-                   Source="Resources\red skull.png" />
-            <Label VerticalAlignment="Center"
-                   Content="General" />
-          </StackPanel>
-        </TabItem.Header>
-        <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto"
-                      ScrollViewer.HorizontalScrollBarVisibility="Auto">
-          <ContentControl x:Name="General"
-                          IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" />
-        </ScrollViewer>
-      </TabItem>
-      <TabItem>
-        <TabItem.Header>
-          <StackPanel Orientation="Horizontal">
-            <Image Height="24"
-                   Source="Resources\pink seraph crystal.png" />
-            <Label VerticalAlignment="Center"
-                   Content="Currency" />
-          </StackPanel>
-        </TabItem.Header>
-        <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto"
-                      ScrollViewer.HorizontalScrollBarVisibility="Auto">
-          <ContentControl x:Name="CurrencyOnHand"
-                          IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" />
-        </ScrollViewer>
-      </TabItem>
-      <TabItem>
-        <TabItem.Header>
-          <StackPanel Orientation="Horizontal">
-            <Image Height="24"
-                   Source="Resources\fast travel.png" />
-            <Label VerticalAlignment="Center"
-                   Content="Fast Travel" />
-          </StackPanel>
-        </TabItem.Header>
-        <ContentControl x:Name="FastTravel"
-                        IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" />
-      </TabItem>
-      <TabItem>
-        <TabItem.Header>
-          <StackPanel Orientation="Horizontal">
-            <Image Height="24"
-                   Source="Resources\backpack.png" />
-            <Label VerticalAlignment="Center"
-                   Content="Backpack" />
-          </StackPanel>
-        </TabItem.Header>
-        <ContentControl x:Name="Backpack"
-                        IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" />
-      </TabItem>
-      <TabItem>
-        <TabItem.Header>
-          <StackPanel Orientation="Horizontal">
-            <Image Height="24"
-                   Source="Resources\bank.png" />
-            <Label VerticalAlignment="Center"
-                   Content="Bank" />
-          </StackPanel>
-        </TabItem.Header>
-        <ContentControl x:Name="Bank"
-                        IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" />
-      </TabItem>
-      <TabItem>
-        <TabItem.Header>
-          <StackPanel Orientation="Horizontal">
-            <Image Height="24"
-                   Source="Resources\fugue\document-binary.png" />
-            <Label VerticalAlignment="Center"
-                   Content="Raw" />
-          </StackPanel>
-        </TabItem.Header>
-        <xctk:PropertyGrid AutoGenerateProperties="True"
-                           SelectedObject="{Binding Path=SaveFile.SaveGame}"
-                           ShowTitle="False"
-                           IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}">
-          <xctk:PropertyGrid.EditorDefinitions>
-            <xctk:EditorDefinition>
-              <!-- Workaround for broken byte[] support in PropertyGrid. -->
-              <xctk:EditorDefinition.PropertiesDefinitions>
-                <xctk:PropertyDefinition Name="StatsData" />
-              </xctk:EditorDefinition.PropertiesDefinitions>
-              <xctk:EditorDefinition.EditorTemplate>
-                <DataTemplate>
-                  <TextBlock Text="{Binding Value}" />
-                </DataTemplate>
-              </xctk:EditorDefinition.EditorTemplate>
-            </xctk:EditorDefinition>
-            <xctk:EditorDefinition>
-              <!-- Prevent editing of IsBadassMode -->
-              <xctk:EditorDefinition.PropertiesDefinitions>
-                <xctk:PropertyDefinition Name="IsBadassModeSaveGame" />
-              </xctk:EditorDefinition.PropertiesDefinitions>
-              <xctk:EditorDefinition.EditorTemplate>
-                <DataTemplate>
-                  <TextBlock Text="{Binding Value}" />
-                </DataTemplate>
-              </xctk:EditorDefinition.EditorTemplate>
-            </xctk:EditorDefinition>
-          </xctk:PropertyGrid.EditorDefinitions>
-        </xctk:PropertyGrid>
-      </TabItem>
-      <TabItem>
-        <TabItem.Header>
-          <StackPanel Orientation="Horizontal">
-            <Image Height="24"
-                   Source="Resources\question mark.png" />
-            <Label VerticalAlignment="Center"
-                   Content="About" />
-          </StackPanel>
-        </TabItem.Header>
-        <ContentControl x:Name="About" />
-      </TabItem>
-    </TabControl>
-  </DockPanel>
+    <UserControl.Resources>
+        <my:NullToBooleanConverter x:Key="NullToBooleanConverter1" />
+    </UserControl.Resources>
+    <DockPanel>
+        <ToolBar Name="ButtonBar"
+                 DockPanel.Dock="Top">
+            <Button x:Name="NewSave">
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="16"
+                           Height="16"
+                           Source="Resources\fugue\document.png" />
+                    <Label Content="New" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="ReadSave">
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="16"
+                           Height="16"
+                           Source="Resources\fugue\folder-open-document.png" />
+                    <Label Content="Open" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="WriteSave"
+                    IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="16"
+                           Height="16"
+                           Source="Resources\fugue\disk-black.png" />
+                    <Label Content="Save" />
+                </StackPanel>
+            </Button>
+        </ToolBar>
+        <TabControl>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Height="24"
+                               Source="Resources\red skull.png" />
+                        <Label VerticalAlignment="Center"
+                               Content="General" />
+                    </StackPanel>
+                </TabItem.Header>
+                <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                    <ContentControl x:Name="General"
+                                    IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" />
+                </ScrollViewer>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Height="24"
+                               Source="Resources\pink seraph crystal.png" />
+                        <Label VerticalAlignment="Center"
+                               Content="Currency" />
+                    </StackPanel>
+                </TabItem.Header>
+                <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                    <ContentControl x:Name="CurrencyOnHand"
+                                    IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" />
+                </ScrollViewer>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Height="24"
+                               Source="Resources\fast travel.png" />
+                        <Label VerticalAlignment="Center"
+                               Content="Fast Travel" />
+                    </StackPanel>
+                </TabItem.Header>
+                <ContentControl x:Name="FastTravel"
+                                IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" />
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Height="24"
+                               Source="Resources\backpack.png" />
+                        <Label VerticalAlignment="Center"
+                               Content="Backpack" />
+                    </StackPanel>
+                </TabItem.Header>
+                <ContentControl x:Name="Backpack"
+                                IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" />
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Height="24"
+                               Source="Resources\bank.png" />
+                        <Label VerticalAlignment="Center"
+                               Content="Bank" />
+                    </StackPanel>
+                </TabItem.Header>
+                <ContentControl x:Name="Bank"
+                                IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" />
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Height="24"
+                               Source="Resources\fugue\document-binary.png" />
+                        <Label VerticalAlignment="Center"
+                               Content="Raw" />
+                    </StackPanel>
+                </TabItem.Header>
+                <xctk:PropertyGrid AutoGenerateProperties="True"
+                                   SelectedObject="{Binding Path=SaveFile.SaveGame}"
+                                   ShowTitle="False"
+                                   IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}">
+                    <xctk:PropertyGrid.EditorDefinitions>
+                        <xctk:EditorDefinition>
+                            <!-- Workaround for broken byte[] support in PropertyGrid. -->
+                            <xctk:EditorDefinition.PropertiesDefinitions>
+                                <xctk:PropertyDefinition Name="StatsData" />
+                            </xctk:EditorDefinition.PropertiesDefinitions>
+                            <xctk:EditorDefinition.EditorTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Value}" />
+                                </DataTemplate>
+                            </xctk:EditorDefinition.EditorTemplate>
+                        </xctk:EditorDefinition>
+                        <xctk:EditorDefinition>
+                            <!-- Prevent editing of IsBadassMode -->
+                            <xctk:EditorDefinition.PropertiesDefinitions>
+                                <xctk:PropertyDefinition Name="IsBadassModeSaveGame" />
+                            </xctk:EditorDefinition.PropertiesDefinitions>
+                            <xctk:EditorDefinition.EditorTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Value}" />
+                                </DataTemplate>
+                            </xctk:EditorDefinition.EditorTemplate>
+                        </xctk:EditorDefinition>
+                    </xctk:PropertyGrid.EditorDefinitions>
+                </xctk:PropertyGrid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Height="24"
+                               Source="Resources\question mark.png" />
+                        <Label VerticalAlignment="Center"
+                               Content="About" />
+                    </StackPanel>
+                </TabItem.Header>
+                <ContentControl x:Name="About" />
+            </TabItem>
+        </TabControl>
+    </DockPanel>
 </UserControl>
