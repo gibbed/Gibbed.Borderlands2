@@ -45,6 +45,9 @@
         <system:Int32 x:Key="DefaultItemSetId">0</system:Int32>
     </UserControl.Resources>
     <DockPanel>
+        <cal:Message.Attach>
+            [Shortcut Control+V] = [Action PasteCode]
+        </cal:Message.Attach>
         <ToolBar Name="ButtonBar"
                  DockPanel.Dock="Top">
             <Button Command="{Binding Path=NewWeapon}"
@@ -96,7 +99,8 @@
                 </xctk:DropDownButton.DropDownContent>
             </xctk:DropDownButton>
             <Separator />
-            <Button x:Name="PasteCode">
+            <Button>
+                <cal:Message.Attach>PasteCode</cal:Message.Attach>
                 <StackPanel Orientation="Horizontal">
                     <Image Height="24"
                            Source="..\Resources\fugue\scanner.png" />
@@ -121,12 +125,7 @@
                 </StackPanel>
             </Button>
         </ToolBar>
-        <StackPanel Orientation="Horizontal"
-                    DockPanel.Dock="Bottom">
-            <TextBlock>
-                <Hyperlink NavigateUri="http://thegearcalculator.appspot.com/" se:HyperlinkExtensions.IsExternal="true">duncanfogg's Gear Calculator</Hyperlink> (<Hyperlink NavigateUri="http://forums.gearboxsoftware.com/showthread.php?t=192473" se:HyperlinkExtensions.IsExternal="true">Thread</Hyperlink>)
-            </TextBlock>
-        </StackPanel>
+        <se:GearCalculatorView DockPanel.Dock="Bottom" />
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.35*" />
@@ -138,6 +137,10 @@
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       SelectedValue="{Binding Path=SelectedSlot}"
                       SelectionMode="Single">
+                <cal:Message.Attach>
+                    [Shortcut Delete] = [Action DeleteSelectedSlot];
+                    [Shortcut Control+C] = [Action CopySelectedSlotCode];
+                </cal:Message.Attach>
                 <ListView.GroupStyle>
                     <GroupStyle>
                         <GroupStyle.HeaderTemplate>
@@ -165,9 +168,7 @@
                                        Height="16" />
                             </MenuItem.Icon>
                             <MenuItem.Header>Copy Code</MenuItem.Header>
-                            <cal:Message.Attach>
-                                CopySelectedSlotCode()
-                            </cal:Message.Attach>
+                            <cal:Message.Attach>CopySelectedSlotCode</cal:Message.Attach>
                         </MenuItem>
                         <Separator />
                         <MenuItem>
@@ -176,9 +177,7 @@
                                        Height="16" />
                             </MenuItem.Icon>
                             <MenuItem.Header>Duplicate</MenuItem.Header>
-                            <cal:Message.Attach>
-                                DuplicateSelectedSlot()
-                            </cal:Message.Attach>
+                            <cal:Message.Attach>DuplicateSelectedSlot</cal:Message.Attach>
                         </MenuItem>
                         <MenuItem>
                             <MenuItem.Icon>
@@ -186,9 +185,7 @@
                                        Height="16" />
                             </MenuItem.Icon>
                             <MenuItem.Header>Bank</MenuItem.Header>
-                            <cal:Message.Attach>
-                                BankSelectedSlot()
-                            </cal:Message.Attach>
+                            <cal:Message.Attach>BankSelectedSlot</cal:Message.Attach>
                         </MenuItem>
                         <Separator />
                         <MenuItem>
@@ -197,9 +194,7 @@
                                        Height="16" />
                             </MenuItem.Icon>
                             <MenuItem.Header>Delete</MenuItem.Header>
-                            <cal:Message.Attach>
-                                DeleteSelectedSlot()
-                            </cal:Message.Attach>
+                            <cal:Message.Attach>DeleteSelectedSlot</cal:Message.Attach>
                         </MenuItem>
                     </ContextMenu>
                 </ListView.ContextMenu>

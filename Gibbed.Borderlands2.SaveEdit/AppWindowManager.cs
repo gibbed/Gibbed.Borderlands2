@@ -37,10 +37,12 @@ namespace Gibbed.Borderlands2.SaveEdit
                 window.SizeToContent = SizeToContent.Manual;
                 window.Title = "Gibbed's Borderlands 2 Save Editor";
 
+                // ReSharper disable ConditionIsAlwaysTrueOrFalse
                 if (string.IsNullOrEmpty(Version.DisplayText) == false)
                 {
                     window.Title += " (" + Version.DisplayText + ")";
                 }
+                // ReSharper restore ConditionIsAlwaysTrueOrFalse
 
                 window.Width = 720;
                 window.Height = 560;
