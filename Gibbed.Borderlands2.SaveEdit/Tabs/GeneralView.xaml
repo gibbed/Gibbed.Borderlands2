@@ -52,6 +52,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -61,16 +62,31 @@
                 <Label Grid.Row="0"
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
-                       Content="Save Slot:" />
-                <xctk:IntegerUpDown Grid.Row="0"
-                                    Grid.Column="1"
-                                    Margin="3"
-                                    Value="{Binding Path=SaveGameId, UpdateSourceTrigger=PropertyChanged}" />
+                       Content="Save Guid:" />
+                <DockPanel LastChildFill="True"
+                           Grid.Row="0"
+                           Grid.Column="1"
+                           Margin="3">
+                    <Button x:Name="RandomizeSaveGuid"
+                            DockPanel.Dock="Right"
+                            ToolTip="Randomzie the save guid">
+                        Random
+                    </Button>
+                    <TextBox Text="{Binding Path=SaveGuid, UpdateSourceTrigger=PropertyChanged}" />
+                </DockPanel>
                 <Label Grid.Row="1"
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
+                       Content="Save Slot:" />
+                <xctk:IntegerUpDown Grid.Row="1"
+                                    Grid.Column="1"
+                                    Margin="3"
+                                    Value="{Binding Path=SaveGameId, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Grid.Row="2"
+                       Grid.Column="0"
+                       HorizontalContentAlignment="Right"
                        Content="Platform:" />
-                <SaveEdit:MyComboBox Grid.Row="1"
+                <SaveEdit:MyComboBox Grid.Row="2"
                                      Grid.Column="1"
                                      ItemsSource="{Binding Path=Platforms}"
                                      DisplayMemberPath="Name"
