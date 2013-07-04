@@ -37,6 +37,7 @@ namespace Gibbed.Borderlands2.SaveEdit
     {
         #region Fields
         private Platform _Platform;
+        private System.Guid _SaveGuid;
         private int _SaveGameId;
         private string _PlayerClassDefinition = "GD_Assassin.Character.CharClass_Assassin";
         private int _ExpLevel = 1;
@@ -59,6 +60,16 @@ namespace Gibbed.Borderlands2.SaveEdit
                     this._Platform = value;
                     this.NotifyOfPropertyChange(() => this.Platform);
                 }
+            }
+        }
+
+        public System.Guid SaveGuid
+        {
+            get { return this._SaveGuid; }
+            set
+            {
+                this._SaveGuid = value;
+                this.NotifyOfPropertyChange(() => this.SaveGuid);
             }
         }
 
@@ -263,11 +274,10 @@ namespace Gibbed.Borderlands2.SaveEdit
             var usage = this.GetCustomizationUsage();
 
             var headAssets = new List<KeyValuePair<AssetDisplay, int>>();
-            foreach (
-                var kv in
-                    InfoManager.Customizations.Items.Where(
-                        kv => kv.Value.Type == CustomizationType.Head && kv.Value.Usage.Contains(usage) == true).OrderBy
-                        (cd => cd.Value.Name))
+            foreach (var kv in
+                InfoManager.Customizations.Items.Where(
+                    kv => kv.Value.Type == CustomizationType.Head && kv.Value.Usage.Contains(usage) == true).OrderBy
+                    (cd => cd.Value.Name))
             {
                 string group;
                 int priority;
@@ -339,6 +349,11 @@ namespace Gibbed.Borderlands2.SaveEdit
             this.SelectedSkin = selectedSkin;
         }
 
+        public void RandomizeSaveGuid()
+        {
+            this.SaveGuid = System.Guid.NewGuid();
+        }
+
         public void SynchronizeExpLevel()
         {
             this.ExpLevel = Experience.GetLevelForPoints(this.ExpPoints);
@@ -362,6 +377,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         public void ImportData(WillowTwoPlayerSaveGame saveGame, Platform platform)
         {
             this.Platform = platform;
+            this.SaveGuid = (System.Guid)saveGame.SaveGuid;
             this.SaveGameId = saveGame.SaveGameId;
             this.PlayerClass = saveGame.PlayerClass;
 
@@ -391,6 +407,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         public void ExportData(WillowTwoPlayerSaveGame saveGame, out Platform platform)
         {
             platform = this.Platform;
+            saveGame.SaveGuid = (ProtoBufFormats.WillowTwoSave.Guid)this.SaveGuid;
             saveGame.SaveGameId = this.SaveGameId;
             saveGame.PlayerClass = this.PlayerClass;
             saveGame.ExpLevel = this.ExpLevel;
