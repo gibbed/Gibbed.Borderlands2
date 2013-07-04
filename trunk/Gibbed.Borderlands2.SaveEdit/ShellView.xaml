@@ -30,14 +30,21 @@
              mc:Ignorable="d"
              d:DesignWidth="720"
              d:DesignHeight="480"
-             xmlns:my="clr-namespace:Gibbed.Borderlands2.SaveEdit">
+             xmlns:my="clr-namespace:Gibbed.Borderlands2.SaveEdit"
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro">
     <UserControl.Resources>
         <my:NullToBooleanConverter x:Key="NullToBooleanConverter1" />
     </UserControl.Resources>
     <DockPanel>
+        <cal:Message.Attach>
+            [Shortcut Control+N] = [Action NewSave];
+            [Shortcut Control+O] = [Action ReadSave];
+            [Shortcut Control+S] = [Action WriteSave];
+        </cal:Message.Attach>
         <ToolBar Name="ButtonBar"
                  DockPanel.Dock="Top">
-            <Button x:Name="NewSave">
+            <Button>
+                <cal:Message.Attach>[Event Click] = [Action NewSave]</cal:Message.Attach>
                 <StackPanel Orientation="Horizontal">
                     <Image Width="16"
                            Height="16"
@@ -45,7 +52,8 @@
                     <Label Content="New" />
                 </StackPanel>
             </Button>
-            <Button x:Name="ReadSave">
+            <Button>
+                <cal:Message.Attach>[Event Click] = [Action ReadSave]</cal:Message.Attach>
                 <StackPanel Orientation="Horizontal">
                     <Image Width="16"
                            Height="16"
@@ -53,8 +61,8 @@
                     <Label Content="Open" />
                 </StackPanel>
             </Button>
-            <Button x:Name="WriteSave"
-                    IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}">
+            <Button IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}">
+                <cal:Message.Attach>[Event Click] = [Action WriteSave]</cal:Message.Attach>
                 <StackPanel Orientation="Horizontal">
                     <Image Width="16"
                            Height="16"
