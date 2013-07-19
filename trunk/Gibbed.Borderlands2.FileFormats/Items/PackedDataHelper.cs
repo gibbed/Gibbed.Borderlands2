@@ -98,6 +98,11 @@ namespace Gibbed.Borderlands2.FileFormats.Items
 
         private static void BogoEncrypt(uint seed, byte[] buffer, int offset, int length)
         {
+            if (seed == 0)
+            {
+                return;
+            }
+            
             var temp = new byte[length];
 
             var rightHalf = (int)((seed % 32) % length);
@@ -198,6 +203,11 @@ namespace Gibbed.Borderlands2.FileFormats.Items
 
         private static void BogoDecrypt(uint seed, byte[] buffer, int offset, int length)
         {
+            if (seed == 0)
+            {
+                return;
+            }
+            
             var temp = new byte[length];
             Array.Copy(buffer, offset, temp, 0, length);
 
