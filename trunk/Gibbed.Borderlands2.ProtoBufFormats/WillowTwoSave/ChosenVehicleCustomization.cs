@@ -32,7 +32,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
     {
         #region Fields
         private string _Family;
-        private List<string> _Customizations;
+        private List<string> _Customizations = new List<string>();
         #endregion
 
         #region IComposable Members
