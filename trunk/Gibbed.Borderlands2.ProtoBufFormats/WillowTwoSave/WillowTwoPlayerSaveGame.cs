@@ -97,6 +97,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         private List<PackedWeaponData> _PackedWeaponData;
         private bool _AwesomeSkillDisabled;
         private int _MaxBankSlots;
+        private List<ChosenVehicleCustomization> _ChosenVehicleCustomizations;
         private int? _ExtraShowNewPlaythroughNotification;
         #endregion
 
@@ -359,6 +360,16 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
             else
             {
                 this.PackedWeaponData.Compose();
+            }
+
+            if (this.ChosenVehicleCustomizations == null ||
+                this.ChosenVehicleCustomizations.Count == 0)
+            {
+                this.ChosenVehicleCustomizations = null;
+            }
+            else
+            {
+                this.ChosenVehicleCustomizations.Compose();
             }
         }
 
@@ -647,6 +658,15 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
             else
             {
                 this.PackedWeaponData.Decompose();
+            }
+
+            if (this.ChosenVehicleCustomizations == null)
+            {
+                this.ChosenVehicleCustomizations = new List<ChosenVehicleCustomization>();
+            }
+            else
+            {
+                this.ChosenVehicleCustomizations.Decompose();
             }
 
             ExtractExpansionSavedataFromUnloadableItemData(this);
@@ -1468,6 +1488,20 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 {
                     this._MaxBankSlots = value;
                     this.NotifyPropertyChanged("MaxBankSlots");
+                }
+            }
+        }
+
+        [ProtoMember(57, IsRequired = false)]
+        public List<ChosenVehicleCustomization> ChosenVehicleCustomizations
+        {
+            get { return this._ChosenVehicleCustomizations; }
+            set
+            {
+                if (value != this._ChosenVehicleCustomizations)
+                {
+                    this._ChosenVehicleCustomizations = value;
+                    this.NotifyPropertyChanged("ChosenVehicleCustomizations");
                 }
             }
         }
