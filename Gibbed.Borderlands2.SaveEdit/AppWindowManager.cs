@@ -44,7 +44,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 }
                 // ReSharper restore ConditionIsAlwaysTrueOrFalse
 
-                window.Width = 720;
+                window.Width = 800;
                 window.Height = 560;
                 window.Icon =
                     System.Windows.Media.Imaging.BitmapFrame.Create(
