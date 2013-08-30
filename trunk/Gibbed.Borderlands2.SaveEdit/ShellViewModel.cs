@@ -41,6 +41,8 @@ namespace Gibbed.Borderlands2.SaveEdit
         private readonly string _SavePath;
         private FileFormats.SaveFile _SaveFile;
         private GeneralViewModel _General;
+        private CharacterViewModel _Character;
+        private VehicleViewModel _Vehicle;
         private CurrencyOnHandViewModel _CurrencyOnHand;
         private BackpackViewModel _Backpack;
         private BankViewModel _Bank;
@@ -73,6 +75,30 @@ namespace Gibbed.Borderlands2.SaveEdit
             {
                 this._General = value;
                 this.NotifyOfPropertyChange(() => this.General);
+            }
+        }
+
+        [Import(typeof(CharacterViewModel))]
+        public CharacterViewModel Character
+        {
+            get { return this._Character; }
+
+            set
+            {
+                this._Character = value;
+                this.NotifyOfPropertyChange(() => this.Character);
+            }
+        }
+
+        [Import(typeof(VehicleViewModel))]
+        public VehicleViewModel Vehicle
+        {
+            get { return this._Vehicle; }
+
+            set
+            {
+                this._Vehicle = value;
+                this.NotifyOfPropertyChange(() => this.Vehicle);
             }
         }
 
@@ -186,6 +212,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                 saveFile.SaveGame.Decompose();
 
                 this.General.ImportData(saveFile.SaveGame, saveFile.Platform);
+                this.Character.ImportData(saveFile.SaveGame);
+                this.Vehicle.ImportData(saveFile.SaveGame);
                 this.CurrencyOnHand.ImportData(saveFile.SaveGame);
                 this.Backpack.ImportData(saveFile.SaveGame, saveFile.Platform);
                 this.Bank.ImportData(saveFile.SaveGame, saveFile.Platform);
@@ -267,6 +295,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                 try
                 {
                     this.General.ImportData(saveFile.SaveGame, saveFile.Platform);
+                    this.Character.ImportData(saveFile.SaveGame);
+                    this.Vehicle.ImportData(saveFile.SaveGame);
                     this.CurrencyOnHand.ImportData(saveFile.SaveGame);
                     this.Backpack.ImportData(saveFile.SaveGame, saveFile.Platform);
                     this.Bank.ImportData(saveFile.SaveGame, saveFile.Platform);
@@ -317,9 +347,13 @@ namespace Gibbed.Borderlands2.SaveEdit
                         new MyMessageBox(
                             "There were weapons in the backpack that failed to load. Do you want to remove them?\n\n" +
                             "If you choose not to remove them, they will remain in your save but will not be editable." +
-                            (result != MessageBoxResult.Cancel ? "\n\nChoose Cancel to copy error information to the clipboard." : ""),
+                            (result != MessageBoxResult.Cancel
+                                 ? "\n\nChoose Cancel to copy error information to the clipboard."
+                                 : ""),
                             "Warning")
-                            .WithButton(result != MessageBoxResult.Cancel ? MessageBoxButton.YesNoCancel : MessageBoxButton.YesNo)
+                            .WithButton(result != MessageBoxResult.Cancel
+                                            ? MessageBoxButton.YesNoCancel
+                                            : MessageBoxButton.YesNo)
                             .WithDefaultResult(MessageBoxResult.No)
                             .WithResultDo(r => result = r)
                             .WithIcon(MessageBoxImage.Warning);
@@ -354,9 +388,13 @@ namespace Gibbed.Borderlands2.SaveEdit
                         new MyMessageBox(
                             "There were items in the backpack that failed to load. Do you want to remove them?\n\n" +
                             "If you choose not to remove them, they will remain in your save but will not be editable." +
-                            (result != MessageBoxResult.Cancel ? "\n\nChoose Cancel to copy error information to the clipboard." : ""),
+                            (result != MessageBoxResult.Cancel
+                                 ? "\n\nChoose Cancel to copy error information to the clipboard."
+                                 : ""),
                             "Warning")
-                            .WithButton(result != MessageBoxResult.Cancel ? MessageBoxButton.YesNoCancel : MessageBoxButton.YesNo)
+                            .WithButton(result != MessageBoxResult.Cancel
+                                            ? MessageBoxButton.YesNoCancel
+                                            : MessageBoxButton.YesNo)
                             .WithDefaultResult(MessageBoxResult.No)
                             .WithResultDo(r => result = r)
                             .WithIcon(MessageBoxImage.Warning);
@@ -391,9 +429,13 @@ namespace Gibbed.Borderlands2.SaveEdit
                         new MyMessageBox(
                             "There were weapons or items in the bank that failed to load. Do you want to remove them?\n\n" +
                             "If you choose not to remove them, they will remain in your save but will not be editable." +
-                            (result != MessageBoxResult.Cancel ? "\n\nChoose Cancel to copy error information to the clipboard." : ""),
+                            (result != MessageBoxResult.Cancel
+                                 ? "\n\nChoose Cancel to copy error information to the clipboard."
+                                 : ""),
                             "Warning")
-                            .WithButton(result != MessageBoxResult.Cancel ? MessageBoxButton.YesNoCancel : MessageBoxButton.YesNo)
+                            .WithButton(result != MessageBoxResult.Cancel
+                                            ? MessageBoxButton.YesNoCancel
+                                            : MessageBoxButton.YesNo)
                             .WithDefaultResult(MessageBoxResult.No)
                             .WithResultDo(r => result = r)
                             .WithIcon(MessageBoxImage.Warning);
@@ -457,6 +499,8 @@ namespace Gibbed.Borderlands2.SaveEdit
             {
                 Platform platform;
                 this.General.ExportData(saveFile.SaveGame, out platform);
+                this.Character.ExportData(saveFile.SaveGame);
+                this.Vehicle.ExportData(saveFile.SaveGame);
                 this.CurrencyOnHand.ExportData(saveFile.SaveGame);
                 this.Backpack.ExportData(saveFile.SaveGame, platform);
                 this.Bank.ExportData(saveFile.SaveGame, platform);

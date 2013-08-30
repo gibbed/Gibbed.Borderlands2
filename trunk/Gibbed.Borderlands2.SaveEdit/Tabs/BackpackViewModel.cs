@@ -58,7 +58,7 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         #region Properties
         [Import]
-        private GeneralViewModel _General { get; set; }
+        private CharacterViewModel _Character { get; set; }
 
         [Import]
         private BankViewModel _Bank { get; set; }
@@ -360,8 +360,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                     if (weapon.QuickSlot != QuickWeaponSlot.None &&
                         (weapon.ManufacturerGradeIndex + weapon.GameStage) >= 2)
                     {
-                        weapon.ManufacturerGradeIndex = this._General.ExpLevel;
-                        weapon.GameStage = this._General.ExpLevel;
+                        weapon.ManufacturerGradeIndex = this._Character.ExpLevel;
+                        weapon.GameStage = this._Character.ExpLevel;
                     }
                 }
                 else if (viewModel is BackpackItemViewModel)
@@ -370,8 +370,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                     if (item.Equipped == true &&
                         (item.ManufacturerGradeIndex + item.GameStage) >= 2)
                     {
-                        item.ManufacturerGradeIndex = this._General.ExpLevel;
-                        item.GameStage = this._General.ExpLevel;
+                        item.ManufacturerGradeIndex = this._Character.ExpLevel;
+                        item.GameStage = this._Character.ExpLevel;
                     }
                 }
                 else
@@ -390,8 +390,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                     var weapon = (BackpackWeaponViewModel)viewModel;
                     if ((weapon.ManufacturerGradeIndex + weapon.GameStage) >= 2)
                     {
-                        weapon.ManufacturerGradeIndex = this._General.ExpLevel;
-                        weapon.GameStage = this._General.ExpLevel;
+                        weapon.ManufacturerGradeIndex = this._Character.ExpLevel;
+                        weapon.GameStage = this._Character.ExpLevel;
                     }
                 }
                 else if (viewModel is BackpackItemViewModel)
@@ -399,8 +399,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                     var item = (BackpackItemViewModel)viewModel;
                     if ((item.ManufacturerGradeIndex + item.GameStage) >= 2)
                     {
-                        item.ManufacturerGradeIndex = this._General.ExpLevel;
-                        item.GameStage = this._General.ExpLevel;
+                        item.ManufacturerGradeIndex = this._Character.ExpLevel;
+                        item.GameStage = this._Character.ExpLevel;
                     }
                 }
                 else

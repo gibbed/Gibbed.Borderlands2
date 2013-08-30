@@ -28,7 +28,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
-             d:DesignWidth="720"
+             d:DesignWidth="800"
              d:DesignHeight="480"
              xmlns:my="clr-namespace:Gibbed.Borderlands2.SaveEdit"
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro">
@@ -71,12 +71,12 @@
                 </StackPanel>
             </Button>
         </ToolBar>
-        <TabControl>
+        <TabControl TabStripPlacement="Top">
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Height="24"
-                               Source="Resources\red skull.png" />
+                               Source="Resources\green vault symbol.png" />
                         <Label VerticalAlignment="Center"
                                Content="General" />
                     </StackPanel>
@@ -84,6 +84,36 @@
                 <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto"
                               ScrollViewer.HorizontalScrollBarVisibility="Auto">
                     <ContentControl x:Name="General"
+                                    IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" />
+                </ScrollViewer>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Height="24"
+                               Source="Resources\red skull.png" />
+                        <Label VerticalAlignment="Center"
+                               Content="Character" />
+                    </StackPanel>
+                </TabItem.Header>
+                <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                    <ContentControl x:Name="Character"
+                                    IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" />
+                </ScrollViewer>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Height="24"
+                               Source="Resources\wheel.png" />
+                        <Label VerticalAlignment="Center"
+                               Content="Vehicle" />
+                    </StackPanel>
+                </TabItem.Header>
+                <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                    <ContentControl x:Name="Vehicle"
                                     IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" />
                 </ScrollViewer>
             </TabItem>

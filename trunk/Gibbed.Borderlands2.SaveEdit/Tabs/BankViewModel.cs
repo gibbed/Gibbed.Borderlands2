@@ -54,7 +54,7 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         #region Properties
         [Import]
-        private GeneralViewModel _General { get; set; }
+        private CharacterViewModel _Character { get; set; }
 
         [Import]
         private BackpackViewModel _Backpack { get; set; }
@@ -324,8 +324,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                     var weapon = (BaseWeaponViewModel)viewModel;
                     if ((weapon.ManufacturerGradeIndex + weapon.GameStage) >= 2)
                     {
-                        weapon.ManufacturerGradeIndex = this._General.ExpLevel;
-                        weapon.GameStage = this._General.ExpLevel;
+                        weapon.ManufacturerGradeIndex = this._Character.ExpLevel;
+                        weapon.GameStage = this._Character.ExpLevel;
                     }
                 }
                 else if (viewModel is BaseItemViewModel)
@@ -333,8 +333,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                     var item = (BaseItemViewModel)viewModel;
                     if ((item.ManufacturerGradeIndex + item.GameStage) >= 2)
                     {
-                        item.ManufacturerGradeIndex = this._General.ExpLevel;
-                        item.GameStage = this._General.ExpLevel;
+                        item.ManufacturerGradeIndex = this._Character.ExpLevel;
+                        item.GameStage = this._Character.ExpLevel;
                     }
                 }
                 else
