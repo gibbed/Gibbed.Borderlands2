@@ -27,24 +27,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-             xmlns:SaveEdit="clr-namespace:Gibbed.Borderlands2.SaveEdit"
+             xmlns:se="clr-namespace:Gibbed.Borderlands2.SaveEdit"
              mc:Ignorable="d"
              d:DesignWidth="720"
              d:DesignHeight="480">
-    <UserControl.Resources>
-        <CollectionViewSource x:Key="GroupedHeadAssets"
-                              Source="{Binding Path=HeadAssets}">
-            <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="Group"></PropertyGroupDescription>
-            </CollectionViewSource.GroupDescriptions>
-        </CollectionViewSource>
-        <CollectionViewSource x:Key="GroupedSkinAssets"
-                              Source="{Binding Path=SkinAssets}">
-            <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="Group"></PropertyGroupDescription>
-            </CollectionViewSource.GroupDescriptions>
-        </CollectionViewSource>
-    </UserControl.Resources>
     <StackPanel Orientation="Vertical">
         <Expander Header="Save"
                   IsExpanded="True">
@@ -86,7 +72,7 @@
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
                        Content="Platform:" />
-                <SaveEdit:MyComboBox Grid.Row="2"
+                <se:MyComboBox Grid.Row="2"
                                      Grid.Column="1"
                                      ItemsSource="{Binding Path=Platforms}"
                                      DisplayMemberPath="Name"

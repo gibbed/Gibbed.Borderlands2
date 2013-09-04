@@ -132,6 +132,7 @@
                 <cal:Message.Attach>
                     [Shortcut Delete] = [Action DeleteSelectedSlot];
                     [Shortcut Control+C] = [Action CopySelectedSlotCode];
+                    [Shortcut Control+D] = [Action DuplicateSelectedSlotCode];
                 </cal:Message.Attach>
                 <ListView.GroupStyle>
                     <GroupStyle>
@@ -160,6 +161,7 @@
                                        Height="16" />
                             </MenuItem.Icon>
                             <MenuItem.Header>Copy Code</MenuItem.Header>
+                            <MenuItem.InputGestureText>Ctrl+C</MenuItem.InputGestureText>
                             <cal:Message.Attach>CopySelectedSlotCode</cal:Message.Attach>
                         </MenuItem>
                         <Separator />
@@ -169,6 +171,7 @@
                                        Height="16" />
                             </MenuItem.Icon>
                             <MenuItem.Header>Duplicate</MenuItem.Header>
+                            <MenuItem.InputGestureText>Ctrl+D</MenuItem.InputGestureText>
                             <cal:Message.Attach>DuplicateSelectedSlot</cal:Message.Attach>
                         </MenuItem>
                         <MenuItem>
@@ -186,6 +189,7 @@
                                        Height="16" />
                             </MenuItem.Icon>
                             <MenuItem.Header>Delete</MenuItem.Header>
+                            <MenuItem.InputGestureText>Delete</MenuItem.InputGestureText>
                             <cal:Message.Attach>DeleteSelectedSlot</cal:Message.Attach>
                         </MenuItem>
                     </ContextMenu>

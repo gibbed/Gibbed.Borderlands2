@@ -30,7 +30,7 @@ namespace Gibbed.Borderlands2.GameInfo.Raw
     [JsonObject(MemberSerialization.OptIn)]
     internal abstract class TravelStationDefinition
     {
-        public TravelStationDefinition()
+        protected TravelStationDefinition()
         {
             this.MissionDependencies = new List<MissionStatusData>();
         }

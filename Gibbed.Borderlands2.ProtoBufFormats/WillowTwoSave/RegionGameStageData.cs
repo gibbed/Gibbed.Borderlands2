@@ -26,7 +26,7 @@ using ProtoBuf;
 namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 {
     [ProtoContract]
-    public class RegionGameStageData : IComposable, INotifyPropertyChanged
+    public class RegionGameStageData : INotifyPropertyChanged
     {
         #region Fields
         private string _Region;
@@ -34,16 +34,6 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         private bool _IsFromDLC;
         private int _DLCPackageId;
         private int _PlaythroughIndex;
-        #endregion
-
-        #region IComposable Members
-        public void Compose()
-        {
-        }
-
-        public void Decompose()
-        {
-        }
         #endregion
 
         #region Properties

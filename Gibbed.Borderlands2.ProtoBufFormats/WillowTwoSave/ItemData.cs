@@ -26,7 +26,7 @@ using ProtoBuf;
 namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 {
     [ProtoContract]
-    public class ItemData : IComposable, INotifyPropertyChanged
+    public class ItemData : INotifyPropertyChanged
     {
         #region Fields
         private string _Balance;
@@ -47,16 +47,6 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         private int _ManufacturerGradeIndex;
         private bool _Equipped;
         private PlayerMark _Mark;
-        #endregion
-
-        #region IComposable Members
-        public void Compose()
-        {
-        }
-
-        public void Decompose()
-        {
-        }
         #endregion
 
         #region Properties

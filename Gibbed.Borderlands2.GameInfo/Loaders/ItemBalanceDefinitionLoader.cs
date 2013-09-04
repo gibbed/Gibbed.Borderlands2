@@ -81,7 +81,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             return itemTypes[type];
         }
 
-        private static List<string> GetManufacturers(List<string> manufacturers)
+        private static List<string> GetManufacturers(IEnumerable<string> manufacturers)
         {
             if (manufacturers == null)
             {
@@ -92,7 +92,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
         }
 
         private static List<ItemTypeDefinition> GetTypes(InfoDictionary<ItemTypeDefinition> itemTypes,
-                                                         List<string> types)
+                                                         IEnumerable<string> types)
         {
             if (types == null)
             {

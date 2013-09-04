@@ -24,7 +24,6 @@ using System;
 using System.IO;
 using System.Linq;
 using Caliburn.Micro;
-using Caliburn.Micro.Contrib.Helper;
 using Microsoft.Win32;
 
 namespace Gibbed.Borderlands2.SaveEdit
@@ -187,7 +186,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             if (action == null)
             {
-                throw new ArgumentNullException("action", "action may not be null");
+                throw new ArgumentNullException("action");
             }
             action(this._Filters);
             return this;

@@ -26,22 +26,12 @@ using ProtoBuf;
 namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 {
     [ProtoContract]
-    public struct InventorySlotData : IComposable, INotifyPropertyChanged
+    public struct InventorySlotData : INotifyPropertyChanged
     {
         #region Fields
         private int _InventorySlotMax;
         private int _WeaponReadyMax;
         private int _NumQuickSlotsFlourished;
-        #endregion
-
-        #region IComposable Members
-        public void Compose()
-        {
-        }
-
-        public void Decompose()
-        {
-        }
         #endregion
 
         #region Properties

@@ -36,7 +36,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
                     .DeserializeJson<Dictionary<string, Raw.WeaponNamePartDefinition>>("Weapon Name Parts");
                 return new InfoDictionary<WeaponNamePartDefinition>(
                     raws.ToDictionary(kv => kv.Key,
-                                      kv => GetWeaponNamePartDefinition(kv)));
+                                      GetWeaponNamePartDefinition));
             }
             catch (Exception e)
             {

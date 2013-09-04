@@ -212,7 +212,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         }
 
         private static void ImportTarget(string name,
-                                         List<ChosenVehicleCustomization> customizations,
+                                         IEnumerable<ChosenVehicleCustomization> customizations,
                                          Action<string> skin1,
                                          Action<string> skin2,
                                          Action<string> extra)
@@ -285,8 +285,10 @@ namespace Gibbed.Borderlands2.SaveEdit
                 skin2 != "None" ||
                 skins.Length > 0)
             {
-                var customization = new ChosenVehicleCustomization();
-                customization.Family = name;
+                var customization = new ChosenVehicleCustomization()
+                {
+                    Family = name,
+                };
                 customization.Customizations.Add(skin1);
                 customization.Customizations.Add(skin2);
                 customization.Customizations.AddRange(skins);

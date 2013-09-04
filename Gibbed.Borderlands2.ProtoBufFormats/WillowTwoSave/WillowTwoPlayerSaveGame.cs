@@ -29,7 +29,7 @@ using ProtoBuf;
 namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 {
     [ProtoContract]
-    public class WillowTwoPlayerSaveGame : IComposable, INotifyPropertyChanged
+    public class WillowTwoPlayerSaveGame : INotifyPropertyChanged
     {
         private static readonly byte[] _HackInventorySerialNumber = new byte[]
         {
@@ -46,657 +46,392 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         private int _ExpPoints;
         private int _GeneralSkillPoints;
         private int _SpecialistSkillPoints;
-        private List<int> _CurrencyOnHand;
+        private List<int> _CurrencyOnHand = new List<int>();
         private int _PlaythroughsCompleted;
-        private List<SkillData> _SkillData;
-        private List<int> _Unknown9;
-        private List<int> _Unknown10;
-        private List<ResourceData> _ResourceData;
-        private List<ItemData> _ItemData;
+        private List<SkillData> _SkillData = new List<SkillData>();
+        private List<int> _Unknown9 = new List<int>();
+        private List<int> _Unknown10 = new List<int>();
+        private List<ResourceData> _ResourceData = new List<ResourceData>();
+        private List<ItemData> _ItemData = new List<ItemData>();
         private InventorySlotData _InventorySlotData;
-        private List<WeaponData> _WeaponData;
+        private List<WeaponData> _WeaponData = new List<WeaponData>();
         private byte[] _StatsData;
-        private List<string> _VisitedTeleporters;
+        private List<string> _VisitedTeleporters = new List<string>();
         private string _LastVisitedTeleporter;
-        private List<MissionPlaythroughData> _MissionPlaythroughs;
+        private List<MissionPlaythroughData> _MissionPlaythroughs = new List<MissionPlaythroughData>();
         private UIPreferencesData _UIPreferences;
         private int _SaveGameId;
         private int _PlotMissionNumber;
         private int _Unknown22;
-        private List<int> _UsedMarketingCodes;
-        private List<int> _MarketingCodesNeedingNotification;
+        private List<int> _UsedMarketingCodes = new List<int>();
+        private List<int> _MarketingCodesNeedingNotification = new List<int>();
         private int _TotalPlayTime;
         private string _LastSavedDate;
-        private List<DLCExpansionData> _DLCExpansionData;
-        private List<string> _Unknown28;
-        private List<RegionGameStageData> _RegionGameStages;
-        private List<WorldDiscoveryData> _WorldDiscoveryList;
+        private List<DLCExpansionData> _DLCExpansionData = new List<DLCExpansionData>();
+        private List<string> _Unknown28 = new List<string>();
+        private List<RegionGameStageData> _RegionGameStages = new List<RegionGameStageData>();
+        private List<WorldDiscoveryData> _WorldDiscoveryList = new List<WorldDiscoveryData>();
         private bool _IsBadassModeSaveGame;
-        private List<WeaponMemento> _Unknown32;
-        private List<ItemMemento> _Unknown33;
+        private List<WeaponMemento> _Unknown32 = new List<WeaponMemento>();
+        private List<ItemMemento> _Unknown33 = new List<ItemMemento>();
         private Guid _SaveGuid;
-        private List<string> _AppliedCustomizations;
-        private List<int> _BlackMarketUpgrades;
+        private List<string> _AppliedCustomizations = new List<string>();
+        private List<int> _BlackMarketUpgrades = new List<int>();
         private int _ActiveMissionNumber;
-        private List<ChallengeData> _ChallengeList;
-        private List<int> _LevelChallengeUnlocks;
-        private List<OneOffLevelChallengeData> _OneOffLevelChallengeCompletion;
-        private List<BankSlot> _BankSlots;
+        private List<ChallengeData> _ChallengeList = new List<ChallengeData>();
+        private List<int> _LevelChallengeUnlocks = new List<int>();
+        private List<OneOffLevelChallengeData> _OneOffLevelChallengeCompletion = new List<OneOffLevelChallengeData>();
+        private List<BankSlot> _BankSlots = new List<BankSlot>();
         private int _NumChallengePrestiges;
-        private List<LockoutData> _LockoutList;
+        private List<LockoutData> _LockoutList = new List<LockoutData>();
         private bool _IsDLCPlayerClass;
         private int _DLCPlayerClassPackageId;
-        private List<string> _FullyExploredAreas;
-        private List<GoldenKeys> _Unknown47;
+        private List<string> _FullyExploredAreas = new List<string>();
+        private List<GoldenKeys> _Unknown47 = new List<GoldenKeys>();
         private int _NumGoldenKeysNotified;
         private int _LastPlaythroughNumber;
         private bool _ShowNewPlaythroughNotification;
         private bool _ReceivedDefaultWeapon;
-        private List<string> _QueuedTrainingMessages;
-        private List<PackedItemData> _PackedItemData;
-        private List<PackedWeaponData> _PackedWeaponData;
+        private List<string> _QueuedTrainingMessages = new List<string>();
+        private List<PackedItemData> _PackedItemData = new List<PackedItemData>();
+        private List<PackedWeaponData> _PackedWeaponData = new List<PackedWeaponData>();
         private bool _AwesomeSkillDisabled;
         private int _MaxBankSlots;
-        private List<ChosenVehicleCustomization> _ChosenVehicleCustomizations;
+        private List<ChosenVehicleCustomization> _ChosenVehicleCustomizations = new List<ChosenVehicleCustomization>();
         private int? _ExtraShowNewPlaythroughNotification;
+        private int? _NumOverpowerLevelsUnlocked;
+        private int? _LastOverpowerChoice;
         #endregion
 
-        #region IComposable Members
-        private ComposeState _ComposeState = ComposeState.Composed;
-
-        public void Compose()
+        #region Serialization
+        [ProtoAfterDeserialization]
+        // ReSharper disable UnusedMember.Local
+        private void OnDeserialization()
+            // ReSharper restore UnusedMember.Local
         {
-            if (this._ComposeState != ComposeState.Decomposed)
-            {
-                throw new InvalidOperationException();
-            }
-            this._ComposeState = ComposeState.Composed;
-
-            AddExpansionSavedataToUnloadableItemData(this);
-
-            if (this.CurrencyOnHand == null ||
-                this.CurrencyOnHand.Count == 0)
-            {
-                this.CurrencyOnHand = null;
-            }
-
-            if (this.SkillData == null ||
-                this.SkillData.Count == 0)
-            {
-                this.SkillData = null;
-            }
-            else
-            {
-                this.SkillData.Compose();
-            }
-
-            if (this.Unknown9 == null ||
-                this.Unknown9.Count == 0)
-            {
-                this.Unknown9 = null;
-            }
-
-            if (this.Unknown10 == null ||
-                this.Unknown10.Count == 0)
-            {
-                this.Unknown10 = null;
-            }
-
-            if (this.ResourceData == null ||
-                this.ResourceData.Count == 0)
-            {
-                this.ResourceData = null;
-            }
-            else
-            {
-                this.ResourceData.Compose();
-            }
-
-            if (this.ItemData == null ||
-                this.ItemData.Count == 0)
-            {
-                this.ItemData = null;
-            }
-            else
-            {
-                this.ItemData.Compose();
-            }
-
-            this.InventorySlotData.Compose();
-
-            if (this.WeaponData == null ||
-                this.WeaponData.Count == 0)
-            {
-                this.WeaponData = null;
-            }
-            else
-            {
-                this.WeaponData.Compose();
-            }
-
-            if (this.VisitedTeleporters == null ||
-                this.VisitedTeleporters.Count == 0)
-            {
-                this.VisitedTeleporters = null;
-            }
-
-            if (this.MissionPlaythroughs == null ||
-                this.MissionPlaythroughs.Count == 0)
-            {
-                this.MissionPlaythroughs = null;
-            }
-            else
-            {
-                this.MissionPlaythroughs.Compose();
-            }
-
-            this.UIPreferences.Compose();
-
-            if (this.UsedMarketingCodes == null ||
-                this.UsedMarketingCodes.Count == 0)
-            {
-                this.UsedMarketingCodes = null;
-            }
-
-            if (this.MarketingCodesNeedingNotification == null ||
-                this.MarketingCodesNeedingNotification.Count == 0)
-            {
-                this.MarketingCodesNeedingNotification = null;
-            }
-
-            if (this.DLCExpansionData == null ||
-                this.DLCExpansionData.Count == 0)
-            {
-                this.DLCExpansionData = null;
-            }
-            else
-            {
-                this.DLCExpansionData.Compose();
-            }
-
-            if (this.Unknown28 == null ||
-                this.Unknown28.Count == 0)
-            {
-                this.Unknown28 = null;
-            }
-
-            if (this.RegionGameStages == null ||
-                this.RegionGameStages.Count == 0)
-            {
-                this.RegionGameStages = null;
-            }
-            else
-            {
-                this.RegionGameStages.Compose();
-            }
-
-            if (this.WorldDiscoveryList == null ||
-                this.WorldDiscoveryList.Count == 0)
-            {
-                this.WorldDiscoveryList = null;
-            }
-            else
-            {
-                this.WorldDiscoveryList.Compose();
-            }
-
-            if (this.Unknown32 == null ||
-                this.Unknown32.Count == 0)
-            {
-                this.Unknown32 = null;
-            }
-            else
-            {
-                this.Unknown32.Compose();
-            }
-
-            if (this.Unknown33 == null ||
-                this.Unknown33.Count == 0)
-            {
-                this.Unknown33 = null;
-            }
-            else
-            {
-                this.Unknown33.Compose();
-            }
-
-            this.SaveGuid.Compose();
-
-            if (this.AppliedCustomizations == null ||
-                this.AppliedCustomizations.Count == 0)
-            {
-                this.AppliedCustomizations = null;
-            }
-
-            if (this.BlackMarketUpgrades == null ||
-                this.BlackMarketUpgrades.Count == 0)
-            {
-                this.BlackMarketUpgrades = null;
-            }
-
-            if (this.ChallengeList == null ||
-                this.ChallengeList.Count == 0)
-            {
-                this.ChallengeList = null;
-            }
-            else
-            {
-                this.ChallengeList.Compose();
-            }
-
-            if (this.LevelChallengeUnlocks == null ||
-                this.LevelChallengeUnlocks.Count == 0)
-            {
-                this.LevelChallengeUnlocks = null;
-            }
-
-            if (this.OneOffLevelChallengeCompletion == null ||
-                this.OneOffLevelChallengeCompletion.Count == 0)
-            {
-                this.OneOffLevelChallengeCompletion = null;
-            }
-            else
-            {
-                this.OneOffLevelChallengeCompletion.Compose();
-            }
-
-            if (this.BankSlots == null ||
-                this.BankSlots.Count == 0)
-            {
-                this.BankSlots = null;
-            }
-            else
-            {
-                this.BankSlots.Compose();
-            }
-
-            if (this.LockoutList == null ||
-                this.LockoutList.Count == 0)
-            {
-                this.LockoutList = null;
-            }
-            else
-            {
-                this.LockoutList.Compose();
-            }
-
-            if (this.FullyExploredAreas == null ||
-                this.FullyExploredAreas.Count == 0)
-            {
-                this.FullyExploredAreas = null;
-            }
-
-            if (this.Unknown47 == null ||
-                this.Unknown47.Count == 0)
-            {
-                this.Unknown47 = null;
-            }
-            else
-            {
-                this.Unknown47.Compose();
-            }
-
-            if (this.QueuedTrainingMessages == null ||
-                this.QueuedTrainingMessages.Count == 0)
-            {
-                this.QueuedTrainingMessages = null;
-            }
-
-            if (this.PackedItemData == null ||
-                this.PackedItemData.Count == 0)
-            {
-                this.PackedItemData = null;
-            }
-            else
-            {
-                this.PackedItemData.Compose();
-            }
-
-            if (this.PackedWeaponData == null ||
-                this.PackedWeaponData.Count == 0)
-            {
-                this.PackedWeaponData = null;
-            }
-            else
-            {
-                this.PackedWeaponData.Compose();
-            }
-
-            if (this.ChosenVehicleCustomizations == null ||
-                this.ChosenVehicleCustomizations.Count == 0)
-            {
-                this.ChosenVehicleCustomizations = null;
-            }
-            else
-            {
-                this.ChosenVehicleCustomizations.Compose();
-            }
+            this._CurrencyOnHand = this._CurrencyOnHand ?? new List<int>();
+            this._SkillData = this._SkillData ?? new List<SkillData>();
+            this._Unknown9 = this._Unknown9 ?? new List<int>();
+            this._Unknown10 = this._Unknown10 ?? new List<int>();
+            this._ResourceData = this._ResourceData ?? new List<ResourceData>();
+            this._ItemData = this._ItemData ?? new List<ItemData>();
+            this._WeaponData = this._WeaponData ?? new List<WeaponData>();
+            this._VisitedTeleporters = this._VisitedTeleporters ?? new List<string>();
+            this._MissionPlaythroughs = this._MissionPlaythroughs ?? new List<MissionPlaythroughData>();
+            this._UsedMarketingCodes = this._UsedMarketingCodes ?? new List<int>();
+            this._MarketingCodesNeedingNotification = this._MarketingCodesNeedingNotification ?? new List<int>();
+            this._DLCExpansionData = this._DLCExpansionData ?? new List<DLCExpansionData>();
+            this._Unknown28 = this._Unknown28 ?? new List<string>();
+            this._RegionGameStages = this._RegionGameStages ?? new List<RegionGameStageData>();
+            this._WorldDiscoveryList = this._WorldDiscoveryList ?? new List<WorldDiscoveryData>();
+            this._Unknown32 = this._Unknown32 ?? new List<WeaponMemento>();
+            this._Unknown33 = this._Unknown33 ?? new List<ItemMemento>();
+            this._AppliedCustomizations = this._AppliedCustomizations ?? new List<string>();
+            this._BlackMarketUpgrades = this._BlackMarketUpgrades ?? new List<int>();
+            this._ChallengeList = this._ChallengeList ?? new List<ChallengeData>();
+            this._LevelChallengeUnlocks = this._LevelChallengeUnlocks ?? new List<int>();
+            this._OneOffLevelChallengeCompletion = this._OneOffLevelChallengeCompletion ??
+                                                   new List<OneOffLevelChallengeData>();
+            this._BankSlots = this._BankSlots ?? new List<BankSlot>();
+            this._LockoutList = this._LockoutList ?? new List<LockoutData>();
+            this._FullyExploredAreas = this._FullyExploredAreas ?? new List<string>();
+            this._Unknown47 = this._Unknown47 ?? new List<GoldenKeys>();
+            this._QueuedTrainingMessages = this._QueuedTrainingMessages ?? new List<string>();
+            this._PackedItemData = this._PackedItemData ?? new List<PackedItemData>();
+            this._PackedWeaponData = this._PackedWeaponData ?? new List<PackedWeaponData>();
+            this._ChosenVehicleCustomizations = this._ChosenVehicleCustomizations ??
+                                                new List<ChosenVehicleCustomization>();
         }
 
-        private static void AddExpansionSavedataToUnloadableItemData(WillowTwoPlayerSaveGame saveGame)
+        private bool ShouldSerializeCurrencyOnHand()
         {
-            var oldHacks = saveGame.PackedItemData.Where(pid => pid.Quantity < 0).ToArray();
+            return this._CurrencyOnHand != null &&
+                   this._CurrencyOnHand.Count > 0;
+        }
+
+        private bool ShouldSerializeSkillData()
+        {
+            return this._SkillData != null &&
+                   this._SkillData.Count > 0;
+        }
+
+        private bool ShouldSerializeUnknown9()
+        {
+            return this._Unknown9 != null &&
+                   this._Unknown9.Count > 0;
+        }
+
+        private bool ShouldSerializeUnknown10()
+        {
+            return this._Unknown10 != null &&
+                   this._Unknown10.Count > 0;
+        }
+
+        private bool ShouldSerializeResourceData()
+        {
+            return this._ResourceData != null &&
+                   this._ResourceData.Count > 0;
+        }
+
+        private bool ShouldSerializeItemData()
+        {
+            return this._ItemData != null &&
+                   this._ItemData.Count > 0;
+        }
+
+        private bool ShouldSerializeWeaponData()
+        {
+            return this._WeaponData != null &&
+                   this._WeaponData.Count > 0;
+        }
+
+        private bool ShouldSerializeVisitedTeleporters()
+        {
+            return this._VisitedTeleporters != null &&
+                   this._VisitedTeleporters.Count > 0;
+        }
+
+        private bool ShouldSerializeMissionPlaythroughs()
+        {
+            return this._MissionPlaythroughs != null &&
+                   this._MissionPlaythroughs.Count > 0;
+        }
+
+        private bool ShouldSerializeUsedMarketingCodes()
+        {
+            return this._UsedMarketingCodes != null &&
+                   this._UsedMarketingCodes.Count > 0;
+        }
+
+        private bool ShouldSerializeMarketingCodesNeedingNotification()
+        {
+            return this._MarketingCodesNeedingNotification != null &&
+                   this._MarketingCodesNeedingNotification.Count > 0;
+        }
+
+        private bool ShouldSerializeDLCExpansionData()
+        {
+            return this._DLCExpansionData != null &&
+                   this._DLCExpansionData.Count > 0;
+        }
+
+        private bool ShouldSerializeUnknown28()
+        {
+            return this._Unknown28 != null &&
+                   this._Unknown28.Count > 0;
+        }
+
+        private bool ShouldSerializeRegionGameStages()
+        {
+            return this._RegionGameStages != null &&
+                   this._RegionGameStages.Count > 0;
+        }
+
+        private bool ShouldSerializeWorldDiscoveryList()
+        {
+            return this._WorldDiscoveryList != null &&
+                   this._WorldDiscoveryList.Count > 0;
+        }
+
+        private bool ShouldSerializeUnknown32()
+        {
+            return this._Unknown32 != null &&
+                   this._Unknown32.Count > 0;
+        }
+
+        private bool ShouldSerializeUnknown33()
+        {
+            return this._Unknown33 != null &&
+                   this._Unknown33.Count > 0;
+        }
+
+        private bool ShouldSerializeAppliedCustomizations()
+        {
+            return this._AppliedCustomizations != null &&
+                   this._AppliedCustomizations.Count > 0;
+        }
+
+        private bool ShouldSerializeBlackMarketUpgrades()
+        {
+            return this._BlackMarketUpgrades != null &&
+                   this._BlackMarketUpgrades.Count > 0;
+        }
+
+        private bool ShouldSerializeChallengeList()
+        {
+            return this._ChallengeList != null &&
+                   this._ChallengeList.Count > 0;
+        }
+
+        private bool ShouldSerializeLevelChallengeUnlocks()
+        {
+            return this._LevelChallengeUnlocks != null &&
+                   this._LevelChallengeUnlocks.Count > 0;
+        }
+
+        private bool ShouldSerializeOneOffLevelChallengeCompletion()
+        {
+            return this._OneOffLevelChallengeCompletion != null &&
+                   this._OneOffLevelChallengeCompletion.Count > 0;
+        }
+
+        private bool ShouldSerializeBankSlots()
+        {
+            return this._BankSlots != null &&
+                   this._BankSlots.Count > 0;
+        }
+
+        private bool ShouldSerializeLockoutList()
+        {
+            return this._LockoutList != null &&
+                   this._LockoutList.Count > 0;
+        }
+
+        private bool ShouldSerializeFullyExploredAreas()
+        {
+            return this._FullyExploredAreas != null &&
+                   this._FullyExploredAreas.Count > 0;
+        }
+
+        private bool ShouldSerializeUnknown47()
+        {
+            return this._Unknown47 != null &&
+                   this._Unknown47.Count > 0;
+        }
+
+        private bool ShouldSerializeQueuedTrainingMessages()
+        {
+            return this._QueuedTrainingMessages != null &&
+                   this._QueuedTrainingMessages.Count > 0;
+        }
+
+        private bool ShouldSerializePackedItemData()
+        {
+            return this._PackedItemData != null &&
+                   this._PackedItemData.Count > 0;
+        }
+
+        private bool ShouldSerializePackedWeaponData()
+        {
+            return this._PackedWeaponData != null &&
+                   this._PackedWeaponData.Count > 0;
+        }
+
+        private bool ShouldSerializeChosenVehicleCustomizations()
+        {
+            return this._ChosenVehicleCustomizations != null &&
+                   this._ChosenVehicleCustomizations.Count > 0;
+        }
+        #endregion
+
+        #region Expansion Data
+        public void AddExpansionSavedataToUnloadableItemData()
+        {
+            var oldHacks = this.PackedItemData.Where(pid => pid.Quantity < 0).ToArray();
             foreach (var hack in oldHacks)
             {
                 var type = (-hack.Quantity) & 0xFF;
                 if (type == 1 || type == 2 || type == 3)
                 {
-                    saveGame.PackedItemData.Remove(hack);
+                    this.PackedItemData.Remove(hack);
                 }
             }
 
-            if (saveGame.CurrencyOnHand.Count >= 1 &&
-                saveGame.CurrencyOnHand[1] > 99)
+            if (this.CurrencyOnHand.Count >= 1 &&
+                this.CurrencyOnHand[1] > 99)
             {
-                var extraEridium = Math.Max(0, Math.Min(saveGame.CurrencyOnHand[1] - 99, 0x7FFFFF));
-                saveGame.PackedItemData.Add(new PackedItemData()
+                var extraEridium = Math.Max(0, Math.Min(this.CurrencyOnHand[1] - 99, 0x7FFFFF));
+                this.PackedItemData.Add(new PackedItemData()
                 {
                     InventorySerialNumber = (byte[])_HackInventorySerialNumber.Clone(),
                     Quantity = -(1 | (extraEridium << 8)),
                 });
-                saveGame.CurrencyOnHand[1] = 99;
+                this.CurrencyOnHand[1] = 99;
             }
 
-            if (saveGame.PlaythroughsCompleted > 1 ||
-                saveGame.LastPlaythroughNumber > 1)
+            if (this.PlaythroughsCompleted > 1 &&
+                this.LastPlaythroughNumber > 0 && this.LastPlaythroughNumber <= 0x7FFFFF)
             {
-                var extraPlaythroughsCompleted = 0;
-                if (saveGame.LastPlaythroughNumber > 1)
-                {
-                    extraPlaythroughsCompleted = Math.Max(0, Math.Min(saveGame.LastPlaythroughNumber - 1, 0xFF));
-                    saveGame.PlaythroughsCompleted = 1;
-                }
+                var extraLastPlaythroughNumber = Math.Max(0, Math.Min(this.LastPlaythroughNumber - 1, 0x7FFFFF));
+                var extraPlaythroughsCompleted = (byte)(this.PlaythroughsCompleted - 1);
 
-                var extraLastPlaythroughNumber = 0;
-                if (saveGame.LastPlaythroughNumber > 1)
-                {
-                    extraLastPlaythroughNumber = Math.Max(0, Math.Min(saveGame.PlaythroughsCompleted - 1, 0x7FFFFF));
-                    saveGame.PlaythroughsCompleted = 1;
-                }
-
-                saveGame.PackedItemData.Add(new PackedItemData()
+                this.PackedItemData.Add(new PackedItemData()
                 {
                     InventorySerialNumber = (byte[])_HackInventorySerialNumber.Clone(),
                     Quantity = -(2 | (extraLastPlaythroughNumber << 8)),
-                    Mark = (byte)extraPlaythroughsCompleted,
+                    Mark = extraPlaythroughsCompleted,
                 });
+
+                this.LastPlaythroughNumber = this.LastPlaythroughNumber >= 1 ? 1 : 0;
+                this.PlaythroughsCompleted = 1;
             }
 
-            if (saveGame.ExtraShowNewPlaythroughNotification.HasValue == true)
+            if (this.ExtraShowNewPlaythroughNotification.HasValue == true)
             {
-                var value = Math.Max(0, Math.Min(saveGame.ExtraShowNewPlaythroughNotification.Value, 0x7FFFFF));
-                saveGame.PackedItemData.Add(new PackedItemData()
+                var value = Math.Max(0, Math.Min(this.ExtraShowNewPlaythroughNotification.Value, 0x7FFFFF));
+                this.PackedItemData.Add(new PackedItemData()
                 {
                     InventorySerialNumber = (byte[])_HackInventorySerialNumber.Clone(),
                     Quantity = -(3 | (value << 8)),
                 });
             }
+
+            if (this.NumOverpowerLevelsUnlocked.HasValue == true)
+            {
+                var value = Math.Max(0, Math.Min(this.NumOverpowerLevelsUnlocked.Value, 0x7FFFFF));
+                this.PackedItemData.Add(new PackedItemData()
+                {
+                    InventorySerialNumber = (byte[])_HackInventorySerialNumber.Clone(),
+                    Quantity = -(4 | (value << 8)),
+                });
+            }
+
+            if (this.LastOverpowerChoice.HasValue == true)
+            {
+                var value = Math.Max(0, Math.Min(this.LastOverpowerChoice.Value, 0x7FFFFF));
+                this.PackedItemData.Add(new PackedItemData()
+                {
+                    InventorySerialNumber = (byte[])_HackInventorySerialNumber.Clone(),
+                    Quantity = -(5 | (value << 8)),
+                });
+            }
         }
 
-        public void Decompose()
+        public void ExtractExpansionSavedataFromUnloadableItemData()
         {
-            if (this._ComposeState != ComposeState.Composed)
-            {
-                throw new InvalidOperationException();
-            }
-            this._ComposeState = ComposeState.Decomposed;
-
-            if (this.CurrencyOnHand == null)
-            {
-                this.CurrencyOnHand = new List<int>();
-            }
-
-            if (this.SkillData == null)
-            {
-                this.SkillData = new List<SkillData>();
-            }
-            else
-            {
-                this.SkillData.Decompose();
-            }
-
-            if (this.Unknown9 == null)
-            {
-                this.Unknown9 = new List<int>();
-            }
-
-            if (this.Unknown10 == null)
-            {
-                this.Unknown10 = new List<int>();
-            }
-
-            if (this.ResourceData == null)
-            {
-                this.ResourceData = new List<ResourceData>();
-            }
-            else
-            {
-                this.ResourceData.Decompose();
-            }
-
-            if (this.ItemData == null)
-            {
-                this.ItemData = new List<ItemData>();
-            }
-            else
-            {
-                this.ItemData.Decompose();
-            }
-
-            this.InventorySlotData.Decompose();
-
-            if (this.WeaponData == null)
-            {
-                this.WeaponData = new List<WeaponData>();
-            }
-            else
-            {
-                this.WeaponData.Decompose();
-            }
-
-            if (this.VisitedTeleporters == null)
-            {
-                this.VisitedTeleporters = new List<string>();
-            }
-
-            if (this.MissionPlaythroughs == null)
-            {
-                this.MissionPlaythroughs = new List<MissionPlaythroughData>();
-            }
-            else
-            {
-                this.MissionPlaythroughs.Decompose();
-            }
-
-            this.UIPreferences.Decompose();
-
-            if (this.UsedMarketingCodes == null)
-            {
-                this.UsedMarketingCodes = new List<int>();
-            }
-
-            if (this.MarketingCodesNeedingNotification == null)
-            {
-                this.MarketingCodesNeedingNotification = new List<int>();
-            }
-
-            if (this.DLCExpansionData == null)
-            {
-                this.DLCExpansionData = new List<DLCExpansionData>();
-            }
-            else
-            {
-                this.DLCExpansionData.Decompose();
-            }
-
-            if (this.Unknown28 == null)
-            {
-                this.Unknown28 = new List<string>();
-            }
-
-            if (this.RegionGameStages == null)
-            {
-                this.RegionGameStages = new List<RegionGameStageData>();
-            }
-            else
-            {
-                this.RegionGameStages.Decompose();
-            }
-
-            if (this.WorldDiscoveryList == null)
-            {
-                this.WorldDiscoveryList = new List<WorldDiscoveryData>();
-            }
-            else
-            {
-                this.WorldDiscoveryList.Decompose();
-            }
-
-            if (this.Unknown32 == null)
-            {
-                this.Unknown32 = new List<WeaponMemento>();
-            }
-            else
-            {
-                this.Unknown32.Decompose();
-            }
-
-            if (this.Unknown33 == null)
-            {
-                this.Unknown33 = new List<ItemMemento>();
-            }
-            else
-            {
-                this.Unknown33.Decompose();
-            }
-
-            this.SaveGuid.Decompose();
-
-            if (this.AppliedCustomizations == null)
-            {
-                this.AppliedCustomizations = new List<string>();
-            }
-
-            if (this.BlackMarketUpgrades == null)
-            {
-                this.BlackMarketUpgrades = new List<int>();
-            }
-
-            if (this.ChallengeList == null)
-            {
-                this.ChallengeList = new List<ChallengeData>();
-            }
-            else
-            {
-                this.ChallengeList.Decompose();
-            }
-
-            if (this.LevelChallengeUnlocks == null)
-            {
-                this.LevelChallengeUnlocks = new List<int>();
-            }
-
-            if (this.OneOffLevelChallengeCompletion == null)
-            {
-                this.OneOffLevelChallengeCompletion = new List<OneOffLevelChallengeData>();
-            }
-            else
-            {
-                this.OneOffLevelChallengeCompletion.Decompose();
-            }
-
-            if (this.BankSlots == null)
-            {
-                this.BankSlots = new List<BankSlot>();
-            }
-            else
-            {
-                this.BankSlots.Decompose();
-            }
-
-            if (this.LockoutList == null)
-            {
-                this.LockoutList = new List<LockoutData>();
-            }
-            else
-            {
-                this.LockoutList.Decompose();
-            }
-
-            if (this.FullyExploredAreas == null)
-            {
-                this.FullyExploredAreas = new List<string>();
-            }
-
-            if (this.Unknown47 == null)
-            {
-                this.Unknown47 = new List<GoldenKeys>();
-            }
-            else
-            {
-                this.Unknown47.Decompose();
-            }
-
-            if (this.QueuedTrainingMessages == null)
-            {
-                this.QueuedTrainingMessages = new List<string>();
-            }
-
-            if (this.PackedItemData == null)
-            {
-                this.PackedItemData = new List<PackedItemData>();
-            }
-            else
-            {
-                this.PackedItemData.Decompose();
-            }
-
-            if (this.PackedWeaponData == null)
-            {
-                this.PackedWeaponData = new List<PackedWeaponData>();
-            }
-            else
-            {
-                this.PackedWeaponData.Decompose();
-            }
-
-            if (this.ChosenVehicleCustomizations == null)
-            {
-                this.ChosenVehicleCustomizations = new List<ChosenVehicleCustomization>();
-            }
-            else
-            {
-                this.ChosenVehicleCustomizations.Decompose();
-            }
-
-            ExtractExpansionSavedataFromUnloadableItemData(this);
-        }
-
-        private static void ExtractExpansionSavedataFromUnloadableItemData(WillowTwoPlayerSaveGame saveGame)
-        {
-            var hacks = saveGame.PackedItemData.Where(pid => pid.Quantity < 0).ToArray();
+            var hacks = this.PackedItemData.Where(pid => pid.Quantity < 0).ToArray();
             foreach (var hack in hacks)
             {
                 var type = (-hack.Quantity) & 0xFF;
                 if (type == 1)
                 {
-                    if (saveGame.CurrencyOnHand.Count >= 1)
+                    if (this.CurrencyOnHand.Count >= 1)
                     {
-                        saveGame.CurrencyOnHand[1] += ((-hack.Quantity) >> 8) & 0x7FFFFF;
+                        this.CurrencyOnHand[1] += ((-hack.Quantity) >> 8) & 0x7FFFFF;
                     }
 
-                    saveGame.PackedItemData.Remove(hack);
+                    this.PackedItemData.Remove(hack);
                 }
                 else if (type == 2)
                 {
-                    saveGame.LastPlaythroughNumber += ((-hack.Quantity) >> 8) & 0x7FFFFF;
-                    saveGame.PlaythroughsCompleted += (byte)hack.Mark;
-                    saveGame.PackedItemData.Remove(hack);
+                    this.LastPlaythroughNumber += ((-hack.Quantity) >> 8) & 0x7FFFFF;
+                    this.PlaythroughsCompleted += (byte)hack.Mark;
+                    this.PackedItemData.Remove(hack);
                 }
                 else if (type == 3)
                 {
-                    saveGame.ExtraShowNewPlaythroughNotification = ((-hack.Quantity) >> 8) & 0x7FFFFF;
-                    saveGame.PackedItemData.Remove(hack);
+                    this.ExtraShowNewPlaythroughNotification = ((-hack.Quantity) >> 8) & 0x7FFFFF;
+                    this.PackedItemData.Remove(hack);
+                }
+                else if (type == 4)
+                {
+                    this.NumOverpowerLevelsUnlocked = ((-hack.Quantity) >> 8) & 0x7FFFFF;
+                    this.PackedItemData.Remove(hack);
+                }
+                else if (type == 5)
+                {
+                    this.LastOverpowerChoice = ((-hack.Quantity) >> 8) & 0x7FFFFF;
+                    this.PackedItemData.Remove(hack);
                 }
             }
         }
@@ -1515,6 +1250,32 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 {
                     this._ExtraShowNewPlaythroughNotification = value;
                     this.NotifyPropertyChanged("ExtraShowNewPlaythroughNotification");
+                }
+            }
+        }
+
+        public int? NumOverpowerLevelsUnlocked
+        {
+            get { return this._NumOverpowerLevelsUnlocked; }
+            set
+            {
+                if (value != this._NumOverpowerLevelsUnlocked)
+                {
+                    this._NumOverpowerLevelsUnlocked = value;
+                    this.NotifyPropertyChanged("NumOverpowerLevelsUnlocked");
+                }
+            }
+        }
+
+        public int? LastOverpowerChoice
+        {
+            get { return this._LastOverpowerChoice; }
+            set
+            {
+                if (value != this._LastOverpowerChoice)
+                {
+                    this._LastOverpowerChoice = value;
+                    this.NotifyPropertyChanged("LastOverpowerChoice");
                 }
             }
         }

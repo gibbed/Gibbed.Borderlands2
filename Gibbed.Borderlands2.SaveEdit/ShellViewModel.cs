@@ -182,68 +182,15 @@ namespace Gibbed.Borderlands2.SaveEdit
             events.Subscribe(this);
         }
 
-        public IEnumerable<IResult> NewSave()
+        public IEnumerable<IResult> ShowOpenFile(Action<string> fileNameResult, Action<Platform> platformResult)
         {
-            yield return new DelegateResult(() =>
-            {
-                var saveFile = new FileFormats.SaveFile()
-                {
-                    Platform = Platform.PC,
-                    SaveGame = new ProtoBufFormats.WillowTwoSave.WillowTwoPlayerSaveGame()
-                    {
-                        SaveGameId = 1,
-                        SaveGuid = (ProtoBufFormats.WillowTwoSave.Guid)Guid.NewGuid(),
-                        PlayerClass = "GD_Assassin.Character.CharClass_Assassin",
-                        UIPreferences = new ProtoBufFormats.WillowTwoSave.UIPreferencesData()
-                        {
-                            CharacterName = Encoding.UTF8.GetBytes("Zero"),
-                        },
-                        AppliedCustomizations = new List<string>()
-                        {
-                            "GD_DefaultCustoms_MainGame.Assassin.Head_Default",
-                            "",
-                            "",
-                            "",
-                            "GD_DefaultCustoms_MainGame.Assassin.Skin_Default",
-                        },
-                        LastVisitedTeleporter = "None",
-                    },
-                };
-                saveFile.SaveGame.Decompose();
+            fileNameResult(null);
+            platformResult(Platform.Invalid);
 
-                this.General.ImportData(saveFile.SaveGame, saveFile.Platform);
-                this.Character.ImportData(saveFile.SaveGame);
-                this.Vehicle.ImportData(saveFile.SaveGame);
-                this.CurrencyOnHand.ImportData(saveFile.SaveGame);
-                this.Backpack.ImportData(saveFile.SaveGame, saveFile.Platform);
-                this.Bank.ImportData(saveFile.SaveGame, saveFile.Platform);
-                this.FastTravel.ImportData(saveFile.SaveGame);
-                this.SaveFile = saveFile;
-            })
-                .Rescue<DllNotFoundException>().Execute(
-                    x => new MyMessageBox("Failed to create save: " + x.Message, "Error")
-                             .WithIcon(MessageBoxImage.Error).AsCoroutine())
-                .Rescue<FileFormats.SaveFormatException>().Execute(
-                    x => new MyMessageBox("Failed to create save: " + x.Message, "Error")
-                             .WithIcon(MessageBoxImage.Error).AsCoroutine())
-                .Rescue<FileFormats.SaveCorruptionException>().Execute(
-                    x => new MyMessageBox("Failed to create save: " + x.Message, "Error")
-                             .WithIcon(MessageBoxImage.Error).AsCoroutine())
-                .Rescue().Execute(
-                    x =>
-                    new MyMessageBox("An exception was thrown (press Ctrl+C to copy):\n\n" + x.ToString(),
-                                     "Error")
-                        .WithIcon(MessageBoxImage.Error).AsCoroutine());
-        }
-
-        public IEnumerable<IResult> ReadSave()
-        {
             string fileName = null;
-            int filterIndex = 0;
+            int filterIndex = -1;
 
-            MyOpenFileResult ofr;
-
-            ofr = new MyOpenFileResult()
+            var ofr = new MyOpenFileResult()
                 .FilterFiles(
                     ffc => ffc.AddFilter("sav", this._FilterIndex == 1)
                               .WithDescription("PC Save Files")
@@ -277,9 +224,79 @@ namespace Gibbed.Borderlands2.SaveEdit
                 Platform.PS3
             };
 
-            var platform = filterIndex < 1 || filterIndex > 3
+            fileNameResult(fileName);
+            platformResult(filterIndex < 1 || filterIndex > 3
                                ? Platform.PC
-                               : platforms[filterIndex];
+                               : platforms[filterIndex]);
+        }
+
+        public IEnumerable<IResult> NewSave()
+        {
+            yield return new DelegateResult(() =>
+            {
+                var saveFile = new FileFormats.SaveFile()
+                {
+                    Platform = Platform.PC,
+                    SaveGame = new ProtoBufFormats.WillowTwoSave.WillowTwoPlayerSaveGame()
+                    {
+                        SaveGameId = 1,
+                        SaveGuid = (ProtoBufFormats.WillowTwoSave.Guid)Guid.NewGuid(),
+                        PlayerClass = "GD_Assassin.Character.CharClass_Assassin",
+                        UIPreferences = new ProtoBufFormats.WillowTwoSave.UIPreferencesData()
+                        {
+                            CharacterName = Encoding.UTF8.GetBytes("Zero"),
+                        },
+                        AppliedCustomizations = new List<string>()
+                        {
+                            "GD_DefaultCustoms_MainGame.Assassin.Head_Default",
+                            "",
+                            "",
+                            "",
+                            "GD_DefaultCustoms_MainGame.Assassin.Skin_Default",
+                        },
+                        LastVisitedTeleporter = "None",
+                    },
+                };
+
+                this.General.ImportData(saveFile.SaveGame, saveFile.Platform);
+                this.Character.ImportData(saveFile.SaveGame);
+                this.Vehicle.ImportData(saveFile.SaveGame);
+                this.CurrencyOnHand.ImportData(saveFile.SaveGame);
+                this.Backpack.ImportData(saveFile.SaveGame, saveFile.Platform);
+                this.Bank.ImportData(saveFile.SaveGame, saveFile.Platform);
+                this.FastTravel.ImportData(saveFile.SaveGame);
+                this.SaveFile = saveFile;
+            })
+                .Rescue<DllNotFoundException>().Execute(
+                    x => new MyMessageBox("Failed to create save: " + x.Message, "Error")
+                             .WithIcon(MessageBoxImage.Error).AsCoroutine())
+                .Rescue<FileFormats.SaveFormatException>().Execute(
+                    x => new MyMessageBox("Failed to create save: " + x.Message, "Error")
+                             .WithIcon(MessageBoxImage.Error).AsCoroutine())
+                .Rescue<FileFormats.SaveCorruptionException>().Execute(
+                    x => new MyMessageBox("Failed to create save: " + x.Message, "Error")
+                             .WithIcon(MessageBoxImage.Error).AsCoroutine())
+                .Rescue().Execute(
+                    x =>
+                    new MyMessageBox("An exception was thrown (press Ctrl+C to copy):\n\n" + x.ToString(),
+                                     "Error")
+                        .WithIcon(MessageBoxImage.Error).AsCoroutine());
+        }
+
+        public IEnumerable<IResult> ReadSave()
+        {
+            string fileName = null;
+            var platform = Platform.Invalid;
+
+            foreach (var result in this.ShowOpenFile(s => fileName = s, p => platform = p))
+            {
+                yield return result;
+            }
+
+            if (fileName == null)
+            {
+                yield break;
+            }
 
             FileFormats.SaveFile saveFile = null;
 
@@ -470,9 +487,7 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             string fileName = null;
 
-            MySaveFileResult ofr;
-
-            ofr = new MySaveFileResult()
+            var ofr = new MySaveFileResult()
                 .PromptForOverwrite()
                 .FilterFiles(
                     ffc => ffc.AddFilter("sav", true)

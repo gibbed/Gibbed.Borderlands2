@@ -51,6 +51,7 @@
                            Source="Resources\fugue\document.png" />
                     <Label Content="New" />
                 </StackPanel>
+                <Button.ToolTip>New (Ctrl+N)</Button.ToolTip>
             </Button>
             <Button>
                 <cal:Message.Attach>[Event Click] = [Action ReadSave]</cal:Message.Attach>
@@ -60,6 +61,7 @@
                            Source="Resources\fugue\folder-open-document.png" />
                     <Label Content="Open" />
                 </StackPanel>
+                <Button.ToolTip>Open (Ctrl+O)</Button.ToolTip>
             </Button>
             <Button IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}">
                 <cal:Message.Attach>[Event Click] = [Action WriteSave]</cal:Message.Attach>
@@ -69,6 +71,7 @@
                            Source="Resources\fugue\disk-black.png" />
                     <Label Content="Save" />
                 </StackPanel>
+                <Button.ToolTip>Save (Ctrl+S)</Button.ToolTip>
             </Button>
         </ToolBar>
         <TabControl TabStripPlacement="Top">

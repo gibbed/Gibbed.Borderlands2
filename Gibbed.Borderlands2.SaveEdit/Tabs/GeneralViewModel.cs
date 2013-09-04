@@ -112,7 +112,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         public void ExportData(WillowTwoPlayerSaveGame saveGame, out Platform platform)
         {
             platform = this.Platform;
-            saveGame.SaveGuid = (ProtoBufFormats.WillowTwoSave.Guid)this.SaveGuid;
+            saveGame.SaveGuid = (Guid)this.SaveGuid;
             saveGame.SaveGameId = this.SaveGameId;
         }
     }

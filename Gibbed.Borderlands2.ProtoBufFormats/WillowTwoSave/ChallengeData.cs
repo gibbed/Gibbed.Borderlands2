@@ -26,22 +26,12 @@ using ProtoBuf;
 namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 {
     [ProtoContract]
-    public class ChallengeData : IComposable, INotifyPropertyChanged
+    public class ChallengeData : INotifyPropertyChanged
     {
         #region Fields
         private string _Challenge;
         private bool _IsFromDLC;
         private int _DLCPackageId;
-        #endregion
-
-        #region IComposable Members
-        public void Compose()
-        {
-        }
-
-        public void Decompose()
-        {
-        }
         #endregion
 
         #region Properties

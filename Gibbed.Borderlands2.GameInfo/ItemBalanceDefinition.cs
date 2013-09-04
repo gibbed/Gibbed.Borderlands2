@@ -141,7 +141,7 @@ namespace Gibbed.Borderlands2.GameInfo
             return merged;
         }
 
-        private static void MergePartList(List<string> destination, PartReplacementMode mode, List<string> source)
+        private static void MergePartList(List<string> destination, PartReplacementMode mode, IEnumerable<string> source)
         {
             if (mode == PartReplacementMode.Additive)
             {

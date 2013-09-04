@@ -110,8 +110,8 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             this._Slots = new ObservableCollection<IBaseSlotViewModel>();
             this._BrokenSlots = new List<KeyValuePair<BankSlot, Exception>>();
-            this._NewWeapon = new DelegateCommand<int>(x => this.DoNewWeapon(x));
-            this._NewItem = new DelegateCommand<int>(x => this.DoNewItem(x));
+            this._NewWeapon = new DelegateCommand<int>(this.DoNewWeapon);
+            this._NewItem = new DelegateCommand<int>(this.DoNewItem);
             events.Subscribe(this);
         }
 
@@ -324,8 +324,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                     var weapon = (BaseWeaponViewModel)viewModel;
                     if ((weapon.ManufacturerGradeIndex + weapon.GameStage) >= 2)
                     {
-                        weapon.ManufacturerGradeIndex = this._Character.ExpLevel;
-                        weapon.GameStage = this._Character.ExpLevel;
+                        weapon.ManufacturerGradeIndex = this._Character.SyncLevel;
+                        weapon.GameStage = this._Character.SyncLevel;
                     }
                 }
                 else if (viewModel is BaseItemViewModel)
@@ -333,8 +333,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                     var item = (BaseItemViewModel)viewModel;
                     if ((item.ManufacturerGradeIndex + item.GameStage) >= 2)
                     {
-                        item.ManufacturerGradeIndex = this._Character.ExpLevel;
-                        item.GameStage = this._Character.ExpLevel;
+                        item.ManufacturerGradeIndex = this._Character.SyncLevel;
+                        item.GameStage = this._Character.SyncLevel;
                     }
                 }
                 else

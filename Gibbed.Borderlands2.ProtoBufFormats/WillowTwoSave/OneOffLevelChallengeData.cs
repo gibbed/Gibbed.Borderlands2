@@ -20,7 +20,6 @@
  *    distribution.
  */
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using ProtoBuf;
@@ -28,44 +27,27 @@ using ProtoBuf;
 namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 {
     [ProtoContract]
-    public class OneOffLevelChallengeData : IComposable, INotifyPropertyChanged
+    public class OneOffLevelChallengeData : INotifyPropertyChanged
     {
         #region Fields
         private int _PackageId;
         private int _ContentId;
-        private List<uint> _Completion;
+        private List<uint> _Completion = new List<uint>();
         #endregion
 
-        #region IComposable Members
-        private ComposeState _ComposeState = ComposeState.Composed;
-
-        public void Compose()
+        #region Serialization
+        [ProtoAfterDeserialization]
+        // ReSharper disable UnusedMember.Local
+        private void OnDeserialization()
+            // ReSharper restore UnusedMember.Local
         {
-            if (this._ComposeState != ComposeState.Decomposed)
-            {
-                throw new InvalidOperationException();
-            }
-            this._ComposeState = ComposeState.Composed;
-
-            if (this._Completion == null ||
-                this._Completion.Count == 0)
-            {
-                this._Completion = null;
-            }
+            this._Completion = this._Completion ?? new List<uint>();
         }
 
-        public void Decompose()
+        private bool ShouldSerializeCompletion()
         {
-            if (this._ComposeState != ComposeState.Composed)
-            {
-                throw new InvalidOperationException();
-            }
-            this._ComposeState = ComposeState.Decomposed;
-
-            if (this._Completion == null)
-            {
-                this._Completion = new List<uint>();
-            }
+            return this._Completion != null &&
+                   this._Completion.Count > 0;
         }
         #endregion
 

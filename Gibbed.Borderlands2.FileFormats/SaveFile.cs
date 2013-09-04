@@ -83,15 +83,8 @@ namespace Gibbed.Borderlands2.FileFormats
             byte[] innerUncompressedBytes;
             using (var innerUncompressedData = new MemoryStream())
             {
-                saveGame.Compose();
-                try
-                {
-                    ProtoBuf.Serializer.Serialize(innerUncompressedData, saveGame);
-                }
-                finally
-                {
-                    saveGame.Decompose();
-                }
+                saveGame.AddExpansionSavedataToUnloadableItemData();
+                ProtoBuf.Serializer.Serialize(innerUncompressedData, saveGame);
                 innerUncompressedData.Position = 0;
                 innerUncompressedBytes = innerUncompressedData.ReadBytes((uint)innerUncompressedData.Length);
             }
@@ -543,7 +536,7 @@ namespace Gibbed.Borderlands2.FileFormats
                             }
                         }
 
-                        saveGame.Decompose();
+                        saveGame.ExtractExpansionSavedataFromUnloadableItemData();
 
                         return new SaveFile()
                         {

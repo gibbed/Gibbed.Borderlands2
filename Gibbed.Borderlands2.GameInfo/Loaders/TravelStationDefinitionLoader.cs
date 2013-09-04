@@ -135,7 +135,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             };
         }
 
-        private static List<MissionStatusData> GetMissionStatusData(List<Raw.MissionStatusData> raws)
+        private static List<MissionStatusData> GetMissionStatusData(IEnumerable<Raw.MissionStatusData> raws)
         {
             if (raws == null)
             {

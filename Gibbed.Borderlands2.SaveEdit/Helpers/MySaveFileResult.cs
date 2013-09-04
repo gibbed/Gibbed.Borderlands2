@@ -147,7 +147,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             if (action == null)
             {
-                throw new ArgumentNullException("action", "action may not be null");
+                throw new ArgumentNullException("action");
             }
             action(this._Filters);
             return this;

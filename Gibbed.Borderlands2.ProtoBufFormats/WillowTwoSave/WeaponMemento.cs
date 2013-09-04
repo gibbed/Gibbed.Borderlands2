@@ -26,7 +26,7 @@ using ProtoBuf;
 namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 {
     [ProtoContract]
-    public class WeaponMemento : IComposable, INotifyPropertyChanged
+    public class WeaponMemento : INotifyPropertyChanged
     {
         #region Fields
         private string _Unknown1;
@@ -53,16 +53,6 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         private string _Unknown22;
         private string _Unknown23;
         private string _Unknown24;
-        #endregion
-
-        #region IComposable Members
-        public void Compose()
-        {
-        }
-
-        public void Decompose()
-        {
-        }
         #endregion
 
         #region Properties

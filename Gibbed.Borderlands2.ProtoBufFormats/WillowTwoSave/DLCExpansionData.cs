@@ -26,21 +26,11 @@ using ProtoBuf;
 namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 {
     [ProtoContract]
-    public class DLCExpansionData : IComposable, INotifyPropertyChanged
+    public class DLCExpansionData : INotifyPropertyChanged
     {
         #region Fields
         private int _Tag;
         private byte[] _Data;
-        #endregion
-
-        #region IComposable Members
-        public void Compose()
-        {
-        }
-
-        public void Decompose()
-        {
-        }
         #endregion
 
         #region Properties

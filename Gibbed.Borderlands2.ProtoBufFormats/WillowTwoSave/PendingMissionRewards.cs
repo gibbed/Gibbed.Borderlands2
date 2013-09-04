@@ -20,7 +20,6 @@
  *    distribution.
  */
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using ProtoBuf;
@@ -28,113 +27,52 @@ using ProtoBuf;
 namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 {
     [ProtoContract]
-    public class PendingMissionRewards : IComposable, INotifyPropertyChanged
+    public class PendingMissionRewards : INotifyPropertyChanged
     {
         #region Fields
         private string _Mission;
-        private List<WeaponData> _WeaponRewards;
-        private List<ItemData> _ItemRewards;
-        private List<PackedWeaponDataOptional> _PackedWeaponRewards;
-        private List<PackedItemDataOptional> _PackedItemRewards;
+        private List<WeaponData> _WeaponRewards = new List<WeaponData>();
+        private List<ItemData> _ItemRewards = new List<ItemData>();
+        private List<PackedWeaponDataOptional> _PackedWeaponRewards = new List<PackedWeaponDataOptional>();
+        private List<PackedItemDataOptional> _PackedItemRewards = new List<PackedItemDataOptional>();
         private bool _IsFromDLC;
         private int _DLCPackageId;
         #endregion
 
-        #region IComposable Members
-        private ComposeState _ComposeState = ComposeState.Composed;
-
-        public void Compose()
+        #region Serialization
+        [ProtoAfterDeserialization]
+        // ReSharper disable UnusedMember.Local
+        private void OnDeserialization()
+            // ReSharper restore UnusedMember.Local
         {
-            if (this._ComposeState != ComposeState.Decomposed)
-            {
-                throw new InvalidOperationException();
-            }
-            this._ComposeState = ComposeState.Composed;
-
-            if (this.WeaponRewards == null ||
-                this.WeaponRewards.Count == 0)
-            {
-                this.WeaponRewards = null;
-            }
-            else
-            {
-                this.WeaponRewards.Compose();
-            }
-
-            if (this.ItemRewards == null ||
-                this.ItemRewards.Count == 0)
-            {
-                this.ItemRewards = null;
-            }
-            else
-            {
-                this.ItemRewards.Compose();
-            }
-
-            if (this.PackedWeaponRewards == null ||
-                this.PackedWeaponRewards.Count == 0)
-            {
-                this.PackedWeaponRewards = null;
-            }
-            else
-            {
-                this.PackedWeaponRewards.Compose();
-            }
-
-            if (this.PackedItemRewards == null ||
-                this.PackedItemRewards.Count == 0)
-            {
-                this.PackedItemRewards = null;
-            }
-            else
-            {
-                this.PackedItemRewards.Compose();
-            }
+            this._WeaponRewards = this._WeaponRewards ?? new List<WeaponData>();
+            this._ItemRewards = this._ItemRewards ?? new List<ItemData>();
+            this._PackedWeaponRewards = this._PackedWeaponRewards ?? new List<PackedWeaponDataOptional>();
+            this._PackedItemRewards = this._PackedItemRewards ?? new List<PackedItemDataOptional>();
         }
 
-        public void Decompose()
+        private bool ShouldSerializeWeaponRewards()
         {
-            if (this._ComposeState != ComposeState.Composed)
-            {
-                throw new InvalidOperationException();
-            }
-            this._ComposeState = ComposeState.Decomposed;
+            return this._WeaponRewards != null &&
+                   this._WeaponRewards.Count > 0;
+        }
 
-            if (this.WeaponRewards == null)
-            {
-                this.WeaponRewards = new List<WeaponData>();
-            }
-            else
-            {
-                this.WeaponRewards.Decompose();
-            }
+        private bool ShouldSerializeItemRewards()
+        {
+            return this._ItemRewards != null &&
+                   this._ItemRewards.Count > 0;
+        }
 
-            if (this.ItemRewards == null)
-            {
-                this.ItemRewards = new List<ItemData>();
-            }
-            else
-            {
-                this.ItemRewards.Decompose();
-            }
+        private bool ShouldSerializePackedWeaponRewards()
+        {
+            return this._PackedWeaponRewards != null &&
+                   this._PackedWeaponRewards.Count > 0;
+        }
 
-            if (this.PackedWeaponRewards == null)
-            {
-                this.PackedWeaponRewards = new List<PackedWeaponDataOptional>();
-            }
-            else
-            {
-                this.PackedWeaponRewards.Decompose();
-            }
-
-            if (this.PackedItemRewards == null)
-            {
-                this.PackedItemRewards = new List<PackedItemDataOptional>();
-            }
-            else
-            {
-                this.PackedItemRewards.Decompose();
-            }
+        private bool ShouldSerializePackedItemRewards()
+        {
+            return this._PackedItemRewards != null &&
+                   this._PackedItemRewards.Count > 0;
         }
         #endregion
 

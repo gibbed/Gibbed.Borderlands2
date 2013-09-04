@@ -44,9 +44,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ComposableHelpers.cs" />
-    <Compile Include="ComposeState.cs" />
-    <Compile Include="IComposable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WillowTwoSave\BankSlot.cs" />
     <Compile Include="WillowTwoSave\ChallengeData.cs" />

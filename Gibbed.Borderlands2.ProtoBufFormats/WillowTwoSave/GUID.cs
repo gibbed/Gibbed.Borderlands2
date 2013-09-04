@@ -27,23 +27,13 @@ using ProtoBuf;
 namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 {
     [ProtoContract(Name = "GUID")]
-    public struct Guid : IComposable, INotifyPropertyChanged
+    public struct Guid : INotifyPropertyChanged
     {
         #region Fields
         private uint _A;
         private uint _B;
         private uint _C;
         private uint _D;
-        #endregion
-
-        #region IComposable Members
-        public void Compose()
-        {
-        }
-
-        public void Decompose()
-        {
-        }
         #endregion
 
         #region Properties

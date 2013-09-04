@@ -20,50 +20,19 @@
  *    distribution.
  */
 
-using System;
 using System.ComponentModel;
 using ProtoBuf;
 
 namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 {
     [ProtoContract]
-    public class UIPreferencesData : IComposable, INotifyPropertyChanged
+    public class UIPreferencesData : INotifyPropertyChanged
     {
         #region Fields
         private byte[] _CharacterName;
         private Color _PrimaryColor;
         private Color _SecondaryColor;
         private Color _TertiaryColor;
-        #endregion
-
-        #region IComposable Members
-        private ComposeState _ComposeState;
-
-        public void Compose()
-        {
-            if (this._ComposeState != ComposeState.Decomposed)
-            {
-                throw new InvalidOperationException();
-            }
-            this._ComposeState = ComposeState.Composed;
-
-            this.PrimaryColor.Compose();
-            this.SecondaryColor.Compose();
-            this.TertiaryColor.Compose();
-        }
-
-        public void Decompose()
-        {
-            if (this._ComposeState != ComposeState.Composed)
-            {
-                throw new InvalidOperationException();
-            }
-            this._ComposeState = ComposeState.Decomposed;
-
-            this.PrimaryColor.Decompose();
-            this.SecondaryColor.Decompose();
-            this.TertiaryColor.Decompose();
-        }
         #endregion
 
         #region Properties

@@ -20,7 +20,6 @@
  *    distribution.
  */
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using ProtoBuf;
@@ -28,63 +27,42 @@ using ProtoBuf;
 namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 {
     [ProtoContract]
-    public class MissionData : IComposable, INotifyPropertyChanged
+    public class MissionData : INotifyPropertyChanged
     {
         #region Fields
         private string _Mission;
         private MissionStatus _Status;
         private bool _IsFromDLC;
         private int _DLCPackageId;
-        private List<int> _ObjectivesProgress;
+        private List<int> _ObjectivesProgress = new List<int>();
         private int _ActiveObjectiveSetIndex;
-        private List<int> _SubObjectiveSetIndexes;
+        private List<int> _SubObjectiveSetIndexes = new List<int>();
         private bool _NeedsRewards;
         private int _Unknown9;
         private bool _HeardKickoff;
         private int _GameStage;
         #endregion
 
-        #region IComposable Members
-        private ComposeState _ComposeState = ComposeState.Composed;
-
-        public void Compose()
+        #region Serialization
+        [ProtoAfterDeserialization]
+        // ReSharper disable UnusedMember.Local
+        private void OnDeserialization()
+            // ReSharper restore UnusedMember.Local
         {
-            if (this._ComposeState != ComposeState.Decomposed)
-            {
-                throw new InvalidOperationException();
-            }
-            this._ComposeState = ComposeState.Composed;
-
-            if (this.ObjectivesProgress == null ||
-                this.ObjectivesProgress.Count == 0)
-            {
-                this.ObjectivesProgress = null;
-            }
-
-            if (this.SubObjectiveSetIndexes == null ||
-                this.SubObjectiveSetIndexes.Count == 0)
-            {
-                this.SubObjectiveSetIndexes = null;
-            }
+            this._ObjectivesProgress = this._ObjectivesProgress ?? new List<int>();
+            this._SubObjectiveSetIndexes = this._SubObjectiveSetIndexes ?? new List<int>();
         }
 
-        public void Decompose()
+        private bool ShouldSerializeObjectivesProgress()
         {
-            if (this._ComposeState != ComposeState.Composed)
-            {
-                throw new InvalidOperationException();
-            }
-            this._ComposeState = ComposeState.Decomposed;
+            return this._ObjectivesProgress != null &&
+                   this._ObjectivesProgress.Count > 0;
+        }
 
-            if (this.ObjectivesProgress == null)
-            {
-                this.ObjectivesProgress = new List<int>();
-            }
-
-            if (this.SubObjectiveSetIndexes == null)
-            {
-                this.SubObjectiveSetIndexes = new List<int>();
-            }
+        private bool ShouldSerializeSubObjectiveSetIndexes()
+        {
+            return this._SubObjectiveSetIndexes != null &&
+                   this._SubObjectiveSetIndexes.Count > 0;
         }
         #endregion
 
