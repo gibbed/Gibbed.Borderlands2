@@ -530,6 +530,19 @@ namespace Gibbed.Borderlands2.SaveEdit
         public void ExportData(WillowTwoPlayerSaveGame saveGame)
         {
             saveGame.PlayerClass = this.PlayerClass;
+
+            var playerClass = InfoManager.PlayerClasses.Items.FirstOrDefault(p => p.Key == this.PlayerClass).Value;
+            if (playerClass != null && playerClass.DLC != null)
+            {
+                saveGame.IsDLCPlayerClass = true;
+                saveGame.DLCPlayerClassPackageId = playerClass.DLC.Package.Id;
+            }
+            else
+            {
+                saveGame.IsDLCPlayerClass = false;
+                saveGame.DLCPlayerClassPackageId = 0;
+            }
+
             saveGame.ExpLevel = this.ExpLevel;
             saveGame.ExpPoints = this.ExpPoints;
             saveGame.NumOverpowerLevelsUnlocked = this.OverpowerLevel == 0 ? (int?)null : this.OverpowerLevel;
