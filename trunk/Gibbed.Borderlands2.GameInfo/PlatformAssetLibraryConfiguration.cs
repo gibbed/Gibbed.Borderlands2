@@ -21,7 +21,6 @@
  */
 
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Gibbed.Borderlands2.GameInfo
 {

@@ -26,21 +26,11 @@ using ProtoBuf;
 namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 {
     [ProtoContract]
-    public class GoldenKeys : IComposable, INotifyPropertyChanged
+    public class GoldenKeys : INotifyPropertyChanged
     {
         #region Fields
         private int _Unknown1;
         private int _Unknown2;
-        #endregion
-
-        #region IComposable Members
-        public void Compose()
-        {
-        }
-
-        public void Decompose()
-        {
-        }
         #endregion
 
         #region Properties

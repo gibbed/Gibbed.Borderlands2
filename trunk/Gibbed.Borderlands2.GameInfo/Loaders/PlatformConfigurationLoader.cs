@@ -51,7 +51,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             return new PlatformConfiguration()
             {
                 Platform = kv.Key,
-                AssetLibrarySets = raw.AssetLibrarySets.Select(s => GetPlatformAssetLibrarySet(s)).ToList(),
+                AssetLibrarySets = raw.AssetLibrarySets.Select(GetPlatformAssetLibrarySet).ToList(),
             };
         }
 
@@ -60,7 +60,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             return new PlatformAssetLibrarySet()
             {
                 Id = raw.Id,
-                Libraries = raw.Libraries.ToDictionary(kv => kv.Key, kv => GetPlatformAssetLibraryConfiguration(kv)),
+                Libraries = raw.Libraries.ToDictionary(kv => kv.Key, GetPlatformAssetLibraryConfiguration),
             };
         }
 

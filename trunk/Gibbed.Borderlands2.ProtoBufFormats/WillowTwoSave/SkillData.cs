@@ -26,23 +26,13 @@ using ProtoBuf;
 namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 {
     [ProtoContract]
-    public class SkillData : IComposable, INotifyPropertyChanged
+    public class SkillData : INotifyPropertyChanged
     {
         #region Fields
         private string _Skill;
         private int _Grade;
         private int _GradePoints;
         private int _EquippedSlotIndex;
-        #endregion
-
-        #region IComposable Members
-        public void Compose()
-        {
-        }
-
-        public void Decompose()
-        {
-        }
         #endregion
 
         #region Properties

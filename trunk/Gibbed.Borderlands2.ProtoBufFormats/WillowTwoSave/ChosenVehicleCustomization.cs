@@ -20,7 +20,6 @@
  *    distribution.
  */
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using ProtoBuf;
@@ -28,43 +27,26 @@ using ProtoBuf;
 namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 {
     [ProtoContract]
-    public class ChosenVehicleCustomization : IComposable, INotifyPropertyChanged
+    public class ChosenVehicleCustomization : INotifyPropertyChanged
     {
         #region Fields
         private string _Family;
         private List<string> _Customizations = new List<string>();
         #endregion
 
-        #region IComposable Members
-        private ComposeState _ComposeState = ComposeState.Composed;
-
-        public void Compose()
+        #region Serialization
+        [ProtoAfterDeserialization]
+        // ReSharper disable UnusedMember.Local
+        private void OnDeserialization()
+            // ReSharper restore UnusedMember.Local
         {
-            if (this._ComposeState != ComposeState.Decomposed)
-            {
-                throw new InvalidOperationException();
-            }
-            this._ComposeState = ComposeState.Composed;
-
-            if (this.Customizations == null ||
-                this.Customizations.Count == 0)
-            {
-                this.Customizations = null;
-            }
+            this._Customizations = this._Customizations ?? new List<string>();
         }
 
-        public void Decompose()
+        private bool ShouldSerializeCustomizations()
         {
-            if (this._ComposeState != ComposeState.Composed)
-            {
-                throw new InvalidOperationException();
-            }
-            this._ComposeState = ComposeState.Decomposed;
-
-            if (this.Customizations == null)
-            {
-                this.Customizations = new List<string>();
-            }
+            return this._Customizations != null &&
+                   this._Customizations.Count > 0;
         }
         #endregion
 

@@ -26,23 +26,13 @@ using ProtoBuf;
 namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 {
     [ProtoContract]
-    public class PackedItemDataOptional : IComposable, INotifyPropertyChanged
+    public class PackedItemDataOptional : INotifyPropertyChanged
     {
         #region Fields
         private byte[] _InventorySerialNumber;
         private int _Quantity;
         private bool _Equipped;
         private PlayerMark _Mark;
-        #endregion
-
-        #region IComposable Members
-        public void Compose()
-        {
-        }
-
-        public void Decompose()
-        {
-        }
         #endregion
 
         #region Properties

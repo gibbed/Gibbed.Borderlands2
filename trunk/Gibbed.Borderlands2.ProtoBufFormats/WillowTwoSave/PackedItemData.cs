@@ -26,7 +26,7 @@ using ProtoBuf;
 namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 {
     [ProtoContract]
-    public class PackedItemData : IComposable, INotifyPropertyChanged
+    public class PackedItemData : INotifyPropertyChanged
     {
         #region Fields
         private byte[] _InventorySerialNumber;
@@ -36,16 +36,6 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
          * can't leave it this way due to protobuf.net's handling of it.
          */
         private int _Mark;
-        #endregion
-
-        #region IComposable Members
-        public void Compose()
-        {
-        }
-
-        public void Decompose()
-        {
-        }
         #endregion
 
         #region Properties

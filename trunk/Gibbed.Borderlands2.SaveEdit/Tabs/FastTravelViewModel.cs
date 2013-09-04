@@ -54,8 +54,10 @@ namespace Gibbed.Borderlands2.SaveEdit
         [ImportingConstructor]
         public FastTravelViewModel()
         {
-            this.AvailableTeleporters = new ObservableCollection<AssetDisplay>();
-            this.AvailableTeleporters.Add(new AssetDisplay("None", "None", "Base Game"));
+            this.AvailableTeleporters = new ObservableCollection<AssetDisplay>()
+            {
+                new AssetDisplay("None", "None", "Base Game")
+            };
 
             this.VisitedTeleporters = new ObservableCollection<VisitedTeleporterDisplay>();
 
@@ -110,7 +112,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 string displayName = string.IsNullOrEmpty(fastTravelStation.Sign) == false
                                          ? fastTravelStation.Sign
                                          : fastTravelStation.StationDisplayName;
-                var group = "Unknown";
+                const string group = "Unknown";
                 this.AvailableTeleporters.Add(new AssetDisplay(fastTravelStation.StationDisplayName,
                                                                fastTravelStation.ResourceName,
                                                                group));

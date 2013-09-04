@@ -26,23 +26,13 @@ using ProtoBuf;
 namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 {
     [ProtoContract]
-    public class LockoutData : IComposable, INotifyPropertyChanged
+    public class LockoutData : INotifyPropertyChanged
     {
         #region Fields
         private string _Lockout;
         private int _Time;
         private bool _IsFromDLC;
         private int _DLCPackageId;
-        #endregion
-
-        #region IComposable Members
-        public void Compose()
-        {
-        }
-
-        public void Decompose()
-        {
-        }
         #endregion
 
         #region Properties

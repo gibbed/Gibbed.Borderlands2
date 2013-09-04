@@ -102,7 +102,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             {
                 return;
             }
-            
+
             var temp = new byte[length];
 
             var rightHalf = (int)((seed % 32) % length);
@@ -207,7 +207,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             {
                 return;
             }
-            
+
             var temp = new byte[length];
             Array.Copy(buffer, offset, temp, 0, length);
 

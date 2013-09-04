@@ -121,8 +121,8 @@ namespace Gibbed.Borderlands2.SaveEdit
             this._ExpansionItems = new List<PackedItemData>();
             this._BrokenWeapons = new List<KeyValuePair<PackedWeaponData, Exception>>();
             this._BrokenItems = new List<KeyValuePair<PackedItemData, Exception>>();
-            this._NewWeapon = new DelegateCommand<int>(x => this.DoNewWeapon(x));
-            this._NewItem = new DelegateCommand<int>(x => this.DoNewItem(x));
+            this._NewWeapon = new DelegateCommand<int>(this.DoNewWeapon);
+            this._NewItem = new DelegateCommand<int>(this.DoNewItem);
             events.Subscribe(this);
         }
 
@@ -360,8 +360,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                     if (weapon.QuickSlot != QuickWeaponSlot.None &&
                         (weapon.ManufacturerGradeIndex + weapon.GameStage) >= 2)
                     {
-                        weapon.ManufacturerGradeIndex = this._Character.ExpLevel;
-                        weapon.GameStage = this._Character.ExpLevel;
+                        weapon.ManufacturerGradeIndex = this._Character.SyncLevel;
+                        weapon.GameStage = this._Character.SyncLevel;
                     }
                 }
                 else if (viewModel is BackpackItemViewModel)
@@ -370,8 +370,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                     if (item.Equipped == true &&
                         (item.ManufacturerGradeIndex + item.GameStage) >= 2)
                     {
-                        item.ManufacturerGradeIndex = this._Character.ExpLevel;
-                        item.GameStage = this._Character.ExpLevel;
+                        item.ManufacturerGradeIndex = this._Character.SyncLevel;
+                        item.GameStage = this._Character.SyncLevel;
                     }
                 }
                 else

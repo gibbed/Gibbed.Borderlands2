@@ -75,7 +75,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                     }
                     else
                     {
-                        throw e;
+                        throw;
                     }
                 }
             }
@@ -106,7 +106,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                     }
                     else
                     {
-                        throw e;
+                        throw;
                     }
                 }
             }

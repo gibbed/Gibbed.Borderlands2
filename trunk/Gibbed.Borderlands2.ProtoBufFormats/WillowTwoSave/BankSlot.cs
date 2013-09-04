@@ -26,20 +26,10 @@ using ProtoBuf;
 namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 {
     [ProtoContract]
-    public class BankSlot : IComposable, INotifyPropertyChanged
+    public class BankSlot : INotifyPropertyChanged
     {
         #region Fields
         private byte[] _InventorySerialNumber;
-        #endregion
-
-        #region IComposable Members
-        public void Compose()
-        {
-        }
-
-        public void Decompose()
-        {
-        }
         #endregion
 
         #region Properties

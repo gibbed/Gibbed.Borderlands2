@@ -27,9 +27,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-             xmlns:SaveEdit="clr-namespace:Gibbed.Borderlands2.SaveEdit"
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
              mc:Ignorable="d"
-             d:DesignWidth="720"
+             d:DesignWidth="800"
              d:DesignHeight="480">
     <UserControl.Resources>
         <CollectionViewSource x:Key="GroupedHeadAssets"
@@ -83,10 +83,10 @@
                            Grid.Row="2"
                            Grid.Column="1"
                            Margin="3">
-                    <Button x:Name="SynchronizeExpLevel"
-                            DockPanel.Dock="Right"
+                    <Button DockPanel.Dock="Right"
+                            Content="Sync"
                             ToolTip="Synchronize experience level from experience points">
-                        Sync
+                        <cal:Message.Attach>[Event Click] = [Action DoSynchronizeExpLevel]</cal:Message.Attach>
                     </Button>
                     <xctk:IntegerUpDown HorizontalAlignment="Stretch"
                                         Minimum="1"
@@ -100,10 +100,10 @@
                            Grid.Row="3"
                            Grid.Column="1"
                            Margin="3">
-                    <Button x:Name="SynchronizeExpPoints"
-                            DockPanel.Dock="Right"
+                    <Button DockPanel.Dock="Right"
+                            Content="Sync"
                             ToolTip="Synchronize experience points from experience level">
-                        Sync
+                        <cal:Message.Attach>[Event Click] = [Action DoSynchronizeExpPoints]</cal:Message.Attach>
                     </Button>
                     <xctk:IntegerUpDown Minimum="0"
                                         Value="{Binding Path=ExpPoints, UpdateSourceTrigger=PropertyChanged}" />
@@ -111,16 +111,27 @@
                 <Label Grid.Row="4"
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
-                       Content="General Skill Points:" />
+                       Content="Overpower Level:" />
                 <xctk:IntegerUpDown Grid.Row="4"
                                     Grid.Column="1"
+                                    HorizontalAlignment="Stretch"
                                     Margin="3"
-                                    Value="{Binding Path=GeneralSkillPoints, UpdateSourceTrigger=PropertyChanged}" />
+                                    Minimum="0"
+                                    Maximum="8388607"
+                                    Value="{Binding Path=OverpowerLevel, UpdateSourceTrigger=PropertyChanged}" />
                 <Label Grid.Row="5"
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
-                       Content="Specialist Skill Points:" />
+                       Content="General Skill Points:" />
                 <xctk:IntegerUpDown Grid.Row="5"
+                                    Grid.Column="1"
+                                    Margin="3"
+                                    Value="{Binding Path=GeneralSkillPoints, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Grid.Row="6"
+                       Grid.Column="0"
+                       HorizontalContentAlignment="Right"
+                       Content="Specialist Skill Points:" />
+                <xctk:IntegerUpDown Grid.Row="6"
                                     Grid.Column="1"
                                     Margin="3"
                                     Value="{Binding Path=SpecialistSkillPoints, UpdateSourceTrigger=PropertyChanged}" />
@@ -157,8 +168,7 @@
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
                        Content="Head:" />
-                <ComboBox x:Name="HeadComboBox"
-                          Grid.Row="1"
+                <ComboBox Grid.Row="1"
                           Grid.Column="1"
                           Margin="3"
                           ItemsSource="{Binding Source={StaticResource GroupedHeadAssets}}"
@@ -181,8 +191,7 @@
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
                        Content="Skin:" />
-                <ComboBox x:Name="SkinComboBox"
-                          Grid.Row="2"
+                <ComboBox Grid.Row="2"
                           Grid.Column="1"
                           Margin="3"
                           ItemsSource="{Binding Source={StaticResource GroupedSkinAssets}}"
@@ -201,6 +210,43 @@
                         </GroupStyle>
                     </ComboBox.GroupStyle>
                 </ComboBox>
+            </Grid>
+        </Expander>
+        <Expander Header="Miscellaneous"
+                  IsExpanded="True">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.50*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <WrapPanel Orientation="Horizontal"
+                           Grid.Row="0"
+                           Grid.Column="1">
+                    <Button Margin="3"
+                            Content="Import Skills">
+                        <cal:Message.Attach>[Event Click] = [Action DoImportSkills]</cal:Message.Attach>
+                    </Button>
+                    <Button Margin="3"
+                            Content="Import Missions">
+                        <cal:Message.Attach>[Event Click] = [Action DoImportMissions]</cal:Message.Attach>
+                    </Button>
+                    <Button Margin="3"
+                            Content="Import World">
+                        <cal:Message.Attach>[Event Click] = [Action DoImportWorld]</cal:Message.Attach>
+                    </Button>
+                </WrapPanel>
             </Grid>
         </Expander>
     </StackPanel>

@@ -20,7 +20,6 @@
  *    distribution.
  */
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using ProtoBuf;
@@ -28,84 +27,43 @@ using ProtoBuf;
 namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 {
     [ProtoContract]
-    public class MissionPlaythroughData : IComposable, INotifyPropertyChanged
+    public class MissionPlaythroughData : INotifyPropertyChanged
     {
         #region Fields
         private int? _PlayThroughNumber;
         private string _ActiveMission;
-        private List<MissionData> _MissionData;
-        private List<PendingMissionRewards> _PendingMissionRewards;
-        private List<string> _FilteredMissions;
+        private List<MissionData> _MissionData = new List<MissionData>();
+        private List<PendingMissionRewards> _PendingMissionRewards = new List<PendingMissionRewards>();
+        private List<string> _FilteredMissions = new List<string>();
         #endregion
 
-        #region IComposable Members
-        private ComposeState _ComposeState = ComposeState.Composed;
-
-        public void Compose()
+        #region Serialization
+        [ProtoAfterDeserialization]
+        // ReSharper disable UnusedMember.Local
+        private void OnDeserialization()
+            // ReSharper restore UnusedMember.Local
         {
-            if (this._ComposeState != ComposeState.Decomposed)
-            {
-                throw new InvalidOperationException();
-            }
-            this._ComposeState = ComposeState.Composed;
-
-            if (this.MissionData == null ||
-                this.MissionData.Count == 0)
-            {
-                this.MissionData = null;
-            }
-            else
-            {
-                this.MissionData.Compose();
-            }
-
-            if (this.PendingMissionRewards == null ||
-                this.PendingMissionRewards.Count == 0)
-            {
-                this.PendingMissionRewards = null;
-            }
-            else
-            {
-                this.PendingMissionRewards.Compose();
-            }
-
-            if (this.FilteredMissions == null ||
-                this.FilteredMissions.Count == 0)
-            {
-                this.FilteredMissions = null;
-            }
+            this._MissionData = this._MissionData ?? new List<MissionData>();
+            this._PendingMissionRewards = this._PendingMissionRewards ?? new List<PendingMissionRewards>();
+            this._FilteredMissions = this._FilteredMissions ?? new List<string>();
         }
 
-        public void Decompose()
+        private bool ShouldSerializeMissionData()
         {
-            if (this._ComposeState != ComposeState.Composed)
-            {
-                throw new InvalidOperationException();
-            }
-            this._ComposeState = ComposeState.Decomposed;
+            return this._MissionData != null &&
+                   this._MissionData.Count > 0;
+        }
 
-            if (this.MissionData == null)
-            {
-                this.MissionData = new List<MissionData>();
-            }
-            else
-            {
-                this.MissionData.Decompose();
-            }
+        private bool ShouldSerializePendingMissionRewards()
+        {
+            return this._PendingMissionRewards != null &&
+                   this._PendingMissionRewards.Count > 0;
+        }
 
-            if (this.PendingMissionRewards == null)
-            {
-                this.PendingMissionRewards = new List<PendingMissionRewards>();
-            }
-            else
-            {
-                this.PendingMissionRewards.Decompose();
-            }
-
-            if (this.FilteredMissions == null)
-            {
-                this.FilteredMissions = new List<string>();
-            }
+        private bool ShouldSerializeFilteredMissions()
+        {
+            return this._FilteredMissions != null &&
+                   this._FilteredMissions.Count > 0;
         }
         #endregion
 

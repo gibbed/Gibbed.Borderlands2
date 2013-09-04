@@ -70,7 +70,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
         }
 
         private static List<FastTravelStationDefinition> GetStations(
-            InfoDictionary<TravelStationDefinition> travelStations, List<string> raws)
+            InfoDictionary<TravelStationDefinition> travelStations, IEnumerable<string> raws)
         {
             if (raws == null)
             {

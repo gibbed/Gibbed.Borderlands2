@@ -80,7 +80,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             return weaponTypes[type];
         }
 
-        private static List<string> GetManufacturers(List<string> manufacturers)
+        private static List<string> GetManufacturers(IEnumerable<string> manufacturers)
         {
             if (manufacturers == null)
             {

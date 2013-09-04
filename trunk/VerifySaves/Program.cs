@@ -116,12 +116,14 @@ namespace VerifySaves
                                     output.WriteBytes(innerUncompressedBytes);
                                 }
 
-                                var save =
+                                var saveGame =
                                     Serializer.Deserialize<WillowTwoSave.WillowTwoPlayerSaveGame>(innerUncompressedData);
+                                saveGame.ExtractExpansionSavedataFromUnloadableItemData();
 
                                 using (var testData = new MemoryStream())
                                 {
-                                    Serializer.Serialize(testData, save);
+                                    saveGame.AddExpansionSavedataToUnloadableItemData();
+                                    Serializer.Serialize(testData, saveGame);
 
                                     testData.Position = 0;
                                     var testBytes = testData.ReadBytes((uint)testData.Length);

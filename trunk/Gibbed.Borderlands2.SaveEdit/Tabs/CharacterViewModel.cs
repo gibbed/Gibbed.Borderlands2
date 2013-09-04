@@ -22,10 +22,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
+using System.Windows;
 using System.Linq;
 using System.Text;
+using Caliburn.Micro.Contrib.Results;
+using Caliburn.Micro.Contrib;
 using Caliburn.Micro;
 using Gibbed.Borderlands2.GameInfo;
 using Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave;
@@ -41,12 +45,16 @@ namespace Gibbed.Borderlands2.SaveEdit
         private int _ExpPoints;
         private int _GeneralSkillPoints;
         private int _SpecialistSkillPoints;
+        private int _OverpowerLevel;
         private string _CharacterName = "Zer0";
         private string _SelectedHead;
         private string _SelectedSkin;
         #endregion
 
         #region Properties
+        [Import]
+        private ShellViewModel _Shell { get; set; }
+
         public string PlayerClass
         {
             get { return this._PlayerClassDefinition; }
@@ -79,6 +87,21 @@ namespace Gibbed.Borderlands2.SaveEdit
                 this._ExpPoints = value;
                 this.NotifyOfPropertyChange(() => this.ExpPoints);
             }
+        }
+
+        public int OverpowerLevel
+        {
+            get { return this._OverpowerLevel; }
+            set
+            {
+                this._OverpowerLevel = value;
+                this.NotifyOfPropertyChange(() => this.OverpowerLevel);
+            }
+        }
+
+        public int SyncLevel
+        {
+            get { return Math.Min(Math.Max(0, this.ExpLevel + this.OverpowerLevel), 127); }
         }
 
         public int GeneralSkillPoints
@@ -296,12 +319,12 @@ namespace Gibbed.Borderlands2.SaveEdit
         }
 
 
-        public void SynchronizeExpLevel()
+        public void DoSynchronizeExpLevel()
         {
             this.ExpLevel = Experience.GetLevelForPoints(this.ExpPoints);
         }
 
-        public void SynchronizeExpPoints()
+        public void DoSynchronizeExpPoints()
         {
             var minimum = Experience.GetPointsForLevel(this.ExpLevel + 0);
             var maximum = Experience.GetPointsForLevel(this.ExpLevel + 1) - 1;
@@ -313,6 +336,164 @@ namespace Gibbed.Borderlands2.SaveEdit
             else if (this.ExpPoints > maximum)
             {
                 this.ExpPoints = maximum;
+            }
+        }
+
+        public IEnumerable<IResult> DoImportSkills()
+        {
+            string fileName = null;
+            var platform = Platform.Invalid;
+
+            foreach (var result in this._Shell.ShowOpenFile(s => fileName = s, p => platform = p))
+            {
+                yield return result;
+            }
+
+            if (fileName == null)
+            {
+                yield break;
+            }
+
+            FileFormats.SaveFile saveFile = null;
+
+            yield return new DelegateResult(() =>
+            {
+                using (var input = File.OpenRead(fileName))
+                {
+                    saveFile = FileFormats.SaveFile.Deserialize(input,
+                                                                platform,
+                                                                FileFormats.SaveFile.DeserializeSettings.None);
+                }
+            })
+                .Rescue<DllNotFoundException>().Execute(
+                    x => new MyMessageBox("Failed to load save: " + x.Message, "Error")
+                             .WithIcon(MessageBoxImage.Error).AsCoroutine())
+                .Rescue<FileFormats.SaveFormatException>().Execute(
+                    x => new MyMessageBox("Failed to load save: " + x.Message, "Error")
+                             .WithIcon(MessageBoxImage.Error).AsCoroutine())
+                .Rescue<FileFormats.SaveCorruptionException>().Execute(
+                    x => new MyMessageBox("Failed to load save: " + x.Message, "Error")
+                             .WithIcon(MessageBoxImage.Error).AsCoroutine())
+                .Rescue().Execute(
+                    x =>
+                    new MyMessageBox("An exception was thrown (press Ctrl+C to copy):\n\n" + x.ToString(),
+                                     "Error")
+                        .WithIcon(MessageBoxImage.Error).AsCoroutine());
+
+            if (saveFile != null)
+            {
+                // TODO: deep copy?
+                this._Shell.SaveFile.SaveGame.SkillData = saveFile.SaveGame.SkillData;
+                yield return
+                    new MyMessageBox("Import successful.")
+                        .WithButton(MessageBoxButton.OK)
+                        .WithIcon(MessageBoxImage.Information);
+            }
+        }
+
+        public IEnumerable<IResult> DoImportMissions()
+        {
+            string fileName = null;
+            var platform = Platform.Invalid;
+
+            foreach (var result in this._Shell.ShowOpenFile(s => fileName = s, p => platform = p))
+            {
+                yield return result;
+            }
+
+            if (fileName == null)
+            {
+                yield break;
+            }
+
+            FileFormats.SaveFile saveFile = null;
+
+            yield return new DelegateResult(() =>
+            {
+                using (var input = File.OpenRead(fileName))
+                {
+                    saveFile = FileFormats.SaveFile.Deserialize(input,
+                                                                platform,
+                                                                FileFormats.SaveFile.DeserializeSettings.None);
+                }
+            })
+                .Rescue<DllNotFoundException>().Execute(
+                    x => new MyMessageBox("Failed to load save: " + x.Message, "Error")
+                             .WithIcon(MessageBoxImage.Error).AsCoroutine())
+                .Rescue<FileFormats.SaveFormatException>().Execute(
+                    x => new MyMessageBox("Failed to load save: " + x.Message, "Error")
+                             .WithIcon(MessageBoxImage.Error).AsCoroutine())
+                .Rescue<FileFormats.SaveCorruptionException>().Execute(
+                    x => new MyMessageBox("Failed to load save: " + x.Message, "Error")
+                             .WithIcon(MessageBoxImage.Error).AsCoroutine())
+                .Rescue().Execute(
+                    x =>
+                    new MyMessageBox("An exception was thrown (press Ctrl+C to copy):\n\n" + x.ToString(),
+                                     "Error")
+                        .WithIcon(MessageBoxImage.Error).AsCoroutine());
+
+            if (saveFile != null)
+            {
+                // TODO: deep copy?
+                this._Shell.SaveFile.SaveGame.MissionPlaythroughs = saveFile.SaveGame.MissionPlaythroughs;
+                yield return
+                    new MyMessageBox("Import successful.")
+                        .WithButton(MessageBoxButton.OK)
+                        .WithIcon(MessageBoxImage.Information);
+            }
+        }
+
+        public IEnumerable<IResult> DoImportWorld()
+        {
+            string fileName = null;
+            var platform = Platform.Invalid;
+
+            foreach (var result in this._Shell.ShowOpenFile(s => fileName = s, p => platform = p))
+            {
+                yield return result;
+            }
+
+            if (fileName == null)
+            {
+                yield break;
+            }
+
+            FileFormats.SaveFile saveFile = null;
+
+            yield return new DelegateResult(() =>
+            {
+                using (var input = File.OpenRead(fileName))
+                {
+                    saveFile = FileFormats.SaveFile.Deserialize(input,
+                                                                platform,
+                                                                FileFormats.SaveFile.DeserializeSettings.None);
+                }
+            })
+                .Rescue<DllNotFoundException>().Execute(
+                    x => new MyMessageBox("Failed to load save: " + x.Message, "Error")
+                             .WithIcon(MessageBoxImage.Error).AsCoroutine())
+                .Rescue<FileFormats.SaveFormatException>().Execute(
+                    x => new MyMessageBox("Failed to load save: " + x.Message, "Error")
+                             .WithIcon(MessageBoxImage.Error).AsCoroutine())
+                .Rescue<FileFormats.SaveCorruptionException>().Execute(
+                    x => new MyMessageBox("Failed to load save: " + x.Message, "Error")
+                             .WithIcon(MessageBoxImage.Error).AsCoroutine())
+                .Rescue().Execute(
+                    x =>
+                    new MyMessageBox("An exception was thrown (press Ctrl+C to copy):\n\n" + x.ToString(),
+                                     "Error")
+                        .WithIcon(MessageBoxImage.Error).AsCoroutine());
+
+            if (saveFile != null)
+            {
+                // TODO: deep copy?
+                this._Shell.SaveFile.SaveGame.RegionGameStages = saveFile.SaveGame.RegionGameStages;
+                this._Shell.SaveFile.SaveGame.WorldDiscoveryList = saveFile.SaveGame.WorldDiscoveryList;
+                this._Shell.SaveFile.SaveGame.FullyExploredAreas = saveFile.SaveGame.FullyExploredAreas;
+                yield return
+                    new MyMessageBox("Import successful.")
+                        .WithButton(MessageBoxButton.OK)
+                        .WithIcon(MessageBoxImage.Information);
             }
         }
 
@@ -335,6 +516,9 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             this.ExpLevel = expLevel;
             this.ExpPoints = expPoints;
+            this.OverpowerLevel = saveGame.NumOverpowerLevelsUnlocked.HasValue == false
+                                      ? 0
+                                      : saveGame.NumOverpowerLevelsUnlocked.Value;
             this.GeneralSkillPoints = saveGame.GeneralSkillPoints;
             this.SpecialistSkillPoints = saveGame.SpecialistSkillPoints;
             this.CharacterName = Encoding.UTF8.GetString(saveGame.UIPreferences.CharacterName);
@@ -348,6 +532,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             saveGame.PlayerClass = this.PlayerClass;
             saveGame.ExpLevel = this.ExpLevel;
             saveGame.ExpPoints = this.ExpPoints;
+            saveGame.NumOverpowerLevelsUnlocked = this.OverpowerLevel == 0 ? (int?)null : this.OverpowerLevel;
             saveGame.GeneralSkillPoints = this.GeneralSkillPoints;
             saveGame.SpecialistSkillPoints = this.SpecialistSkillPoints;
             saveGame.UIPreferences.CharacterName = Encoding.UTF8.GetBytes(this.CharacterName);

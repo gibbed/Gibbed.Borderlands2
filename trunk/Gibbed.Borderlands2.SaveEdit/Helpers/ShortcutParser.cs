@@ -23,14 +23,13 @@ namespace Gibbed.Borderlands2.SaveEdit
                                            .Replace("Shortcut", string.Empty)
                                            .Trim();
 
-            var modifierKeys = ModifierKeys.None;
             var allKeys = triggerDetail.Split('+');
             var key = (Key)Enum.Parse(typeof(Key), allKeys.Last());
 
-            foreach (var modifierKey in allKeys.Take(allKeys.Count() - 1))
-            {
-                modifierKeys |= (ModifierKeys)Enum.Parse(typeof(ModifierKeys), modifierKey);
-            }
+            var modifierKeys = allKeys.Take(allKeys.Count() - 1)
+                                      .Aggregate(ModifierKeys.None,
+                                                 (current, modifierKey) =>
+                                                 current | (ModifierKeys)Enum.Parse(typeof(ModifierKeys), modifierKey));
 
             var keyBinding = new KeyBinding(new InputBindingTrigger(), key, modifierKeys);
             var trigger = new InputBindingTrigger

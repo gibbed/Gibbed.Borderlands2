@@ -126,7 +126,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             {
                 if (fileFilterCollection == null)
                 {
-                    throw new ArgumentNullException("FileFilterCollection may not be null");
+                    throw new ArgumentNullException("fileFilterCollection");
                 }
 
                 if (extensions.Any() == false || extensions.All(string.IsNullOrWhiteSpace))
