@@ -37,6 +37,7 @@ namespace Gibbed.Borderlands2.FileFormats
         #region Fields
         private Platform _Platform = Platform.Invalid;
         private WillowTwoSave.WillowTwoPlayerSaveGame _SaveGame;
+        private PlayerStats _PlayerStats;
         #endregion
 
         #region Properties
@@ -65,6 +66,19 @@ namespace Gibbed.Borderlands2.FileFormats
                 }
             }
         }
+
+        public PlayerStats PlayerStats
+        {
+            get { return this._PlayerStats; }
+            set
+            {
+                if (value != this._PlayerStats)
+                {
+                    this._PlayerStats = value;
+                    this.NotifyPropertyChanged("PlayerStats");
+                }
+            }
+        }
         #endregion
 
         public const int BlockSize = 0x40000;
@@ -80,9 +94,16 @@ namespace Gibbed.Borderlands2.FileFormats
                 throw new InvalidOperationException("unsupported platform");
             }
 
+            var endian = this.Platform == Platform.PC ? Endian.Little : Endian.Big;
+
             byte[] innerUncompressedBytes;
             using (var innerUncompressedData = new MemoryStream())
             {
+                if (this.PlayerStats != null)
+                {
+                    saveGame.StatsData = this.PlayerStats.Serialize(endian);
+                }
+
                 saveGame.AddExpansionSavedataToUnloadableItemData();
                 ProtoBuf.Serializer.Serialize(innerUncompressedData, saveGame);
                 innerUncompressedData.Position = 0;
@@ -92,8 +113,6 @@ namespace Gibbed.Borderlands2.FileFormats
             byte[] innerCompressedBytes;
             using (var innerCompressedData = new MemoryStream())
             {
-                var endian = this.Platform == Platform.PC ? Endian.Little : Endian.Big;
-
                 innerCompressedData.WriteValueS32(0, Endian.Big);
                 innerCompressedData.WriteString("WSG");
                 innerCompressedData.WriteValueU32(2, endian);
@@ -521,11 +540,30 @@ namespace Gibbed.Borderlands2.FileFormats
                         var saveGame =
                             ProtoBuf.Serializer.Deserialize<WillowTwoSave.WillowTwoPlayerSaveGame>(innerUncompressedData);
 
+                        PlayerStats playerStats = null;
+                        if (saveGame.StatsData != null &&
+                            PlayerStats.IsSupportedVersion(saveGame.StatsData, endian) == true)
+                        {
+                            playerStats = new PlayerStats();
+                            playerStats.Deserialize(saveGame.StatsData, endian);
+                        }
+
                         if ((settings & DeserializeSettings.IgnoreReencodeMismatch) == 0)
                         {
                             using (var testData = new MemoryStream())
                             {
+                                byte[] oldStatsData = saveGame.StatsData;
+                                if (playerStats != null)
+                                {
+                                    saveGame.StatsData = playerStats.Serialize(endian);
+                                }
+
                                 ProtoBuf.Serializer.Serialize(testData, saveGame);
+
+                                if (playerStats != null)
+                                {
+                                    saveGame.StatsData = oldStatsData;
+                                }
 
                                 testData.Position = 0;
                                 var testBytes = testData.ReadBytes((uint)testData.Length);
@@ -542,6 +580,7 @@ namespace Gibbed.Borderlands2.FileFormats
                         {
                             Platform = platform,
                             SaveGame = saveGame,
+                            PlayerStats = playerStats,
                         };
                     }
                 }
