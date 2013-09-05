@@ -22,12 +22,20 @@
 
 using System;
 using System.Windows;
+using System.Windows.Interop;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Caliburn.Micro;
 
 namespace Gibbed.Borderlands2.SaveEdit
 {
     internal class AppWindowManager : WindowManager
     {
+        private const string _WindowTitle = "Gibbed's Borderlands 2 Save Editor";
+        private const double _WindowWidth = 800.0;
+        private const double _WindowHeight = 560.0;
+        private const string _WindowIconPath = "pack://application:,,,/Resources/Handsome Jack.png";
+
         protected override Window EnsureWindow(object model, object view, bool isDialog)
         {
             var window = base.EnsureWindow(model, view, isDialog);
@@ -35,7 +43,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             if (model is ShellViewModel)
             {
                 window.SizeToContent = SizeToContent.Manual;
-                window.Title = "Gibbed's Borderlands 2 Save Editor";
+                window.Title = _WindowTitle;
 
                 // ReSharper disable ConditionIsAlwaysTrueOrFalse
                 if (string.IsNullOrEmpty(Version.DisplayText) == false)
@@ -44,14 +52,35 @@ namespace Gibbed.Borderlands2.SaveEdit
                 }
                 // ReSharper restore ConditionIsAlwaysTrueOrFalse
 
-                window.Width = 800;
-                window.Height = 560;
-                window.Icon =
-                    System.Windows.Media.Imaging.BitmapFrame.Create(
-                        new Uri("pack://application:,,,/Resources/Handsome Jack.png", UriKind.RelativeOrAbsolute));
+                var transformToDevice = GetTransformToDevice(window);
+                var actualSize = (Size)transformToDevice.Transform(new Vector(_WindowWidth, _WindowHeight));
+                window.Width = actualSize.Width;
+                window.Height = actualSize.Height;
+
+                window.Icon = BitmapFrame.Create(new Uri(_WindowIconPath, UriKind.RelativeOrAbsolute));
             }
 
             return window;
+        }
+
+        public Matrix GetTransformToDevice(Visual visual)
+        {
+            var visualSource = PresentationSource.FromVisual(visual);
+            if (visualSource != null &&
+                visualSource.CompositionTarget != null)
+            {
+                return visualSource.CompositionTarget.TransformToDevice;
+            }
+
+            using (var hwndSource = new HwndSource(new HwndSourceParameters()))
+            {
+                if (hwndSource.CompositionTarget != null)
+                {
+                    return hwndSource.CompositionTarget.TransformToDevice;
+                }
+            }
+
+            return Matrix.Identity;
         }
     }
 }

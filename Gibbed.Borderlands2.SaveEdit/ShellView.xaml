@@ -29,7 +29,7 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
              d:DesignWidth="800"
-             d:DesignHeight="480"
+             d:DesignHeight="560"
              xmlns:my="clr-namespace:Gibbed.Borderlands2.SaveEdit"
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro">
     <UserControl.Resources>
