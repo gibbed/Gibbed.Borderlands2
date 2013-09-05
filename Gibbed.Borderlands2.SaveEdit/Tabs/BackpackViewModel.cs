@@ -390,8 +390,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                     var weapon = (BackpackWeaponViewModel)viewModel;
                     if ((weapon.ManufacturerGradeIndex + weapon.GameStage) >= 2)
                     {
-                        weapon.ManufacturerGradeIndex = this._Character.ExpLevel;
-                        weapon.GameStage = this._Character.ExpLevel;
+                        weapon.ManufacturerGradeIndex = this._Character.SyncLevel;
+                        weapon.GameStage = this._Character.SyncLevel;
                     }
                 }
                 else if (viewModel is BackpackItemViewModel)
@@ -399,8 +399,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                     var item = (BackpackItemViewModel)viewModel;
                     if ((item.ManufacturerGradeIndex + item.GameStage) >= 2)
                     {
-                        item.ManufacturerGradeIndex = this._Character.ExpLevel;
-                        item.GameStage = this._Character.ExpLevel;
+                        item.ManufacturerGradeIndex = this._Character.SyncLevel;
+                        item.GameStage = this._Character.SyncLevel;
                     }
                 }
                 else
