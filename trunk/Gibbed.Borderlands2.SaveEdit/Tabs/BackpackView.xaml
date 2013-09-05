@@ -140,7 +140,7 @@
                 <cal:Message.Attach>
                     [Shortcut Delete] = [Action DeleteSelectedSlot];
                     [Shortcut Control+C] = [Action CopySelectedSlotCode];
-                    [Shortcut Control+D] = [Action DuplicateSelectedSlotCode];
+                    [Shortcut Control+D] = [Action DuplicateSelectedSlot];
                 </cal:Message.Attach>
                 <ListView.GroupStyle>
                     <GroupStyle>
