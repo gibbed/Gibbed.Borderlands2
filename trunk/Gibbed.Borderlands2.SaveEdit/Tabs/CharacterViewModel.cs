@@ -545,7 +545,7 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             saveGame.ExpLevel = this.ExpLevel;
             saveGame.ExpPoints = this.ExpPoints;
-            saveGame.NumOverpowerLevelsUnlocked = this.OverpowerLevel == 0 ? (int?)null : this.OverpowerLevel;
+            saveGame.NumOverpowerLevelsUnlocked = this.OverpowerLevel <= 0 ? (int?)null : this.OverpowerLevel;
             saveGame.GeneralSkillPoints = this.GeneralSkillPoints;
             saveGame.SpecialistSkillPoints = this.SpecialistSkillPoints;
             saveGame.UIPreferences.CharacterName = Encoding.UTF8.GetBytes(this.CharacterName);
