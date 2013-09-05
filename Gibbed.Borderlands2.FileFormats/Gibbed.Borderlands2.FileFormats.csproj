@@ -67,6 +67,7 @@
     <Compile Include="SaveCorruptionException.cs" />
     <Compile Include="SaveFile.cs" />
     <Compile Include="SaveFormatException.cs" />
+    <Compile Include="PlayerStats.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gibbed.Borderlands2.GameInfo\Gibbed.Borderlands2.GameInfo.csproj">
