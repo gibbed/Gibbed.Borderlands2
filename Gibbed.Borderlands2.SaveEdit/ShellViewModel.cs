@@ -36,10 +36,7 @@ namespace Gibbed.Borderlands2.SaveEdit
     [Export(typeof(ShellViewModel))]
     internal class ShellViewModel : PropertyChangedBase
     {
-        #region Fields
-        private readonly IEventAggregator _Events;
-        private readonly string _SavePath;
-        private FileFormats.SaveFile _SaveFile;
+        #region Imports
         private GeneralViewModel _General;
         private CharacterViewModel _Character;
         private VehicleViewModel _Vehicle;
@@ -48,23 +45,6 @@ namespace Gibbed.Borderlands2.SaveEdit
         private BankViewModel _Bank;
         private FastTravelViewModel _FastTravel;
         private AboutViewModel _About;
-
-        private int _FilterIndex = 1;
-        #endregion
-
-        #region Properties
-        public FileFormats.SaveFile SaveFile
-        {
-            get { return this._SaveFile; }
-            private set
-            {
-                if (this._SaveFile != value)
-                {
-                    this._SaveFile = value;
-                    this.NotifyOfPropertyChange(() => this.SaveFile);
-                }
-            }
-        }
 
         [Import(typeof(GeneralViewModel))]
         public GeneralViewModel General
@@ -163,71 +143,41 @@ namespace Gibbed.Borderlands2.SaveEdit
         }
         #endregion
 
-        [ImportingConstructor]
-        public ShellViewModel(IEventAggregator events)
-        {
-            var savePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            if (string.IsNullOrEmpty(savePath) == false)
-            {
-                savePath = Path.Combine(savePath, "My Games");
-                savePath = Path.Combine(savePath, "Borderlands 2", "WillowGame", "SaveData");
+        #region Fields
+        private SaveLoad _SaveLoad;
+        private FileFormats.SaveFile _SaveFile;
+        #endregion
 
-                if (Directory.Exists(savePath) == true)
+        #region Properties
+        public FileFormats.SaveFile SaveFile
+        {
+            get { return this._SaveFile; }
+            private set
+            {
+                if (this._SaveFile != value)
                 {
-                    this._SavePath = savePath;
+                    this._SaveFile = value;
+                    this.NotifyOfPropertyChange(() => this.SaveFile);
                 }
             }
-
-            this._Events = events;
-            events.Subscribe(this);
         }
 
-        public IEnumerable<IResult> ShowOpenFile(Action<string> fileNameResult, Action<Platform> platformResult)
+        [Import(typeof(SaveLoad))]
+        public SaveLoad SaveLoad
         {
-            fileNameResult(null);
-            platformResult(Platform.Invalid);
+            get { return this._SaveLoad; }
 
-            string fileName = null;
-            int filterIndex = -1;
-
-            var ofr = new MyOpenFileResult()
-                .FilterFiles(
-                    ffc => ffc.AddFilter("sav", this._FilterIndex == 1)
-                              .WithDescription("PC Save Files")
-                              .AddFilter("sav", this._FilterIndex == 2)
-                              .WithDescription("X360 Save Files")
-                              .AddFilter("sav", this._FilterIndex == 3)
-                              .WithDescription("PS3 Save Files"))
-                .WithFileDo(s => fileName = s)
-                .WithFilterIndexDo(i => filterIndex = i);
-
-            if (string.IsNullOrEmpty(this._SavePath) == false &&
-                Directory.Exists(this._SavePath) == true)
+            set
             {
-                ofr = ofr.In(this._SavePath);
+                this._SaveLoad = value;
+                this.NotifyOfPropertyChange(() => this.SaveLoad);
             }
+        }
+        #endregion
 
-            yield return ofr;
-
-            if (fileName == null)
-            {
-                yield break;
-            }
-
-            this._FilterIndex = filterIndex;
-
-            var platforms = new[]
-            {
-                Platform.Invalid,
-                Platform.PC,
-                Platform.X360,
-                Platform.PS3
-            };
-
-            fileNameResult(fileName);
-            platformResult(filterIndex < 1 || filterIndex > 3
-                               ? Platform.PC
-                               : platforms[filterIndex]);
+        [ImportingConstructor]
+        public ShellViewModel()
+        {
         }
 
         public IEnumerable<IResult> NewSave()
@@ -288,7 +238,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             string fileName = null;
             var platform = Platform.Invalid;
 
-            foreach (var result in this.ShowOpenFile(s => fileName = s, p => platform = p))
+            foreach (var result in this.SaveLoad.OpenFile(s => fileName = s, p => platform = p))
             {
                 yield return result;
             }
@@ -487,21 +437,10 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             string fileName = null;
 
-            var ofr = new MySaveFileResult()
-                .PromptForOverwrite()
-                .FilterFiles(
-                    ffc => ffc.AddFilter("sav", true)
-                              .WithDescription("Save Files")
-                              .AddAllFilesFilter())
-                .WithFileDo(s => fileName = s);
-
-            if (string.IsNullOrEmpty(this._SavePath) == false &&
-                Directory.Exists(this._SavePath) == true)
+            foreach (var result in this.SaveLoad.SaveFile(s => fileName = s))
             {
-                ofr = ofr.In(this._SavePath);
+                yield return result;
             }
-
-            yield return ofr;
 
             if (fileName == null)
             {

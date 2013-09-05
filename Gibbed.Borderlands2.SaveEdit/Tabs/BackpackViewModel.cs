@@ -41,6 +41,33 @@ namespace Gibbed.Borderlands2.SaveEdit
     [Export(typeof(BackpackViewModel))]
     internal class BackpackViewModel : PropertyChangedBase
     {
+        #region Imports
+        private CharacterViewModel _Character;
+        private BankViewModel _Bank;
+
+        [Import(typeof(CharacterViewModel))]
+        public CharacterViewModel Character
+        {
+            get { return this._Character; }
+            set
+            {
+                this._Character = value;
+                this.NotifyOfPropertyChange(() => this.Character);
+            }
+        }
+
+        [Import(typeof(BankViewModel))]
+        public BankViewModel Bank
+        {
+            get { return this._Bank; }
+            set
+            {
+                this._Bank = value;
+                this.NotifyOfPropertyChange(() => this.Bank);
+            }
+        }
+        #endregion
+
         #region Fields
         private readonly ObservableCollection<IBackpackSlotViewModel> _Slots;
 
@@ -57,12 +84,6 @@ namespace Gibbed.Borderlands2.SaveEdit
         #endregion
 
         #region Properties
-        [Import]
-        private CharacterViewModel _Character { get; set; }
-
-        [Import]
-        private BankViewModel _Bank { get; set; }
-
         public IEnumerable<DownloadablePackageDefinition> DownloadablePackages
         {
             get
@@ -115,7 +136,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         #endregion
 
         [ImportingConstructor]
-        public BackpackViewModel(IEventAggregator events)
+        public BackpackViewModel()
         {
             this._Slots = new ObservableCollection<IBackpackSlotViewModel>();
             this._ExpansionItems = new List<PackedItemData>();
@@ -123,7 +144,6 @@ namespace Gibbed.Borderlands2.SaveEdit
             this._BrokenItems = new List<KeyValuePair<PackedItemData, Exception>>();
             this._NewWeapon = new DelegateCommand<int>(this.DoNewWeapon);
             this._NewItem = new DelegateCommand<int>(this.DoNewItem);
-            events.Subscribe(this);
         }
 
         public void DoNewWeapon(int assetLibrarySetId)
@@ -360,8 +380,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                     if (weapon.QuickSlot != QuickWeaponSlot.None &&
                         (weapon.ManufacturerGradeIndex + weapon.GameStage) >= 2)
                     {
-                        weapon.ManufacturerGradeIndex = this._Character.SyncLevel;
-                        weapon.GameStage = this._Character.SyncLevel;
+                        weapon.ManufacturerGradeIndex = this.Character.SyncLevel;
+                        weapon.GameStage = this.Character.SyncLevel;
                     }
                 }
                 else if (viewModel is BackpackItemViewModel)
@@ -370,8 +390,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                     if (item.Equipped == true &&
                         (item.ManufacturerGradeIndex + item.GameStage) >= 2)
                     {
-                        item.ManufacturerGradeIndex = this._Character.SyncLevel;
-                        item.GameStage = this._Character.SyncLevel;
+                        item.ManufacturerGradeIndex = this.Character.SyncLevel;
+                        item.GameStage = this.Character.SyncLevel;
                     }
                 }
                 else
@@ -390,8 +410,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                     var weapon = (BackpackWeaponViewModel)viewModel;
                     if ((weapon.ManufacturerGradeIndex + weapon.GameStage) >= 2)
                     {
-                        weapon.ManufacturerGradeIndex = this._Character.SyncLevel;
-                        weapon.GameStage = this._Character.SyncLevel;
+                        weapon.ManufacturerGradeIndex = this.Character.SyncLevel;
+                        weapon.GameStage = this.Character.SyncLevel;
                     }
                 }
                 else if (viewModel is BackpackItemViewModel)
@@ -399,8 +419,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                     var item = (BackpackItemViewModel)viewModel;
                     if ((item.ManufacturerGradeIndex + item.GameStage) >= 2)
                     {
-                        item.ManufacturerGradeIndex = this._Character.SyncLevel;
-                        item.GameStage = this._Character.SyncLevel;
+                        item.ManufacturerGradeIndex = this.Character.SyncLevel;
+                        item.GameStage = this.Character.SyncLevel;
                     }
                 }
                 else

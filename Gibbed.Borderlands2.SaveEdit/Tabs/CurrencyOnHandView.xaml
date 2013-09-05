@@ -28,196 +28,196 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d">
-  <StackPanel>
-    <Grid>
-      <Grid.RowDefinitions>
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="*" />
-      </Grid.RowDefinitions>
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="0.50*" />
-        <ColumnDefinition Width="*" />
-      </Grid.ColumnDefinitions>
-      <Grid Grid.Row="0"
-            Grid.Column="0">
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <Image Grid.Column="1"
-               DockPanel.Dock="Right"
-               Source="..\Resources/credits.png"
-               Height="24" />
-        <Label x:Name="CreditsLabel"
-               Grid.Column="0"
-               HorizontalContentAlignment="Right"
-               Content="Credits:" />
-      </Grid>
-      <xctk:IntegerUpDown Grid.Row="0"
-                          Grid.Column="1"
-                          Margin="3"
-                          Value="{Binding Path=Credits, UpdateSourceTrigger=PropertyChanged}" />
-      <Grid Grid.Row="1"
-            Grid.Column="0">
-        <Grid.RowDefinitions>
-          <RowDefinition Height="*" />
-          <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <Image Grid.Column="1"
-               DockPanel.Dock="Right"
-               Source="..\Resources/eridium.png"
-               Height="24" />
-        <Label Grid.Column="0"
-               HorizontalContentAlignment="Right"
-               Content="Eridium:" />
-      </Grid>
-      <xctk:IntegerUpDown Grid.Row="1"
-                          Grid.Column="1"
-                          Margin="3"
-                          Value="{Binding Path=Eridium, UpdateSourceTrigger=PropertyChanged}" />
-      <Grid Grid.Row="2"
-            Grid.Column="0">
-        <Grid.RowDefinitions>
-          <RowDefinition Height="*" />
-          <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <Image Grid.Column="2"
-               DockPanel.Dock="Right"
-               Source="..\Resources\seraph crystal.png"
-               Height="24" />
-        <Label Grid.Column="0"
-               HorizontalContentAlignment="Right"
-               Content="Seraph Crystals:" />
-      </Grid>
-      <xctk:IntegerUpDown Grid.Row="2"
-                          Grid.Column="1"
-                          Margin="3"
-                          Value="{Binding Path=SeraphCrystals, UpdateSourceTrigger=PropertyChanged}" />
-      <Grid Grid.Row="3"
-            Grid.Column="0">
-        <Grid.RowDefinitions>
-          <RowDefinition Height="*" />
-          <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <Image Grid.Column="2"
-               DockPanel.Dock="Right"
-               Source="..\Resources\torgue token.png"
-               Height="24" />
-        <Label Grid.Column="0"
-               HorizontalContentAlignment="Right"
-               Content="Torgue Tokens:" />
-      </Grid>
-      <xctk:IntegerUpDown Grid.Row="3"
-                          Grid.Column="1"
-                          Margin="3"
-                          Value="{Binding Path=TorgueTokens, UpdateSourceTrigger=PropertyChanged}" />
-    </Grid>
-    <Expander Header="Reserved"
-              IsExpanded="False">
-      <Grid>
-        <Grid.RowDefinitions>
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="0.50*" />
-          <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Label Grid.Column="0"
-               HorizontalContentAlignment="Right"
-               Content="A:" />
-        <xctk:IntegerUpDown Grid.Column="1"
-                            Margin="3"
-                            Value="{Binding Path=ReservedA, UpdateSourceTrigger=PropertyChanged}" />
-        <Label Grid.Row="2"
-               Grid.Column="0"
-               HorizontalContentAlignment="Right"
-               Content="C:" />
-        <xctk:IntegerUpDown Grid.Row="2"
-                            Grid.Column="1"
-                            Margin="3"
-                            Value="{Binding Path=ReservedC, UpdateSourceTrigger=PropertyChanged}" />
-        <Label Grid.Row="3"
-               Grid.Column="0"
-               HorizontalContentAlignment="Right"
-               Content="D:" />
-        <xctk:IntegerUpDown Grid.Row="3"
-                            Grid.Column="1"
-                            Margin="3"
-                            Value="{Binding Path=ReservedD, UpdateSourceTrigger=PropertyChanged}" />
-        <Label Grid.Row="4"
-               Grid.Column="0"
-               HorizontalContentAlignment="Right"
-               Content="E:" />
-        <xctk:IntegerUpDown Grid.Row="4"
-                            Grid.Column="1"
-                            Margin="3"
-                            Value="{Binding Path=ReservedE, UpdateSourceTrigger=PropertyChanged}" />
-        <Label Grid.Row="5"
-               Grid.Column="0"
-               HorizontalContentAlignment="Right"
-               Content="F:" />
-        <xctk:IntegerUpDown Grid.Row="5"
-                            Grid.Column="1"
-                            Margin="3"
-                            Value="{Binding Path=ReservedF, UpdateSourceTrigger=PropertyChanged}" />
-        <Label Grid.Row="6"
-               Grid.Column="0"
-               HorizontalContentAlignment="Right"
-               Content="G:" />
-        <xctk:IntegerUpDown Grid.Row="6"
-                            Grid.Column="1"
-                            Margin="3"
-                            Value="{Binding Path=ReservedG, UpdateSourceTrigger=PropertyChanged}" />
-        <Label Grid.Row="7"
-               Grid.Column="0"
-               HorizontalContentAlignment="Right"
-               Content="H:" />
-        <xctk:IntegerUpDown Grid.Row="7"
-                            Grid.Column="1"
-                            Margin="3"
-                            Value="{Binding Path=ReservedH, UpdateSourceTrigger=PropertyChanged}" />
-        <Label Grid.Row="8"
-               Grid.Column="0"
-               HorizontalContentAlignment="Right"
-               Content="I:" />
-        <xctk:IntegerUpDown Grid.Row="8"
-                            Grid.Column="1"
-                            Margin="3"
-                            Value="{Binding Path=ReservedI, UpdateSourceTrigger=PropertyChanged}" />
-        <Label Grid.Row="9"
-               Grid.Column="0"
-               HorizontalContentAlignment="Right"
-               Content="J:" />
-        <xctk:IntegerUpDown Grid.Row="9"
-                            Grid.Column="1"
-                            Margin="3"
-                            Value="{Binding Path=ReservedJ, UpdateSourceTrigger=PropertyChanged}" />
-      </Grid>
-    </Expander>
-  </StackPanel>
+    <StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.50*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0"
+                  Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="1"
+                       DockPanel.Dock="Right"
+                       Source="..\Resources/credits.png"
+                       Height="24" />
+                <Label x:Name="CreditsLabel"
+                       Grid.Column="0"
+                       HorizontalContentAlignment="Right"
+                       Content="Credits:" />
+            </Grid>
+            <xctk:IntegerUpDown Grid.Row="0"
+                                Grid.Column="1"
+                                Margin="3"
+                                Value="{Binding Path=Credits, UpdateSourceTrigger=PropertyChanged}" />
+            <Grid Grid.Row="1"
+                  Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="1"
+                       DockPanel.Dock="Right"
+                       Source="..\Resources/eridium.png"
+                       Height="24" />
+                <Label Grid.Column="0"
+                       HorizontalContentAlignment="Right"
+                       Content="Eridium:" />
+            </Grid>
+            <xctk:IntegerUpDown Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="3"
+                                Value="{Binding Path=Eridium, UpdateSourceTrigger=PropertyChanged}" />
+            <Grid Grid.Row="2"
+                  Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="2"
+                       DockPanel.Dock="Right"
+                       Source="..\Resources\seraph crystal.png"
+                       Height="24" />
+                <Label Grid.Column="0"
+                       HorizontalContentAlignment="Right"
+                       Content="Seraph Crystals:" />
+            </Grid>
+            <xctk:IntegerUpDown Grid.Row="2"
+                                Grid.Column="1"
+                                Margin="3"
+                                Value="{Binding Path=SeraphCrystals, UpdateSourceTrigger=PropertyChanged}" />
+            <Grid Grid.Row="3"
+                  Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="2"
+                       DockPanel.Dock="Right"
+                       Source="..\Resources\torgue token.png"
+                       Height="24" />
+                <Label Grid.Column="0"
+                       HorizontalContentAlignment="Right"
+                       Content="Torgue Tokens:" />
+            </Grid>
+            <xctk:IntegerUpDown Grid.Row="3"
+                                Grid.Column="1"
+                                Margin="3"
+                                Value="{Binding Path=TorgueTokens, UpdateSourceTrigger=PropertyChanged}" />
+        </Grid>
+        <Expander Header="Reserved"
+                  IsExpanded="False">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.50*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0"
+                       HorizontalContentAlignment="Right"
+                       Content="A:" />
+                <xctk:IntegerUpDown Grid.Column="1"
+                                    Margin="3"
+                                    Value="{Binding Path=ReservedA, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Grid.Row="2"
+                       Grid.Column="0"
+                       HorizontalContentAlignment="Right"
+                       Content="C:" />
+                <xctk:IntegerUpDown Grid.Row="2"
+                                    Grid.Column="1"
+                                    Margin="3"
+                                    Value="{Binding Path=ReservedC, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Grid.Row="3"
+                       Grid.Column="0"
+                       HorizontalContentAlignment="Right"
+                       Content="D:" />
+                <xctk:IntegerUpDown Grid.Row="3"
+                                    Grid.Column="1"
+                                    Margin="3"
+                                    Value="{Binding Path=ReservedD, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Grid.Row="4"
+                       Grid.Column="0"
+                       HorizontalContentAlignment="Right"
+                       Content="E:" />
+                <xctk:IntegerUpDown Grid.Row="4"
+                                    Grid.Column="1"
+                                    Margin="3"
+                                    Value="{Binding Path=ReservedE, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Grid.Row="5"
+                       Grid.Column="0"
+                       HorizontalContentAlignment="Right"
+                       Content="F:" />
+                <xctk:IntegerUpDown Grid.Row="5"
+                                    Grid.Column="1"
+                                    Margin="3"
+                                    Value="{Binding Path=ReservedF, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Grid.Row="6"
+                       Grid.Column="0"
+                       HorizontalContentAlignment="Right"
+                       Content="G:" />
+                <xctk:IntegerUpDown Grid.Row="6"
+                                    Grid.Column="1"
+                                    Margin="3"
+                                    Value="{Binding Path=ReservedG, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Grid.Row="7"
+                       Grid.Column="0"
+                       HorizontalContentAlignment="Right"
+                       Content="H:" />
+                <xctk:IntegerUpDown Grid.Row="7"
+                                    Grid.Column="1"
+                                    Margin="3"
+                                    Value="{Binding Path=ReservedH, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Grid.Row="8"
+                       Grid.Column="0"
+                       HorizontalContentAlignment="Right"
+                       Content="I:" />
+                <xctk:IntegerUpDown Grid.Row="8"
+                                    Grid.Column="1"
+                                    Margin="3"
+                                    Value="{Binding Path=ReservedI, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Grid.Row="9"
+                       Grid.Column="0"
+                       HorizontalContentAlignment="Right"
+                       Content="J:" />
+                <xctk:IntegerUpDown Grid.Row="9"
+                                    Grid.Column="1"
+                                    Margin="3"
+                                    Value="{Binding Path=ReservedJ, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+        </Expander>
+    </StackPanel>
 </UserControl>

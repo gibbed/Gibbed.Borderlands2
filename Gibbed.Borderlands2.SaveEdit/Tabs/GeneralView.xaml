@@ -28,6 +28,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:se="clr-namespace:Gibbed.Borderlands2.SaveEdit"
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
              mc:Ignorable="d"
              d:DesignWidth="720"
              d:DesignHeight="480">
@@ -73,12 +74,49 @@
                        HorizontalContentAlignment="Right"
                        Content="Platform:" />
                 <se:MyComboBox Grid.Row="2"
-                                     Grid.Column="1"
-                                     ItemsSource="{Binding Path=Platforms}"
-                                     DisplayMemberPath="Name"
-                                     SelectedValuePath="Value"
-                                     SelectedValue="{Binding Path=Platform}"
-                                     Margin="3" />
+                               Grid.Column="1"
+                               ItemsSource="{Binding Path=Platforms}"
+                               DisplayMemberPath="Name"
+                               SelectedValuePath="Value"
+                               SelectedValue="{Binding Path=Platform}"
+                               Margin="3" />
+            </Grid>
+        </Expander>
+        <Expander Header="Importing"
+                  IsExpanded="True">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.50*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <WrapPanel Orientation="Horizontal"
+                           Grid.Row="0"
+                           Grid.Column="1">
+                    <Button Margin="3"
+                            Content="Import Skills">
+                        <cal:Message.Attach>[Event Click] = [Action DoImportSkills]</cal:Message.Attach>
+                    </Button>
+                    <Button Margin="3"
+                            Content="Import Missions">
+                        <cal:Message.Attach>[Event Click] = [Action DoImportMissions]</cal:Message.Attach>
+                    </Button>
+                    <Button Margin="3"
+                            Content="Import World">
+                        <cal:Message.Attach>[Event Click] = [Action DoImportWorld]</cal:Message.Attach>
+                    </Button>
+                </WrapPanel>
             </Grid>
         </Expander>
     </StackPanel>
