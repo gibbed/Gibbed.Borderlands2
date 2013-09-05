@@ -48,8 +48,9 @@ namespace Gibbed.Borderlands2.SaveEdit
                                                                 ? ShortcutParser.CreateTrigger(triggerText)
                                                                 : currentParser(target, triggerText);
 
-            this._Container = new CompositionContainer(
-                new AggregateCatalog(AssemblySource.Instance.Select(x => new AssemblyCatalog(x))));
+            this._Container =
+                new CompositionContainer(
+                    new AggregateCatalog(AssemblySource.Instance.Select(x => new AssemblyCatalog(x))));
 
             var batch = new CompositionBatch();
             batch.AddExportedValue<IWindowManager>(new AppWindowManager());
@@ -93,10 +94,9 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
-            base.OnStartup(sender, e);
-
             try
             {
+                base.OnStartup(sender, e);
                 GameInfo.InfoManager.Touch();
             }
             catch (Exception ex)

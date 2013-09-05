@@ -25,14 +25,16 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:local="clr-namespace:Gibbed.Borderlands2.SaveEdit"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-  <Application.Resources>
-    <ResourceDictionary>
-      <ResourceDictionary.MergedDictionaries>
+    <Application.Resources>
         <ResourceDictionary>
-          <local:AppBootstrapper x:Key="bootstrapper" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <!-- ReSharper disable InconsistentNaming -->
+                    <local:AppBootstrapper x:Key="bootstrapper" />
+                    <!-- ReSharper restore InconsistentNaming -->
+                </ResourceDictionary>
+                <ResourceDictionary Source="AccessiblePropertyGrid.xaml" />
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-        <ResourceDictionary Source="AccessiblePropertyGrid.xaml"/>
-      </ResourceDictionary.MergedDictionaries>
-    </ResourceDictionary>
-  </Application.Resources>
+    </Application.Resources>
 </Application>

@@ -41,6 +41,33 @@ namespace Gibbed.Borderlands2.SaveEdit
     [Export(typeof(BankViewModel))]
     internal class BankViewModel : PropertyChangedBase
     {
+        #region Imports
+        private CharacterViewModel _Character;
+        private BackpackViewModel _Backpack;
+
+        [Import(typeof(CharacterViewModel))]
+        public CharacterViewModel Character
+        {
+            get { return this._Character; }
+            set
+            {
+                this._Character = value;
+                this.NotifyOfPropertyChange(() => this.Character);
+            }
+        }
+
+        [Import(typeof(BackpackViewModel))]
+        public BackpackViewModel Backpack
+        {
+            get { return this._Backpack; }
+            set
+            {
+                this._Backpack = value;
+                this.NotifyOfPropertyChange(() => this.Backpack);
+            }
+        }
+        #endregion
+
         #region Fields
         private readonly ObservableCollection<IBaseSlotViewModel> _Slots;
 
@@ -53,12 +80,6 @@ namespace Gibbed.Borderlands2.SaveEdit
         #endregion
 
         #region Properties
-        [Import]
-        private CharacterViewModel _Character { get; set; }
-
-        [Import]
-        private BackpackViewModel _Backpack { get; set; }
-
         public IEnumerable<DownloadablePackageDefinition> DownloadablePackages
         {
             get
@@ -106,13 +127,12 @@ namespace Gibbed.Borderlands2.SaveEdit
         #endregion
 
         [ImportingConstructor]
-        public BankViewModel(IEventAggregator events)
+        public BankViewModel()
         {
             this._Slots = new ObservableCollection<IBaseSlotViewModel>();
             this._BrokenSlots = new List<KeyValuePair<BankSlot, Exception>>();
             this._NewWeapon = new DelegateCommand<int>(this.DoNewWeapon);
             this._NewItem = new DelegateCommand<int>(this.DoNewItem);
-            events.Subscribe(this);
         }
 
         public void DoNewWeapon(int assetLibrarySetId)
@@ -324,8 +344,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                     var weapon = (BaseWeaponViewModel)viewModel;
                     if ((weapon.ManufacturerGradeIndex + weapon.GameStage) >= 2)
                     {
-                        weapon.ManufacturerGradeIndex = this._Character.SyncLevel;
-                        weapon.GameStage = this._Character.SyncLevel;
+                        weapon.ManufacturerGradeIndex = this.Character.SyncLevel;
+                        weapon.GameStage = this.Character.SyncLevel;
                     }
                 }
                 else if (viewModel is BaseItemViewModel)
@@ -333,8 +353,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                     var item = (BaseItemViewModel)viewModel;
                     if ((item.ManufacturerGradeIndex + item.GameStage) >= 2)
                     {
-                        item.ManufacturerGradeIndex = this._Character.SyncLevel;
-                        item.GameStage = this._Character.SyncLevel;
+                        item.ManufacturerGradeIndex = this.Character.SyncLevel;
+                        item.GameStage = this.Character.SyncLevel;
                     }
                 }
                 else

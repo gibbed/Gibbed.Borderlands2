@@ -217,26 +217,51 @@ namespace Gibbed.Borderlands2.SaveEdit
         #endregion
 
         [ImportingConstructor]
-        public CurrencyOnHandViewModel(IEventAggregator events)
+        public CurrencyOnHandViewModel()
         {
-            events.Subscribe(this);
         }
 
         public void ImportData(WillowTwoPlayerSaveGame saveGame)
         {
-            this.Credits = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 0 ? saveGame.CurrencyOnHand[0] : 0;
-            this.Eridium = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 1 ? saveGame.CurrencyOnHand[1] : 0;
-            this.SeraphCrystals = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 2 ? saveGame.CurrencyOnHand[2] : 0;
-            this.ReservedA = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 3 ? saveGame.CurrencyOnHand[3] : 0;
-            this.TorgueTokens = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 4 ? saveGame.CurrencyOnHand[4] : 0;
-            this.ReservedC = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 5 ? saveGame.CurrencyOnHand[5] : 0;
-            this.ReservedD = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 6 ? saveGame.CurrencyOnHand[6] : 0;
-            this.ReservedE = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 7 ? saveGame.CurrencyOnHand[7] : 0;
-            this.ReservedF = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 8 ? saveGame.CurrencyOnHand[8] : 0;
-            this.ReservedG = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 9 ? saveGame.CurrencyOnHand[9] : 0;
-            this.ReservedH = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 10 ? saveGame.CurrencyOnHand[10] : 0;
-            this.ReservedI = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 11 ? saveGame.CurrencyOnHand[11] : 0;
-            this.ReservedJ = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 12 ? saveGame.CurrencyOnHand[12] : 0;
+            this.Credits = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 0
+                               ? saveGame.CurrencyOnHand[0]
+                               : 0;
+            this.Eridium = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 1
+                               ? saveGame.CurrencyOnHand[1]
+                               : 0;
+            this.SeraphCrystals = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 2
+                                      ? saveGame.CurrencyOnHand[2]
+                                      : 0;
+            this.ReservedA = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 3
+                                 ? saveGame.CurrencyOnHand[3]
+                                 : 0;
+            this.TorgueTokens = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 4
+                                    ? saveGame.CurrencyOnHand[4]
+                                    : 0;
+            this.ReservedC = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 5
+                                 ? saveGame.CurrencyOnHand[5]
+                                 : 0;
+            this.ReservedD = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 6
+                                 ? saveGame.CurrencyOnHand[6]
+                                 : 0;
+            this.ReservedE = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 7
+                                 ? saveGame.CurrencyOnHand[7]
+                                 : 0;
+            this.ReservedF = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 8
+                                 ? saveGame.CurrencyOnHand[8]
+                                 : 0;
+            this.ReservedG = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 9
+                                 ? saveGame.CurrencyOnHand[9]
+                                 : 0;
+            this.ReservedH = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 10
+                                 ? saveGame.CurrencyOnHand[10]
+                                 : 0;
+            this.ReservedI = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 11
+                                 ? saveGame.CurrencyOnHand[11]
+                                 : 0;
+            this.ReservedJ = saveGame.CurrencyOnHand != null && saveGame.CurrencyOnHand.Count > 12
+                                 ? saveGame.CurrencyOnHand[12]
+                                 : 0;
         }
 
         public void ExportData(WillowTwoPlayerSaveGame saveGame)
