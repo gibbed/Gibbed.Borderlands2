@@ -87,7 +87,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         private bool _AwesomeSkillDisabled;
         private int _MaxBankSlots;
         private List<ChosenVehicleCustomization> _ChosenVehicleCustomizations = new List<ChosenVehicleCustomization>();
-        private int? _ExtraShowNewPlaythroughNotification;
+        private int? _PlayerHasPlayedInPlaythroughThree;
         private int? _NumOverpowerLevelsUnlocked;
         private int? _LastOverpowerChoice;
         #endregion
@@ -1117,15 +1117,15 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
             }
         }
 
-        public int? ExtraShowNewPlaythroughNotification
+        public int? PlayerHasPlayedInPlaythroughThree
         {
-            get { return this._ExtraShowNewPlaythroughNotification; }
+            get { return this._PlayerHasPlayedInPlaythroughThree; }
             set
             {
-                if (value != this._ExtraShowNewPlaythroughNotification)
+                if (value != this._PlayerHasPlayedInPlaythroughThree)
                 {
-                    this._ExtraShowNewPlaythroughNotification = value;
-                    this.NotifyPropertyChanged("ExtraShowNewPlaythroughNotification");
+                    this._PlayerHasPlayedInPlaythroughThree = value;
+                    this.NotifyPropertyChanged("PlayerHasPlayedInPlaythroughThree");
                 }
             }
         }
