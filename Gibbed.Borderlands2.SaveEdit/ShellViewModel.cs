@@ -208,6 +208,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                     },
                 };
 
+                FileFormats.SaveExpansion.ExtractExpansionSavedataFromUnloadableItemData(saveFile.SaveGame);
+
                 this.General.ImportData(saveFile.SaveGame, saveFile.Platform);
                 this.Character.ImportData(saveFile.SaveGame);
                 this.Vehicle.ImportData(saveFile.SaveGame);
@@ -261,6 +263,8 @@ namespace Gibbed.Borderlands2.SaveEdit
 
                 try
                 {
+                    FileFormats.SaveExpansion.ExtractExpansionSavedataFromUnloadableItemData(saveFile.SaveGame);
+
                     this.General.ImportData(saveFile.SaveGame, saveFile.Platform);
                     this.Character.ImportData(saveFile.SaveGame);
                     this.Vehicle.ImportData(saveFile.SaveGame);
@@ -462,8 +466,10 @@ namespace Gibbed.Borderlands2.SaveEdit
 
                 using (var output = File.Create(fileName))
                 {
+                    FileFormats.SaveExpansion.AddExpansionSavedataToUnloadableItemData(saveFile.SaveGame);
                     saveFile.Platform = platform;
                     saveFile.Serialize(output);
+                    FileFormats.SaveExpansion.ExtractExpansionSavedataFromUnloadableItemData(saveFile.SaveGame);
                 }
             }).Rescue().Execute(
                 x =>

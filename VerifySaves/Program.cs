@@ -118,11 +118,11 @@ namespace VerifySaves
 
                                 var saveGame =
                                     Serializer.Deserialize<WillowTwoSave.WillowTwoPlayerSaveGame>(innerUncompressedData);
-                                saveGame.ExtractExpansionSavedataFromUnloadableItemData();
+                                SaveExpansion.ExtractExpansionSavedataFromUnloadableItemData(saveGame);
 
                                 using (var testData = new MemoryStream())
                                 {
-                                    saveGame.AddExpansionSavedataToUnloadableItemData();
+                                    SaveExpansion.AddExpansionSavedataToUnloadableItemData(saveGame);
                                     Serializer.Serialize(testData, saveGame);
 
                                     testData.Position = 0;
