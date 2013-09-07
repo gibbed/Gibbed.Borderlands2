@@ -20,10 +20,8 @@
  *    distribution.
  */
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using ProtoBuf;
 
 namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
@@ -31,15 +29,6 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
     [ProtoContract]
     public class WillowTwoPlayerSaveGame : INotifyPropertyChanged
     {
-        private static readonly byte[] _HackInventorySerialNumber = new byte[]
-        {
-            0x07, 0x00, 0x00, 0x00, 0x00, 0x39, 0x2A, 0xFF,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-        };
-
         #region Fields
         private string _PlayerClass;
         private int _ExpLevel = 1;
@@ -321,119 +310,6 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         {
             return this._ChosenVehicleCustomizations != null &&
                    this._ChosenVehicleCustomizations.Count > 0;
-        }
-        #endregion
-
-        #region Expansion Data
-        public void AddExpansionSavedataToUnloadableItemData()
-        {
-            var oldHacks = this.PackedItemData.Where(pid => pid.Quantity < 0).ToArray();
-            foreach (var hack in oldHacks)
-            {
-                var type = (-hack.Quantity) & 0xFF;
-                if (type == 1 || type == 2 || type == 3)
-                {
-                    this.PackedItemData.Remove(hack);
-                }
-            }
-
-            if (this.CurrencyOnHand.Count >= 1 &&
-                this.CurrencyOnHand[1] > 99)
-            {
-                var extraEridium = Math.Max(0, Math.Min(this.CurrencyOnHand[1] - 99, 0x7FFFFF));
-                this.PackedItemData.Add(new PackedItemData()
-                {
-                    InventorySerialNumber = (byte[])_HackInventorySerialNumber.Clone(),
-                    Quantity = -(1 | (extraEridium << 8)),
-                });
-                this.CurrencyOnHand[1] = 99;
-            }
-
-            if (this.PlaythroughsCompleted > 1 &&
-                this.LastPlaythroughNumber > 0 && this.LastPlaythroughNumber <= 0x7FFFFF)
-            {
-                var extraLastPlaythroughNumber = Math.Max(0, Math.Min(this.LastPlaythroughNumber - 1, 0x7FFFFF));
-                var extraPlaythroughsCompleted = (byte)(this.PlaythroughsCompleted - 1);
-
-                this.PackedItemData.Add(new PackedItemData()
-                {
-                    InventorySerialNumber = (byte[])_HackInventorySerialNumber.Clone(),
-                    Quantity = -(2 | (extraLastPlaythroughNumber << 8)),
-                    Mark = extraPlaythroughsCompleted,
-                });
-
-                this.LastPlaythroughNumber = this.LastPlaythroughNumber >= 1 ? 1 : 0;
-                this.PlaythroughsCompleted = 1;
-            }
-
-            if (this.ExtraShowNewPlaythroughNotification.HasValue == true)
-            {
-                var value = Math.Max(0, Math.Min(this.ExtraShowNewPlaythroughNotification.Value, 0x7FFFFF));
-                this.PackedItemData.Add(new PackedItemData()
-                {
-                    InventorySerialNumber = (byte[])_HackInventorySerialNumber.Clone(),
-                    Quantity = -(3 | (value << 8)),
-                });
-            }
-
-            if (this.NumOverpowerLevelsUnlocked.HasValue == true)
-            {
-                var value = Math.Max(0, Math.Min(this.NumOverpowerLevelsUnlocked.Value, 0x7FFFFF));
-                this.PackedItemData.Add(new PackedItemData()
-                {
-                    InventorySerialNumber = (byte[])_HackInventorySerialNumber.Clone(),
-                    Quantity = -(4 | (value << 8)),
-                });
-            }
-
-            if (this.LastOverpowerChoice.HasValue == true)
-            {
-                var value = Math.Max(0, Math.Min(this.LastOverpowerChoice.Value, 0x7FFFFF));
-                this.PackedItemData.Add(new PackedItemData()
-                {
-                    InventorySerialNumber = (byte[])_HackInventorySerialNumber.Clone(),
-                    Quantity = -(5 | (value << 8)),
-                });
-            }
-        }
-
-        public void ExtractExpansionSavedataFromUnloadableItemData()
-        {
-            var hacks = this.PackedItemData.Where(pid => pid.Quantity < 0).ToArray();
-            foreach (var hack in hacks)
-            {
-                var type = (-hack.Quantity) & 0xFF;
-                if (type == 1)
-                {
-                    if (this.CurrencyOnHand.Count >= 1)
-                    {
-                        this.CurrencyOnHand[1] += ((-hack.Quantity) >> 8) & 0x7FFFFF;
-                    }
-
-                    this.PackedItemData.Remove(hack);
-                }
-                else if (type == 2)
-                {
-                    this.LastPlaythroughNumber += ((-hack.Quantity) >> 8) & 0x7FFFFF;
-                    this.PlaythroughsCompleted += (byte)hack.Mark;
-                    this.PackedItemData.Remove(hack);
-                }
-                else if (type == 3)
-                {
-                    this.ExtraShowNewPlaythroughNotification = ((-hack.Quantity) >> 8) & 0x7FFFFF;
-                    this.PackedItemData.Remove(hack);
-                }
-                else if (type == 4)
-                {
-                    this.NumOverpowerLevelsUnlocked = ((-hack.Quantity) >> 8) & 0x7FFFFF;
-                    this.PackedItemData.Remove(hack);
-                }
-                else if (type == 5)
-                {
-                    this.LastOverpowerChoice = ((-hack.Quantity) >> 8) & 0x7FFFFF;
-                    this.PackedItemData.Remove(hack);
-                }
-            }
         }
         #endregion
 

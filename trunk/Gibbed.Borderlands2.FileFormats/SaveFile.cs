@@ -104,7 +104,6 @@ namespace Gibbed.Borderlands2.FileFormats
                     saveGame.StatsData = this.PlayerStats.Serialize(endian);
                 }
 
-                saveGame.AddExpansionSavedataToUnloadableItemData();
                 ProtoBuf.Serializer.Serialize(innerUncompressedData, saveGame);
                 innerUncompressedData.Position = 0;
                 innerUncompressedBytes = innerUncompressedData.ReadBytes((uint)innerUncompressedData.Length);
@@ -113,11 +112,12 @@ namespace Gibbed.Borderlands2.FileFormats
             byte[] innerCompressedBytes;
             using (var innerCompressedData = new MemoryStream())
             {
+                var hash = CRC32.Hash(innerUncompressedBytes, 0, innerUncompressedBytes.Length);
+
                 innerCompressedData.WriteValueS32(0, Endian.Big);
                 innerCompressedData.WriteString("WSG");
                 innerCompressedData.WriteValueU32(2, endian);
-                innerCompressedData.WriteValueU32(CRC32.Hash(innerUncompressedBytes, 0, innerUncompressedBytes.Length),
-                                                  endian); // crc32
+                innerCompressedData.WriteValueU32(hash, endian);
                 innerCompressedData.WriteValueS32(innerUncompressedBytes.Length, endian);
 
                 var encoder = new Huffman.Encoder();
@@ -573,8 +573,6 @@ namespace Gibbed.Borderlands2.FileFormats
                                 }
                             }
                         }
-
-                        saveGame.ExtractExpansionSavedataFromUnloadableItemData();
 
                         return new SaveFile()
                         {
