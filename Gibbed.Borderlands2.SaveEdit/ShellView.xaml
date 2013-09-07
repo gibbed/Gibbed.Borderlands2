@@ -74,7 +74,7 @@
                 <Button.ToolTip>Save (Ctrl+S)</Button.ToolTip>
             </Button>
         </ToolBar>
-        <TabControl TabStripPlacement="Top">
+        <TabControl TabStripPlacement="Left" HorizontalContentAlignment="Right">
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">

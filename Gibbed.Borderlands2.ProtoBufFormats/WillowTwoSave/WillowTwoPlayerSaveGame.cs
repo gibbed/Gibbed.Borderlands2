@@ -61,8 +61,8 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         private List<RegionGameStageData> _RegionGameStages = new List<RegionGameStageData>();
         private List<WorldDiscoveryData> _WorldDiscoveryList = new List<WorldDiscoveryData>();
         private bool _IsBadassModeSaveGame;
-        private List<WeaponMemento> _Unknown32 = new List<WeaponMemento>();
-        private List<ItemMemento> _Unknown33 = new List<ItemMemento>();
+        private List<WeaponMemento> _WeaponMementos = new List<WeaponMemento>();
+        private List<ItemMemento> _ItemMementos = new List<ItemMemento>();
         private Guid _SaveGuid;
         private List<string> _AppliedCustomizations = new List<string>();
         private List<int> _BlackMarketUpgrades = new List<int>();
@@ -113,8 +113,8 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
             this._Unknown28 = this._Unknown28 ?? new List<string>();
             this._RegionGameStages = this._RegionGameStages ?? new List<RegionGameStageData>();
             this._WorldDiscoveryList = this._WorldDiscoveryList ?? new List<WorldDiscoveryData>();
-            this._Unknown32 = this._Unknown32 ?? new List<WeaponMemento>();
-            this._Unknown33 = this._Unknown33 ?? new List<ItemMemento>();
+            this._WeaponMementos = this._WeaponMementos ?? new List<WeaponMemento>();
+            this._ItemMementos = this._ItemMementos ?? new List<ItemMemento>();
             this._AppliedCustomizations = this._AppliedCustomizations ?? new List<string>();
             this._BlackMarketUpgrades = this._BlackMarketUpgrades ?? new List<int>();
             this._ChallengeList = this._ChallengeList ?? new List<ChallengeData>();
@@ -224,14 +224,14 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         private bool ShouldSerializeUnknown32()
         {
-            return this._Unknown32 != null &&
-                   this._Unknown32.Count > 0;
+            return this._WeaponMementos != null &&
+                   this._WeaponMementos.Count > 0;
         }
 
         private bool ShouldSerializeUnknown33()
         {
-            return this._Unknown33 != null &&
-                   this._Unknown33.Count > 0;
+            return this._ItemMementos != null &&
+                   this._ItemMementos.Count > 0;
         }
 
         private bool ShouldSerializeAppliedCustomizations()
@@ -753,29 +753,29 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(32, IsRequired = true)]
-        public List<WeaponMemento> Unknown32
+        public List<WeaponMemento> WeaponMementos
         {
-            get { return this._Unknown32; }
+            get { return this._WeaponMementos; }
             set
             {
-                if (value != this._Unknown32)
+                if (value != this._WeaponMementos)
                 {
-                    this._Unknown32 = value;
-                    this.NotifyPropertyChanged("Unknown32");
+                    this._WeaponMementos = value;
+                    this.NotifyPropertyChanged("WeaponMementos");
                 }
             }
         }
 
         [ProtoMember(33, IsRequired = true)]
-        public List<ItemMemento> Unknown33
+        public List<ItemMemento> ItemMementos
         {
-            get { return this._Unknown33; }
+            get { return this._ItemMementos; }
             set
             {
-                if (value != this._Unknown33)
+                if (value != this._ItemMementos)
                 {
-                    this._Unknown33 = value;
-                    this.NotifyPropertyChanged("Unknown33");
+                    this._ItemMementos = value;
+                    this.NotifyPropertyChanged("ItemMementos");
                 }
             }
         }
