@@ -29,103 +29,106 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d">
     <StackPanel>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.50*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Row="0"
-                  Grid.Column="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Image Grid.Column="1"
-                       DockPanel.Dock="Right"
-                       Source="..\Resources/credits.png"
-                       Height="24" />
-                <Label x:Name="CreditsLabel"
-                       Grid.Column="0"
-                       HorizontalContentAlignment="Right"
-                       Content="Credits:" />
-            </Grid>
-            <xctk:IntegerUpDown Grid.Row="0"
-                                Grid.Column="1"
-                                Margin="3"
-                                Value="{Binding Path=Credits, UpdateSourceTrigger=PropertyChanged}" />
-            <Grid Grid.Row="1"
-                  Grid.Column="0">
+        <Expander Header="Currency"
+                  IsExpanded="True">
+            <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.50*" />
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Image Grid.Column="1"
-                       DockPanel.Dock="Right"
-                       Source="..\Resources/eridium.png"
-                       Height="24" />
-                <Label Grid.Column="0"
-                       HorizontalContentAlignment="Right"
-                       Content="Eridium:" />
+                <Grid Grid.Row="0"
+                      Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="1"
+                           DockPanel.Dock="Right"
+                           Source="..\Resources/credits.png"
+                           Height="24" />
+                    <Label x:Name="CreditsLabel"
+                           Grid.Column="0"
+                           HorizontalContentAlignment="Right"
+                           Content="Credits:" />
+                </Grid>
+                <xctk:IntegerUpDown Grid.Row="0"
+                                    Grid.Column="1"
+                                    Margin="3"
+                                    Value="{Binding Path=Credits, UpdateSourceTrigger=PropertyChanged}" />
+                <Grid Grid.Row="1"
+                      Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="1"
+                           DockPanel.Dock="Right"
+                           Source="..\Resources/eridium.png"
+                           Height="24" />
+                    <Label Grid.Column="0"
+                           HorizontalContentAlignment="Right"
+                           Content="Eridium:" />
+                </Grid>
+                <xctk:IntegerUpDown Grid.Row="1"
+                                    Grid.Column="1"
+                                    Margin="3"
+                                    Value="{Binding Path=Eridium, UpdateSourceTrigger=PropertyChanged}" />
+                <Grid Grid.Row="2"
+                      Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="2"
+                           DockPanel.Dock="Right"
+                           Source="..\Resources\seraph crystal.png"
+                           Height="24" />
+                    <Label Grid.Column="0"
+                           HorizontalContentAlignment="Right"
+                           Content="Seraph Crystals:" />
+                </Grid>
+                <xctk:IntegerUpDown Grid.Row="2"
+                                    Grid.Column="1"
+                                    Margin="3"
+                                    Value="{Binding Path=SeraphCrystals, UpdateSourceTrigger=PropertyChanged}" />
+                <Grid Grid.Row="3"
+                      Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="2"
+                           DockPanel.Dock="Right"
+                           Source="..\Resources\torgue token.png"
+                           Height="24" />
+                    <Label Grid.Column="0"
+                           HorizontalContentAlignment="Right"
+                           Content="Torgue Tokens:" />
+                </Grid>
+                <xctk:IntegerUpDown Grid.Row="3"
+                                    Grid.Column="1"
+                                    Margin="3"
+                                    Value="{Binding Path=TorgueTokens, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
-            <xctk:IntegerUpDown Grid.Row="1"
-                                Grid.Column="1"
-                                Margin="3"
-                                Value="{Binding Path=Eridium, UpdateSourceTrigger=PropertyChanged}" />
-            <Grid Grid.Row="2"
-                  Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Image Grid.Column="2"
-                       DockPanel.Dock="Right"
-                       Source="..\Resources\seraph crystal.png"
-                       Height="24" />
-                <Label Grid.Column="0"
-                       HorizontalContentAlignment="Right"
-                       Content="Seraph Crystals:" />
-            </Grid>
-            <xctk:IntegerUpDown Grid.Row="2"
-                                Grid.Column="1"
-                                Margin="3"
-                                Value="{Binding Path=SeraphCrystals, UpdateSourceTrigger=PropertyChanged}" />
-            <Grid Grid.Row="3"
-                  Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Image Grid.Column="2"
-                       DockPanel.Dock="Right"
-                       Source="..\Resources\torgue token.png"
-                       Height="24" />
-                <Label Grid.Column="0"
-                       HorizontalContentAlignment="Right"
-                       Content="Torgue Tokens:" />
-            </Grid>
-            <xctk:IntegerUpDown Grid.Row="3"
-                                Grid.Column="1"
-                                Margin="3"
-                                Value="{Binding Path=TorgueTokens, UpdateSourceTrigger=PropertyChanged}" />
-        </Grid>
+        </Expander>
         <Expander Header="Reserved"
                   IsExpanded="False">
             <Grid>
