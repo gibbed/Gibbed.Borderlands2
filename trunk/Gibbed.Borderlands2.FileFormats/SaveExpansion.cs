@@ -102,9 +102,9 @@ namespace Gibbed.Borderlands2.FileFormats
                 saveGame.PlaythroughsCompleted = 1;
             }
 
-            if (saveGame.ExtraShowNewPlaythroughNotification.HasValue == true)
+            if (saveGame.PlayerHasPlayedInPlaythroughThree.HasValue == true)
             {
-                var value = saveGame.ExtraShowNewPlaythroughNotification.Value;
+                var value = saveGame.PlayerHasPlayedInPlaythroughThree.Value;
                 saveGame.AddExpansionSavedataToUnloadableItemData(3, value);
             }
 
@@ -164,7 +164,7 @@ namespace Gibbed.Borderlands2.FileFormats
                     }
                     else if (id == 3)
                     {
-                        saveGame.ExtraShowNewPlaythroughNotification = value1;
+                        saveGame.PlayerHasPlayedInPlaythroughThree = value1;
                         saveGame.PackedItemData.Remove(hack);
                     }
                     else if (id == 4)

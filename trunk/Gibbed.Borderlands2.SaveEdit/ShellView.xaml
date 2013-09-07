@@ -74,7 +74,8 @@
                 <Button.ToolTip>Save (Ctrl+S)</Button.ToolTip>
             </Button>
         </ToolBar>
-        <TabControl TabStripPlacement="Left" HorizontalContentAlignment="Right">
+        <TabControl TabStripPlacement="Left"
+                    HorizontalContentAlignment="Right">
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -180,10 +181,45 @@
                                Content="Raw" />
                     </StackPanel>
                 </TabItem.Header>
-                <xctk:PropertyGrid AutoGenerateProperties="True"
+                <xctk:PropertyGrid AutoGenerateProperties="False"
                                    SelectedObject="{Binding Path=SaveFile.SaveGame}"
                                    ShowTitle="False"
                                    IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}">
+                    <xctk:PropertyGrid.PropertyDefinitions>
+                        <xctk:PropertyDefinition Name="PlaythroughsCompleted" />
+                        <xctk:PropertyDefinition Name="SkillData" />
+                        <xctk:PropertyDefinition Name="ResourceData" />
+                        <xctk:PropertyDefinition Name="ItemData" />
+                        <xctk:PropertyDefinition Name="InventorySlotData" />
+                        <xctk:PropertyDefinition Name="WeaponData" />
+                        <xctk:PropertyDefinition Name="StatsData" />
+                        <xctk:PropertyDefinition Name="MissionPlaythroughs" />
+                        <xctk:PropertyDefinition Name="PlotMissionNumber" />
+                        <xctk:PropertyDefinition Name="UsedMarketingCodes" />
+                        <xctk:PropertyDefinition Name="MarketingCodesNeedingNotification" />
+                        <xctk:PropertyDefinition Name="TotalPlayTime" />
+                        <xctk:PropertyDefinition Name="LastSavedDate" />
+                        <xctk:PropertyDefinition Name="DLCExpansionData" />
+                        <xctk:PropertyDefinition Name="RegionGameStages" />
+                        <xctk:PropertyDefinition Name="WorldDiscoveryList" />
+                        <xctk:PropertyDefinition Name="BlackMarketUpgrades" />
+                        <xctk:PropertyDefinition Name="ActiveMissionNumber" />
+                        <xctk:PropertyDefinition Name="ChallengeList" />
+                        <xctk:PropertyDefinition Name="LevelChallengeUnlocks" />
+                        <xctk:PropertyDefinition Name="OneOffLevelChallengeCompletion" />
+                        <xctk:PropertyDefinition Name="NumChallengePrestiges" />
+                        <xctk:PropertyDefinition Name="LockoutList" />
+                        <xctk:PropertyDefinition Name="FullyExploredAreas" />
+                        <xctk:PropertyDefinition Name="NumGoldenKeysNotified" />
+                        <xctk:PropertyDefinition Name="LastPlaythroughNumber" />
+                        <xctk:PropertyDefinition Name="ShowNewPlaythroughNotification" />
+                        <xctk:PropertyDefinition Name="ReceivedDefaultWeapon" />
+                        <xctk:PropertyDefinition Name="QueuedTrainingMessages" />
+                        <xctk:PropertyDefinition Name="AwesomeSkillDisabled" />
+                        <xctk:PropertyDefinition Name="MaxBankSlots" />
+                        <xctk:PropertyDefinition Name="PlayerHasPlayedInPlaythroughThree" />
+                        <xctk:PropertyDefinition Name="LastOverpowerChoice" />
+                    </xctk:PropertyGrid.PropertyDefinitions>
                     <xctk:PropertyGrid.EditorDefinitions>
                         <xctk:EditorDefinition>
                             <!-- Workaround for broken byte[] support in PropertyGrid. -->
