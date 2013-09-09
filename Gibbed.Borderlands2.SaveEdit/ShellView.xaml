@@ -74,8 +74,7 @@
                 <Button.ToolTip>Save (Ctrl+S)</Button.ToolTip>
             </Button>
         </ToolBar>
-        <TabControl TabStripPlacement="Left"
-                    HorizontalContentAlignment="Right">
+        <TabControl TabStripPlacement="Top">
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -192,7 +191,6 @@
                         <xctk:PropertyDefinition Name="ItemData" />
                         <xctk:PropertyDefinition Name="InventorySlotData" />
                         <xctk:PropertyDefinition Name="WeaponData" />
-                        <xctk:PropertyDefinition Name="StatsData" />
                         <xctk:PropertyDefinition Name="MissionPlaythroughs" />
                         <xctk:PropertyDefinition Name="PlotMissionNumber" />
                         <xctk:PropertyDefinition Name="UsedMarketingCodes" />
