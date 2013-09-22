@@ -27,11 +27,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("Gibbed.Borderlands2.SparkTmsUnpack")]
+[assembly: AssemblyTitle("Gibbed.Borderlands2.SparkTmsPack")]
 [assembly: AssemblyDescription("http://gib.me/")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Gibbed.Borderlands2.SparkTmsUnpack")]
+[assembly: AssemblyProduct("Gibbed.Borderlands2.SparkTmsPack")]
 [assembly: AssemblyCopyright("Copyright © Gibbed 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -44,7 +44,7 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 
-[assembly: Guid("805cf46e-78c2-4ccb-b263-593b1857d5c3")]
+[assembly: Guid("ff500ac0-eb28-4f6b-9cf0-8aa2886392b2")]
 
 // Version information for an assembly consists of the following four values:
 //

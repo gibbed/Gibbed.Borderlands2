@@ -432,42 +432,6 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        private static bool IsBlacklistedBalance(string path)
-        {
-            if (string.IsNullOrEmpty(path) == true)
-            {
-                return false;
-            }
-
-            switch (path.Trim().ToLowerInvariant())
-            {
-                case "gd_weap_scorpio.a_weapon.weapbalance_scorpio":
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private static bool IsBlacklistedType(string path)
-        {
-            if (string.IsNullOrEmpty(path) == true)
-            {
-                return false;
-            }
-
-            switch (path.Trim().ToLowerInvariant())
-            {
-                case "gd_weap_scorpio.a_weapon.weapontype_scorpio_weapon":
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
         public IEnumerable<IResult> WriteSave()
         {
             if (this.SaveFile == null)
@@ -504,14 +468,18 @@ namespace Gibbed.Borderlands2.SaveEdit
                     saveFile.SaveGame.WeaponData != null)
                 {
                     saveFile.SaveGame.WeaponData.RemoveAll(
-                        wd => IsBlacklistedType(wd.Type) == true || IsBlacklistedBalance(wd.Balance) == true);
+                        wd =>
+                        Blacklisting.IsBlacklistedType(wd.Type) == true ||
+                        Blacklisting.IsBlacklistedBalance(wd.Balance) == true);
                 }
 
                 if (saveFile.SaveGame != null &&
                     saveFile.SaveGame.ItemData != null)
                 {
                     saveFile.SaveGame.ItemData.RemoveAll(
-                        wd => IsBlacklistedType(wd.Type) == true || IsBlacklistedBalance(wd.Balance) == true);
+                        wd =>
+                        Blacklisting.IsBlacklistedType(wd.Type) == true ||
+                        Blacklisting.IsBlacklistedBalance(wd.Balance) == true);
                 }
 
                 using (var output = File.Create(fileName))

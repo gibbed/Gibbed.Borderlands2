@@ -48,21 +48,9 @@ namespace Gibbed.Borderlands2.SparkTmsUnpack
 
             var options = new OptionSet()
             {
-                {
-                    "o|overwrite",
-                    "overwrite existing files",
-                    v => overwriteFiles = v != null
-                    },
-                {
-                    "v|verbose",
-                    "be verbose",
-                    v => verbose = v != null
-                    },
-                {
-                    "h|help",
-                    "show this message and exit",
-                    v => showHelp = v != null
-                    },
+                { "o|overwrite", "overwrite existing files", v => overwriteFiles = v != null },
+                { "v|verbose", "be verbose", v => verbose = v != null },
+                { "h|help", "show this message and exit", v => showHelp = v != null },
             };
 
             List<string> extras;
