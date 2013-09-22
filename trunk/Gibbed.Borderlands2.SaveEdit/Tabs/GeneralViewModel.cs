@@ -282,6 +282,58 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
+        public IEnumerable<IResult> DoImportStats()
+        {
+            string fileName = null;
+            var platform = Platform.Invalid;
+
+            foreach (var result in this.SaveLoad.OpenFile(s => fileName = s, p => platform = p))
+            {
+                yield return result;
+            }
+
+            if (fileName == null)
+            {
+                yield break;
+            }
+
+            FileFormats.SaveFile saveFile = null;
+
+            yield return new DelegateResult(() =>
+            {
+                using (var input = File.OpenRead(fileName))
+                {
+                    saveFile = FileFormats.SaveFile.Deserialize(input,
+                                                                platform,
+                                                                FileFormats.SaveFile.DeserializeSettings.None);
+                }
+            })
+                .Rescue<DllNotFoundException>().Execute(
+                    x => new MyMessageBox("Failed to load save: " + x.Message, "Error")
+                             .WithIcon(MessageBoxImage.Error).AsCoroutine())
+                .Rescue<FileFormats.SaveFormatException>().Execute(
+                    x => new MyMessageBox("Failed to load save: " + x.Message, "Error")
+                             .WithIcon(MessageBoxImage.Error).AsCoroutine())
+                .Rescue<FileFormats.SaveCorruptionException>().Execute(
+                    x => new MyMessageBox("Failed to load save: " + x.Message, "Error")
+                             .WithIcon(MessageBoxImage.Error).AsCoroutine())
+                .Rescue().Execute(
+                    x =>
+                    new MyMessageBox("An exception was thrown (press Ctrl+C to copy):\n\n" + x.ToString(),
+                                     "Error")
+                        .WithIcon(MessageBoxImage.Error).AsCoroutine());
+
+            if (saveFile != null)
+            {
+                // TODO: deep copy?
+                this.Shell.SaveFile.SaveGame.StatsData = saveFile.SaveGame.StatsData;
+                yield return
+                    new MyMessageBox("Import successful.")
+                        .WithButton(MessageBoxButton.OK)
+                        .WithIcon(MessageBoxImage.Information);
+            }
+        }
+
         public void ImportData(WillowTwoPlayerSaveGame saveGame, Platform platform)
         {
             this.Platform = platform;
