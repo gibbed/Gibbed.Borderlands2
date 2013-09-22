@@ -34,9 +34,9 @@ namespace Gibbed.Borderlands2.SaveEdit
             switch (path.Trim().ToLowerInvariant())
             {
                 case "gd_weap_scorpio.a_weapon.weapbalance_scorpio":
-                    {
-                        return true;
-                    }
+                {
+                    return true;
+                }
             }
 
             return false;
@@ -52,9 +52,9 @@ namespace Gibbed.Borderlands2.SaveEdit
             switch (path.Trim().ToLowerInvariant())
             {
                 case "gd_weap_scorpio.a_weapon.weapontype_scorpio_weapon":
-                    {
-                        return true;
-                    }
+                {
+                    return true;
+                }
             }
 
             return false;
