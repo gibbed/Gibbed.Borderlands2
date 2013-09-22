@@ -34,6 +34,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gibbed.Borderlands2.SparkTm
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{145E157B-54E1-4B27-8C68-896835678AAB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gibbed.Borderlands2.SparkTmsPack", "Gibbed.Borderlands2.SparkTmsPack\Gibbed.Borderlands2.SparkTmsPack.csproj", "{75DADFFF-50E6-4C0B-B46D-49E40846F0FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -178,6 +180,21 @@ Global
 		{19B858E3-844A-43EA-8A1D-F73CE9A7496C}.SaveEdit Packaging|Mixed Platforms.ActiveCfg = Release|x86
 		{19B858E3-844A-43EA-8A1D-F73CE9A7496C}.SaveEdit Packaging|x86.ActiveCfg = Release|x86
 		{19B858E3-844A-43EA-8A1D-F73CE9A7496C}.SaveEdit Packaging|x86.Build.0 = Release|x86
+		{75DADFFF-50E6-4C0B-B46D-49E40846F0FC}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{75DADFFF-50E6-4C0B-B46D-49E40846F0FC}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{75DADFFF-50E6-4C0B-B46D-49E40846F0FC}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{75DADFFF-50E6-4C0B-B46D-49E40846F0FC}.Debug|x86.ActiveCfg = Debug|x86
+		{75DADFFF-50E6-4C0B-B46D-49E40846F0FC}.Debug|x86.Build.0 = Debug|x86
+		{75DADFFF-50E6-4C0B-B46D-49E40846F0FC}.Release|Any CPU.ActiveCfg = Release|x86
+		{75DADFFF-50E6-4C0B-B46D-49E40846F0FC}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{75DADFFF-50E6-4C0B-B46D-49E40846F0FC}.Release|Mixed Platforms.Build.0 = Release|x86
+		{75DADFFF-50E6-4C0B-B46D-49E40846F0FC}.Release|x86.ActiveCfg = Release|x86
+		{75DADFFF-50E6-4C0B-B46D-49E40846F0FC}.Release|x86.Build.0 = Release|x86
+		{75DADFFF-50E6-4C0B-B46D-49E40846F0FC}.SaveEdit Packaging|Any CPU.ActiveCfg = Release|x86
+		{75DADFFF-50E6-4C0B-B46D-49E40846F0FC}.SaveEdit Packaging|Mixed Platforms.ActiveCfg = Release|x86
+		{75DADFFF-50E6-4C0B-B46D-49E40846F0FC}.SaveEdit Packaging|Mixed Platforms.Build.0 = Release|x86
+		{75DADFFF-50E6-4C0B-B46D-49E40846F0FC}.SaveEdit Packaging|x86.ActiveCfg = Release|x86
+		{75DADFFF-50E6-4C0B-B46D-49E40846F0FC}.SaveEdit Packaging|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -194,5 +211,6 @@ Global
 		{9B42EE82-42E9-455C-A3DE-7B93F1FF2476} = {145E157B-54E1-4B27-8C68-896835678AAB}
 		{19B858E3-844A-43EA-8A1D-F73CE9A7496C} = {145E157B-54E1-4B27-8C68-896835678AAB}
 		{EB350DC2-4DAD-4E1E-B93C-0B9068D6EE3E} = {145E157B-54E1-4B27-8C68-896835678AAB}
+		{75DADFFF-50E6-4C0B-B46D-49E40846F0FC} = {145E157B-54E1-4B27-8C68-896835678AAB}
 	EndGlobalSection
 EndGlobal
