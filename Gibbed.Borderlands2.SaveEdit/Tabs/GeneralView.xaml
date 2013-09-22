@@ -116,6 +116,10 @@
                             Content="Import World">
                         <cal:Message.Attach>[Event Click] = [Action DoImportWorld]</cal:Message.Attach>
                     </Button>
+                    <Button Margin="3"
+                            Content="Import Stats">
+                        <cal:Message.Attach>[Event Click] = [Action DoImportStats]</cal:Message.Attach>
+                    </Button>
                 </WrapPanel>
             </Grid>
         </Expander>
