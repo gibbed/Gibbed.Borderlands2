@@ -292,6 +292,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 customization.Customizations.Add(skin1);
                 customization.Customizations.Add(skin2);
                 customization.Customizations.AddRange(skins);
+                customizations.Add(customization);
             }
         }
 
