@@ -153,7 +153,7 @@
                         <Image Height="24"
                                Source="Resources\backpack.png" />
                         <Label VerticalAlignment="Center"
-                               Content="Backpack" />
+                               Content="{Binding Path=Backpack.Slots.Count}" ContentStringFormat="Backpack ({0})"/>
                     </StackPanel>
                 </TabItem.Header>
                 <ContentControl x:Name="Backpack"
@@ -165,7 +165,7 @@
                         <Image Height="24"
                                Source="Resources\bank.png" />
                         <Label VerticalAlignment="Center"
-                               Content="Bank" />
+                               Content="{Binding Path=Bank.Slots.Count}" ContentStringFormat="Bank ({0})"/>
                     </StackPanel>
                 </TabItem.Header>
                 <ContentControl x:Name="Bank"
