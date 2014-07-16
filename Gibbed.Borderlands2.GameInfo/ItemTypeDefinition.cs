@@ -33,6 +33,7 @@ namespace Gibbed.Borderlands2.GameInfo
         public string ResourcePath { get; internal set; }
         public ItemType Type { get; internal set; }
         public string Name { get; internal set; }
+        public bool HasFullName { get; internal set; }
         public List<string> Titles { get; internal set; }
         public List<string> Prefixes { get; internal set; }
         public List<string> AlphaParts { get; internal set; }
