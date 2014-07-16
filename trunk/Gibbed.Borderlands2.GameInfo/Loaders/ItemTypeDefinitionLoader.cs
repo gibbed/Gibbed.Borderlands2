@@ -50,6 +50,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
                 ResourcePath = kv.Key,
                 Type = kv.Value.Type,
                 Name = kv.Value.Name,
+                HasFullName = kv.Value.HasFullName,
                 Titles = kv.Value.Titles,
                 Prefixes = kv.Value.Prefixes,
                 AlphaParts = kv.Value.AlphaParts,

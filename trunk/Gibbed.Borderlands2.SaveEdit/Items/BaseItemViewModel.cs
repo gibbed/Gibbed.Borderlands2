@@ -59,29 +59,35 @@ namespace Gibbed.Borderlands2.SaveEdit
             this.UpdateDisplayName();
         }
 
-        private static string GenerateDisplayName(string type, string prefixPart, string titlePart)
+        private static string GenerateDisplayName(string typePath, string prefixPartPath, string titlePartPath)
         {
-            if (titlePart != "None" &&
-                InfoManager.ItemNameParts.ContainsKey(titlePart) == true &&
-                string.IsNullOrEmpty(InfoManager.ItemNameParts[titlePart].Name) == false)
+            string name = null;
+            bool hasFullName = false;
+
+            if (typePath != "None" && InfoManager.ItemTypes.ContainsKey(typePath) == true)
             {
-                var text = InfoManager.ItemNameParts[titlePart].Name;
-
-                if (prefixPart != "None" &&
-                    InfoManager.ItemNameParts.ContainsKey(prefixPart) == true &&
-                    string.IsNullOrEmpty(InfoManager.ItemNameParts[prefixPart].Name) == false)
-                {
-                    text = InfoManager.ItemNameParts[prefixPart].Name + " " + text;
-                }
-
-                return text;
+                var itemType = InfoManager.ItemTypes[typePath];
+                name = itemType.Name;
+                hasFullName = itemType.HasFullName;
             }
 
-            if (type != "None" &&
-                InfoManager.ItemTypes.ContainsKey(type) == true &&
-                string.IsNullOrEmpty(InfoManager.ItemTypes[type].Name) == false)
+            if (hasFullName == false &&
+                titlePartPath != "None" && InfoManager.ItemNameParts.ContainsKey(titlePartPath) == true)
             {
-                return InfoManager.ItemTypes[type].Name;
+                var titlePart = InfoManager.ItemNameParts[titlePartPath];
+                name = titlePart.Name;
+            }
+
+            if (name != null &&
+                prefixPartPath != "None" && InfoManager.ItemNameParts.ContainsKey(prefixPartPath) == true &&
+                string.IsNullOrEmpty(InfoManager.ItemNameParts[prefixPartPath].Name) == false)
+            {
+                name = InfoManager.ItemNameParts[prefixPartPath].Name + " " + name;
+            }
+
+            if (string.IsNullOrEmpty(name) == false)
+            {
+                return name;
             }
 
             return "Unknown Item";

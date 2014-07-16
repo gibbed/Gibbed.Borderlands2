@@ -51,6 +51,9 @@ namespace Gibbed.Borderlands2.GameInfo.Raw
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
+        [JsonProperty(PropertyName = "has_full_name")]
+        public bool HasFullName { get; set; }
+
         [JsonProperty(PropertyName = "titles")]
         public List<string> Titles { get; set; }
 
