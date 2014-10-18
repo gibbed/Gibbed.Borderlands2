@@ -257,14 +257,14 @@ namespace Gibbed.Borderlands2.SaveEdit
                          s => this.SelectedBanditTech2 = s,
                          s => this.ExtraBanditTech.Add(s));
 
-            this.ExtraBanditTech.Clear();
+            this.ExtraHovercraft.Clear();
             ImportTarget("GD_OrchidPackageDef.Vehicles.VehicleFamily_Hovercraft",
                          saveGame.ChosenVehicleCustomizations,
                          s => this.SelectedHovercraft1 = s,
                          s => this.SelectedHovercraft2 = s,
                          s => this.ExtraHovercraft.Add(s));
 
-            this.ExtraBanditTech.Clear();
+            this.ExtraFanBoat.Clear();
             ImportTarget("GD_SagePackageDef.Vehicles.VehicleFamily_FanBoat",
                          saveGame.ChosenVehicleCustomizations,
                          s => this.SelectedFanBoat1 = s,
