@@ -222,13 +222,13 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                    this._WorldDiscoveryList.Count > 0;
         }
 
-        private bool ShouldSerializeUnknown32()
+        private bool ShouldSerializeWeaponMementos()
         {
             return this._WeaponMementos != null &&
                    this._WeaponMementos.Count > 0;
         }
 
-        private bool ShouldSerializeUnknown33()
+        private bool ShouldSerializeItemMementos()
         {
             return this._ItemMementos != null &&
                    this._ItemMementos.Count > 0;
