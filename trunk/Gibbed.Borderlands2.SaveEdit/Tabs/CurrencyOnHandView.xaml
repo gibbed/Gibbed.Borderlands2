@@ -93,7 +93,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <Image Grid.Column="2"
+                    <Image Grid.Column="1"
                            DockPanel.Dock="Right"
                            Source="..\Resources\seraph crystal.png"
                            Height="24" />
