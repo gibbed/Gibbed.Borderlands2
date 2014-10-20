@@ -332,28 +332,28 @@ namespace Gibbed.Borderlands2.SaveEdit
                 {
                     case ItemType.Artifact:
                     {
-                        return "Relic";
+                        return "Relics";
                     }
 
                     case ItemType.ClassMod:
                     case ItemType.CrossDLCClassMod:
                     {
-                        return "Class Mod";
+                        return "Class Mods";
                     }
 
                     case ItemType.GrenadeMod:
                     {
-                        return "Grenade Mod";
+                        return "Grenade Mods";
                     }
 
                     case ItemType.Shield:
                     {
-                        return "Shield";
+                        return "Shields";
                     }
 
                     case ItemType.UsableCustomizationItem:
                     {
-                        return "Customization";
+                        return "Customizations";
                     }
 
                     case ItemType.UsableItem:
