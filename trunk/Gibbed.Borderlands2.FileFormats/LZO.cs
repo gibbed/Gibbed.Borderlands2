@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2013 Rick (rick 'at' gibbed 'dot' us)
+﻿/* Copyright (c) 2015 Rick (rick 'at' gibbed 'dot' us)
  * 
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -29,7 +29,7 @@ namespace Gibbed.Borderlands2.FileFormats
     {
         private static readonly bool _Is64Bit = DetectIs64Bit();
 
-        public enum ErrorCode
+        public enum ErrorCode : int
         {
             Success = 0,
             GenericError = -1,
@@ -51,39 +51,38 @@ namespace Gibbed.Borderlands2.FileFormats
 
         private static class Native32
         {
-            [DllImport("lzo_32.dll", EntryPoint = "#67", CallingConvention = CallingConvention.StdCall)]
-            internal static extern ErrorCode NativeCompress(IntPtr inputBytes,
-                                                            int inputCount,
-                                                            IntPtr outputBytes,
-                                                            ref int outputCount,
-                                                            byte[] workBytes);
+            [DllImport("lzo32.dll", EntryPoint = "#67", CallingConvention = CallingConvention.StdCall)]
+            internal static extern int NativeCompress(IntPtr inputBytes,
+                                                      int inputCount,
+                                                      IntPtr outputBytes,
+                                                      ref int outputCount,
+                                                      byte[] workBytes);
 
-            [DllImport("lzo_32.dll", EntryPoint = "#68", CallingConvention = CallingConvention.StdCall)]
-            internal static extern ErrorCode NativeDecompress(IntPtr inputBytes,
-                                                              int inputCount,
-                                                              IntPtr outputBytes,
-                                                              ref int outputCount);
+            [DllImport("lzo32.dll", EntryPoint = "#68", CallingConvention = CallingConvention.StdCall)]
+            internal static extern int NativeDecompress(IntPtr inputBytes,
+                                                        int inputCount,
+                                                        IntPtr outputBytes,
+                                                        ref int outputCount);
         }
 
         private static class Native64
         {
-            [DllImport("lzo_64.dll", EntryPoint = "#67", CallingConvention = CallingConvention.StdCall)]
-            internal static extern ErrorCode NativeCompress(IntPtr inputBytes,
-                                                            int inputCount,
-                                                            IntPtr outputBytes,
-                                                            ref int outputCount,
-                                                            byte[] workBytes);
+            [DllImport("lzo64.dll", EntryPoint = "#67", CallingConvention = CallingConvention.StdCall)]
+            internal static extern int NativeCompress(IntPtr inputBytes,
+                                                      long inputCount,
+                                                      IntPtr outputBytes,
+                                                      ref long outputCount,
+                                                      byte[] workBytes);
 
-            [DllImport("lzo_64.dll", EntryPoint = "#68", CallingConvention = CallingConvention.StdCall)]
-            internal static extern ErrorCode NativeDecompress(IntPtr inputBytes,
-                                                              int inputCount,
-                                                              IntPtr outputBytes,
-                                                              ref int outputCount);
+            [DllImport("lzo64.dll", EntryPoint = "#68", CallingConvention = CallingConvention.StdCall)]
+            internal static extern int NativeDecompress(IntPtr inputBytes,
+                                                        long inputCount,
+                                                        IntPtr outputBytes,
+                                                        ref long outputCount);
         }
 
         private const int _DictSize = 2;
-        private const int _WorkSize = (16384 * _DictSize);
-
+        private const int _WorkSize = 16384 * _DictSize;
         private static readonly byte[] _CompressWork = new byte[_WorkSize];
 
         public static ErrorCode Compress(byte[] inputBytes,
@@ -132,19 +131,25 @@ namespace Gibbed.Borderlands2.FileFormats
             {
                 if (_Is64Bit == true)
                 {
-                    result = Native64.NativeCompress(inputHandle.AddrOfPinnedObject() + inputOffset,
-                                                     inputCount,
-                                                     outputHandle.AddrOfPinnedObject() + outputOffset,
-                                                     ref outputCount,
-                                                     _CompressWork);
+                    long dummy = outputCount;
+                    result = (ErrorCode)Native64.NativeCompress(inputHandle.AddrOfPinnedObject() + inputOffset,
+                                                                inputCount,
+                                                                outputHandle.AddrOfPinnedObject() + outputOffset,
+                                                                ref dummy,
+                                                                _CompressWork);
+                    if (dummy < 0 || dummy > outputCount)
+                    {
+                        throw new InvalidOperationException("strange output count");
+                    }
+                    outputCount = (int)dummy;
                 }
                 else
                 {
-                    result = Native32.NativeCompress(inputHandle.AddrOfPinnedObject() + inputOffset,
-                                                     inputCount,
-                                                     outputHandle.AddrOfPinnedObject() + outputOffset,
-                                                     ref outputCount,
-                                                     _CompressWork);
+                    result = (ErrorCode)Native32.NativeCompress(inputHandle.AddrOfPinnedObject() + inputOffset,
+                                                                inputCount,
+                                                                outputHandle.AddrOfPinnedObject() + outputOffset,
+                                                                ref outputCount,
+                                                                _CompressWork);
                 }
             }
 
@@ -195,17 +200,23 @@ namespace Gibbed.Borderlands2.FileFormats
 
             if (_Is64Bit == true)
             {
-                result = Native64.NativeDecompress(inputHandle.AddrOfPinnedObject() + inputOffset,
-                                                   inputCount,
-                                                   outputHandle.AddrOfPinnedObject() + outputOffset,
-                                                   ref outputCount);
+                long dummy = outputCount;
+                result = (ErrorCode)Native64.NativeDecompress(inputHandle.AddrOfPinnedObject() + inputOffset,
+                                                              inputCount,
+                                                              outputHandle.AddrOfPinnedObject() + outputOffset,
+                                                              ref dummy);
+                if (dummy < 0 || dummy > outputCount)
+                {
+                    throw new InvalidOperationException("strange output count");
+                }
+                outputCount = (int)dummy;
             }
             else
             {
-                result = Native32.NativeDecompress(inputHandle.AddrOfPinnedObject() + inputOffset,
-                                                   inputCount,
-                                                   outputHandle.AddrOfPinnedObject() + outputOffset,
-                                                   ref outputCount);
+                result = (ErrorCode)Native32.NativeDecompress(inputHandle.AddrOfPinnedObject() + inputOffset,
+                                                              inputCount,
+                                                              outputHandle.AddrOfPinnedObject() + outputOffset,
+                                                              ref outputCount);
             }
 
             inputHandle.Free();
