@@ -47,28 +47,33 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssetLibraryManagerHelpers.cs" />
-    <Compile Include="Items\BackpackDataHelper.cs" />
-    <Compile Include="Items\BackpackItem.cs" />
-    <Compile Include="Items\BackpackWeapon.cs" />
     <Compile Include="BitReader.cs" />
     <Compile Include="BitWriter.cs" />
     <Compile Include="CRC32.cs" />
     <Compile Include="Huffman\Decoder.cs" />
     <Compile Include="Huffman\Encoder.cs" />
+    <Compile Include="Items\BackpackDataHelper.cs" />
+    <Compile Include="Items\BackpackItem.cs" />
+    <Compile Include="Items\BackpackWeapon.cs" />
     <Compile Include="Items\BaseDataHelper.cs" />
-    <Compile Include="Items\IBackpackSlot.cs" />
-    <Compile Include="Items\IBaseSlot.cs" />
-    <Compile Include="Items\IPackable.cs" />
-    <Compile Include="LZO.cs" />
     <Compile Include="Items\BaseItem.cs" />
     <Compile Include="Items\BaseWeapon.cs" />
+    <Compile Include="Items\IBackpackSlot.cs" />
+    <Compile Include="Items\IPackableSlot.cs" />
+    <Compile Include="Items\IPackableItem.cs" />
+    <Compile Include="Items\IPackedSlot.cs" />
+    <Compile Include="Items\IPackableWeapon.cs" />
     <Compile Include="Items\PackedDataHelper.cs" />
+    <Compile Include="Items\PackedAssetReference.cs" />
+    <Compile Include="Items\PackedItem.cs" />
+    <Compile Include="Items\PackedWeapon.cs" />
+    <Compile Include="LZO.cs" />
+    <Compile Include="PlayerStats.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveCorruptionException.cs" />
     <Compile Include="SaveExpansion.cs" />
     <Compile Include="SaveFile.cs" />
     <Compile Include="SaveFormatException.cs" />
-    <Compile Include="PlayerStats.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gibbed.Borderlands2.GameInfo\Gibbed.Borderlands2.GameInfo.csproj">

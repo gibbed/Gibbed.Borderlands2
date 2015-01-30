@@ -24,8 +24,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows;
+using System.Windows.Input;
 using Caliburn.Micro;
 using Caliburn.Micro.Contrib;
 using Caliburn.Micro.Contrib.Results;
@@ -146,9 +148,21 @@ namespace Gibbed.Borderlands2.SaveEdit
         #region Fields
         private SaveLoad _SaveLoad;
         private FileFormats.SaveFile _SaveFile;
+        private readonly ICommand _NewSaveFromPlayerClass;
         #endregion
 
         #region Properties
+        public IEnumerable<PlayerClassDefinition> PlayerClasses
+        {
+            get
+            {
+                return InfoManager.PlayerClasses.Items
+                                  .Select(kv => kv.Value)
+                                  .Distinct()
+                                  .OrderBy(dp => dp.SortOrder);
+            }
+        }
+
         public FileFormats.SaveFile SaveFile
         {
             get { return this._SaveFile; }
@@ -173,52 +187,68 @@ namespace Gibbed.Borderlands2.SaveEdit
                 this.NotifyOfPropertyChange(() => this.SaveLoad);
             }
         }
+
+        public ICommand NewSaveFromPlayerClass
+        {
+            get { return this._NewSaveFromPlayerClass; }
+        }
         #endregion
 
         [ImportingConstructor]
         public ShellViewModel()
         {
+            this._NewSaveFromPlayerClass = new DelegateCommand<PlayerClassDefinition>(this.DoNewSaveFromPlayerClass);
+        }
+
+        private void DoNewSaveFromPlayerClass(PlayerClassDefinition playerClass)
+        {
+            var saveFile = new FileFormats.SaveFile()
+            {
+                Platform = Platform.PC,
+                SaveGame = new ProtoBufFormats.WillowTwoSave.WillowTwoPlayerSaveGame()
+                {
+                    SaveGameId = 1,
+                    SaveGuid = (ProtoBufFormats.WillowTwoSave.Guid)Guid.NewGuid(),
+                    PlayerClass = playerClass.ResourcePath,
+                    UIPreferences = new ProtoBufFormats.WillowTwoSave.UIPreferencesData()
+                    {
+                        CharacterName = Encoding.UTF8.GetBytes(playerClass.Name),
+                    },
+                    AppliedCustomizations = new List<string>()
+                    {
+                        "None",
+                        "",
+                        "",
+                        "",
+                        "None",
+                    },
+                },
+            };
+
+            FileFormats.SaveExpansion.ExtractExpansionSavedataFromUnloadableItemData(saveFile.SaveGame);
+
+            this.General.ImportData(saveFile.SaveGame, saveFile.Platform);
+            this.Character.ImportData(saveFile.SaveGame);
+            this.Vehicle.ImportData(saveFile.SaveGame);
+            this.CurrencyOnHand.ImportData(saveFile.SaveGame);
+            this.Backpack.ImportData(saveFile.SaveGame, saveFile.Platform);
+            this.Bank.ImportData(saveFile.SaveGame, saveFile.Platform);
+            this.FastTravel.ImportData(saveFile.SaveGame);
+            this.SaveFile = saveFile;
         }
 
         public IEnumerable<IResult> NewSave()
         {
-            yield return new DelegateResult(() =>
-            {
-                var saveFile = new FileFormats.SaveFile()
+            yield return new DelegateResult(
+                () =>
                 {
-                    Platform = Platform.PC,
-                    SaveGame = new ProtoBufFormats.WillowTwoSave.WillowTwoPlayerSaveGame()
-                    {
-                        SaveGameId = 1,
-                        SaveGuid = (ProtoBufFormats.WillowTwoSave.Guid)Guid.NewGuid(),
-                        PlayerClass = "GD_Assassin.Character.CharClass_Assassin",
-                        UIPreferences = new ProtoBufFormats.WillowTwoSave.UIPreferencesData()
-                        {
-                            CharacterName = Encoding.UTF8.GetBytes("Zero"),
-                        },
-                        AppliedCustomizations = new List<string>()
-                        {
-                            "GD_DefaultCustoms_MainGame.Assassin.Head_Default",
-                            "",
-                            "",
-                            "",
-                            "GD_DefaultCustoms_MainGame.Assassin.Skin_Default",
-                        },
-                        LastVisitedTeleporter = "None",
-                    },
-                };
-
-                FileFormats.SaveExpansion.ExtractExpansionSavedataFromUnloadableItemData(saveFile.SaveGame);
-
-                this.General.ImportData(saveFile.SaveGame, saveFile.Platform);
-                this.Character.ImportData(saveFile.SaveGame);
-                this.Vehicle.ImportData(saveFile.SaveGame);
-                this.CurrencyOnHand.ImportData(saveFile.SaveGame);
-                this.Backpack.ImportData(saveFile.SaveGame, saveFile.Platform);
-                this.Bank.ImportData(saveFile.SaveGame, saveFile.Platform);
-                this.FastTravel.ImportData(saveFile.SaveGame);
-                this.SaveFile = saveFile;
-            })
+                    var playerClasses =
+                        InfoManager.PlayerClasses.Items.Where(pc => pc.Value.DLC == null)
+                                   .Select(kv => kv.Value)
+                                   .ToArray();
+                    var playerClass = playerClasses[new Random().Next(playerClasses.Length)];
+                    this.DoNewSaveFromPlayerClass(playerClass);
+                })
                 .Rescue<DllNotFoundException>().Execute(
                     x => new MyMessageBox("Failed to create save: " + x.Message, "Error")
                              .WithIcon(MessageBoxImage.Error).AsCoroutine())
@@ -252,34 +282,37 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             FileFormats.SaveFile saveFile = null;
 
-            yield return new DelegateResult(() =>
-            {
-                using (var input = File.OpenRead(fileName))
+            yield return new DelegateResult(
+                () =>
                 {
-                    saveFile = FileFormats.SaveFile.Deserialize(input,
-                                                                platform,
-                                                                FileFormats.SaveFile.DeserializeSettings.None);
-                }
+                    using (var input = File.OpenRead(fileName))
+                    {
+                        saveFile = FileFormats.SaveFile.Deserialize(
+                            input,
+                            platform,
+                            FileFormats.SaveFile.DeserializeSettings.None);
+                    }
 
-                try
-                {
-                    FileFormats.SaveExpansion.ExtractExpansionSavedataFromUnloadableItemData(saveFile.SaveGame);
+                    try
+                    {
+                        FileFormats.SaveExpansion.ExtractExpansionSavedataFromUnloadableItemData(
+                            saveFile.SaveGame);
 
-                    this.General.ImportData(saveFile.SaveGame, saveFile.Platform);
-                    this.Character.ImportData(saveFile.SaveGame);
-                    this.Vehicle.ImportData(saveFile.SaveGame);
-                    this.CurrencyOnHand.ImportData(saveFile.SaveGame);
-                    this.Backpack.ImportData(saveFile.SaveGame, saveFile.Platform);
-                    this.Bank.ImportData(saveFile.SaveGame, saveFile.Platform);
-                    this.FastTravel.ImportData(saveFile.SaveGame);
-                    this.SaveFile = saveFile;
-                }
-                catch (Exception)
-                {
-                    this.SaveFile = null;
-                    throw;
-                }
-            })
+                        this.General.ImportData(saveFile.SaveGame, saveFile.Platform);
+                        this.Character.ImportData(saveFile.SaveGame);
+                        this.Vehicle.ImportData(saveFile.SaveGame);
+                        this.CurrencyOnHand.ImportData(saveFile.SaveGame);
+                        this.Backpack.ImportData(saveFile.SaveGame, saveFile.Platform);
+                        this.Bank.ImportData(saveFile.SaveGame, saveFile.Platform);
+                        this.FastTravel.ImportData(saveFile.SaveGame);
+                        this.SaveFile = saveFile;
+                    }
+                    catch (Exception)
+                    {
+                        this.SaveFile = null;
+                        throw;
+                    }
+                })
                 .Rescue<DllNotFoundException>().Execute(
                     x => new MyMessageBox("Failed to load save: " + x.Message, "Error")
                              .WithIcon(MessageBoxImage.Error).AsCoroutine())
@@ -336,10 +369,10 @@ namespace Gibbed.Borderlands2.SaveEdit
                     {
                         var sb = new StringBuilder();
                         this.Backpack.BrokenWeapons.ForEach(kv =>
-                        {
-                            sb.AppendLine(kv.Value.ToString());
-                            sb.AppendLine();
-                        });
+                                                            {
+                                                                sb.AppendLine(kv.Value.ToString());
+                                                                sb.AppendLine();
+                                                            });
                         if (MyClipboard.SetText(sb.ToString()) != MyClipboard.Result.Success)
                         {
                             MessageBox.Show("Clipboard failure.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -377,10 +410,10 @@ namespace Gibbed.Borderlands2.SaveEdit
                     {
                         var sb = new StringBuilder();
                         this.Backpack.BrokenItems.ForEach(kv =>
-                        {
-                            sb.AppendLine(kv.Value.ToString());
-                            sb.AppendLine();
-                        });
+                                                          {
+                                                              sb.AppendLine(kv.Value.ToString());
+                                                              sb.AppendLine();
+                                                          });
                         if (MyClipboard.SetText(sb.ToString()) != MyClipboard.Result.Success)
                         {
                             MessageBox.Show("Clipboard failure.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -418,10 +451,10 @@ namespace Gibbed.Borderlands2.SaveEdit
                     {
                         var sb = new StringBuilder();
                         this.Bank.BrokenSlots.ForEach(kv =>
-                        {
-                            sb.AppendLine(kv.Value.ToString());
-                            sb.AppendLine();
-                        });
+                                                      {
+                                                          sb.AppendLine(kv.Value.ToString());
+                                                          sb.AppendLine();
+                                                      });
                         if (MyClipboard.SetText(sb.ToString()) != MyClipboard.Result.Success)
                         {
                             MessageBox.Show("Clipboard failure.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -453,46 +486,52 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             var saveFile = this.SaveFile;
 
-            yield return new DelegateResult(() =>
-            {
-                Platform platform;
-                this.General.ExportData(saveFile.SaveGame, out platform);
-                this.Character.ExportData(saveFile.SaveGame);
-                this.Vehicle.ExportData(saveFile.SaveGame);
-                this.CurrencyOnHand.ExportData(saveFile.SaveGame);
-                this.Backpack.ExportData(saveFile.SaveGame, platform);
-                this.Bank.ExportData(saveFile.SaveGame, platform);
-                this.FastTravel.ExportData(saveFile.SaveGame);
-
-                if (saveFile.SaveGame != null &&
-                    saveFile.SaveGame.WeaponData != null)
+            yield return new DelegateResult(
+                () =>
                 {
-                    saveFile.SaveGame.WeaponData.RemoveAll(
-                        wd =>
-                        Blacklisting.IsBlacklistedType(wd.Type) == true ||
-                        Blacklisting.IsBlacklistedBalance(wd.Balance) == true);
-                }
+                    Platform platform;
+                    this.General.ExportData(saveFile.SaveGame, out platform);
+                    this.Character.ExportData(saveFile.SaveGame);
+                    this.Vehicle.ExportData(saveFile.SaveGame);
+                    this.CurrencyOnHand.ExportData(saveFile.SaveGame);
+                    this.Backpack.ExportData(saveFile.SaveGame, platform);
+                    this.Bank.ExportData(saveFile.SaveGame, platform);
+                    this.FastTravel.ExportData(saveFile.SaveGame);
 
-                if (saveFile.SaveGame != null &&
-                    saveFile.SaveGame.ItemData != null)
-                {
-                    saveFile.SaveGame.ItemData.RemoveAll(
-                        wd =>
-                        Blacklisting.IsBlacklistedType(wd.Type) == true ||
-                        Blacklisting.IsBlacklistedBalance(wd.Balance) == true);
-                }
+                    if (saveFile.SaveGame != null &&
+                        saveFile.SaveGame.WeaponData != null)
+                    {
+                        saveFile.SaveGame.WeaponData.RemoveAll(
+                            wd =>
+                            Blacklisting.IsBlacklistedType(wd.Type) == true ||
+                            Blacklisting.IsBlacklistedBalance(wd.Balance) == true);
+                    }
 
-                using (var output = File.Create(fileName))
-                {
-                    FileFormats.SaveExpansion.AddExpansionSavedataToUnloadableItemData(saveFile.SaveGame);
-                    saveFile.Platform = platform;
-                    saveFile.Serialize(output);
-                    FileFormats.SaveExpansion.ExtractExpansionSavedataFromUnloadableItemData(saveFile.SaveGame);
-                }
-            }).Rescue().Execute(
-                x =>
-                new MyMessageBox("An exception was thrown (press Ctrl+C to copy):\n\n" + x.ToString(), "Error")
-                    .WithIcon(MessageBoxImage.Error).AsCoroutine());
+                    if (saveFile.SaveGame != null &&
+                        saveFile.SaveGame.ItemData != null)
+                    {
+                        saveFile.SaveGame.ItemData.RemoveAll(
+                            wd =>
+                            Blacklisting.IsBlacklistedType(wd.Type) == true ||
+                            Blacklisting.IsBlacklistedBalance(wd.Balance) == true);
+                    }
+
+                    using (var output = File.Create(fileName))
+                    {
+                        FileFormats.SaveExpansion.AddExpansionSavedataToUnloadableItemData(
+                            saveFile.SaveGame);
+                        saveFile.Platform = platform;
+                        saveFile.Serialize(output);
+                        FileFormats.SaveExpansion
+                                   .ExtractExpansionSavedataFromUnloadableItemData(
+                                       saveFile.SaveGame);
+                    }
+                }).Rescue().Execute(
+                    x =>
+                    new MyMessageBox(
+                        "An exception was thrown (press Ctrl+C to copy):\n\n" + x.ToString(),
+                        "Error")
+                        .WithIcon(MessageBoxImage.Error).AsCoroutine());
         }
     }
 }

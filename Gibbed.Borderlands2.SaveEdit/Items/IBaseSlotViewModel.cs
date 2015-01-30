@@ -26,7 +26,7 @@ namespace Gibbed.Borderlands2.SaveEdit
 {
     internal interface IBaseSlotViewModel
     {
-        IBaseSlot BaseSlot { get; }
+        IPackableSlot BaseSlot { get; }
         string DisplayName { get; }
         string DisplayGroup { get; }
     }

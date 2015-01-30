@@ -32,16 +32,22 @@
              d:DesignWidth="800"
              d:DesignHeight="480">
     <UserControl.Resources>
+        <CollectionViewSource x:Key="GroupedPlayerClasses"
+                              Source="{Binding Path=PlayerClasses}">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="Group" />
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
         <CollectionViewSource x:Key="GroupedHeadAssets"
                               Source="{Binding Path=HeadAssets}">
             <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="Group"></PropertyGroupDescription>
+                <PropertyGroupDescription PropertyName="Group" />
             </CollectionViewSource.GroupDescriptions>
         </CollectionViewSource>
         <CollectionViewSource x:Key="GroupedSkinAssets"
                               Source="{Binding Path=SkinAssets}">
             <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="Group"></PropertyGroupDescription>
+                <PropertyGroupDescription PropertyName="Group" />
             </CollectionViewSource.GroupDescriptions>
         </CollectionViewSource>
     </UserControl.Resources>
@@ -71,10 +77,22 @@
                 <ComboBox Grid.Row="1"
                           Grid.Column="1"
                           Margin="3"
-                          ItemsSource="{Binding Path=PlayerClasses}"
+                          ItemsSource="{Binding Source={StaticResource GroupedPlayerClasses}}"
                           DisplayMemberPath="Name"
                           SelectedValuePath="Path"
-                          SelectedValue="{Binding Path=PlayerClass}" />
+                          SelectedValue="{Binding Path=PlayerClass}">
+                    <ComboBox.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontSize="15"
+                                               FontWeight="Bold"
+                                               Text="{Binding Path=Name}" />
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                        </GroupStyle>
+                    </ComboBox.GroupStyle>
+                </ComboBox>
                 <Label Grid.Row="2"
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"

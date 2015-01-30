@@ -34,18 +34,22 @@ namespace Gibbed.Borderlands2.FileFormats
                                      AssetGroup group,
                                      string package,
                                      string asset,
-                                     out uint index)
+                                     out Items.PackedAssetReference packed)
         {
-            var config = assetLibraryManager.Configurations[group];
-
             var set = assetLibraryManager.GetSet(setId);
+            if (set == null)
+            {
+                packed = Items.PackedAssetReference.None;
+                return false;
+            }
+
             var library = set.Libraries[group];
 
             var sublibrary =
                 library.Sublibraries.FirstOrDefault(sl => sl.Package == package && sl.Assets.Contains(asset) == true);
             if (sublibrary == null)
             {
-                index = 0;
+                packed = Items.PackedAssetReference.None;
                 return false;
             }
             var sublibraryIndex = library.Sublibraries.IndexOf(sublibrary);
@@ -74,85 +78,115 @@ namespace Gibbed.Borderlands2.FileFormats
                 }
             }
 
-            index = 0;
-            index |= (((uint)assetIndex) & config.AssetMask) << 0;
-            index |= (((uint)sublibraryIndex) & config.SublibraryMask) << config.AssetBits;
-
-            if (setId != 0)
-            {
-                index |= 1u << config.AssetBits + config.SublibraryBits - 1;
-            }
-
+            packed = new Items.PackedAssetReference(assetIndex, sublibraryIndex, setId != 0);
             return true;
         }
 
-        public static void Encode(this AssetLibraryManager assetLibraryManager,
-                                  BitWriter writer,
-                                  Platform platform,
-                                  int setId,
-                                  AssetGroup group,
-                                  string value)
+        public static void Encode(
+            this AssetLibraryManager assetLibraryManager,
+            BitWriter writer,
+            Platform platform,
+            AssetGroup group,
+            Items.PackedAssetReference value)
         {
             if (writer == null)
             {
                 throw new ArgumentNullException("writer");
             }
 
-            if (string.IsNullOrEmpty(value) == true)
-            {
-                throw new ArgumentNullException("value");
-            }
-
             var config = assetLibraryManager.Configurations[group];
 
             uint index;
-            if (value == "None")
+            if (value == Items.PackedAssetReference.None)
             {
                 index = config.NoneIndex;
             }
             else
             {
-                var parts = value.Split(new[]
-                {
-                    '.'
-                },
-                                        2);
-                if (parts.Length != 2)
-                {
-                    throw new ArgumentException();
-                }
+                index = 0;
+                index |= (((uint)value.AssetIndex) & config.AssetMask) << 0;
+                index |= (((uint)value.SublibraryIndex) & config.SublibraryMask) << config.AssetBits;
 
-                var package = parts[0];
-                var asset = parts[1];
-                if (assetLibraryManager.GetIndex(platform, setId, group, package, asset, out index) == false)
+                if (value.UseSetId == true)
                 {
-                    if (assetLibraryManager.GetIndex(platform, 0, group, package, asset, out index) == false)
-                    {
-                        throw new ArgumentException("unsupported asset");
-                    }
+                    index |= 1u << config.AssetBits + config.SublibraryBits - 1;
                 }
             }
 
             writer.WriteUInt32(index, config.SublibraryBits + config.AssetBits);
         }
 
-        public static string Decode(this AssetLibraryManager assetLibraryManager,
-                                    BitReader reader,
-                                    Platform platform,
-                                    int setId,
-                                    AssetGroup group)
+        public static Items.PackedAssetReference Lookup(
+            this AssetLibraryManager assetLibraryManager,
+            string value,
+            Platform platform,
+            int setId,
+            AssetGroup group)
+        {
+            if (string.IsNullOrEmpty(value) == true)
+            {
+                throw new ArgumentNullException("value");
+            }
+
+            if (value == "None")
+            {
+                return Items.PackedAssetReference.None;
+            }
+
+            var parts = value.Split(new[] { '.' }, 2);
+            if (parts.Length != 2)
+            {
+                throw new ArgumentException();
+            }
+
+            var package = parts[0];
+            var asset = parts[1];
+
+            Items.PackedAssetReference packed;
+            if (assetLibraryManager.GetIndex(platform, setId, @group, package, asset, out packed) == false)
+            {
+                if (assetLibraryManager.GetIndex(platform, 0, @group, package, asset, out packed) == false)
+                {
+                    throw new ArgumentException("unsupported asset");
+                }
+            }
+            return packed;
+        }
+
+        public static Items.PackedAssetReference Decode(
+            this AssetLibraryManager assetLibraryManager,
+            BitReader reader,
+            Platform platform,
+            AssetGroup group)
         {
             var config = assetLibraryManager.Configurations[group];
 
             var index = reader.ReadUInt32(config.SublibraryBits + config.AssetBits);
             if (index == config.NoneIndex)
             {
-                return "None";
+                return Items.PackedAssetReference.None;
             }
 
             var assetIndex = (int)((index >> 0) & config.AssetMask);
             var sublibraryIndex = (int)((index >> config.AssetBits) & config.SublibraryMask);
             var useSetId = ((index >> config.AssetBits) & config.UseSetIdMask) != 0;
+            return new Items.PackedAssetReference(assetIndex, sublibraryIndex, useSetId);
+        }
+
+        public static string Lookup(this AssetLibraryManager assetLibraryManager,
+                                    Items.PackedAssetReference packed,
+                                    Platform platform,
+                                    int setId,
+                                    AssetGroup group)
+        {
+            if (packed == Items.PackedAssetReference.None)
+            {
+                return "None";
+            }
+
+            var assetIndex = packed.AssetIndex;
+            var sublibraryIndex = packed.SublibraryIndex;
+            var useSetId = packed.UseSetId;
             var actualSetId = useSetId == false ? 0 : setId;
 
             var platformConfig = InfoManager.PlatformConfigurations.GetOrDefault(platform);
@@ -179,6 +213,14 @@ namespace Gibbed.Borderlands2.FileFormats
             }
 
             var set = assetLibraryManager.GetSet(actualSetId);
+            if (set == null)
+            {
+                throw new FormatException(
+                    string.Format(
+                        "unknown asset library set {0} in packed data (this generally means new DLC that is not supported yet)",
+                        actualSetId));
+            }
+
             var library = set.Libraries[group];
 
             if (sublibraryIndex < 0 || sublibraryIndex >= library.Sublibraries.Count)

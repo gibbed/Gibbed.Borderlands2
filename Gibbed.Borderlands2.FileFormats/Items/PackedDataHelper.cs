@@ -21,43 +21,28 @@
  */
 
 using System;
-using System.Linq;
 using Gibbed.Borderlands2.GameInfo;
 using Gibbed.IO;
 
 namespace Gibbed.Borderlands2.FileFormats.Items
 {
     public abstract class PackedDataHelper<TWeapon, TItem>
-        where TWeapon : BaseWeapon, new()
-        where TItem : BaseItem, new()
+        where TWeapon : IPackableWeapon, new()
+        where TItem : IPackableItem, new()
     {
-        public static byte[] Encode(IPackable packable, Platform platform)
+        private static byte[] Encode(IPackedSlot packed,
+                                     int uniqueId,
+                                     bool isWeapon,
+                                     int assetLibrarySetId,
+                                     Platform platform)
         {
-            if (packable == null)
-            {
-                throw new ArgumentNullException("packable");
-            }
-
-            if ((packable is BaseWeapon) == false &&
-                (packable is BaseItem) == false)
-            {
-                throw new ArgumentException("unsupported packable");
-            }
-
-            var assetLibrarySet =
-                InfoManager.AssetLibraryManager.Sets.SingleOrDefault(s => s.Id == packable.AssetLibrarySetId);
-            if (assetLibrarySet == null)
-            {
-                throw new ArgumentException("unsupported asset library set");
-            }
-
             var writer = new BitWriter();
             writer.WriteInt32(InfoManager.AssetLibraryManager.Version, 7);
-            writer.WriteBoolean(packable is BaseWeapon);
-            writer.WriteInt32(packable.UniqueId, 32);
+            writer.WriteBoolean(isWeapon);
+            writer.WriteInt32(uniqueId, 32);
             writer.WriteUInt16(0xFFFF, 16);
-            writer.WriteInt32(packable.AssetLibrarySetId, 8);
-            packable.Write(writer, platform);
+            writer.WriteInt32(assetLibrarySetId, 8);
+            packed.Write(writer, platform);
 
             var unobfuscatedBytes = writer.GetBuffer();
             if (unobfuscatedBytes.Length > 40)
@@ -96,6 +81,39 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             return data;
         }
 
+        public static byte[] Encode(IPackableSlot packable, Platform platform)
+        {
+            if (packable == null)
+            {
+                throw new ArgumentNullException("packable");
+            }
+
+            /*
+            var assetLibrarySet =
+                InfoManager.AssetLibraryManager.Sets.SingleOrDefault(s => s.Id == packable.AssetLibrarySetId);
+            if (assetLibrarySet == null)
+            {
+                throw new ArgumentException("unsupported asset library set");
+            }
+            */
+
+            var weapon = packable as IPackableWeapon;
+            if (weapon != null)
+            {
+                var packed = weapon.Pack(platform);
+                return Encode(packed, weapon.UniqueId, true, weapon.AssetLibrarySetId, platform);
+            }
+
+            var item = packable as IPackableItem;
+            if (item != null)
+            {
+                var packed = item.Pack(platform);
+                return Encode(packed, item.UniqueId, false, item.AssetLibrarySetId, platform);
+            }
+
+            throw new NotSupportedException();
+        }
+
         private static void BogoEncrypt(uint seed, byte[] buffer, int offset, int length)
         {
             if (seed == 0)
@@ -114,14 +132,16 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             var xor = (uint)((int)seed >> 5);
             for (int i = 0; i < length; i++)
             {
+                // ReSharper disable RedundantCast
                 xor = (uint)(((ulong)xor * 0x10A860C1UL) % 0xFFFFFFFBUL);
+                // ReSharper restore RedundantCast
                 temp[i] ^= (byte)(xor & 0xFF);
             }
 
             Array.Copy(temp, 0, buffer, offset, length);
         }
 
-        public static IPackable Decode(byte[] data, Platform platform)
+        public static IPackableSlot Decode(byte[] data, Platform platform)
         {
             if (data.Length < 5 || data.Length > 40)
             {
@@ -183,6 +203,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 setId = reader.ReadInt32(8);
             }
 
+            /*
             var set = InfoManager.AssetLibraryManager.GetSet(setId);
             if (set == null)
             {
@@ -191,14 +212,34 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                         "unknown asset library set {0} in packed data (this generally means new DLC that is not supported yet)",
                         setId));
             }
+            */
 
-            IPackable packable = isWeapon == true
-                                     ? (IPackable)new TWeapon()
-                                     : new TItem();
-            packable.UniqueId = uniqueId;
-            packable.AssetLibrarySetId = setId;
-            packable.Read(reader, platform);
-            return packable;
+            if (isWeapon == true)
+            {
+                var packed = new PackedWeapon();
+                packed.Read(reader, platform);
+
+                var weapon = new TWeapon
+                {
+                    UniqueId = uniqueId,
+                    AssetLibrarySetId = setId,
+                };
+                weapon.Unpack(packed, platform);
+                return weapon;
+            }
+            else
+            {
+                var packed = new PackedItem();
+                packed.Read(reader, platform);
+
+                var item = new TItem
+                {
+                    UniqueId = uniqueId,
+                    AssetLibrarySetId = setId,
+                };
+                item.Unpack(packed, platform);
+                return item;
+            }
         }
 
         private static void BogoDecrypt(uint seed, byte[] buffer, int offset, int length)
@@ -214,7 +255,9 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             var xor = (uint)((int)seed >> 5);
             for (int i = 0; i < length; i++)
             {
+                // ReSharper disable RedundantCast
                 xor = (uint)(((ulong)xor * 0x10A860C1UL) % 0xFFFFFFFBUL);
+                // ReSharper restore RedundantCast
                 temp[i] ^= (byte)(xor & 0xFF);
             }
 

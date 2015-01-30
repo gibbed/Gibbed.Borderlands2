@@ -58,7 +58,7 @@
                     <Label Content="New Weapon" />
                 </StackPanel>
             </Button>
-            <xctk:DropDownButton>
+            <xctk:DropDownButton IsEnabled="{Binding Path=HasDownloadablePackages}">
                 <xctk:DropDownButton.DropDownContent>
                     <ItemsControl ItemsSource="{Binding Path=DownloadablePackages}"
                                   Width="Auto"
@@ -82,7 +82,7 @@
                     <Label Content="New Item" />
                 </StackPanel>
             </Button>
-            <xctk:DropDownButton>
+            <xctk:DropDownButton IsEnabled="{Binding Path=HasDownloadablePackages}">
                 <xctk:DropDownButton.DropDownContent>
                     <ItemsControl ItemsSource="{Binding Path=DownloadablePackages}"
                                   Width="Auto"

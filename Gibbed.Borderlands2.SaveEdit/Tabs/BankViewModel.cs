@@ -75,8 +75,8 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         private IBaseSlotViewModel _SelectedSlot;
 
-        private ICommand _NewWeapon;
-        private ICommand _NewItem;
+        private readonly ICommand _NewWeapon;
+        private readonly ICommand _NewItem;
         #endregion
 
         #region Properties
@@ -93,6 +93,11 @@ namespace Gibbed.Borderlands2.SaveEdit
                                .Distinct()
                                .OrderBy(dp => dp.Id);
             }
+        }
+
+        public bool HasDownloadablePackages
+        {
+            get { return this.DownloadablePackages.Any(); }
         }
 
         public ObservableCollection<IBaseSlotViewModel> Slots
@@ -185,53 +190,57 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             var errors = 0;
             var viewModels = new List<IBaseSlotViewModel>();
-            yield return new DelegateResult(() =>
-            {
-                string codes;
-                if (MyClipboard.GetText(out codes) != MyClipboard.Result.Success)
+            yield return new DelegateResult(
+                () =>
                 {
-                    MessageBox.Show("Clipboard failure.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                // strip whitespace
-                codes = Regex.Replace(codes, @"\s+", "");
-
-                foreach (var match in _CodeSignature.Matches(codes).Cast<Match>()
-                                                    .Where(m => m.Success == true))
-                {
-                    var code = match.Groups["data"].Value;
-
-                    IPackable packable;
-
-                    try
+                    string codes;
+                    if (MyClipboard.GetText(out codes) != MyClipboard.Result.Success)
                     {
-                        var data = Convert.FromBase64String(code);
-                        packable = BaseDataHelper.Decode(data, Platform.PC);
-                    }
-                    catch (Exception)
-                    {
-                        errors++;
-                        continue;
+                        MessageBox.Show("Clipboard failure.",
+                                        "Error",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Error);
+                        return;
                     }
 
-                    // TODO: check other item unique IDs to prevent rare collisions
-                    packable.UniqueId = new Random().Next(int.MinValue, int.MaxValue);
+                    // strip whitespace
+                    codes = Regex.Replace(codes, @"\s+", "");
 
-                    if (packable is BaseWeapon)
+                    foreach (var match in _CodeSignature.Matches(codes).Cast<Match>()
+                                                        .Where(m => m.Success == true))
                     {
-                        var weapon = (BaseWeapon)packable;
-                        var viewModel = new BaseWeaponViewModel(weapon);
-                        viewModels.Add(viewModel);
+                        var code = match.Groups["data"].Value;
+
+                        IPackableSlot packable;
+
+                        try
+                        {
+                            var data = Convert.FromBase64String(code);
+                            packable = BaseDataHelper.Decode(data, Platform.PC);
+                        }
+                        catch (Exception)
+                        {
+                            errors++;
+                            continue;
+                        }
+
+                        // TODO: check other item unique IDs to prevent rare collisions
+                        packable.UniqueId = new Random().Next(int.MinValue, int.MaxValue);
+
+                        if (packable is BaseWeapon)
+                        {
+                            var weapon = (BaseWeapon)packable;
+                            var viewModel = new BaseWeaponViewModel(weapon);
+                            viewModels.Add(viewModel);
+                        }
+                        else if (packable is BaseItem)
+                        {
+                            var item = (BaseItem)packable;
+                            var viewModel = new BaseItemViewModel(item);
+                            viewModels.Add(viewModel);
+                        }
                     }
-                    else if (packable is BaseItem)
-                    {
-                        var item = (BaseItem)packable;
-                        var viewModel = new BaseItemViewModel(item);
-                        viewModels.Add(viewModel);
-                    }
-                }
-            });
+                });
 
             if (viewModels.Count > 0)
             {
@@ -257,33 +266,40 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         public IEnumerable<IResult> CopySelectedSlotCode()
         {
-            yield return new DelegateResult(() =>
-            {
-                if (this.SelectedSlot == null ||
-                    (this.SelectedSlot.BaseSlot is IPackable) == false)
+            yield return new DelegateResult(
+                () =>
                 {
-                    if (MyClipboard.SetText("") != MyClipboard.Result.Success)
+                    if (this.SelectedSlot == null ||
+                        this.SelectedSlot.BaseSlot == null)
                     {
-                        MessageBox.Show("Clipboard failure.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        if (MyClipboard.SetText("") != MyClipboard.Result.Success)
+                        {
+                            MessageBox.Show("Clipboard failure.",
+                                            "Error",
+                                            MessageBoxButton.OK,
+                                            MessageBoxImage.Error);
+                        }
+                        return;
                     }
-                    return;
-                }
 
-                // just a hack until I add a way to override the unique ID in Encode()
-                var copy = (IPackable)this.SelectedSlot.BaseSlot.Clone();
-                copy.UniqueId = 0;
+                    // just a hack until I add a way to override the unique ID in Encode()
+                    var copy = (IPackableSlot)this.SelectedSlot.BaseSlot.Clone();
+                    copy.UniqueId = 0;
 
-                var data = BaseDataHelper.Encode(copy, Platform.PC);
-                var sb = new StringBuilder();
-                sb.Append("BL2(");
-                sb.Append(Convert.ToBase64String(data, Base64FormattingOptions.None));
-                sb.Append(")");
+                    var data = BaseDataHelper.Encode(copy, Platform.PC);
+                    var sb = new StringBuilder();
+                    sb.Append("BL2(");
+                    sb.Append(Convert.ToBase64String(data, Base64FormattingOptions.None));
+                    sb.Append(")");
 
-                if (MyClipboard.SetText(sb.ToString()) != MyClipboard.Result.Success)
-                {
-                    MessageBox.Show("Clipboard failure.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            });
+                    if (MyClipboard.SetText(sb.ToString()) != MyClipboard.Result.Success)
+                    {
+                        MessageBox.Show("Clipboard failure.",
+                                        "Error",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Error);
+                    }
+                });
         }
 
         public void DuplicateSelectedSlot()
@@ -293,7 +309,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 return;
             }
 
-            var copy = (IBaseSlot)this.SelectedSlot.BaseSlot.Clone();
+            var copy = (IPackableSlot)this.SelectedSlot.BaseSlot.Clone();
             copy.UniqueId = new Random().Next(int.MinValue, int.MaxValue);
             // TODO: check other item unique IDs to prevent rare collisions
 
@@ -370,7 +386,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             this._BrokenSlots.Clear();
             foreach (var bankSlot in saveGame.BankSlots)
             {
-                IPackable slot;
+                IPackableSlot slot;
                 try
                 {
                     slot = BaseDataHelper.Decode(bankSlot.InventorySerialNumber, platform);

@@ -25,80 +25,75 @@ using Gibbed.Borderlands2.GameInfo;
 
 namespace Gibbed.Borderlands2.FileFormats.Items
 {
-    public class BaseItem : IPackableItem, INotifyPropertyChanged
+    public class PackedItem : IPackedSlot, INotifyPropertyChanged
     {
         #region Fields
-        private string _Type = "None";
-        private string _Balance = "None";
-        private string _Manufacturer = "None";
+        private PackedAssetReference _Type = PackedAssetReference.None;
+        private PackedAssetReference _Balance = PackedAssetReference.None;
+        private PackedAssetReference _Manufacturer = PackedAssetReference.None;
         private int _ManufacturerGradeIndex;
-        private string _AlphaPart = "None";
-        private string _BetaPart = "None";
-        private string _GammaPart = "None";
-        private string _DeltaPart = "None";
-        private string _EpsilonPart = "None";
-        private string _ZetaPart = "None";
-        private string _EtaPart = "None";
-        private string _ThetaPart = "None";
-        private string _MaterialPart = "None";
-        private string _PrefixPart = "None";
-        private string _TitlePart = "None";
+        private PackedAssetReference _AlphaPart = PackedAssetReference.None;
+        private PackedAssetReference _BetaPart = PackedAssetReference.None;
+        private PackedAssetReference _GammaPart = PackedAssetReference.None;
+        private PackedAssetReference _DeltaPart = PackedAssetReference.None;
+        private PackedAssetReference _EpsilonPart = PackedAssetReference.None;
+        private PackedAssetReference _ZetaPart = PackedAssetReference.None;
+        private PackedAssetReference _EtaPart = PackedAssetReference.None;
+        private PackedAssetReference _ThetaPart = PackedAssetReference.None;
+        private PackedAssetReference _MaterialPart = PackedAssetReference.None;
+        private PackedAssetReference _PrefixPart = PackedAssetReference.None;
+        private PackedAssetReference _TitlePart = PackedAssetReference.None;
         private int _GameStage;
-        private int _UniqueId;
-        private int _AssetLibrarySetId;
         #endregion
 
         #region IPackable Members
-        public void Unpack(PackedItem packed, Platform platform)
+        public void Read(BitReader reader, Platform platform)
         {
             var alm = InfoManager.AssetLibraryManager;
 
-            this.Type = alm.Lookup(packed.Type, platform, this.AssetLibrarySetId, AssetGroup.ItemTypes);
-            this.Balance = alm.Lookup(packed.Balance, platform, this.AssetLibrarySetId, AssetGroup.BalanceDefs);
-            this.Manufacturer =
-                alm.Lookup(packed.Manufacturer, platform, this.AssetLibrarySetId, AssetGroup.Manufacturers);
-            this.ManufacturerGradeIndex = packed.ManufacturerGradeIndex;
-            this.GameStage = packed.GameStage;
-            this.AlphaPart = alm.Lookup(packed.AlphaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.BetaPart = alm.Lookup(packed.BetaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.GammaPart = alm.Lookup(packed.GammaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.DeltaPart = alm.Lookup(packed.DeltaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.EpsilonPart = alm.Lookup(packed.EpsilonPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.ZetaPart = alm.Lookup(packed.ZetaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.EtaPart = alm.Lookup(packed.EtaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.ThetaPart = alm.Lookup(packed.ThetaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.MaterialPart = alm.Lookup(packed.MaterialPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.PrefixPart = alm.Lookup(packed.PrefixPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.TitlePart = alm.Lookup(packed.TitlePart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.Type = alm.Decode(reader, platform, AssetGroup.ItemTypes);
+            this.Balance = alm.Decode(reader, platform, AssetGroup.BalanceDefs);
+            this.Manufacturer = alm.Decode(reader, platform, AssetGroup.Manufacturers);
+            this.ManufacturerGradeIndex = reader.ReadInt32(7);
+            this.GameStage = reader.ReadInt32(7);
+            this.AlphaPart = alm.Decode(reader, platform, AssetGroup.ItemParts);
+            this.BetaPart = alm.Decode(reader, platform, AssetGroup.ItemParts);
+            this.GammaPart = alm.Decode(reader, platform, AssetGroup.ItemParts);
+            this.DeltaPart = alm.Decode(reader, platform, AssetGroup.ItemParts);
+            this.EpsilonPart = alm.Decode(reader, platform, AssetGroup.ItemParts);
+            this.ZetaPart = alm.Decode(reader, platform, AssetGroup.ItemParts);
+            this.EtaPart = alm.Decode(reader, platform, AssetGroup.ItemParts);
+            this.ThetaPart = alm.Decode(reader, platform, AssetGroup.ItemParts);
+            this.MaterialPart = alm.Decode(reader, platform, AssetGroup.ItemParts);
+            this.PrefixPart = alm.Decode(reader, platform, AssetGroup.ItemParts);
+            this.TitlePart = alm.Decode(reader, platform, AssetGroup.ItemParts);
         }
 
-        public PackedItem Pack(Platform platform)
+        public void Write(BitWriter writer, Platform platform)
         {
             var alm = InfoManager.AssetLibraryManager;
-            return new PackedItem
-            {
-                Type = alm.Lookup(this.Type, platform, this.AssetLibrarySetId, AssetGroup.ItemTypes),
-                Balance = alm.Lookup(this.Balance, platform, this.AssetLibrarySetId, AssetGroup.BalanceDefs),
-                Manufacturer = alm.Lookup(this.Manufacturer, platform, this.AssetLibrarySetId, AssetGroup.Manufacturers),
-                ManufacturerGradeIndex = this.ManufacturerGradeIndex,
-                GameStage = this.GameStage,
-                AlphaPart = alm.Lookup(this.AlphaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts),
-                BetaPart = alm.Lookup(this.BetaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts),
-                GammaPart = alm.Lookup(this.GammaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts),
-                DeltaPart = alm.Lookup(this.DeltaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts),
-                EpsilonPart = alm.Lookup(this.EpsilonPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts),
-                ZetaPart = alm.Lookup(this.ZetaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts),
-                EtaPart = alm.Lookup(this.EtaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts),
-                ThetaPart = alm.Lookup(this.ThetaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts),
-                MaterialPart = alm.Lookup(this.MaterialPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts),
-                PrefixPart = alm.Lookup(this.PrefixPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts),
-                TitlePart = alm.Lookup(this.TitlePart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts),
-            };
+
+            alm.Encode(writer, platform, AssetGroup.ItemTypes, this.Type);
+            alm.Encode(writer, platform, AssetGroup.BalanceDefs, this.Balance);
+            alm.Encode(writer, platform, AssetGroup.Manufacturers, this.Manufacturer);
+            writer.WriteInt32(this.ManufacturerGradeIndex, 7);
+            writer.WriteInt32(this.GameStage, 7);
+            alm.Encode(writer, platform, AssetGroup.ItemParts, this.AlphaPart);
+            alm.Encode(writer, platform, AssetGroup.ItemParts, this.BetaPart);
+            alm.Encode(writer, platform, AssetGroup.ItemParts, this.GammaPart);
+            alm.Encode(writer, platform, AssetGroup.ItemParts, this.DeltaPart);
+            alm.Encode(writer, platform, AssetGroup.ItemParts, this.EpsilonPart);
+            alm.Encode(writer, platform, AssetGroup.ItemParts, this.ZetaPart);
+            alm.Encode(writer, platform, AssetGroup.ItemParts, this.EtaPart);
+            alm.Encode(writer, platform, AssetGroup.ItemParts, this.ThetaPart);
+            alm.Encode(writer, platform, AssetGroup.ItemParts, this.MaterialPart);
+            alm.Encode(writer, platform, AssetGroup.ItemParts, this.PrefixPart);
+            alm.Encode(writer, platform, AssetGroup.ItemParts, this.TitlePart);
         }
         #endregion
 
         #region Properties
-        public string Type
+        public PackedAssetReference Type
         {
             get { return this._Type; }
             set
@@ -111,7 +106,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string Balance
+        public PackedAssetReference Balance
         {
             get { return this._Balance; }
             set
@@ -124,7 +119,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string Manufacturer
+        public PackedAssetReference Manufacturer
         {
             get { return this._Manufacturer; }
             set
@@ -150,7 +145,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string AlphaPart
+        public PackedAssetReference AlphaPart
         {
             get { return this._AlphaPart; }
             set
@@ -163,7 +158,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string BetaPart
+        public PackedAssetReference BetaPart
         {
             get { return this._BetaPart; }
             set
@@ -176,7 +171,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string GammaPart
+        public PackedAssetReference GammaPart
         {
             get { return this._GammaPart; }
             set
@@ -189,7 +184,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string DeltaPart
+        public PackedAssetReference DeltaPart
         {
             get { return this._DeltaPart; }
             set
@@ -202,7 +197,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string EpsilonPart
+        public PackedAssetReference EpsilonPart
         {
             get { return this._EpsilonPart; }
             set
@@ -215,7 +210,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string ZetaPart
+        public PackedAssetReference ZetaPart
         {
             get { return this._ZetaPart; }
             set
@@ -228,7 +223,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string EtaPart
+        public PackedAssetReference EtaPart
         {
             get { return this._EtaPart; }
             set
@@ -241,7 +236,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string ThetaPart
+        public PackedAssetReference ThetaPart
         {
             get { return this._ThetaPart; }
             set
@@ -254,7 +249,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string MaterialPart
+        public PackedAssetReference MaterialPart
         {
             get { return this._MaterialPart; }
             set
@@ -267,7 +262,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string PrefixPart
+        public PackedAssetReference PrefixPart
         {
             get { return this._PrefixPart; }
             set
@@ -280,7 +275,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string TitlePart
+        public PackedAssetReference TitlePart
         {
             get { return this._TitlePart; }
             set
@@ -305,38 +300,12 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 }
             }
         }
-
-        public int UniqueId
-        {
-            get { return this._UniqueId; }
-            set
-            {
-                if (value != this._UniqueId)
-                {
-                    this._UniqueId = value;
-                    this.NotifyPropertyChanged("UniqueId");
-                }
-            }
-        }
-
-        public int AssetLibrarySetId
-        {
-            get { return this._AssetLibrarySetId; }
-            set
-            {
-                if (value != this._AssetLibrarySetId)
-                {
-                    this._AssetLibrarySetId = value;
-                    this.NotifyPropertyChanged("AssetLibrarySetId");
-                }
-            }
-        }
         #endregion
 
         #region ICloneable Members
         public virtual object Clone()
         {
-            return new BaseItem()
+            return new PackedItem()
             {
                 Type = this.Type,
                 Balance = this.Balance,
@@ -354,8 +323,6 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 PrefixPart = this.PrefixPart,
                 TitlePart = this.TitlePart,
                 GameStage = this.GameStage,
-                UniqueId = this.UniqueId,
-                AssetLibrarySetId = this.AssetLibrarySetId,
             };
         }
         #endregion

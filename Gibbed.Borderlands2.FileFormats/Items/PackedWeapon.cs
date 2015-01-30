@@ -25,83 +25,73 @@ using Gibbed.Borderlands2.GameInfo;
 
 namespace Gibbed.Borderlands2.FileFormats.Items
 {
-    public class BaseWeapon : IPackableWeapon, INotifyPropertyChanged
+    public class PackedWeapon : IPackedSlot
     {
         #region Fields
-        private string _Type = "None";
-        private string _Balance = "None";
-        private string _Manufacturer = "None";
+        private PackedAssetReference _Type = PackedAssetReference.None;
+        private PackedAssetReference _Balance = PackedAssetReference.None;
+        private PackedAssetReference _Manufacturer = PackedAssetReference.None;
         private int _ManufacturerGradeIndex;
-        private string _BodyPart = "None";
-        private string _GripPart = "None";
-        private string _BarrelPart = "None";
-        private string _SightPart = "None";
-        private string _StockPart = "None";
-        private string _ElementalPart = "None";
-        private string _Accessory1Part = "None";
-        private string _Accessory2Part = "None";
-        private string _MaterialPart = "None";
-        private string _PrefixPart = "None";
-        private string _TitlePart = "None";
+        private PackedAssetReference _BodyPart = PackedAssetReference.None;
+        private PackedAssetReference _GripPart = PackedAssetReference.None;
+        private PackedAssetReference _BarrelPart = PackedAssetReference.None;
+        private PackedAssetReference _SightPart = PackedAssetReference.None;
+        private PackedAssetReference _StockPart = PackedAssetReference.None;
+        private PackedAssetReference _ElementalPart = PackedAssetReference.None;
+        private PackedAssetReference _Accessory1Part = PackedAssetReference.None;
+        private PackedAssetReference _Accessory2Part = PackedAssetReference.None;
+        private PackedAssetReference _MaterialPart = PackedAssetReference.None;
+        private PackedAssetReference _PrefixPart = PackedAssetReference.None;
+        private PackedAssetReference _TitlePart = PackedAssetReference.None;
         private int _GameStage;
-        private int _UniqueId;
-        private int _AssetLibrarySetId;
         #endregion
 
-        public void Unpack(PackedWeapon packed, Platform platform)
+        public void Read(BitReader reader, Platform platform)
         {
             var alm = InfoManager.AssetLibraryManager;
 
-            this.Type = alm.Lookup(packed.Type, platform, this.AssetLibrarySetId, AssetGroup.WeaponTypes);
-            this.Balance = alm.Lookup(packed.Balance, platform, this.AssetLibrarySetId, AssetGroup.BalanceDefs);
-            this.Manufacturer =
-                alm.Lookup(packed.Manufacturer, platform, this.AssetLibrarySetId, AssetGroup.Manufacturers);
-            this.ManufacturerGradeIndex = packed.ManufacturerGradeIndex;
-            this.GameStage = packed.GameStage;
-            this.BodyPart = alm.Lookup(packed.BodyPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.GripPart = alm.Lookup(packed.GripPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.BarrelPart = alm.Lookup(packed.BarrelPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.SightPart = alm.Lookup(packed.SightPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.StockPart = alm.Lookup(packed.StockPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.ElementalPart =
-                alm.Lookup(packed.ElementalPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.Accessory1Part =
-                alm.Lookup(packed.Accessory1Part, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.Accessory2Part =
-                alm.Lookup(packed.Accessory2Part, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.MaterialPart = alm.Lookup(packed.MaterialPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.PrefixPart = alm.Lookup(packed.PrefixPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.TitlePart = alm.Lookup(packed.TitlePart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts);
+            this.Type = alm.Decode(reader, platform, AssetGroup.WeaponTypes);
+            this.Balance = alm.Decode(reader, platform, AssetGroup.BalanceDefs);
+            this.Manufacturer = alm.Decode(reader, platform, AssetGroup.Manufacturers);
+            this.ManufacturerGradeIndex = reader.ReadInt32(7);
+            this.GameStage = reader.ReadInt32(7);
+            this.BodyPart = alm.Decode(reader, platform, AssetGroup.WeaponParts);
+            this.GripPart = alm.Decode(reader, platform, AssetGroup.WeaponParts);
+            this.BarrelPart = alm.Decode(reader, platform, AssetGroup.WeaponParts);
+            this.SightPart = alm.Decode(reader, platform, AssetGroup.WeaponParts);
+            this.StockPart = alm.Decode(reader, platform, AssetGroup.WeaponParts);
+            this.ElementalPart = alm.Decode(reader, platform, AssetGroup.WeaponParts);
+            this.Accessory1Part = alm.Decode(reader, platform, AssetGroup.WeaponParts);
+            this.Accessory2Part = alm.Decode(reader, platform, AssetGroup.WeaponParts);
+            this.MaterialPart = alm.Decode(reader, platform, AssetGroup.WeaponParts);
+            this.PrefixPart = alm.Decode(reader, platform, AssetGroup.WeaponParts);
+            this.TitlePart = alm.Decode(reader, platform, AssetGroup.WeaponParts);
         }
 
-        public PackedWeapon Pack(Platform platform)
+        public void Write(BitWriter writer, Platform platform)
         {
             var alm = InfoManager.AssetLibraryManager;
-            return new PackedWeapon
-            {
-                Type = alm.Lookup(this.Type, platform, this.AssetLibrarySetId, AssetGroup.WeaponTypes),
-                Balance = alm.Lookup(this.Balance, platform, this.AssetLibrarySetId, AssetGroup.BalanceDefs),
-                Manufacturer = alm.Lookup(this.Manufacturer, platform, this.AssetLibrarySetId, AssetGroup.Manufacturers),
-                ManufacturerGradeIndex = this.ManufacturerGradeIndex,
-                GameStage = this.GameStage,
-                BodyPart = alm.Lookup(this.BodyPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts),
-                GripPart = alm.Lookup(this.GripPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts),
-                BarrelPart = alm.Lookup(this.BarrelPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts),
-                SightPart = alm.Lookup(this.SightPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts),
-                StockPart = alm.Lookup(this.StockPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts),
-                ElementalPart = alm.Lookup(this.ElementalPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts),
-                Accessory1Part =
-                    alm.Lookup(this.Accessory1Part, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts),
-                Accessory2Part =
-                    alm.Lookup(this.Accessory2Part, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts),
-                MaterialPart = alm.Lookup(this.MaterialPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts),
-                PrefixPart = alm.Lookup(this.PrefixPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts),
-                TitlePart = alm.Lookup(this.TitlePart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts)
-            };
+
+            alm.Encode(writer, platform, AssetGroup.WeaponTypes, this.Type);
+            alm.Encode(writer, platform, AssetGroup.BalanceDefs, this.Balance);
+            alm.Encode(writer, platform, AssetGroup.Manufacturers, this.Manufacturer);
+            writer.WriteInt32(this.ManufacturerGradeIndex, 7);
+            writer.WriteInt32(this.GameStage, 7);
+            alm.Encode(writer, platform, AssetGroup.WeaponParts, this.BodyPart);
+            alm.Encode(writer, platform, AssetGroup.WeaponParts, this.GripPart);
+            alm.Encode(writer, platform, AssetGroup.WeaponParts, this.BarrelPart);
+            alm.Encode(writer, platform, AssetGroup.WeaponParts, this.SightPart);
+            alm.Encode(writer, platform, AssetGroup.WeaponParts, this.StockPart);
+            alm.Encode(writer, platform, AssetGroup.WeaponParts, this.ElementalPart);
+            alm.Encode(writer, platform, AssetGroup.WeaponParts, this.Accessory1Part);
+            alm.Encode(writer, platform, AssetGroup.WeaponParts, this.Accessory2Part);
+            alm.Encode(writer, platform, AssetGroup.WeaponParts, this.MaterialPart);
+            alm.Encode(writer, platform, AssetGroup.WeaponParts, this.PrefixPart);
+            alm.Encode(writer, platform, AssetGroup.WeaponParts, this.TitlePart);
         }
 
         #region Properties
-        public string Type
+        public PackedAssetReference Type
         {
             get { return this._Type; }
             set
@@ -114,7 +104,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string Balance
+        public PackedAssetReference Balance
         {
             get { return this._Balance; }
             set
@@ -127,7 +117,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string Manufacturer
+        public PackedAssetReference Manufacturer
         {
             get { return this._Manufacturer; }
             set
@@ -153,7 +143,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string BodyPart
+        public PackedAssetReference BodyPart
         {
             get { return this._BodyPart; }
             set
@@ -166,7 +156,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string GripPart
+        public PackedAssetReference GripPart
         {
             get { return this._GripPart; }
             set
@@ -179,7 +169,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string BarrelPart
+        public PackedAssetReference BarrelPart
         {
             get { return this._BarrelPart; }
             set
@@ -192,7 +182,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string SightPart
+        public PackedAssetReference SightPart
         {
             get { return this._SightPart; }
             set
@@ -205,7 +195,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string StockPart
+        public PackedAssetReference StockPart
         {
             get { return this._StockPart; }
             set
@@ -218,7 +208,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string ElementalPart
+        public PackedAssetReference ElementalPart
         {
             get { return this._ElementalPart; }
             set
@@ -231,7 +221,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string Accessory1Part
+        public PackedAssetReference Accessory1Part
         {
             get { return this._Accessory1Part; }
             set
@@ -244,7 +234,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string Accessory2Part
+        public PackedAssetReference Accessory2Part
         {
             get { return this._Accessory2Part; }
             set
@@ -257,7 +247,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string MaterialPart
+        public PackedAssetReference MaterialPart
         {
             get { return this._MaterialPart; }
             set
@@ -270,7 +260,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string PrefixPart
+        public PackedAssetReference PrefixPart
         {
             get { return this._PrefixPart; }
             set
@@ -283,7 +273,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
             }
         }
 
-        public string TitlePart
+        public PackedAssetReference TitlePart
         {
             get { return this._TitlePart; }
             set
@@ -308,38 +298,12 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 }
             }
         }
-
-        public int UniqueId
-        {
-            get { return this._UniqueId; }
-            set
-            {
-                if (value != this._UniqueId)
-                {
-                    this._UniqueId = value;
-                    this.NotifyPropertyChanged("UniqueId");
-                }
-            }
-        }
-
-        public int AssetLibrarySetId
-        {
-            get { return this._AssetLibrarySetId; }
-            set
-            {
-                if (value != this._AssetLibrarySetId)
-                {
-                    this._AssetLibrarySetId = value;
-                    this.NotifyPropertyChanged("AssetLibrarySetId");
-                }
-            }
-        }
         #endregion
 
         #region ICloneable Members
         public virtual object Clone()
         {
-            return new BaseWeapon()
+            return new PackedWeapon()
             {
                 Type = this.Type,
                 Balance = this.Balance,
@@ -357,8 +321,6 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 PrefixPart = this.PrefixPart,
                 TitlePart = this.TitlePart,
                 GameStage = this.GameStage,
-                UniqueId = this.UniqueId,
-                AssetLibrarySetId = this.AssetLibrarySetId,
             };
         }
         #endregion

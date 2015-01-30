@@ -21,12 +21,13 @@
  */
 
 using System;
+using Gibbed.Borderlands2.GameInfo;
 
 namespace Gibbed.Borderlands2.FileFormats.Items
 {
-    public interface IBaseSlot : ICloneable
+    internal interface IPackedSlot : ICloneable
     {
-        int UniqueId { get; set; }
-        int AssetLibrarySetId { get; set; }
+        void Read(BitReader reader, Platform platform);
+        void Write(BitWriter writer, Platform platform);
     }
 }

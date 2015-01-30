@@ -34,7 +34,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         private readonly BaseWeapon _Weapon;
         private string _DisplayName;
 
-        public IBaseSlot BaseSlot
+        public IPackableSlot BaseSlot
         {
             get { return this._Weapon; }
         }
@@ -72,13 +72,6 @@ namespace Gibbed.Borderlands2.SaveEdit
                 }
 
                 return text;
-            }
-
-            if (type != "None" &&
-                InfoManager.WeaponTypes.ContainsKey(type) == true &&
-                string.IsNullOrEmpty(InfoManager.WeaponTypes[type].Name) == false)
-            {
-                return InfoManager.WeaponTypes[type].Name;
             }
 
             return "Unknown Weapon";
