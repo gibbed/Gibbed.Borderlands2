@@ -99,6 +99,11 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
+        public bool HasDownloadablePackages
+        {
+            get { return this.DownloadablePackages.Any(); }
+        }
+
         public ObservableCollection<IBackpackSlotViewModel> Slots
         {
             get { return this._Slots; }
@@ -196,58 +201,59 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             var errors = 0;
             var viewModels = new List<IBackpackSlotViewModel>();
-            yield return new DelegateResult(() =>
-            {
-                string codes;
-                if (MyClipboard.GetText(out codes) != MyClipboard.Result.Success)
+            yield return new DelegateResult(
+                () =>
                 {
-                    MessageBox.Show("Clipboard failure.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                // strip whitespace
-                codes = Regex.Replace(codes, @"\s+", "");
-
-                foreach (var match in _CodeSignature.Matches(codes).Cast<Match>()
-                                                    .Where(m => m.Success == true))
-                {
-                    var code = match.Groups["data"].Value;
-
-                    IPackable packable;
-
-                    try
+                    string codes;
+                    if (MyClipboard.GetText(out codes) != MyClipboard.Result.Success)
                     {
-                        var data = Convert.FromBase64String(code);
-                        packable = BackpackDataHelper.Decode(data, Platform.PC);
-                    }
-                    catch (Exception)
-                    {
-                        errors++;
-                        continue;
+                        MessageBox.Show("Clipboard failure.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
                     }
 
-                    // TODO: check other item unique IDs to prevent rare collisions
-                    packable.UniqueId = new Random().Next(int.MinValue, int.MaxValue);
+                    // strip whitespace
+                    codes = Regex.Replace(codes, @"\s+", "");
 
-                    if (packable is BackpackWeapon)
+                    foreach (var match in _CodeSignature.Matches(codes).Cast<Match>()
+                                                        .Where(m => m.Success == true))
                     {
-                        var weapon = (BackpackWeapon)packable;
-                        weapon.QuickSlot = QuickWeaponSlot.None;
-                        weapon.Mark = PlayerMark.Standard;
-                        var viewModel = new BackpackWeaponViewModel(weapon);
-                        viewModels.Add(viewModel);
+                        var code = match.Groups["data"].Value;
+
+                        IPackableSlot packable;
+
+                        try
+                        {
+                            var data = Convert.FromBase64String(code);
+                            packable = BackpackDataHelper.Decode(data, Platform.PC);
+                        }
+                        catch (Exception)
+                        {
+                            errors++;
+                            continue;
+                        }
+
+                        // TODO: check other item unique IDs to prevent rare collisions
+                        packable.UniqueId = new Random().Next(int.MinValue, int.MaxValue);
+
+                        if (packable is BackpackWeapon)
+                        {
+                            var weapon = (BackpackWeapon)packable;
+                            weapon.QuickSlot = QuickWeaponSlot.None;
+                            weapon.Mark = PlayerMark.Standard;
+                            var viewModel = new BackpackWeaponViewModel(weapon);
+                            viewModels.Add(viewModel);
+                        }
+                        else if (packable is BackpackItem)
+                        {
+                            var item = (BackpackItem)packable;
+                            item.Quantity = 1;
+                            item.Equipped = false;
+                            item.Mark = PlayerMark.Standard;
+                            var viewModel = new BackpackItemViewModel(item);
+                            viewModels.Add(viewModel);
+                        }
                     }
-                    else if (packable is BackpackItem)
-                    {
-                        var item = (BackpackItem)packable;
-                        item.Quantity = 1;
-                        item.Equipped = false;
-                        item.Mark = PlayerMark.Standard;
-                        var viewModel = new BackpackItemViewModel(item);
-                        viewModels.Add(viewModel);
-                    }
-                }
-            });
+                });
 
             if (viewModels.Count > 0)
             {
@@ -273,48 +279,49 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         public IEnumerable<IResult> CopySelectedSlotCode()
         {
-            yield return new DelegateResult(() =>
-            {
-                if (this.SelectedSlot == null ||
-                    (this.SelectedSlot.BackpackSlot is IPackable) == false)
+            yield return new DelegateResult(
+                () =>
                 {
-                    if (MyClipboard.SetText("") != MyClipboard.Result.Success)
+                    if (this.SelectedSlot == null ||
+                        this.SelectedSlot.BackpackSlot == null)
+                    {
+                        if (MyClipboard.SetText("") != MyClipboard.Result.Success)
+                        {
+                            MessageBox.Show("Clipboard failure.",
+                                            "Error",
+                                            MessageBoxButton.OK,
+                                            MessageBoxImage.Error);
+                        }
+                        return;
+                    }
+
+                    // just a hack until I add a way to override the unique ID in Encode()
+                    var copy = (IPackableSlot)this.SelectedSlot.BackpackSlot.Clone();
+                    copy.UniqueId = 0;
+
+                    var data = BackpackDataHelper.Encode(copy, Platform.PC);
+                    var sb = new StringBuilder();
+                    sb.Append("BL2(");
+                    sb.Append(Convert.ToBase64String(data, Base64FormattingOptions.None));
+                    sb.Append(")");
+
+                    /*
+                    if (MyClipboard.SetText(sb.ToString()) != MyClipboard.Result.Success)
+                    {
+                        MessageBox.Show("Clipboard failure.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    */
+
+                    var dobj = new DataObject();
+                    dobj.SetText(sb.ToString());
+                    if (MyClipboard.SetDataObject(dobj, false) != MyClipboard.Result.Success)
                     {
                         MessageBox.Show("Clipboard failure.",
                                         "Error",
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Error);
                     }
-                    return;
-                }
-
-                // just a hack until I add a way to override the unique ID in Encode()
-                var copy = (IPackable)this.SelectedSlot.BackpackSlot.Clone();
-                copy.UniqueId = 0;
-
-                var data = BackpackDataHelper.Encode(copy, Platform.PC);
-                var sb = new StringBuilder();
-                sb.Append("BL2(");
-                sb.Append(Convert.ToBase64String(data, Base64FormattingOptions.None));
-                sb.Append(")");
-
-                /*
-                if (MyClipboard.SetText(sb.ToString()) != MyClipboard.Result.Success)
-                {
-                    MessageBox.Show("Clipboard failure.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                */
-
-                var dobj = new DataObject();
-                dobj.SetText(sb.ToString());
-                if (MyClipboard.SetDataObject(dobj, false) != MyClipboard.Result.Success)
-                {
-                    MessageBox.Show("Clipboard failure.",
-                                    "Error",
-                                    MessageBoxButton.OK,
-                                    MessageBoxImage.Error);
-                }
-            });
+                });
         }
 
         public void DuplicateSelectedSlot()

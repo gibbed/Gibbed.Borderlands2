@@ -20,9 +20,13 @@
  *    distribution.
  */
 
+using Gibbed.Borderlands2.GameInfo;
+
 namespace Gibbed.Borderlands2.FileFormats.Items
 {
-    public interface IBackpackSlot : IPackableSlot
+    public interface IPackableItem : IPackableSlot
     {
+        void Unpack(PackedItem packed, Platform platform);
+        PackedItem Pack(Platform platform);
     }
 }

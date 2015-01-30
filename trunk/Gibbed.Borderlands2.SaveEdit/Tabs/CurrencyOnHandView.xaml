@@ -50,7 +50,7 @@
                     </Grid.ColumnDefinitions>
                     <Image Grid.Column="1"
                            DockPanel.Dock="Right"
-                           Source="..\Resources/credits.png"
+                           Source="..\Resources\credits.png"
                            Height="24" />
                     <Label x:Name="CreditsLabel"
                            Grid.Column="0"
@@ -73,7 +73,7 @@
                     </Grid.ColumnDefinitions>
                     <Image Grid.Column="1"
                            DockPanel.Dock="Right"
-                           Source="..\Resources/eridium.png"
+                           Source="..\Resources\eridium.png"
                            Height="24" />
                     <Label Grid.Column="0"
                            HorizontalContentAlignment="Right"

@@ -30,10 +30,11 @@
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="560"
-             xmlns:my="clr-namespace:Gibbed.Borderlands2.SaveEdit"
-             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro">
+             xmlns:se="clr-namespace:Gibbed.Borderlands2.SaveEdit"
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+             xmlns:gameInfo="clr-namespace:Gibbed.Borderlands2.GameInfo;assembly=Gibbed.Borderlands2.GameInfo">
     <UserControl.Resources>
-        <my:NullToBooleanConverter x:Key="NullToBooleanConverter1" />
+        <se:NullToBooleanConverter x:Key="NullToBooleanConverter1" />
     </UserControl.Resources>
     <DockPanel>
         <cal:Message.Attach>
@@ -53,6 +54,22 @@
                 </StackPanel>
                 <Button.ToolTip>New (Ctrl+N)</Button.ToolTip>
             </Button>
+            <xctk:DropDownButton>
+                <xctk:DropDownButton.DropDownContent>
+                    <ItemsControl ItemsSource="{Binding Path=PlayerClasses}"
+                                  Width="Auto"
+                                  Height="Auto">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="gameInfo:PlayerClassDefinition">
+                                <Button Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}, Path=DataContext.NewSaveFromPlayerClass}"
+                                        CommandParameter="{Binding}">
+                                    <Label Content="{Binding Path=Name}" />
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </xctk:DropDownButton.DropDownContent>
+            </xctk:DropDownButton>
             <Button>
                 <cal:Message.Attach>[Event Click] = [Action ReadSave]</cal:Message.Attach>
                 <StackPanel Orientation="Horizontal">
@@ -185,62 +202,56 @@
                                    ShowTitle="False"
                                    IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}">
                     <xctk:PropertyGrid.PropertyDefinitions>
-                        <xctk:PropertyDefinition Name="PlaythroughsCompleted" />
-                        <xctk:PropertyDefinition Name="SkillData" />
-                        <xctk:PropertyDefinition Name="ResourceData" />
-                        <xctk:PropertyDefinition Name="ItemData" />
-                        <xctk:PropertyDefinition Name="InventorySlotData" />
-                        <xctk:PropertyDefinition Name="WeaponData" />
-                        <xctk:PropertyDefinition Name="MissionPlaythroughs" />
-                        <xctk:PropertyDefinition Name="PlotMissionNumber" />
-                        <xctk:PropertyDefinition Name="UsedMarketingCodes" />
-                        <xctk:PropertyDefinition Name="MarketingCodesNeedingNotification" />
-                        <xctk:PropertyDefinition Name="TotalPlayTime" />
-                        <xctk:PropertyDefinition Name="LastSavedDate" />
-                        <xctk:PropertyDefinition Name="DLCExpansionData" />
-                        <xctk:PropertyDefinition Name="RegionGameStages" />
-                        <xctk:PropertyDefinition Name="WorldDiscoveryList" />
-                        <xctk:PropertyDefinition Name="BlackMarketUpgrades" />
-                        <xctk:PropertyDefinition Name="ActiveMissionNumber" />
-                        <xctk:PropertyDefinition Name="ChallengeList" />
-                        <xctk:PropertyDefinition Name="LevelChallengeUnlocks" />
-                        <xctk:PropertyDefinition Name="OneOffLevelChallengeCompletion" />
-                        <xctk:PropertyDefinition Name="NumChallengePrestiges" />
-                        <xctk:PropertyDefinition Name="LockoutList" />
-                        <xctk:PropertyDefinition Name="FullyExploredAreas" />
-                        <xctk:PropertyDefinition Name="NumGoldenKeysNotified" />
-                        <xctk:PropertyDefinition Name="LastPlaythroughNumber" />
-                        <xctk:PropertyDefinition Name="ShowNewPlaythroughNotification" />
-                        <xctk:PropertyDefinition Name="ReceivedDefaultWeapon" />
-                        <xctk:PropertyDefinition Name="QueuedTrainingMessages" />
-                        <xctk:PropertyDefinition Name="AwesomeSkillDisabled" />
-                        <xctk:PropertyDefinition Name="MaxBankSlots" />
-                        <xctk:PropertyDefinition Name="PlayerHasPlayedInPlaythroughThree" />
-                        <xctk:PropertyDefinition Name="LastOverpowerChoice" />
+                        <xctk:PropertyDefinition TargetProperties="PlaythroughsCompleted" />
+                        <xctk:PropertyDefinition TargetProperties="SkillData" />
+                        <xctk:PropertyDefinition TargetProperties="ResourceData" />
+                        <xctk:PropertyDefinition TargetProperties="ItemData" />
+                        <xctk:PropertyDefinition TargetProperties="InventorySlotData" />
+                        <xctk:PropertyDefinition TargetProperties="WeaponData" />
+                        <xctk:PropertyDefinition TargetProperties="MissionPlaythroughs" />
+                        <xctk:PropertyDefinition TargetProperties="PlotMissionNumber" />
+                        <xctk:PropertyDefinition TargetProperties="UsedMarketingCodes" />
+                        <xctk:PropertyDefinition TargetProperties="MarketingCodesNeedingNotification" />
+                        <xctk:PropertyDefinition TargetProperties="TotalPlayTime" />
+                        <xctk:PropertyDefinition TargetProperties="LastSavedDate" />
+                        <xctk:PropertyDefinition TargetProperties="DLCExpansionData" />
+                        <xctk:PropertyDefinition TargetProperties="RegionGameStages" />
+                        <xctk:PropertyDefinition TargetProperties="WorldDiscoveryList" />
+                        <xctk:PropertyDefinition TargetProperties="BlackMarketUpgrades" />
+                        <xctk:PropertyDefinition TargetProperties="ActiveMissionNumber" />
+                        <xctk:PropertyDefinition TargetProperties="ChallengeList" />
+                        <xctk:PropertyDefinition TargetProperties="LevelChallengeUnlocks" />
+                        <xctk:PropertyDefinition TargetProperties="OneOffLevelChallengeCompletion" />
+                        <xctk:PropertyDefinition TargetProperties="NumChallengePrestiges" />
+                        <xctk:PropertyDefinition TargetProperties="LockoutList" />
+                        <xctk:PropertyDefinition TargetProperties="FullyExploredAreas" />
+                        <xctk:PropertyDefinition TargetProperties="NumGoldenKeysNotified" />
+                        <xctk:PropertyDefinition TargetProperties="LastPlaythroughNumber" />
+                        <xctk:PropertyDefinition TargetProperties="ShowNewPlaythroughNotification" />
+                        <xctk:PropertyDefinition TargetProperties="ReceivedDefaultWeapon" />
+                        <xctk:PropertyDefinition TargetProperties="QueuedTrainingMessages" />
+                        <xctk:PropertyDefinition TargetProperties="AwesomeSkillDisabled" />
+                        <xctk:PropertyDefinition TargetProperties="MaxBankSlots" />
+                        <xctk:PropertyDefinition TargetProperties="PlayerHasPlayedInPlaythroughThree" />
+                        <xctk:PropertyDefinition TargetProperties="LastOverpowerChoice" />
                     </xctk:PropertyGrid.PropertyDefinitions>
                     <xctk:PropertyGrid.EditorDefinitions>
-                        <xctk:EditorDefinition>
+                        <xctk:EditorTemplateDefinition TargetProperties="StatsData">
                             <!-- Workaround for broken byte[] support in PropertyGrid. -->
-                            <xctk:EditorDefinition.PropertiesDefinitions>
-                                <xctk:PropertyDefinition Name="StatsData" />
-                            </xctk:EditorDefinition.PropertiesDefinitions>
-                            <xctk:EditorDefinition.EditorTemplate>
+                            <xctk:EditorTemplateDefinition.EditingTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Value}" />
                                 </DataTemplate>
-                            </xctk:EditorDefinition.EditorTemplate>
-                        </xctk:EditorDefinition>
-                        <xctk:EditorDefinition>
+                            </xctk:EditorTemplateDefinition.EditingTemplate>
+                        </xctk:EditorTemplateDefinition>
+                        <xctk:EditorTemplateDefinition TargetProperties="IsBadassModeSaveGame">
                             <!-- Prevent editing of IsBadassMode -->
-                            <xctk:EditorDefinition.PropertiesDefinitions>
-                                <xctk:PropertyDefinition Name="IsBadassModeSaveGame" />
-                            </xctk:EditorDefinition.PropertiesDefinitions>
-                            <xctk:EditorDefinition.EditorTemplate>
+                            <xctk:EditorTemplateDefinition.EditingTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Value}" />
                                 </DataTemplate>
-                            </xctk:EditorDefinition.EditorTemplate>
-                        </xctk:EditorDefinition>
+                            </xctk:EditorTemplateDefinition.EditingTemplate>
+                        </xctk:EditorTemplateDefinition>
                     </xctk:PropertyGrid.EditorDefinitions>
                 </xctk:PropertyGrid>
             </TabItem>

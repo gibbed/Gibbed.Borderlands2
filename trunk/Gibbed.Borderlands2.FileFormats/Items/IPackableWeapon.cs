@@ -20,17 +20,13 @@
  *    distribution.
  */
 
-using System;
 using Gibbed.Borderlands2.GameInfo;
 
 namespace Gibbed.Borderlands2.FileFormats.Items
 {
-    public interface IPackable : ICloneable
+    public interface IPackableWeapon : IPackableSlot
     {
-        int UniqueId { get; set; }
-        int AssetLibrarySetId { get; set; }
-
-        void Read(BitReader reader, Platform platform);
-        void Write(BitWriter writer, Platform platform);
+        void Unpack(PackedWeapon packed, Platform platform);
+        PackedWeapon Pack(Platform platform);
     }
 }

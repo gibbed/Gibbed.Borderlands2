@@ -167,30 +167,49 @@ namespace Gibbed.Borderlands2.SaveEdit
         public ObservableCollection<AssetDisplay> SkinAssets { get; private set; }
         #endregion
 
-        private void UpdateClassDefinitions()
+        private static string GetDLCName(DownloadableContentDefinition dlc, out int priority)
         {
-            this.PlayerClasses = new ObservableCollection<AssetDisplay>(
-                InfoManager.PlayerClasses.Items
-                           .OrderBy(kv => kv.Value.SortOrder)
-                           .Select(kv => GetPlayerClass(kv.Value)));
+            if (dlc == null)
+            {
+                priority = int.MinValue;
+                return "Base Game";
+            }
+
+            if (dlc.Package != null)
+            {
+                priority = dlc.Package.Id;
+                return dlc.Package.DisplayName;
+            }
+
+            priority = int.MaxValue;
+            return "??? " + dlc.ResourcePath + " ???";
         }
 
-        private static AssetDisplay GetPlayerClass(PlayerClassDefinition playerClass)
+        private void BuildPlayerClasses()
         {
-            return new AssetDisplay(string.Format("{0} ({1})",
-                                                  playerClass.Name,
-                                                  playerClass.Class),
-                                    playerClass.ResourcePath);
+            var playerClasses = new List<KeyValuePair<AssetDisplay, int>>();
+            foreach (var kv in InfoManager.PlayerClasses.Items.OrderBy(kv => kv.Value.SortOrder))
+            {
+                int priority;
+                var group = GetDLCName(kv.Value.DLC, out priority);
+                playerClasses.Add(
+                    new KeyValuePair<AssetDisplay, int>(
+                        new AssetDisplay(string.Format("{0} ({1})", kv.Value.Name, kv.Value.Class), kv.Key, group),
+                        priority));
+            }
+
+            this.PlayerClasses.Clear();
+            playerClasses.OrderBy(kv => kv.Value).Apply(kv => this.PlayerClasses.Add(kv.Key));
         }
 
         [ImportingConstructor]
         public CharacterViewModel()
         {
-            this.UpdateClassDefinitions();
-
+            this.PlayerClasses = new ObservableCollection<AssetDisplay>();
             this.HeadAssets = new ObservableCollection<AssetDisplay>();
             this.SkinAssets = new ObservableCollection<AssetDisplay>();
 
+            this.BuildPlayerClasses();
             this.BuildCustomizationAssets();
 
             var firstHead = this.HeadAssets.FirstOrDefault();
@@ -206,9 +225,9 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
-        private CustomizationUsage GetCustomizationUsage()
+        public static CustomizationUsage GetCustomizationUsage(string playerClass)
         {
-            switch (this.PlayerClass)
+            switch (playerClass)
             {
                 case "GD_Soldier.Character.CharClass_Soldier":
                 {
@@ -244,71 +263,35 @@ namespace Gibbed.Borderlands2.SaveEdit
             return CustomizationUsage.Unknown;
         }
 
+        private CustomizationUsage GetCustomizationUsage()
+        {
+            return GetCustomizationUsage(this.PlayerClass);
+        }
+
         private void BuildCustomizationAssets()
         {
             var usage = this.GetCustomizationUsage();
 
             var headAssets = new List<KeyValuePair<AssetDisplay, int>>();
-            foreach (var kv in
-                InfoManager.Customizations.Items.Where(
-                    kv => kv.Value.Type == CustomizationType.Head && kv.Value.Usage.Contains(usage) == true).OrderBy
-                    (cd => cd.Value.Name))
+            foreach (var kv in InfoManager.Customizations.Items
+                                          .Where(kv => kv.Value.Type == CustomizationType.Head &&
+                                                       kv.Value.Usage.Contains(usage) == true)
+                                          .OrderBy(cd => cd.Value.Name))
             {
-                string group;
                 int priority;
-
-                if (kv.Value.DLC != null)
-                {
-                    if (kv.Value.DLC.Package != null)
-                    {
-                        group = kv.Value.DLC.Package.DisplayName;
-                        priority = kv.Value.DLC.Package.Id;
-                    }
-                    else
-                    {
-                        group = "??? " + kv.Value.DLC.ResourcePath + " ???";
-                        priority = int.MaxValue;
-                    }
-                }
-                else
-                {
-                    group = "Base Game";
-                    priority = int.MinValue;
-                }
-
+                var group = GetDLCName(kv.Value.DLC, out priority);
                 headAssets.Add(new KeyValuePair<AssetDisplay, int>(new AssetDisplay(kv.Value.Name, kv.Key, group),
                                                                    priority));
             }
 
             var skinAssets = new List<KeyValuePair<AssetDisplay, int>>();
-            foreach (
-                var kv in
-                    InfoManager.Customizations.Items.Where(
-                        kv => kv.Value.Type == CustomizationType.Skin && kv.Value.Usage.Contains(usage) == true).OrderBy
-                        (cd => cd.Value.Name))
+            foreach (var kv in InfoManager.Customizations.Items
+                                          .Where(kv => kv.Value.Type == CustomizationType.Skin &&
+                                                       kv.Value.Usage.Contains(usage) == true)
+                                          .OrderBy(cd => cd.Value.Name))
             {
-                string group;
                 int priority;
-
-                if (kv.Value.DLC != null)
-                {
-                    if (kv.Value.DLC.Package != null)
-                    {
-                        group = kv.Value.DLC.Package.DisplayName;
-                        priority = kv.Value.DLC.Package.Id;
-                    }
-                    else
-                    {
-                        group = "??? " + kv.Value.DLC.ResourcePath + " ???";
-                        priority = int.MaxValue;
-                    }
-                }
-                else
-                {
-                    group = "Base Game";
-                    priority = int.MinValue;
-                }
-
+                var group = GetDLCName(kv.Value.DLC, out priority);
                 skinAssets.Add(new KeyValuePair<AssetDisplay, int>(new AssetDisplay(kv.Value.Name, kv.Key, group),
                                                                    priority));
             }
