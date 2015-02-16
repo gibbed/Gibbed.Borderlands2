@@ -315,7 +315,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         public string Name
         {
-            get { return "Willow Two Player Save Game"; }
+            get { return "WillowTwoPlayerSaveGame"; }
         }
 
         #region Properties
