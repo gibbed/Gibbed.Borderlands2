@@ -120,6 +120,7 @@
     </Compile>
     <Compile Include="Items\BackpackItemViewModel.cs" />
     <Compile Include="Items\IBaseSlotViewModel.cs" />
+    <Compile Include="Items\ItemTypeFilter.cs" />
     <Compile Include="SaveLoad.cs" />
     <Compile Include="Tabs\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>

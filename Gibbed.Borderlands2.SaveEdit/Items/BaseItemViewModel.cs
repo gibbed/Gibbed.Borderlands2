@@ -54,9 +54,74 @@ namespace Gibbed.Borderlands2.SaveEdit
                 resources.Concat(
                     InfoManager.ItemBalance.Items.Where(kv => kv.Value.Types != null).SelectMany(bd => bd.Value.Types));
 
+            var itemTypeFilters = new List<ItemTypeFilter>()
+            {
+                new ItemTypeFilter("All", ItemType.Unknown),
+                new ItemTypeFilter(GetDisplayNameForItemType(ItemType.Artifact), ItemType.Artifact),
+                new ItemTypeFilter(GetDisplayNameForItemType(ItemType.ClassMod),
+                                   ItemType.ClassMod,
+                                   ItemType.CrossDLCClassMod),
+                new ItemTypeFilter(GetDisplayNameForItemType(ItemType.GrenadeMod), ItemType.GrenadeMod),
+                new ItemTypeFilter(GetDisplayNameForItemType(ItemType.MissionItem), ItemType.MissionItem),
+                new ItemTypeFilter(GetDisplayNameForItemType(ItemType.Shield), ItemType.Shield),
+                new ItemTypeFilter(GetDisplayNameForItemType(ItemType.UsableCustomizationItem),
+                                   ItemType.UsableCustomizationItem),
+                new ItemTypeFilter(GetDisplayNameForItemType(ItemType.UsableItem), ItemType.UsableItem),
+            };
+            this._ItemTypeFilters = itemTypeFilters;
+
             this.TypeAssets = CreateAssetList(resources.Distinct().Select(t => t.ResourcePath).OrderBy(s => s));
             this.BuildBalanceAssets();
             this.UpdateDisplayName();
+
+            this._FilteredTypeAssets = System.Windows.Data.CollectionViewSource.GetDefaultView(this.TypeAssets);
+            this._FilteredTypeAssets.Filter += this.FilterItem;
+            this.SelectedItemTypeFilter = itemTypeFilters.First();
+        }
+
+        private bool FilterItem(object o)
+        {
+            var typePath = o as string;
+            if (typePath == null)
+            {
+                return false;
+            }
+
+            if (typePath == "None")
+            {
+                return true;
+            }
+
+            if (this._SelectedItemTypeFilter == null)
+            {
+                return false;
+            }
+
+            var selectedItemType = this._SelectedItemTypeFilter.Value;
+            var selectedSecondItemType = this._SelectedItemTypeFilter.SecondValue;
+            if (selectedItemType == ItemType.Unknown)
+            {
+                return true;
+            }
+
+            if (InfoManager.ItemTypes.ContainsKey(typePath) == false)
+            {
+                return false;
+            }
+
+            var itemType = InfoManager.ItemTypes[typePath];
+            if (selectedItemType == itemType.Type)
+            {
+                return true;
+            }
+
+            if (selectedSecondItemType != ItemType.Unknown &&
+                selectedSecondItemType == itemType.Type)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private static string GenerateDisplayName(string typePath, string prefixPartPath, string titlePartPath)
@@ -328,44 +393,54 @@ namespace Gibbed.Borderlands2.SaveEdit
                     return "Unknown";
                 }
 
-                switch (InfoManager.ItemTypes[this.Type].Type)
-                {
-                    case ItemType.Artifact:
-                    {
-                        return "Relics";
-                    }
-
-                    case ItemType.ClassMod:
-                    case ItemType.CrossDLCClassMod:
-                    {
-                        return "Class Mods";
-                    }
-
-                    case ItemType.GrenadeMod:
-                    {
-                        return "Grenade Mods";
-                    }
-
-                    case ItemType.Shield:
-                    {
-                        return "Shields";
-                    }
-
-                    case ItemType.UsableCustomizationItem:
-                    {
-                        return "Customizations";
-                    }
-
-                    case ItemType.UsableItem:
-                    {
-                        return "Personal";
-                    }
-                }
-
-                return "Unknown";
+                return GetDisplayNameForItemType(InfoManager.ItemTypes[this.Type].Type);
             }
         }
         #endregion
+
+        private static string GetDisplayNameForItemType(ItemType itemType)
+        {
+            switch (itemType)
+            {
+                case ItemType.Artifact:
+                {
+                    return "Relics";
+                }
+
+                case ItemType.ClassMod:
+                case ItemType.CrossDLCClassMod:
+                {
+                    return "Class Mods";
+                }
+
+                case ItemType.GrenadeMod:
+                {
+                    return "Grenade Mods";
+                }
+
+                case ItemType.MissionItem:
+                {
+                    return "Mission Items";
+                }
+
+                case ItemType.Shield:
+                {
+                    return "Shields";
+                }
+
+                case ItemType.UsableCustomizationItem:
+                {
+                    return "Customizations";
+                }
+
+                case ItemType.UsableItem:
+                {
+                    return "Personal";
+                }
+            }
+
+            return "Unknown";
+        }
 
         #region Assets
         private static IEnumerable<string> CreateAssetList(IEnumerable<string> items)
@@ -384,6 +459,11 @@ namespace Gibbed.Borderlands2.SaveEdit
         }
 
         #region Fields
+        private IEnumerable<string> _TypeAssets;
+        private IEnumerable<ItemTypeFilter> _ItemTypeFilters;
+        private ItemTypeFilter _SelectedItemTypeFilter;
+        private readonly System.ComponentModel.ICollectionView _FilteredTypeAssets;
+
         private IEnumerable<string> _BalanceAssets;
         private IEnumerable<string> _ManufacturerAssets;
         private IEnumerable<string> _AlphaPartAssets;
@@ -398,7 +478,36 @@ namespace Gibbed.Borderlands2.SaveEdit
         #endregion
 
         #region Properties
-        public IEnumerable<string> TypeAssets { get; private set; }
+        public IEnumerable<ItemTypeFilter> ItemTypeFilters
+        {
+            get { return this._ItemTypeFilters; }
+        }
+
+        public ItemTypeFilter SelectedItemTypeFilter
+        {
+            get { return this._SelectedItemTypeFilter; }
+            set
+            {
+                this._SelectedItemTypeFilter = value;
+                this.NotifyOfPropertyChange(() => this.SelectedItemTypeFilter);
+                this.FilteredTypeAssets.Refresh();
+            }
+        }
+
+        public IEnumerable<string> TypeAssets
+        {
+            get { return this._TypeAssets; }
+            private set
+            {
+                this._TypeAssets = value;
+                this.NotifyOfPropertyChange(() => this.TypeAssets);
+            }
+        }
+
+        public System.ComponentModel.ICollectionView FilteredTypeAssets
+        {
+            get { return this._FilteredTypeAssets; }
+        }
 
         public IEnumerable<string> BalanceAssets
         {

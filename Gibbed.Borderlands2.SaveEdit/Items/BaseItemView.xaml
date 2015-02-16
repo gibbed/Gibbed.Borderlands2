@@ -56,6 +56,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -80,11 +81,22 @@
                Content="{Binding Path=AssetLibrarySetName, UpdateSourceTrigger=PropertyChanged}" />
         <Label Grid.Column="0"
                HorizontalContentAlignment="Right"
-               Content="Type:"
+               Content="Type Filter:"
                Grid.Row="1" />
+        <se:MyComboBox Grid.Column="1"
+                       Grid.Row="1"
+                       x:Name="TypeFilterComboBox"
+                       IsEditable="false"
+                       ItemsSource="{Binding Path=ItemTypeFilters}"
+                       DisplayMemberPath="DisplayName"
+                       SelectedItem="{Binding Path=SelectedItemTypeFilter, UpdateSourceTrigger=PropertyChanged}" />
+        <Label Grid.Column="0"
+               HorizontalContentAlignment="Right"
+               Content="Type:"
+               Grid.Row="2" />
         <DockPanel Grid.Column="1"
                    LastChildFill="True"
-                   Grid.Row="1">
+                   Grid.Row="2">
             <Image DockPanel.Dock="Right"
                    Width="16"
                    Margin="2,0,0,0"
@@ -92,8 +104,7 @@
                    ToolTip="Unsupported value, item will probably be deleted.">
                 <Image.Visibility>
                     <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
-                        <Binding ElementName="TypeComboBox"
-                                 Path="ItemsSource"
+                        <Binding Path="TypeAssets"
                                  Mode="OneWay" />
                         <Binding ElementName="TypeComboBox"
                                  Path="Text"
@@ -103,7 +114,7 @@
             </Image>
             <se:MyComboBox x:Name="TypeComboBox"
                            IsEditable="true"
-                           ItemsSource="{Binding Path=TypeAssets}">
+                           ItemsSource="{Binding Path=FilteredTypeAssets}">
                 <ComboBox.Text>
                     <Binding Path="Type"
                              UpdateSourceTrigger="PropertyChanged">
@@ -114,11 +125,11 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="2"
+        <Label Grid.Row="3"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Balance:" />
-        <DockPanel Grid.Row="2"
+        <DockPanel Grid.Row="3"
                    Grid.Column="1"
                    LastChildFill="True">
             <Image DockPanel.Dock="Right"
@@ -150,11 +161,11 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="3"
+        <Label Grid.Row="4"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Manufacturer:" />
-        <DockPanel Grid.Row="3"
+        <DockPanel Grid.Row="4"
                    Grid.Column="1"
                    LastChildFill="True">
             <se:MyComboBox x:Name="ManufacturerComboBox"
@@ -170,20 +181,20 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="4"
+        <Label Grid.Row="5"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Manufacturer Grade:" />
-        <xctk:IntegerUpDown Grid.Row="4"
+        <xctk:IntegerUpDown Grid.Row="5"
                             Grid.Column="1"
                             Value="{Binding Path=ManufacturerGradeIndex, UpdateSourceTrigger=PropertyChanged}"
                             Minimum="0"
                             Maximum="127" />
-        <Label Grid.Row="5"
+        <Label Grid.Row="6"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Alpha:" />
-        <DockPanel Grid.Row="5"
+        <DockPanel Grid.Row="6"
                    Grid.Column="1"
                    LastChildFill="True">
             <Image DockPanel.Dock="Right"
@@ -215,11 +226,11 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="6"
+        <Label Grid.Row="7"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Beta:" />
-        <DockPanel Grid.Row="6"
+        <DockPanel Grid.Row="7"
                    Grid.Column="1"
                    LastChildFill="True">
             <Image DockPanel.Dock="Right"
@@ -251,11 +262,11 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="7"
+        <Label Grid.Row="8"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Gamma:" />
-        <DockPanel Grid.Row="7"
+        <DockPanel Grid.Row="8"
                    Grid.Column="1"
                    LastChildFill="True">
             <Image DockPanel.Dock="Right"
@@ -287,11 +298,11 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="8"
+        <Label Grid.Row="9"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Delta:" />
-        <DockPanel Grid.Row="8"
+        <DockPanel Grid.Row="9"
                    Grid.Column="1"
                    LastChildFill="True">
             <Image DockPanel.Dock="Right"
@@ -323,11 +334,11 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="9"
+        <Label Grid.Row="10"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Epsilon:" />
-        <DockPanel Grid.Row="9"
+        <DockPanel Grid.Row="10"
                    Grid.Column="1"
                    LastChildFill="True">
             <Image DockPanel.Dock="Right"
@@ -359,11 +370,11 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="10"
+        <Label Grid.Row="11"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Zeta:" />
-        <DockPanel Grid.Row="10"
+        <DockPanel Grid.Row="11"
                    Grid.Column="1"
                    LastChildFill="True">
             <Image DockPanel.Dock="Right"
@@ -395,11 +406,11 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="11"
+        <Label Grid.Row="12"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Eta:" />
-        <DockPanel Grid.Row="11"
+        <DockPanel Grid.Row="12"
                    Grid.Column="1"
                    LastChildFill="True">
             <Image DockPanel.Dock="Right"
@@ -431,11 +442,11 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="12"
+        <Label Grid.Row="13"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Theta:" />
-        <DockPanel Grid.Row="12"
+        <DockPanel Grid.Row="13"
                    Grid.Column="1"
                    LastChildFill="True">
             <Image DockPanel.Dock="Right"
@@ -467,11 +478,11 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="13"
+        <Label Grid.Row="14"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Material:" />
-        <DockPanel Grid.Row="13"
+        <DockPanel Grid.Row="14"
                    Grid.Column="1"
                    LastChildFill="True">
             <Image DockPanel.Dock="Right"
@@ -503,11 +514,11 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="14"
+        <Label Grid.Row="15"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Prefix:" />
-        <DockPanel Grid.Row="14"
+        <DockPanel Grid.Row="15"
                    Grid.Column="1"
                    LastChildFill="True">
             <se:MyComboBox x:Name="PrefixPartComboBox"
@@ -522,11 +533,11 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="15"
+        <Label Grid.Row="16"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Title:" />
-        <DockPanel Grid.Row="15"
+        <DockPanel Grid.Row="16"
                    Grid.Column="1"
                    LastChildFill="True">
             <se:MyComboBox x:Name="TitlePartComboBox"
@@ -541,11 +552,11 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="16"
+        <Label Grid.Row="17"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Game Stage:" />
-        <xctk:IntegerUpDown Grid.Row="16"
+        <xctk:IntegerUpDown Grid.Row="17"
                             Grid.Column="1"
                             Value="{Binding Path=GameStage, UpdateSourceTrigger=PropertyChanged}"
                             Minimum="0"
