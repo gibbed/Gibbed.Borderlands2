@@ -313,6 +313,11 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
         #endregion
 
+        public string Name
+        {
+            get { return "Willow Two Player Save Game"; }
+        }
+
         #region Properties
         [ProtoMember(1, IsRequired = true)]
         public string PlayerClass
