@@ -87,6 +87,8 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         private bool _AwesomeSkillDisabled;
         private int _MaxBankSlots;
         private List<ChosenVehicleCustomization> _ChosenVehicleCustomizations = new List<ChosenVehicleCustomization>();
+        private int _VehicleSteeringMode;
+
         private int? _PlayerHasPlayedInPlaythroughThree;
         private int? _NumOverpowerLevelsUnlocked;
         private int? _LastOverpowerChoice;
@@ -1118,6 +1120,20 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 {
                     this._ChosenVehicleCustomizations = value;
                     this.NotifyPropertyChanged("ChosenVehicleCustomizations");
+                }
+            }
+        }
+
+        [ProtoMember(58, IsRequired = false)]
+        public int VehicleSteeringMode 
+        {
+            get { return this._VehicleSteeringMode; }
+            set
+            {
+                if (value != this._VehicleSteeringMode)
+                {
+                    this._VehicleSteeringMode = value;
+                    this.NotifyPropertyChanged("VehicleSteeringMode");
                 }
             }
         }
