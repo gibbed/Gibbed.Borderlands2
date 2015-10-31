@@ -92,7 +92,7 @@
             </Button>
         </ToolBar>
         <TabControl TabStripPlacement="Top">
-            <TabItem>
+            <TabItem IsSelected="{Binding Path=IsGeneralSelected}">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Height="24"
@@ -256,7 +256,7 @@
                     </xctk:PropertyGrid.EditorDefinitions>
                 </xctk:PropertyGrid>
             </TabItem>
-            <TabItem>
+            <TabItem IsSelected="{Binding Path=IsAboutSelected}">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Height="24"
