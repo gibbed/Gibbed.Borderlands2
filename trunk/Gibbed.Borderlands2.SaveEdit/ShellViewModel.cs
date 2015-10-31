@@ -149,6 +149,10 @@ namespace Gibbed.Borderlands2.SaveEdit
         private SaveLoad _SaveLoad;
         private FileFormats.SaveFile _SaveFile;
         private readonly ICommand _NewSaveFromPlayerClass;
+
+        private bool _IsGeneralSelected;
+        private bool _IsFirstAboutSelection;
+        private bool _IsAboutSelected;
         #endregion
 
         #region Properties
@@ -188,6 +192,33 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
+        public bool IsGeneralSelected
+        {
+            get { return this._IsGeneralSelected; }
+            set
+            {
+                if (this._IsGeneralSelected != value)
+                {
+                    this._IsGeneralSelected = value;
+                    this.NotifyOfPropertyChange(() => this.IsGeneralSelected);
+                }
+            }
+        }
+
+        public bool IsAboutSelected
+        {
+            get { return this._IsAboutSelected; }
+            set
+            {
+                if (this._IsAboutSelected != value)
+                {
+                    this._IsFirstAboutSelection = false;
+                    this._IsAboutSelected = value;
+                    this.NotifyOfPropertyChange(() => this.IsAboutSelected);
+                }
+            }
+        }
+
         public ICommand NewSaveFromPlayerClass
         {
             get { return this._NewSaveFromPlayerClass; }
@@ -197,7 +228,17 @@ namespace Gibbed.Borderlands2.SaveEdit
         [ImportingConstructor]
         public ShellViewModel()
         {
+            this._IsAboutSelected = true;
+            this._IsFirstAboutSelection = true;
             this._NewSaveFromPlayerClass = new DelegateCommand<PlayerClassDefinition>(this.DoNewSaveFromPlayerClass);
+        }
+
+        private void MaybeSwitchToGeneral()
+        {
+            if (this.IsAboutSelected == true && this._IsFirstAboutSelection == true)
+            {
+                this.IsGeneralSelected = true;
+            }
         }
 
         private void DoNewSaveFromPlayerClass(PlayerClassDefinition playerClass)
@@ -235,6 +276,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             this.Bank.ImportData(saveFile.SaveGame, saveFile.Platform);
             this.FastTravel.ImportData(saveFile.SaveGame);
             this.SaveFile = saveFile;
+            this.MaybeSwitchToGeneral();
         }
 
         public IEnumerable<IResult> NewSave()
@@ -306,6 +348,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                         this.Bank.ImportData(saveFile.SaveGame, saveFile.Platform);
                         this.FastTravel.ImportData(saveFile.SaveGame);
                         this.SaveFile = saveFile;
+                        this.MaybeSwitchToGeneral();
                     }
                     catch (Exception)
                     {
