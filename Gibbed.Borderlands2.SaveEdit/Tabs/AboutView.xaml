@@ -38,12 +38,12 @@
     <DockPanel LastChildFill="True">
         <TextBlock TextWrapping="Wrap"
                    Margin="4">
-            <Run Text="Developed by " /><Hyperlink NavigateUri="http://gib.me/" Foreground="{StaticResource Gibbed}"><Run Text="gibbed" Foreground="{StaticResource Gibbed}" /></Hyperlink><Run Text=" for use with Borderlands 2." />
+            <Run Text="Developed by " /><Hyperlink NavigateUri="http://gib.me/" Foreground="{StaticResource Gibbed}" se:HyperlinkExtensions.IsExternal="true"><Run Text="gibbed" Foreground="{StaticResource Gibbed}" /></Hyperlink><Run Text=" for use with Borderlands 2." />
             <LineBreak />
             <LineBreak />
             <Run Text="Want to support the developer?" FontSize="15" FontWeight="Bold" />
             <LineBreak />
-            <Hyperlink NavigateUri="http://www.patreon.com/gibbed" Foreground="{StaticResource Gibbed}"><Run Text="Contribute to gibbed's Patreon" FontSize="15" FontWeight="Bold" Foreground="{StaticResource Gibbed}" /></Hyperlink><Run Text="." FontSize="15" FontWeight="Bold" />
+            <Hyperlink NavigateUri="http://www.patreon.com/gibbed" Foreground="{StaticResource Gibbed}" se:HyperlinkExtensions.IsExternal="true"><Run Text="Contribute to gibbed's Patreon" FontSize="15" FontWeight="Bold" Foreground="{StaticResource Gibbed}" /></Hyperlink><Run Text="." FontSize="15" FontWeight="Bold" />
             <LineBreak />
             <LineBreak />
             <Run Text="With special thanks to..." />
