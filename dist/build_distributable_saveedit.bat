@@ -14,8 +14,9 @@ cd "saveedit"
 rem mkdir pdbs
 rem move *.pdb pdbs\
 del *.pdb
-mkdir assemblies
-move *.dll assemblies\
+rem mkdir assemblies
+rem move *.dll assemblies\
+del *.dll
 del *.xml
 del ..\saveedit.zip
 7z a -r -tzip -mx=9 ..\saveedit.zip .
