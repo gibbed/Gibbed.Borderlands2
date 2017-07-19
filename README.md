@@ -1,0 +1,1 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/003bq7d3qyhxit93/branch/master?svg=true)](https://ci.appveyor.com/project/gibbed/gibbed-borderlands2/branch/master)
