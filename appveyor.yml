@@ -1,0 +1,48 @@
+version: 1.0.{build}
+
+branches:
+  only:
+    - master
+
+skip_tags: true
+skip_commits:
+  files:
+    - README.md
+
+max_jobs: 1
+
+image: Visual Studio 2015
+
+clone_folder: c:\projects\gibbed-borderlands2
+
+cache:
+  - packages -> **\packages.config
+  - '%LocalAppData%\NuGet\Cache'
+  - '%LocalAppData%\NuGet\v3-cache'
+
+install:
+  - git submodule update --init --recursive
+
+configuration:
+  - Debug
+  - SaveEdit Packaging
+
+build:
+  project: Borderlands 2.sln
+  parallel: true
+  verbosity: minimal
+
+before_build:
+  - nuget restore
+
+after_build:
+  - set TZ=GMT
+  - git log . > git-log.txt
+  - 7z a -r -tzip -mx=9 -x!bin/Test.exe -x!*/license.txt -x!*/readme.txt -x!*/git-log.txt borderlands2-%APPVEYOR_BUILD_VERSION%.zip license.txt readme.txt git-log.txt bin/*.exe bin/*.dll bin/projects
+  - 7z a -r -tzip -mx=9 -x!bin/Test.exe -x!*/license.txt -x!*/readme.txt -x!*/git-log.txt borderlands2-%APPVEYOR_BUILD_VERSION%-with-symbols.zip license.txt readme.txt git-log.txt bin/*.exe bin/*.dll bin/*.pdb bin/projects
+  - 7z a -r -tzip -mx=9 saveedit-%APPVEYOR_BUILD_VERSION%.zip LICENSE.txt readme.txt git-log.txt ./bin_saveedit/*.exe ./bin_saveedit/*.dll ./dist
+  - 7z a -r -tzip -mx=9 saveedit-%APPVEYOR_BUILD_VERSION%-with-symbols.zip LICENSE.txt readme.txt git-log.txt ./bin_saveedit/*.exe ./bin_saveedit/*.dll ./bin_saveedit/*.pdb ./dist
+
+artifacts:
+  - path: borderlands2-*.zip
+  - path: saveedit-*.zip
