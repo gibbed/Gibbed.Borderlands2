@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using Caliburn.Micro;
@@ -43,9 +44,28 @@ namespace Gibbed.Borderlands2.SaveEdit
                 window.Title = _WindowTitle;
 
                 // ReSharper disable ConditionIsAlwaysTrueOrFalse
-                if (string.IsNullOrEmpty(Version.DisplayText) == false)
+                if (string.IsNullOrEmpty(Version.Configuration) == false)
                 {
-                    window.Title += " (" + Version.DisplayText + ")";
+                    window.Title += " [";
+                    window.Title += Version.Configuration.ToUpperInvariant();
+                    window.Title += " ]";
+                }
+                if (string.IsNullOrEmpty(Version.Commit) == false)
+                {
+                    window.Title += " (";
+                    window.Title += Version.Commit.Substring(0, 7);
+                    if (string.IsNullOrEmpty(Version.Timestamp) == false)
+                    {
+                        window.Title += " @ ";
+                        window.Title += MakeFriendlyTimestamp(Version.Timestamp);
+                    }
+                    window.Title += ")";
+                }
+                else if (string.IsNullOrEmpty(Version.Timestamp) == false)
+                {
+                    window.Title += " (@ ";
+                    window.Title += MakeFriendlyTimestamp(Version.Timestamp);
+                    window.Title += ")";
                 }
                 // ReSharper restore ConditionIsAlwaysTrueOrFalse
 
@@ -57,6 +77,12 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
 
             return window;
+        }
+
+        private static string MakeFriendlyTimestamp(string s)
+        {
+            var datetime = DateTime.Parse(s, null, DateTimeStyles.RoundtripKind).ToLocalTime();
+            return datetime.ToString("g");
         }
     }
 }
