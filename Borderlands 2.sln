@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gibbed.Borderlands2.FileFormats", "projects\Gibbed.Borderlands2.FileFormats\Gibbed.Borderlands2.FileFormats.csproj", "{75063A4E-0024-4B68-BE6C-1B3D52FD4845}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "projects\Test\Test.csproj", "{35F7B4EF-181C-4397-B014-E28891A2288D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gibbed.IO", "projects\Gibbed.IO\Gibbed.IO.csproj", "{047857BA-DAA3-4CA7-AFB8-A1B082B28C6A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDesk.Options", "projects\NDesk.Options\NDesk.Options.csproj", "{C98A6CD6-9422-4B35-8B7A-F520D75534D1}"
@@ -67,21 +65,6 @@ Global
 		{75063A4E-0024-4B68-BE6C-1B3D52FD4845}.SaveEdit Packaging|Mixed Platforms.Build.0 = Release|Any CPU
 		{75063A4E-0024-4B68-BE6C-1B3D52FD4845}.SaveEdit Packaging|x86.ActiveCfg = Release|Any CPU
 		{75063A4E-0024-4B68-BE6C-1B3D52FD4845}.SaveEdit Packaging|x86.Build.0 = Release|Any CPU
-		{35F7B4EF-181C-4397-B014-E28891A2288D}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{35F7B4EF-181C-4397-B014-E28891A2288D}.Debug|Any CPU.Build.0 = Debug|x86
-		{35F7B4EF-181C-4397-B014-E28891A2288D}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{35F7B4EF-181C-4397-B014-E28891A2288D}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{35F7B4EF-181C-4397-B014-E28891A2288D}.Debug|x86.ActiveCfg = Debug|x86
-		{35F7B4EF-181C-4397-B014-E28891A2288D}.Debug|x86.Build.0 = Debug|x86
-		{35F7B4EF-181C-4397-B014-E28891A2288D}.Release|Any CPU.ActiveCfg = Release|x86
-		{35F7B4EF-181C-4397-B014-E28891A2288D}.Release|Any CPU.Build.0 = Release|x86
-		{35F7B4EF-181C-4397-B014-E28891A2288D}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{35F7B4EF-181C-4397-B014-E28891A2288D}.Release|Mixed Platforms.Build.0 = Release|x86
-		{35F7B4EF-181C-4397-B014-E28891A2288D}.Release|x86.ActiveCfg = Release|x86
-		{35F7B4EF-181C-4397-B014-E28891A2288D}.Release|x86.Build.0 = Release|x86
-		{35F7B4EF-181C-4397-B014-E28891A2288D}.SaveEdit Packaging|Any CPU.ActiveCfg = Release|x86
-		{35F7B4EF-181C-4397-B014-E28891A2288D}.SaveEdit Packaging|Mixed Platforms.ActiveCfg = Release|x86
-		{35F7B4EF-181C-4397-B014-E28891A2288D}.SaveEdit Packaging|x86.ActiveCfg = Release|x86
 		{047857BA-DAA3-4CA7-AFB8-A1B082B28C6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{047857BA-DAA3-4CA7-AFB8-A1B082B28C6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{047857BA-DAA3-4CA7-AFB8-A1B082B28C6A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -222,7 +205,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{35F7B4EF-181C-4397-B014-E28891A2288D} = {5C13AC7D-CFCE-41AE-AE34-BEABE93EBE6C}
 		{32D0656A-A719-4CAA-AED7-1F44162C7AD0} = {5C13AC7D-CFCE-41AE-AE34-BEABE93EBE6C}
 		{145E157B-54E1-4B27-8C68-896835678AAB} = {5C13AC7D-CFCE-41AE-AE34-BEABE93EBE6C}
 		{C98A6CD6-9422-4B35-8B7A-F520D75534D1} = {1FD12BC6-B9F0-432B-A233-E89A7718137C}
