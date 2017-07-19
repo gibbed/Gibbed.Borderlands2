@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{19B858E3-844A-43EA-8A1D-F73CE9A7496C}</ProjectGuid>
+    <ProjectGuid>{75DADFFF-50E6-4C0B-B46D-49E40846F0FC}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Gibbed.Borderlands2.SparkTmsUnpack</RootNamespace>
-    <AssemblyName>Gibbed.Borderlands2.SparkTmsUnpack</AssemblyName>
+    <RootNamespace>Gibbed.Borderlands2.SparkTmsPack</RootNamespace>
+    <AssemblyName>Gibbed.Borderlands2.SparkTmsPack</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -19,7 +19,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\bin\</OutputPath>
+    <OutputPath>..\..\bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
