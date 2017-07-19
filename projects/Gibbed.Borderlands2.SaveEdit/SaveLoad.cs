@@ -70,7 +70,9 @@ namespace Gibbed.Borderlands2.SaveEdit
                               .AddFilter("sav", this._FilterIndex == 2)
                               .WithDescription("X360 Save Files")
                               .AddFilter("sav", this._FilterIndex == 3)
-                              .WithDescription("PS3 Save Files"))
+                              .WithDescription("PS3 Save Files")
+                              .AddFilter("sav", this._FilterIndex == 4)
+                              .WithDescription("PSVita Save Files"))
                 .WithFileDo(s => fileName = s)
                 .WithFilterIndexDo(i => filterIndex = i);
 
@@ -94,11 +96,12 @@ namespace Gibbed.Borderlands2.SaveEdit
                 Platform.Invalid,
                 Platform.PC,
                 Platform.X360,
-                Platform.PS3
+                Platform.PS3,
+                Platform.PSVita,
             };
 
             fileNameAction(fileName);
-            platformAction(filterIndex < 1 || filterIndex > 3
+            platformAction(filterIndex < 1 || filterIndex > 4
                                ? Platform.PC
                                : platforms[filterIndex]);
         }

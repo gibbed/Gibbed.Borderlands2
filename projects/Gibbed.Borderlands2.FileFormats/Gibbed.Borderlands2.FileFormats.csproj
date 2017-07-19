@@ -53,6 +53,7 @@
     <Compile Include="AssetLibraryManagerHelpers.cs" />
     <Compile Include="BitReader.cs" />
     <Compile Include="BitWriter.cs" />
+    <Compile Include="CompressionScheme.cs" />
     <Compile Include="CRC32.cs" />
     <Compile Include="Huffman\Decoder.cs" />
     <Compile Include="Huffman\Encoder.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Items\PackedItem.cs" />
     <Compile Include="Items\PackedWeapon.cs" />
     <Compile Include="LZO.cs" />
+    <Compile Include="PlatformHelpers.cs" />
     <Compile Include="PlayerStats.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveCorruptionException.cs" />
