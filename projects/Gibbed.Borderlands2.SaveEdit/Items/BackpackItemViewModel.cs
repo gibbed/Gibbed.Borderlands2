@@ -30,11 +30,6 @@ namespace Gibbed.Borderlands2.SaveEdit
     {
         private readonly BackpackItem _Item;
 
-        public IBackpackSlot BackpackSlot
-        {
-            get { return this._Item; }
-        }
-
         public BackpackItemViewModel(BackpackItem item)
             : base(item)
         {
@@ -47,6 +42,16 @@ namespace Gibbed.Borderlands2.SaveEdit
         }
 
         #region Properties
+        public IBackpackSlot BackpackSlot
+        {
+            get { return this._Item; }
+        }
+
+        public BackpackItem Item
+        {
+            get { return this._Item; }
+        }
+
         public int Quantity
         {
             get { return this._Item.Quantity; }

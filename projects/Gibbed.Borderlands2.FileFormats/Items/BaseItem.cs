@@ -27,6 +27,32 @@ namespace Gibbed.Borderlands2.FileFormats.Items
 {
     public class BaseItem : IPackableItem, INotifyPropertyChanged
     {
+        public BaseItem()
+        {
+        }
+
+        public BaseItem(BaseItem other)
+        {
+            this.Type = other.Type;
+            this.Balance = other.Balance;
+            this.Manufacturer = other.Manufacturer;
+            this.ManufacturerGradeIndex = other.ManufacturerGradeIndex;
+            this.AlphaPart = other.AlphaPart;
+            this.BetaPart = other.BetaPart;
+            this.GammaPart = other.GammaPart;
+            this.DeltaPart = other.DeltaPart;
+            this.EpsilonPart = other.EpsilonPart;
+            this.ZetaPart = other.ZetaPart;
+            this.EtaPart = other.EtaPart;
+            this.ThetaPart = other.ThetaPart;
+            this.MaterialPart = other.MaterialPart;
+            this.PrefixPart = other.PrefixPart;
+            this.TitlePart = other.TitlePart;
+            this.GameStage = other.GameStage;
+            this.UniqueId = other.UniqueId;
+            this.AssetLibrarySetId = other.AssetLibrarySetId;
+        }
+
         #region Fields
         private string _Type = "None";
         private string _Balance = "None";

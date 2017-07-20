@@ -363,7 +363,22 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         public void BankSelectedSlot()
         {
-            // TODO: implement me
+            if (this.SelectedSlot == null)
+            {
+                return;
+            }
+
+            var slot = this.SelectedSlot.BackpackSlot;
+            this.Slots.Remove(this.SelectedSlot);
+
+            if (slot is BaseItem)
+            {
+                this.Bank.Slots.Add(new BaseItemViewModel(new BaseItem((BaseItem)slot)));
+            }
+            else if (slot is BaseWeapon)
+            {
+                this.Bank.Slots.Add(new BaseWeaponViewModel(new BaseWeapon((BaseWeapon)slot)));
+            }
         }
 
         public void DeleteSelectedSlot()

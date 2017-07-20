@@ -26,6 +26,22 @@ namespace Gibbed.Borderlands2.FileFormats.Items
 {
     public sealed class BackpackWeapon : BaseWeapon, IBackpackSlot
     {
+        public BackpackWeapon()
+        {
+        }
+
+        public BackpackWeapon(BackpackWeapon other)
+            : base(other)
+        {
+            this.QuickSlot = other.QuickSlot;
+            this.Mark = other.Mark;
+        }
+
+        public BackpackWeapon(BaseWeapon other)
+            : base(other)
+        {
+        }
+
         #region Fields
         private QuickWeaponSlot _QuickSlot = QuickWeaponSlot.None;
         private PlayerMark _Mark = PlayerMark.Standard;

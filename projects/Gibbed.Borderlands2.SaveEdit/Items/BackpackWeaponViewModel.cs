@@ -29,11 +29,6 @@ namespace Gibbed.Borderlands2.SaveEdit
     {
         private readonly BackpackWeapon _Weapon;
 
-        public IBackpackSlot BackpackSlot
-        {
-            get { return this._Weapon; }
-        }
-
         public BackpackWeaponViewModel(BackpackWeapon weapon)
             : base(weapon)
         {
@@ -41,6 +36,16 @@ namespace Gibbed.Borderlands2.SaveEdit
         }
 
         #region Properties
+        public IBackpackSlot BackpackSlot
+        {
+            get { return this._Weapon; }
+        }
+
+        public BackpackWeapon Weapon
+        {
+            get { return this._Weapon; }
+        }
+
         public QuickWeaponSlot QuickSlot
         {
             get { return this._Weapon.QuickSlot; }

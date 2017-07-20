@@ -26,6 +26,24 @@ namespace Gibbed.Borderlands2.FileFormats.Items
 {
     public class BackpackItem : BaseItem, IBackpackSlot
     {
+        public BackpackItem()
+        {
+        }
+
+        public BackpackItem(BackpackItem other)
+            : base(other)
+        {
+            this.Quantity = other.Quantity;
+            this.Equipped = other.Equipped;
+            this.Mark = other.Mark;
+        }
+
+        public BackpackItem(BaseItem other)
+            : base(other)
+        {
+
+        }
+
         #region Fields
         private int _Quantity = 1;
         private bool _Equipped;

@@ -141,6 +141,7 @@
                     [Shortcut Delete] = [Action DeleteSelectedSlot];
                     [Shortcut Control+C] = [Action CopySelectedSlotCode];
                     [Shortcut Control+D] = [Action DuplicateSelectedSlot];
+                    [Shortcut Control+B] = [Action BankSelectedSlot];
                 </cal:Message.Attach>
                 <ListView.GroupStyle>
                     <GroupStyle>
@@ -188,6 +189,7 @@
                                        Height="16" />
                             </MenuItem.Icon>
                             <MenuItem.Header>Bank</MenuItem.Header>
+                            <MenuItem.InputGestureText>Ctrl+B</MenuItem.InputGestureText>
                             <cal:Message.Attach>BankSelectedSlot</cal:Message.Attach>
                         </MenuItem>
                         <Separator />

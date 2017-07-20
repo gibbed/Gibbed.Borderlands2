@@ -27,6 +27,32 @@ namespace Gibbed.Borderlands2.FileFormats.Items
 {
     public class BaseWeapon : IPackableWeapon, INotifyPropertyChanged
     {
+        public BaseWeapon()
+        {
+        }
+
+        public BaseWeapon(BaseWeapon other)
+        {
+            this.Type = other.Type;
+            this.Balance = other.Balance;
+            this.Manufacturer = other.Manufacturer;
+            this.ManufacturerGradeIndex = other.ManufacturerGradeIndex;
+            this.BodyPart = other.BodyPart;
+            this.GripPart = other.GripPart;
+            this.BarrelPart = other.BarrelPart;
+            this.SightPart = other.SightPart;
+            this.StockPart = other.StockPart;
+            this.ElementalPart = other.ElementalPart;
+            this.Accessory1Part = other.Accessory1Part;
+            this.Accessory2Part = other.Accessory2Part;
+            this.MaterialPart = other.MaterialPart;
+            this.PrefixPart = other.PrefixPart;
+            this.TitlePart = other.TitlePart;
+            this.GameStage = other.GameStage;
+            this.UniqueId = other.UniqueId;
+            this.AssetLibrarySetId = other.AssetLibrarySetId;
+        }
+
         #region Fields
         private string _Type = "None";
         private string _Balance = "None";
@@ -48,6 +74,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         private int _AssetLibrarySetId;
         #endregion
 
+        #region IPackable Members
         public void Unpack(PackedWeapon packed, Platform platform)
         {
             var alm = InfoManager.AssetLibraryManager;
@@ -99,6 +126,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 TitlePart = alm.Lookup(this.TitlePart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts)
             };
         }
+        #endregion
 
         #region Properties
         public string Type
