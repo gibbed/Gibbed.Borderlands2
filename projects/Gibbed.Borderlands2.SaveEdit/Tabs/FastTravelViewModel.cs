@@ -209,6 +209,22 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
         }
 
+        public void VisitedCheckAll()
+        {
+            foreach (var visitedTeleporter in this.VisitedTeleporters)
+            {
+                visitedTeleporter.Visited = true;
+            }
+        }
+
+        public void VisitedUncheckAll()
+        {
+            foreach (var visitedTeleporter in this.VisitedTeleporters)
+            {
+                visitedTeleporter.Visited = false;
+            }
+        }
+
         #region TravelStationDisplay
         public class VisitedTeleporterDisplay : PropertyChangedBase
         {

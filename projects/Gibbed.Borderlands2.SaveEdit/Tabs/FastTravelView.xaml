@@ -26,6 +26,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d"
              d:DesignWidth="720"
              d:DesignHeight="480">
@@ -33,13 +34,13 @@
         <CollectionViewSource x:Key="GroupedAvailableTeleporters"
                               Source="{Binding Path=AvailableTeleporters}">
             <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="Group"></PropertyGroupDescription>
+                <PropertyGroupDescription PropertyName="Group" />
             </CollectionViewSource.GroupDescriptions>
         </CollectionViewSource>
         <CollectionViewSource x:Key="GroupedVisitedTeleporters"
                               Source="{Binding Path=VisitedTeleporters}">
             <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="Group"></PropertyGroupDescription>
+                <PropertyGroupDescription PropertyName="Group" />
             </CollectionViewSource.GroupDescriptions>
         </CollectionViewSource>
     </UserControl.Resources>
@@ -63,6 +64,21 @@
                 </ComboBox.GroupStyle>
             </ComboBox>
         </GroupBox>
+        <ToolBar Name="ButtonBar"
+                 DockPanel.Dock="Bottom">
+            <Button>
+                <cal:Message.Attach>[Event Click] = [Action VisitedCheckAll]</cal:Message.Attach>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Check All" />
+                </StackPanel>
+            </Button>
+            <Button>
+                <cal:Message.Attach>[Event Click] = [Action VisitedUncheckAll]</cal:Message.Attach>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Uncheck All" />
+                </StackPanel>
+            </Button>
+        </ToolBar>
         <GroupBox Header="Visited Teleporters">
             <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                           VerticalScrollBarVisibility="Auto">
