@@ -129,7 +129,8 @@
                                     Value="{Binding Path=TorgueTokens, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
         </Expander>
-        <Expander Header="Reserved"
+        <Expander Header="Reserved (Unused)"
+                  FontStyle="Italic"
                   IsExpanded="False">
             <Grid>
                 <Grid.RowDefinitions>
