@@ -37,6 +37,9 @@
       <HintPath>..\..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MiniLZO">
+      <HintPath>..\..\other\MiniLZO.dll</HintPath>
+    </Reference>
     <Reference Include="protobuf-net, Version=2.3.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
       <HintPath>..\..\packages\protobuf-net.2.3.0\lib\net40\protobuf-net.dll</HintPath>
       <Private>True</Private>
@@ -72,7 +75,6 @@
     <Compile Include="Items\PackedAssetReference.cs" />
     <Compile Include="Items\PackedItem.cs" />
     <Compile Include="Items\PackedWeapon.cs" />
-    <Compile Include="LZO.cs" />
     <Compile Include="PlatformHelpers.cs" />
     <Compile Include="PlayerStats.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,14 +96,6 @@
       <Project>{047857BA-DAA3-4CA7-AFB8-A1B082B28C6A}</Project>
       <Name>Gibbed.IO</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\..\other\lzo32.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\other\lzo64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

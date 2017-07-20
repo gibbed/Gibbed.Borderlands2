@@ -108,15 +108,15 @@ namespace Gibbed.Borderlands2.SparkTmsUnpack
 
                 var compressedBytes = input.ReadBytes(compressedSize1);
                 var uncompressedBytes = new byte[uncompressedSize1];
-
                 var actualUncompressedSize = (int)uncompressedSize1;
-                var result = LZO.Decompress(compressedBytes,
-                                            0,
-                                            (int)compressedSize1,
-                                            uncompressedBytes,
-                                            0,
-                                            ref actualUncompressedSize);
-                if (result != LZO.ErrorCode.Success)
+                var result = MiniLZO.LZO.Decompress(
+                    compressedBytes,
+                    0,
+                    (int)compressedSize1,
+                    uncompressedBytes,
+                    0,
+                    ref actualUncompressedSize);
+                if (result != MiniLZO.ErrorCode.Success)
                 {
                     throw new FormatException();
                 }

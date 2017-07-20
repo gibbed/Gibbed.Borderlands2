@@ -122,14 +122,15 @@ namespace Gibbed.Borderlands2.SparkTmsPack
             var compressedBytes = new byte[uncompressedBytes.Length +
                                            (uncompressedBytes.Length / 16) + 64 + 3];
             var actualCompressedSize = compressedBytes.Length;
-
-            var result = LZO.Compress(uncompressedBytes,
-                                      0,
-                                      uncompressedBytes.Length,
-                                      compressedBytes,
-                                      0,
-                                      ref actualCompressedSize);
-            if (result != LZO.ErrorCode.Success)
+            var result = MiniLZO.LZO.Compress(
+                uncompressedBytes,
+                0,
+                uncompressedBytes.Length,
+                compressedBytes,
+                0,
+                ref actualCompressedSize,
+                new MiniLZO.CompressWorkBuffer());
+            if (result != MiniLZO.ErrorCode.Success)
             {
                 throw new SaveCorruptionException(string.Format("LZO compression failure ({0})", result));
             }
