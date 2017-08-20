@@ -28,5 +28,50 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             this.InitializeComponent();
         }
+        private void BaseWeaponView_Load(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (Properties.Settings.Default.isDarkEnabled == true)
+            {
+                SetText.Foreground = System.Windows.Media.Brushes.White;
+                SetLabel.Foreground = System.Windows.Media.Brushes.White;
+                TypeLabel.Foreground = System.Windows.Media.Brushes.White;
+                BalanceLabel.Foreground = System.Windows.Media.Brushes.White;
+                ManufacturerLabel.Foreground = System.Windows.Media.Brushes.White;
+                GradeLabel.Foreground = System.Windows.Media.Brushes.White;
+                BodLabel.Foreground = System.Windows.Media.Brushes.White;
+                GripLabel.Foreground = System.Windows.Media.Brushes.White;
+                BarrelLabel.Foreground = System.Windows.Media.Brushes.White;
+                SightLabel.Foreground = System.Windows.Media.Brushes.White;
+                StockLabel.Foreground = System.Windows.Media.Brushes.White;
+                ElementLabel.Foreground = System.Windows.Media.Brushes.White;
+                AccessoryLabel.Foreground = System.Windows.Media.Brushes.White;
+                Accessory2Label.Foreground = System.Windows.Media.Brushes.White;
+                MatLabel.Foreground = System.Windows.Media.Brushes.White;
+                PrefixLabel.Foreground = System.Windows.Media.Brushes.White;
+                TitleLabel.Foreground = System.Windows.Media.Brushes.White;
+                GameStageLabel.Foreground = System.Windows.Media.Brushes.White;
+            }
+            else
+            {
+                SetText.Foreground = System.Windows.Media.Brushes.Black;
+                SetLabel.Foreground = System.Windows.Media.Brushes.Black;
+                TypeLabel.Foreground = System.Windows.Media.Brushes.Black;
+                BalanceLabel.Foreground = System.Windows.Media.Brushes.Black;
+                ManufacturerLabel.Foreground = System.Windows.Media.Brushes.Black;
+                GradeLabel.Foreground = System.Windows.Media.Brushes.Black;
+                BodLabel.Foreground = System.Windows.Media.Brushes.Black;
+                GripLabel.Foreground = System.Windows.Media.Brushes.Black;
+                BarrelLabel.Foreground = System.Windows.Media.Brushes.Black;
+                SightLabel.Foreground = System.Windows.Media.Brushes.Black;
+                StockLabel.Foreground = System.Windows.Media.Brushes.Black;
+                ElementLabel.Foreground = System.Windows.Media.Brushes.Black;
+                AccessoryLabel.Foreground = System.Windows.Media.Brushes.Black;
+                Accessory2Label.Foreground = System.Windows.Media.Brushes.Black;
+                MatLabel.Foreground = System.Windows.Media.Brushes.Black;
+                PrefixLabel.Foreground = System.Windows.Media.Brushes.Black;
+                TitleLabel.Foreground = System.Windows.Media.Brushes.Black;
+                GameStageLabel.Foreground = System.Windows.Media.Brushes.Black;
+            }
+        }
     }
 }

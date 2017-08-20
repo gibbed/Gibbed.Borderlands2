@@ -28,7 +28,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
              d:DesignWidth="720"
-             d:DesignHeight="480">
+             d:DesignHeight="480" Loaded="Vehicle_Loaded">
     <UserControl.Resources>
         <CollectionViewSource x:Key="GroupedRunnerAssets1"
                               Source="{Binding Path=RunnerAssets}">
@@ -80,7 +80,7 @@
         </CollectionViewSource>
     </UserControl.Resources>
     <StackPanel Orientation="Vertical">
-        <Expander Header="Runner"
+        <Expander x:Name="RunnerExpander" Header="Runner"
                   IsExpanded="True">
             <Grid>
                 <Grid.RowDefinitions>
@@ -92,7 +92,7 @@
                     <ColumnDefinition Width="0.50*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0"
+                <Label x:Name="Run1Lab" Grid.Row="0"
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
                        Content="Skin #1:" />
@@ -115,7 +115,7 @@
                         </GroupStyle>
                     </ComboBox.GroupStyle>
                 </ComboBox>
-                <Label Grid.Row="1"
+                <Label x:Name="Run2Lab" Grid.Row="1"
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
                        Content="Skin #2:" />
@@ -140,7 +140,7 @@
                 </ComboBox>
             </Grid>
         </Expander>
-        <Expander Header="Bandit Technical"
+        <Expander x:Name="BanditTechExpander" Header="Bandit Technical"
                   IsExpanded="True">
             <Grid>
                 <Grid.RowDefinitions>
@@ -152,7 +152,7 @@
                     <ColumnDefinition Width="0.50*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0"
+                <Label x:Name="Bandit1Lab" Grid.Row="0"
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
                        Content="Skin #1:" />
@@ -175,7 +175,7 @@
                         </GroupStyle>
                     </ComboBox.GroupStyle>
                 </ComboBox>
-                <Label Grid.Row="1"
+                <Label x:Name="BanditSkin2Lab" Grid.Row="1"
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
                        Content="Skin #2:" />
@@ -200,7 +200,7 @@
                 </ComboBox>
             </Grid>
         </Expander>
-        <Expander Header="Hovercraft"
+        <Expander x:Name="HovercraftExpander" Header="Hovercraft"
                   IsExpanded="True">
             <Grid>
                 <Grid.RowDefinitions>
@@ -212,7 +212,7 @@
                     <ColumnDefinition Width="0.50*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0"
+                <Label x:Name="Hovercraft1Lab" Grid.Row="0"
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
                        Content="Skin #1:" />
@@ -235,7 +235,7 @@
                         </GroupStyle>
                     </ComboBox.GroupStyle>
                 </ComboBox>
-                <Label Grid.Row="1"
+                <Label x:Name="Hovercraft2Lab" Grid.Row="1"
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
                        Content="Skin #2:" />
@@ -260,7 +260,7 @@
                 </ComboBox>
             </Grid>
         </Expander>
-        <Expander Header="Fan Boat"
+        <Expander x:Name="FanBoatExpander" Header="Fan Boat"
                   IsExpanded="True">
             <Grid>
                 <Grid.RowDefinitions>
@@ -272,7 +272,7 @@
                     <ColumnDefinition Width="0.50*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0"
+                <Label x:Name="FanBoat1Lab" Grid.Row="0"
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
                        Content="Skin #1:" />
@@ -295,7 +295,7 @@
                         </GroupStyle>
                     </ComboBox.GroupStyle>
                 </ComboBox>
-                <Label Grid.Row="1"
+                <Label x:Name="Fanboat2Lab" Grid.Row="1"
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
                        Content="Skin #2:" />

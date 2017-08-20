@@ -28,5 +28,31 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             this.InitializeComponent();
         }
+
+        private void Base_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if(Properties.Settings.Default.isDarkEnabled == true)
+            {
+                SetLab.Foreground = System.Windows.Media.Brushes.White;
+                SetLabel.Foreground = System.Windows.Media.Brushes.White;
+                TypeLab.Foreground = System.Windows.Media.Brushes.White;
+                TypeLab1.Foreground = System.Windows.Media.Brushes.White;
+                BalanceLab.Foreground = System.Windows.Media.Brushes.White;
+                ManuLab.Foreground = System.Windows.Media.Brushes.White;
+                GradeLab.Foreground = System.Windows.Media.Brushes.White;
+                AlphaLab.Foreground = System.Windows.Media.Brushes.White;
+                BetaLab.Foreground = System.Windows.Media.Brushes.White;
+                GammaLab.Foreground = System.Windows.Media.Brushes.White;
+                DeltaLab.Foreground = System.Windows.Media.Brushes.White;
+                EpsilonLab.Foreground = System.Windows.Media.Brushes.White;
+                ZetaLab.Foreground = System.Windows.Media.Brushes.White;
+                EtaLab.Foreground = System.Windows.Media.Brushes.White;
+                ThetaLab.Foreground = System.Windows.Media.Brushes.White;
+                MatLab.Foreground = System.Windows.Media.Brushes.White;
+                PrefixLab.Foreground = System.Windows.Media.Brushes.White;
+                TitleLab.Foreground = System.Windows.Media.Brushes.White;
+                GameStageLab.Foreground = System.Windows.Media.Brushes.White;
+            }
+        }
     }
 }

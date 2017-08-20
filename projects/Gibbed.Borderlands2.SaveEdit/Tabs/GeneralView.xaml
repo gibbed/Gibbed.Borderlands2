@@ -31,9 +31,9 @@
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
              mc:Ignorable="d"
              d:DesignWidth="720"
-             d:DesignHeight="480">
+             d:DesignHeight="480" Loaded="General_Load">
     <StackPanel Orientation="Vertical">
-        <Expander Header="Save"
+        <Expander x:Name="SaveExpander" Header="Save"
                   IsExpanded="True">
             <Grid>
                 <Grid.RowDefinitions>
@@ -46,7 +46,7 @@
                     <ColumnDefinition Width="0.50*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0"
+                <Label x:Name="GuidLab" Grid.Row="0"
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
                        Content="Save Guid:" />
@@ -56,24 +56,24 @@
                            Margin="3">
                     <Button x:Name="RandomizeSaveGuid"
                             DockPanel.Dock="Right"
-                            ToolTip="Randomzie the save guid">
+                            ToolTip="Randomize the save guid">
                         Random
                     </Button>
-                    <TextBox Text="{Binding Path=SaveGuid, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox x:Name="GuidBox" Text="{Binding Path=SaveGuid, UpdateSourceTrigger=PropertyChanged}" />
                 </DockPanel>
-                <Label Grid.Row="1"
+                <Label x:Name="SlotLab" Grid.Row="1"
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
                        Content="Save Slot:" />
-                <xctk:IntegerUpDown Grid.Row="1"
+                <xctk:IntegerUpDown x:Name="SlotUpDown" Grid.Row="1"
                                     Grid.Column="1"
                                     Margin="3"
                                     Value="{Binding Path=SaveGameId, UpdateSourceTrigger=PropertyChanged}" />
-                <Label Grid.Row="2"
+                <Label x:Name="PlatLab" Grid.Row="2"
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
                        Content="Platform:" />
-                <se:MyComboBox Grid.Row="2"
+                <se:MyComboBox x:Name="PlatBox" Grid.Row="2"
                                Grid.Column="1"
                                ItemsSource="{Binding Path=Platforms}"
                                DisplayMemberPath="Name"
@@ -82,7 +82,7 @@
                                Margin="3" />
             </Grid>
         </Expander>
-        <Expander Header="Importing"
+        <Expander x:Name="ImportExpander" Header="Importing"
                   IsExpanded="True">
             <Grid>
                 <Grid.RowDefinitions>
@@ -104,24 +104,39 @@
                 <WrapPanel Orientation="Horizontal"
                            Grid.Row="0"
                            Grid.Column="1">
-                    <Button Margin="3"
+                    <Button x:Name="SkillButton" Margin="3"
                             Content="Import Skills">
                         <cal:Message.Attach>[Event Click] = [Action DoImportSkills]</cal:Message.Attach>
                     </Button>
-                    <Button Margin="3"
+                    <Button x:Name="MissionButton" Margin="3"
                             Content="Import Missions">
                         <cal:Message.Attach>[Event Click] = [Action DoImportMissions]</cal:Message.Attach>
                     </Button>
-                    <Button Margin="3"
+                    <Button x:Name="WorldButton" Margin="3"
                             Content="Import World">
                         <cal:Message.Attach>[Event Click] = [Action DoImportWorld]</cal:Message.Attach>
                     </Button>
-                    <Button Margin="3"
+                    <Button x:Name="ImportStats" Margin="3"
                             Content="Import Stats">
                         <cal:Message.Attach>[Event Click] = [Action DoImportStats]</cal:Message.Attach>
                     </Button>
                 </WrapPanel>
             </Grid>
         </Expander>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.50*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <WrapPanel Orientation="Horizontal"
+                           Grid.Row="9" Margin="8,268,87,-284">
+            </WrapPanel>
+        </Grid>
     </StackPanel>
 </UserControl>

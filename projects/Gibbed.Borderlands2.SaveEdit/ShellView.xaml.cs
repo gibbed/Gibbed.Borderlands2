@@ -19,7 +19,6 @@
  * 3. This notice may not be removed or altered from any source
  *    distribution.
  */
-
 namespace Gibbed.Borderlands2.SaveEdit
 {
     public partial class ShellView
@@ -27,6 +26,41 @@ namespace Gibbed.Borderlands2.SaveEdit
         public ShellView()
         {
             this.InitializeComponent();
+        }
+        private void ShellView_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            System.Windows.Media.Color DarkBack = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#141414");
+            System.Windows.Media.Brush DarkBrush = new System.Windows.Media.SolidColorBrush(DarkBack);
+            if (Properties.Settings.Default.isDarkEnabled == true)
+            {
+                #region Button Bar
+                ButtonBar.Background = DarkBrush;
+                NewLab.Foreground = System.Windows.Media.Brushes.White;
+                Openlab.Foreground = System.Windows.Media.Brushes.White;
+                SaveLab.Foreground = System.Windows.Media.Brushes.White;
+                TabControl.Background = DarkBrush;
+                #endregion
+            } else
+            {
+                #region Button Bar
+                ButtonBar.Background = System.Windows.Media.Brushes.White;
+                NewLab.Foreground = System.Windows.Media.Brushes.Black;
+                Openlab.Foreground = System.Windows.Media.Brushes.Black;
+                SaveLab.Foreground = System.Windows.Media.Brushes.Black;
+                TabControl.Background = System.Windows.Media.Brushes.White;
+                #endregion
+            }
+        }
+
+        private void RawTab_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if(Properties.Settings.Default.isDarkEnabled == true)
+            {
+                /*System.Windows.Media.Color DarkBack = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#141414");
+                System.Windows.Media.Brush DarkBrush = new System.Windows.Media.SolidColorBrush(DarkBack);
+                RawPropertyGrid.Foreground = System.Windows.Media.Brushes.White;
+                RawPropertyGrid.Background = DarkBrush;*/
+            }
         }
     }
 }

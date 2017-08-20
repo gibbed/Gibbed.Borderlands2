@@ -28,5 +28,36 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             this.InitializeComponent();
         }
+        private void BackpackItem_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if(Properties.Settings.Default.isDarkEnabled == true)
+            {
+                SetLab.Foreground = System.Windows.Media.Brushes.White;
+                SetLabel.Foreground = System.Windows.Media.Brushes.White;
+                TypeLab.Foreground = System.Windows.Media.Brushes.White;
+                TypeFilter.Foreground = System.Windows.Media.Brushes.White;
+                BalanceLab.Foreground = System.Windows.Media.Brushes.White;
+                ManufacturerLab.Foreground = System.Windows.Media.Brushes.White;
+                ManuGradeLab.Foreground = System.Windows.Media.Brushes.White;
+                AlphaLab.Foreground = System.Windows.Media.Brushes.White;
+                BetaLab.Foreground = System.Windows.Media.Brushes.White;
+                GammaLab.Foreground = System.Windows.Media.Brushes.White;
+                DeltaLab.Foreground = System.Windows.Media.Brushes.White;
+                EpsilonLab.Foreground = System.Windows.Media.Brushes.White;
+                ZetaLab.Foreground = System.Windows.Media.Brushes.White;
+                EtaLab.Foreground = System.Windows.Media.Brushes.White;
+                ThetaLab.Foreground = System.Windows.Media.Brushes.White;
+                MatLab.Foreground = System.Windows.Media.Brushes.White;
+                PrefixLab.Foreground = System.Windows.Media.Brushes.White;
+                TitleLab.Foreground = System.Windows.Media.Brushes.White;
+                GameStageLab.Foreground = System.Windows.Media.Brushes.White;
+                QuantityLab.Foreground = System.Windows.Media.Brushes.White;
+                EquippedLab.Foreground = System.Windows.Media.Brushes.White;
+                MarkLab.Foreground = System.Windows.Media.Brushes.White;
+                StandardButton.Foreground = System.Windows.Media.Brushes.White;
+                FavButton.Foreground = System.Windows.Media.Brushes.White;
+                TrashButton.Foreground = System.Windows.Media.Brushes.White;
+            }
+        }
     }
 }

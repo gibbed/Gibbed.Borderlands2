@@ -28,5 +28,25 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             this.InitializeComponent();
         }
+        private void BankLoaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if(Properties.Settings.Default.isDarkEnabled == true)
+            {
+                System.Windows.Media.Color DarkBack = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#141414");
+                System.Windows.Media.Brush DarkBrush = new System.Windows.Media.SolidColorBrush(DarkBack);
+                NewWepButton.Background = DarkBrush;
+                ItemButton.Background = DarkBrush;
+                PasteButton.Background = DarkBrush;
+                SyncAllLevels.Background = DarkBrush;
+                ButtonBar.Background = DarkBrush;
+                UserControl.Background = DarkBrush;
+                ListView.Background = DarkBrush;
+                TinyGridSplitter.Background = DarkBrush;
+                WepLab.Foreground = System.Windows.Media.Brushes.White;
+                ItemLab1.Foreground = System.Windows.Media.Brushes.White;
+                PastLab.Foreground = System.Windows.Media.Brushes.White;
+                SyncLab.Foreground = System.Windows.Media.Brushes.White;
+            }
+        }
     }
 }

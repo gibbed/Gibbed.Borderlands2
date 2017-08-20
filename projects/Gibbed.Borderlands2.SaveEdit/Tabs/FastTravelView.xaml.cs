@@ -28,5 +28,19 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             this.InitializeComponent();
         }
+        private void FT_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if(Properties.Settings.Default.isDarkEnabled == true)
+            {
+                System.Windows.Media.Color DarkBack = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#141414");
+                System.Windows.Media.Brush DarkBrush = new System.Windows.Media.SolidColorBrush(DarkBack);
+                LastTeleBox.Foreground = System.Windows.Media.Brushes.White;
+                VisitedBox.Foreground = System.Windows.Media.Brushes.White;
+                GroupedControl.Foreground = System.Windows.Media.Brushes.White;
+                CheckAllLabel.Foreground = System.Windows.Media.Brushes.White;
+                UncheckLabel.Foreground = System.Windows.Media.Brushes.White;
+                ButtonBar.Background = DarkBrush;
+            }
+        }
     }
 }

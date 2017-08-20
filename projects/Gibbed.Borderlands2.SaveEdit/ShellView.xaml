@@ -32,10 +32,16 @@
              d:DesignHeight="560"
              xmlns:se="clr-namespace:Gibbed.Borderlands2.SaveEdit"
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
-             xmlns:gameInfo="clr-namespace:Gibbed.Borderlands2.GameInfo;assembly=Gibbed.Borderlands2.GameInfo">
+             xmlns:gameInfo="clr-namespace:Gibbed.Borderlands2.GameInfo;assembly=Gibbed.Borderlands2.GameInfo" Foreground="Black" Loaded="ShellView_Loaded">
     <UserControl.Resources>
         <se:NullToBooleanConverter x:Key="NullToBooleanConverter1" />
     </UserControl.Resources>
+    <UserControl.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="Black" Offset="0"/>
+            <GradientStop Color="White" Offset="1"/>
+        </LinearGradientBrush>
+    </UserControl.Background>
     <DockPanel>
         <cal:Message.Attach>
             [Shortcut Control+N] = [Action NewSave];
@@ -43,14 +49,14 @@
             [Shortcut Control+S] = [Action WriteSave];
         </cal:Message.Attach>
         <ToolBar Name="ButtonBar"
-                 DockPanel.Dock="Top">
+                 DockPanel.Dock="Top" Foreground="Black" Background="White">
             <Button>
                 <cal:Message.Attach>[Event Click] = [Action NewSave]</cal:Message.Attach>
                 <StackPanel Orientation="Horizontal">
                     <Image Width="16"
                            Height="16"
                            Source="Resources\fugue\document.png" />
-                    <Label Content="New" />
+                    <Label x:Name="NewLab" Content="New" />
                 </StackPanel>
                 <Button.ToolTip>New (Ctrl+N)</Button.ToolTip>
             </Button>
@@ -76,7 +82,7 @@
                     <Image Width="16"
                            Height="16"
                            Source="Resources\fugue\folder-open-document.png" />
-                    <Label Content="Open" />
+                    <Label x:Name="Openlab" Content="Open" />
                 </StackPanel>
                 <Button.ToolTip>Open (Ctrl+O)</Button.ToolTip>
             </Button>
@@ -86,18 +92,18 @@
                     <Image Width="16"
                            Height="16"
                            Source="Resources\fugue\disk-black.png" />
-                    <Label Content="Save" />
+                    <Label x:Name="SaveLab" Content="Save" />
                 </StackPanel>
                 <Button.ToolTip>Save (Ctrl+S)</Button.ToolTip>
             </Button>
         </ToolBar>
-        <TabControl TabStripPlacement="Top">
-            <TabItem IsSelected="{Binding Path=IsGeneralSelected}">
+        <TabControl x:Name="TabControl" TabStripPlacement="Top">
+            <TabItem x:Name="GenTab" IsSelected="{Binding Path=IsGeneralSelected}">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Height="24"
                                Source="Resources\green vault symbol.png" />
-                        <Label VerticalAlignment="Center"
+                        <Label x:Name="GenLab" VerticalAlignment="Center"
                                Content="General" />
                     </StackPanel>
                 </TabItem.Header>
@@ -107,12 +113,12 @@
                                     IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" />
                 </ScrollViewer>
             </TabItem>
-            <TabItem>
+            <TabItem x:Name="CharTab">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Height="24"
                                Source="Resources\red skull.png" />
-                        <Label VerticalAlignment="Center"
+                        <Label x:Name="CharLab" VerticalAlignment="Center"
                                Content="Character" />
                     </StackPanel>
                 </TabItem.Header>
@@ -122,12 +128,12 @@
                                     IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" />
                 </ScrollViewer>
             </TabItem>
-            <TabItem>
+            <TabItem x:Name="VehicleTab">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Height="24"
                                Source="Resources\wheel.png" />
-                        <Label VerticalAlignment="Center"
+                        <Label x:Name="VehicleLab" VerticalAlignment="Center"
                                Content="Vehicle" />
                     </StackPanel>
                 </TabItem.Header>
@@ -137,12 +143,12 @@
                                     IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" />
                 </ScrollViewer>
             </TabItem>
-            <TabItem>
+            <TabItem x:Name="CurrencyTab">
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel x:Name="___No_Name_" Orientation="Horizontal">
                         <Image Height="24"
                                Source="Resources\pink seraph crystal.png" />
-                        <Label VerticalAlignment="Center"
+                        <Label x:Name="CurrencyLab" VerticalAlignment="Center"
                                Content="Currency" />
                     </StackPanel>
                 </TabItem.Header>
@@ -152,55 +158,55 @@
                                     IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" />
                 </ScrollViewer>
             </TabItem>
-            <TabItem>
+            <TabItem x:Name="FTLabel">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Height="24"
                                Source="Resources\fast travel.png" />
-                        <Label VerticalAlignment="Center"
+                        <Label x:Name="FTLab" VerticalAlignment="Center"
                                Content="Fast Travel" />
                     </StackPanel>
                 </TabItem.Header>
                 <ContentControl x:Name="FastTravel"
                                 IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" />
             </TabItem>
-            <TabItem>
+            <TabItem x:Name="BackpackTab">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Height="24"
                                Source="Resources\backpack.png" />
-                        <Label VerticalAlignment="Center"
+                        <Label x:Name="BackpackLab" VerticalAlignment="Center"
                                Content="{Binding Path=Backpack.Slots.Count}" ContentStringFormat="Backpack ({0})"/>
                     </StackPanel>
                 </TabItem.Header>
                 <ContentControl x:Name="Backpack"
-                                IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" />
+                                IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}"/>
             </TabItem>
-            <TabItem>
+            <TabItem x:Name="BankTab">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Height="24"
                                Source="Resources\bank.png" />
-                        <Label VerticalAlignment="Center"
+                        <Label x:Name="BankLab" VerticalAlignment="Center"
                                Content="{Binding Path=Bank.Slots.Count}" ContentStringFormat="Bank ({0})"/>
                     </StackPanel>
                 </TabItem.Header>
                 <ContentControl x:Name="Bank"
                                 IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" />
             </TabItem>
-            <TabItem>
+            <TabItem x:Name="RawTab">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Height="24"
                                Source="Resources\fugue\document-binary.png" />
-                        <Label VerticalAlignment="Center"
+                        <Label x:Name="RawLab" VerticalAlignment="Center"
                                Content="Raw" />
                     </StackPanel>
                 </TabItem.Header>
-                <xctk:PropertyGrid AutoGenerateProperties="False"
+                <xctk:PropertyGrid x:Name="RawPropertyGrid" AutoGenerateProperties="False"
                                    SelectedObject="{Binding Path=SaveFile.SaveGame}"
                                    ShowTitle="False"
-                                   IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}">
+                                   IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" Loaded="RawTab_Loaded">
                     <xctk:PropertyGrid.PropertyDefinitions>
                         <xctk:PropertyDefinition TargetProperties="PlaythroughsCompleted" />
                         <xctk:PropertyDefinition TargetProperties="SkillData" />
@@ -241,7 +247,7 @@
                             <!-- Workaround for broken byte[] support in PropertyGrid. -->
                             <xctk:EditorTemplateDefinition.EditingTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Value}" />
+                                    <TextBlock Text="{Binding Value}"/>
                                 </DataTemplate>
                             </xctk:EditorTemplateDefinition.EditingTemplate>
                         </xctk:EditorTemplateDefinition>
@@ -249,19 +255,27 @@
                             <!-- Prevent editing of IsBadassMode -->
                             <xctk:EditorTemplateDefinition.EditingTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Value}" />
+                                    <TextBlock Text="{Binding Value}"/>
                                 </DataTemplate>
                             </xctk:EditorTemplateDefinition.EditingTemplate>
                         </xctk:EditorTemplateDefinition>
                     </xctk:PropertyGrid.EditorDefinitions>
                 </xctk:PropertyGrid>
             </TabItem>
-            <TabItem IsSelected="{Binding Path=IsAboutSelected}">
+            <TabItem x:Name="AboutTab" IsSelected="{Binding Path=IsAboutSelected}">
+                <TabItem.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                        <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                        <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                        <GradientStop Color="#FFCDCDCD" Offset="1"/>
+                    </LinearGradientBrush>
+                </TabItem.Background>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Height="24"
                                Source="Resources\question mark.png" />
-                        <Label VerticalAlignment="Center"
+                        <Label x:Name="AboutLab" VerticalAlignment="Center"
                                Content="About" />
                     </StackPanel>
                 </TabItem.Header>

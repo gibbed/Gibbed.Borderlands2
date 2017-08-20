@@ -49,7 +49,6 @@ namespace Gibbed.Borderlands2.GameInfo
                     {
                         return true;
                     }
-
                     return false;
                 }
 

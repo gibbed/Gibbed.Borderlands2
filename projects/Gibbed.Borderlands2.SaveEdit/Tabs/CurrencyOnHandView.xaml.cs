@@ -28,5 +28,26 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             this.InitializeComponent();
         }
+        private void Currency_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if(Properties.Settings.Default.isDarkEnabled == true)
+            {
+                CurrencyExpander.Foreground = System.Windows.Media.Brushes.White;
+                CreditsLabel.Foreground = System.Windows.Media.Brushes.White;
+                EridLabel.Foreground = System.Windows.Media.Brushes.White;
+                SeraphLab.Foreground = System.Windows.Media.Brushes.White;
+                TorgueLab.Foreground = System.Windows.Media.Brushes.White;
+                ReservedExpander.Foreground = System.Windows.Media.Brushes.White;
+                ALabel.Foreground = System.Windows.Media.Brushes.White;
+                CLabel.Foreground = System.Windows.Media.Brushes.White;
+                DLabel.Foreground = System.Windows.Media.Brushes.White;
+                ELabel.Foreground = System.Windows.Media.Brushes.White;
+                FLabel.Foreground = System.Windows.Media.Brushes.White;
+                GLabel.Foreground = System.Windows.Media.Brushes.White;
+                HLabel.Foreground = System.Windows.Media.Brushes.White;
+                ILabel.Foreground = System.Windows.Media.Brushes.White;
+                JLabel.Foreground = System.Windows.Media.Brushes.White;
+            }
+        }
     }
 }

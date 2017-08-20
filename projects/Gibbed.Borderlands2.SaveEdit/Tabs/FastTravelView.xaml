@@ -29,7 +29,7 @@
              xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d"
              d:DesignWidth="720"
-             d:DesignHeight="480">
+             d:DesignHeight="480" Loaded="FT_Loaded">
     <UserControl.Resources>
         <CollectionViewSource x:Key="GroupedAvailableTeleporters"
                               Source="{Binding Path=AvailableTeleporters}">
@@ -45,7 +45,7 @@
         </CollectionViewSource>
     </UserControl.Resources>
     <DockPanel LastChildFill="True">
-        <GroupBox DockPanel.Dock="Top"
+        <GroupBox x:Name="LastTeleBox" DockPanel.Dock="Top"
                   Header="Last Visited Teleporter">
             <ComboBox ItemsSource="{Binding Source={StaticResource GroupedAvailableTeleporters}}"
                       SelectedValue="{Binding Path=LastVisitedTeleporter}"
@@ -69,27 +69,27 @@
             <Button>
                 <cal:Message.Attach>[Event Click] = [Action VisitedCheckAll]</cal:Message.Attach>
                 <StackPanel Orientation="Horizontal">
-                    <Label Content="Check All" />
+                    <Label x:Name="CheckAllLabel" Content="Check All" />
                 </StackPanel>
             </Button>
             <Button>
                 <cal:Message.Attach>[Event Click] = [Action VisitedUncheckAll]</cal:Message.Attach>
                 <StackPanel Orientation="Horizontal">
-                    <Label Content="Uncheck All" />
+                    <Label x:Name="UncheckLabel" Content="Uncheck All" />
                 </StackPanel>
             </Button>
         </ToolBar>
-        <GroupBox Header="Visited Teleporters">
+        <GroupBox x:Name="VisitedBox" Header="Visited Teleporters">
             <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                           VerticalScrollBarVisibility="Auto">
-                <ItemsControl ItemsSource="{Binding Source={StaticResource GroupedVisitedTeleporters}}">
+                <ItemsControl x:Name="GroupedControl" ItemsSource="{Binding Source={StaticResource GroupedVisitedTeleporters}}">
                     <ItemsControl.GroupStyle>
                         <GroupStyle>
                             <GroupStyle.HeaderTemplate>
                                 <DataTemplate>
-                                    <TextBlock FontSize="15"
+                                    <TextBlock x:Name="TextBlock" FontSize="15"
                                                FontWeight="Bold"
-                                               Text="{Binding Path=Name}" />
+                                               Text="{Binding Path=Name}" Foreground="White" />
                                 </DataTemplate>
                             </GroupStyle.HeaderTemplate>
                         </GroupStyle>
@@ -97,7 +97,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <CheckBox IsChecked="{Binding Path=Visited}"
-                                      Content="{Binding Path=DisplayName}" />
+                                      Content="{Binding Path=DisplayName}" Foreground="White" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

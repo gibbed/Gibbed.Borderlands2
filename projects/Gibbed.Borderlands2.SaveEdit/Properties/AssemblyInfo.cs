@@ -28,7 +28,7 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("Gibbed's Borderlands 2 Save Editor")]
+[assembly: AssemblyTitle("Gibbed's Borderlands 2 Save Editor (Edited by FromDarkHell)")]
 [assembly: AssemblyDescription("http://gib.me/")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Gibbed")]

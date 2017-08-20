@@ -29,7 +29,7 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:v="clr-namespace:Gibbed.Borderlands2.SaveEdit.Validators"
              xmlns:se="clr-namespace:Gibbed.Borderlands2.SaveEdit"
-             mc:Ignorable="d">
+             mc:Ignorable="d" Loaded="BackpackItem_Loaded">
     <UserControl.Resources>
         <se:ContainsToVisiblityConverter x:Key="ContainsToVisiblityConverter1" />
         <v:ItemTypeValidationRule x:Key="TypeValidator" />
@@ -75,15 +75,15 @@
                           Out="{Binding Source={StaticResource ManufacturerValidator}, Path=AssetLibrarySetId}" />
         <se:PropertyProxy In="{Binding AssetLibrarySetId, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                           Out="{Binding Source={StaticResource PartValidator}, Path=AssetLibrarySetId}" />
-        <Label Grid.Row="0"
+        <Label x:Name="SetLabel" Grid.Row="0"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Set:" />
-        <Label Grid.Row="0"
+        <Label x:Name="SetLab" Grid.Row="0"
                Grid.Column="1"
                HorizontalContentAlignment="Left"
                Content="{Binding Path=AssetLibrarySetName, UpdateSourceTrigger=PropertyChanged}" />
-        <Label Grid.Column="0"
+        <Label x:Name="TypeFilter" Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Type Filter:"
                Grid.Row="1" />
@@ -94,7 +94,7 @@
                        ItemsSource="{Binding Path=ItemTypeFilters}"
                        DisplayMemberPath="DisplayName"
                        SelectedItem="{Binding Path=SelectedItemTypeFilter, UpdateSourceTrigger=PropertyChanged}" />
-        <Label Grid.Column="0"
+        <Label x:Name="TypeLab" Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Type:"
                Grid.Row="2" />
@@ -129,7 +129,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="3"
+        <Label x:Name="BalanceLab" Grid.Row="3"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Balance:" />
@@ -165,7 +165,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="4"
+        <Label x:Name="ManufacturerLab" Grid.Row="4"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Manufacturer:" />
@@ -185,7 +185,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="5"
+        <Label x:Name="ManuGradeLab" Grid.Row="5"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Manufacturer Grade:" />
@@ -194,7 +194,7 @@
                             Value="{Binding Path=ManufacturerGradeIndex, UpdateSourceTrigger=PropertyChanged}"
                             Minimum="0"
                             Maximum="127" />
-        <Label Grid.Row="6"
+        <Label x:Name="AlphaLab" Grid.Row="6"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Alpha:" />
@@ -230,7 +230,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="7"
+        <Label x:Name="BetaLab" Grid.Row="7"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Beta:" />
@@ -266,7 +266,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="8"
+        <Label x:Name="GammaLab" Grid.Row="8"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Gamma:" />
@@ -302,7 +302,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="9"
+        <Label x:Name="DeltaLab" Grid.Row="9"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Delta:" />
@@ -338,7 +338,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="10"
+        <Label x:Name="EpsilonLab" Grid.Row="10"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Epsilon:" />
@@ -374,7 +374,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="11"
+        <Label x:Name="ZetaLab" Grid.Row="11"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Zeta:" />
@@ -410,7 +410,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="12"
+        <Label x:Name="EtaLab" Grid.Row="12"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Eta:" />
@@ -446,7 +446,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="13"
+        <Label x:Name="ThetaLab" Grid.Row="13"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Theta:" />
@@ -482,7 +482,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="14"
+        <Label x:Name="MatLab" Grid.Row="14"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Material:" />
@@ -518,7 +518,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="15"
+        <Label x:Name="PrefixLab" Grid.Row="15"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Prefix:" />
@@ -537,7 +537,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="16"
+        <Label x:Name="TitleLab" Grid.Row="16"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Title:" />
@@ -556,7 +556,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label Grid.Row="17"
+        <Label x:Name="GameStageLab" Grid.Row="17"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Game Stage:" />
@@ -565,7 +565,7 @@
                             Value="{Binding Path=GameStage, UpdateSourceTrigger=PropertyChanged}"
                             Minimum="0"
                             Maximum="127" />
-        <Label Grid.Row="18"
+        <Label x:Name="QuantityLab" Grid.Row="18"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Quantity:" />
@@ -574,15 +574,15 @@
                             Value="{Binding Path=Quantity, UpdateSourceTrigger=PropertyChanged}"
                             Minimum="0"
                             Maximum="2147483647" />
-        <Label Grid.Row="19"
+        <Label x:Name="EquippedLab" Grid.Row="19"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Equipped:" />
-        <CheckBox Grid.Row="19"
+        <CheckBox x:Name="EquippedBox" Grid.Row="19"
                   Grid.Column="1"
                   IsChecked="{Binding Path=Equipped, UpdateSourceTrigger=PropertyChanged}"
                   VerticalAlignment="Center" />
-        <Label Grid.Row="20"
+        <Label x:Name="MarkLab" Grid.Row="20"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                VerticalContentAlignment="Top"
@@ -590,15 +590,15 @@
         <StackPanel Grid.Row="20"
                     Grid.Column="1"
                     StackPanel.Orientation="Vertical">
-            <RadioButton Content="Standard"
+            <RadioButton x:Name="StandardButton" Content="Standard"
                          IsChecked="{Binding Path=Mark, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Standard}"
                          VerticalAlignment="Center">
             </RadioButton>
-            <RadioButton Content="Favorite"
+            <RadioButton x:Name="FavButton" Content="Favorite"
                          IsChecked="{Binding Path=Mark, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Favorite}"
                          VerticalAlignment="Center">
             </RadioButton>
-            <RadioButton Content="Trash"
+            <RadioButton x:Name="TrashButton" Content="Trash"
                          IsChecked="{Binding Path=Mark, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Trash}"
                          VerticalAlignment="Center">
             </RadioButton>
