@@ -38,11 +38,6 @@ namespace Gibbed.Borderlands2.SaveEdit
                 TextBlock.Foreground = System.Windows.Media.Brushes.White;
 
             }
-            else
-            {
-                TextBlock.Background = System.Windows.Media.Brushes.White;
-                TextBlock.Foreground = System.Windows.Media.Brushes.Black;
-            }
         }
     }
 }

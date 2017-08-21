@@ -33,6 +33,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             System.Windows.Media.Brush DarkBrush = new System.Windows.Media.SolidColorBrush(DarkBack);
             if (Properties.Settings.Default.isDarkEnabled == true)
             {
+                DockPanel.Background = DarkBrush;
                 #region Button Bar
                 ButtonBar.Background = DarkBrush;
                 NewLab.Foreground = System.Windows.Media.Brushes.White;

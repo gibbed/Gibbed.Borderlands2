@@ -25,7 +25,7 @@ namespace Gibbed.Borderlands2.SaveEdit.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool isDarkEnabled {
             get {
                 return ((bool)(this["isDarkEnabled"]));

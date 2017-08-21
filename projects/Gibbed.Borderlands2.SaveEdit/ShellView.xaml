@@ -42,7 +42,7 @@
             <GradientStop Color="White" Offset="1"/>
         </LinearGradientBrush>
     </UserControl.Background>
-    <DockPanel>
+    <DockPanel x:Name="DockPanel" Background="White">
         <cal:Message.Attach>
             [Shortcut Control+N] = [Action NewSave];
             [Shortcut Control+O] = [Action ReadSave];
