@@ -117,6 +117,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 new PlatformDisplay("360", Platform.X360),
                 new PlatformDisplay("PS3", Platform.PS3),
                 new PlatformDisplay("PSVita", Platform.PSVita),
+                new PlatformDisplay("NVIDIA SHIELD", Platform.Shield),
             };
         }
 

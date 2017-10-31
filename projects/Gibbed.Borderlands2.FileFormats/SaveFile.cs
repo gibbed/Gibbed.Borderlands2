@@ -88,7 +88,8 @@ namespace Gibbed.Borderlands2.FileFormats
         {
             return platform == Platform.PC ||
                    platform == Platform.X360 ||
-                   platform == Platform.PS3 || platform == Platform.PSVita;
+                   platform == Platform.PS3 || platform == Platform.PSVita ||
+                   platform == Platform.Shield;
         }
 
         public void Serialize(Stream output)

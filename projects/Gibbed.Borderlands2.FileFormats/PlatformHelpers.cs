@@ -34,6 +34,7 @@ namespace Gibbed.Borderlands2.FileFormats
             {
                 case Platform.PC:
                 case Platform.PSVita:
+                case Platform.Shield:
                 {
                     return Endian.Little;
                 }
@@ -60,6 +61,7 @@ namespace Gibbed.Borderlands2.FileFormats
 
                 case Platform.PS3:
                 case Platform.PSVita:
+                case Platform.Shield:
                 {
                     return CompressionScheme.Zlib;
                 }
