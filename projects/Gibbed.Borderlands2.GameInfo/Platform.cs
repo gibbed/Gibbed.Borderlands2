@@ -30,6 +30,7 @@ namespace Gibbed.Borderlands2.GameInfo
         X360,
         PS3,
         PSVita,
+        Shield,
         // ReSharper restore InconsistentNaming
     }
 }
