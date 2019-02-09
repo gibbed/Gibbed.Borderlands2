@@ -36,17 +36,7 @@
     <UserControl.Resources>
         <se:NullToBooleanConverter x:Key="NullToBooleanConverter1" />
     </UserControl.Resources>
-<<<<<<< HEAD
-    <UserControl.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="Black" Offset="0"/>
-            <GradientStop Color="White" Offset="1"/>
-        </LinearGradientBrush>
-    </UserControl.Background>
-    <DockPanel x:Name="DockPanel" Background="White">
-=======
     <DockPanel>
->>>>>>> parent of 7576c52... Add Wonky Dark Mode
         <cal:Message.Attach>
             [Shortcut Control+N] = [Action NewSave];
             [Shortcut Control+O] = [Action ReadSave];
