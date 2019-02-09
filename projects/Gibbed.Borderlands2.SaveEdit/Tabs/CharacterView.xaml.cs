@@ -28,22 +28,5 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             this.InitializeComponent();
         }
-        private void Character_Loaded(object sender, System.Windows.RoutedEventArgs e)
-        {
-            if(Properties.Settings.Default.isDarkEnabled == true)
-            {
-                GenExpander.Foreground = System.Windows.Media.Brushes.White;
-                ClassLab.Foreground = System.Windows.Media.Brushes.White;
-                EXPLab.Foreground = System.Windows.Media.Brushes.White;
-                EXPointLab.Foreground = System.Windows.Media.Brushes.White;
-                OPLab.Foreground = System.Windows.Media.Brushes.White;
-                GenSkillPointLab.Foreground = System.Windows.Media.Brushes.White;
-                SpecialistLab.Foreground = System.Windows.Media.Brushes.White;
-                CustomizationLab.Foreground = System.Windows.Media.Brushes.White;
-                NameLab.Foreground = System.Windows.Media.Brushes.White;
-                HeadLab.Foreground = System.Windows.Media.Brushes.White;
-                SkinLab.Foreground = System.Windows.Media.Brushes.White;
-            }
-        }
     }
 }

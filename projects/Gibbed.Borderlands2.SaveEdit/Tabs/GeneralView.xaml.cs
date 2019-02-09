@@ -28,30 +28,5 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             this.InitializeComponent();
         }
-        private void CheckBox_Checked(object sender, System.Windows.RoutedEventArgs e)
-        {
-            System.Windows.Media.Color DarkBack = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#141414");
-            System.Windows.Media.Brush DarkBrush = new System.Windows.Media.SolidColorBrush(DarkBack);
-
-        }
-        private void General_Load(object sender, System.Windows.RoutedEventArgs e)
-        {
-            if (Properties.Settings.Default.isDarkEnabled == true)
-            {
-                System.Windows.Media.Color DarkBack = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#141414");
-                System.Windows.Media.Brush DarkBrush = new System.Windows.Media.SolidColorBrush(DarkBack);
-                SaveExpander.Foreground = System.Windows.Media.Brushes.White;
-                GuidLab.Foreground = System.Windows.Media.Brushes.White;
-                SlotLab.Foreground = System.Windows.Media.Brushes.White;
-                PlatLab.Foreground = System.Windows.Media.Brushes.White;
-                ImportExpander.Foreground = System.Windows.Media.Brushes.White;
-                //DarkBox.Foreground = System.Windows.Media.Brushes.White;
-                RandomizeSaveGuid.Foreground = System.Windows.Media.Brushes.White;
-            }
-        }
-        private void DarkBox_Clicked(object sender, System.Windows.RoutedEventArgs e)
-        {
-            
-        }
     }
 }

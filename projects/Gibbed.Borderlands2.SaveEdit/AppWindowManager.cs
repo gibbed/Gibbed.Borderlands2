@@ -30,7 +30,7 @@ namespace Gibbed.Borderlands2.SaveEdit
 {
     internal class AppWindowManager : WindowManager
     {
-        private const string _WindowTitle = "Gibbed's Borderlands 2 Save Editor (edited by FromDarkHell)";
+        private const string _WindowTitle = "Gibbed's Borderlands 2 Save Editor";
         private const double _WindowWidth = 800.0 + 95.0;
         private const double _WindowHeight = 560.0;
         private const string _WindowIconPath = "pack://application:,,,/Resources/Handsome Jack.png";

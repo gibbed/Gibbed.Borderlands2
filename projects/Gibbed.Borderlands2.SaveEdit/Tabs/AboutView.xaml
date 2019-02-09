@@ -6,7 +6,7 @@
              xmlns:se="clr-namespace:Gibbed.Borderlands2.SaveEdit"
              mc:Ignorable="d"
              d:DesignHeight="500"
-             d:DesignWidth="500" Loaded="UserControl_Loaded">
+             d:DesignWidth="500">
     <UserControl.Resources>
         <LinearGradientBrush x:Key="Gibbed"
                              EndPoint="1,0.5"
@@ -34,19 +34,11 @@
             <GradientStop Color="Violet"
                           Offset="1" />
         </LinearGradientBrush>
-        <LinearGradientBrush x:Key="DarkHell"
-                             EndPoint="1,0.5"
-                             StartPoint="0,0.5">
-            <GradientStop Color="Red"
-                          Offset="0" />
-            <GradientStop Color="Gold"
-                          Offset="1.15" />
-        </LinearGradientBrush>
     </UserControl.Resources>
     <DockPanel LastChildFill="True">
-        <TextBlock TextWrapping="Wrap" Name="TextBlock"
+        <TextBlock TextWrapping="Wrap"
                    Margin="4">
-            <Run Text="Developed by " /><Hyperlink NavigateUri="http://gib.me/" Foreground="{StaticResource Gibbed}" se:HyperlinkExtensions.IsExternal="true"><Run Text="gibbed" Foreground="{StaticResource Gibbed}" /></Hyperlink><Run Text=" "></Run><Run> and modified by</Run><Run Text=" FromDarkHell" Foreground="{StaticResource DarkHell}"/><Run Text=" for use with Borderlands 2." />
+            <Run Text="Developed by " /><Hyperlink NavigateUri="http://gib.me/" Foreground="{StaticResource Gibbed}" se:HyperlinkExtensions.IsExternal="true"><Run Text="gibbed" Foreground="{StaticResource Gibbed}" /></Hyperlink><Run Text=" for use with Borderlands 2." />
             <LineBreak />
             <LineBreak />
             <Run Text="Want to support the developer?" FontSize="15" FontWeight="Bold" />

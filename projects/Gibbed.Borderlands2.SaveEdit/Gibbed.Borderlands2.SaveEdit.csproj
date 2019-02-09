@@ -108,7 +108,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\MahApps.Metro.1.5.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\packages\Caliburn.Micro.1.5.1\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -205,7 +205,6 @@
     <Compile Include="ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tabs\GeneralViewModel.cs" />
     <Compile Include="Tabs\VehicleView.xaml.cs">
       <DependentUpon>VehicleView.xaml</DependentUpon>
     </Compile>
@@ -224,6 +223,7 @@
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="AppWindowManager.cs" />
     <Compile Include="Tabs\BackpackViewModel.cs" />
+    <Compile Include="Tabs\GeneralViewModel.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

@@ -32,7 +32,6 @@ using Caliburn.Micro.Contrib.Results;
 using Gibbed.Borderlands2.GameInfo;
 using Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave;
 using Guid = Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave.Guid;
-using System.ComponentModel;
 
 namespace Gibbed.Borderlands2.SaveEdit
 {
@@ -85,6 +84,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 }
             }
         }
+
         public System.Guid SaveGuid
         {
             get { return this._SaveGuid; }
@@ -94,6 +94,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 this.NotifyOfPropertyChange(() => this.SaveGuid);
             }
         }
+
         public int SaveGameId
         {
             get { return this._SaveGameId; }
@@ -103,6 +104,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 this.NotifyOfPropertyChange(() => this.SaveGameId);
             }
         }
+
         public ObservableCollection<PlatformDisplay> Platforms { get; private set; }
         #endregion
 
@@ -118,10 +120,12 @@ namespace Gibbed.Borderlands2.SaveEdit
                 new PlatformDisplay("NVIDIA SHIELD", Platform.Shield),
             };
         }
+
         public void RandomizeSaveGuid()
         {
             this.SaveGuid = System.Guid.NewGuid();
         }
+
         public IEnumerable<IResult> DoImportSkills()
         {
             string fileName = null;
@@ -173,6 +177,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                         .WithIcon(MessageBoxImage.Information);
             }
         }
+
         public IEnumerable<IResult> DoImportMissions()
         {
             string fileName = null;
@@ -224,6 +229,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                         .WithIcon(MessageBoxImage.Information);
             }
         }
+
         public IEnumerable<IResult> DoImportWorld()
         {
             string fileName = null;
@@ -277,6 +283,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                         .WithIcon(MessageBoxImage.Information);
             }
         }
+
         public IEnumerable<IResult> DoImportStats()
         {
             string fileName = null;
@@ -328,18 +335,21 @@ namespace Gibbed.Borderlands2.SaveEdit
                         .WithIcon(MessageBoxImage.Information);
             }
         }
+
         public void ImportData(WillowTwoPlayerSaveGame saveGame, Platform platform)
         {
             this.Platform = platform;
             this.SaveGuid = (System.Guid)saveGame.SaveGuid;
             this.SaveGameId = saveGame.SaveGameId;
         }
+
         public void ExportData(WillowTwoPlayerSaveGame saveGame, out Platform platform)
         {
             platform = this.Platform;
             saveGame.SaveGuid = (Guid)this.SaveGuid;
             saveGame.SaveGameId = this.SaveGameId;
         }
+
         internal class PlatformDisplay
         {
             public string Name { get; private set; }

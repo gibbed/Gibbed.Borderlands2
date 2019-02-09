@@ -29,7 +29,7 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:v="clr-namespace:Gibbed.Borderlands2.SaveEdit.Validators"
              xmlns:se="clr-namespace:Gibbed.Borderlands2.SaveEdit"
-             mc:Ignorable="d" Loaded="BaseWeaponView_Load">
+             mc:Ignorable="d">
     <UserControl.Resources>
         <se:ContainsToVisiblityConverter x:Key="ContainsToVisiblityConverter1" />
         <v:WeaponTypeValidationRule x:Key="TypeValidator" />
@@ -70,15 +70,15 @@
                           Out="{Binding Source={StaticResource ManufacturerValidator}, Path=AssetLibrarySetId}" />
         <se:PropertyProxy In="{Binding AssetLibrarySetId, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                           Out="{Binding Source={StaticResource PartValidator}, Path=AssetLibrarySetId}" />
-        <Label x:Name="SetText" Grid.Row="0"
+        <Label Grid.Row="0"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Set:" />
-        <Label x:Name="SetLabel" Grid.Row="0"
+        <Label Grid.Row="0"
                Grid.Column="1"
                HorizontalContentAlignment="Left"
                Content="{Binding Path=AssetLibrarySetName}" />
-        <Label x:Name="TypeLabel" Grid.Row="1"
+        <Label Grid.Row="1"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Type:" />
@@ -114,7 +114,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label x:Name="BalanceLabel" Grid.Row="2"
+        <Label Grid.Row="2"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Balance:" />
@@ -150,7 +150,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label x:Name="ManufacturerLabel" Grid.Row="3"
+        <Label Grid.Row="3"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Manufacturer:" />
@@ -171,7 +171,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label x:Name="GradeLabel" Grid.Row="4"
+        <Label Grid.Row="4"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Manufacturer Grade:" />
@@ -180,7 +180,7 @@
                             Value="{Binding Path=ManufacturerGradeIndex, UpdateSourceTrigger=PropertyChanged}"
                             Minimum="0"
                             Maximum="127" />
-        <Label x:Name="BodLabel" Grid.Row="5"
+        <Label Grid.Row="5"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Body:" />
@@ -216,7 +216,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label x:Name="GripLabel" Grid.Row="6"
+        <Label Grid.Row="6"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Grip:" />
@@ -252,7 +252,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label x:Name="BarrelLabel" Grid.Row="7"
+        <Label Grid.Row="7"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Barrel:" />
@@ -288,7 +288,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label x:Name="SightLabel" Grid.Row="8"
+        <Label Grid.Row="8"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Sight:" />
@@ -324,7 +324,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label x:Name="StockLabel" Grid.Row="9"
+        <Label Grid.Row="9"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Stock:" />
@@ -360,7 +360,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label x:Name="ElementLabel" Grid.Row="10"
+        <Label Grid.Row="10"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Elemental:" />
@@ -396,7 +396,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label x:Name="AccessoryLabel" Grid.Row="11"
+        <Label Grid.Row="11"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Accessory #1:" />
@@ -432,7 +432,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label x:Name="Accessory2Label" Grid.Row="12"
+        <Label Grid.Row="12"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Accessory #2:" />
@@ -468,7 +468,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label x:Name="MatLabel" Grid.Row="13"
+        <Label Grid.Row="13"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Material:" />
@@ -504,7 +504,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label x:Name="PrefixLabel" Grid.Row="14"
+        <Label Grid.Row="14"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Prefix:" />
@@ -523,7 +523,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label x:Name="TitleLabel" Grid.Row="15"
+        <Label Grid.Row="15"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Title:" />
@@ -542,7 +542,7 @@
                 </ComboBox.Text>
             </se:MyComboBox>
         </DockPanel>
-        <Label x:Name="GameStageLabel" Grid.Row="16"
+        <Label Grid.Row="16"
                Grid.Column="0"
                HorizontalContentAlignment="Right"
                Content="Game Stage:" />

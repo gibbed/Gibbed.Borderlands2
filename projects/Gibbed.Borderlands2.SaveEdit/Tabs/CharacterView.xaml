@@ -30,7 +30,7 @@
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
              mc:Ignorable="d"
              d:DesignWidth="800"
-             d:DesignHeight="480" Loaded="Character_Loaded">
+             d:DesignHeight="480">
     <UserControl.Resources>
         <CollectionViewSource x:Key="GroupedPlayerClasses"
                               Source="{Binding Path=PlayerClasses}">
@@ -52,7 +52,7 @@
         </CollectionViewSource>
     </UserControl.Resources>
     <StackPanel Orientation="Vertical">
-        <Expander x:Name="GenExpander" Header="General"
+        <Expander Header="General"
                   IsExpanded="True">
             <Grid>
                 <Grid.RowDefinitions>
@@ -70,7 +70,7 @@
                     <ColumnDefinition Width="0.50*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label x:Name="ClassLab" Grid.Row="1"
+                <Label Grid.Row="1"
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
                        Content="Class:" />
@@ -93,7 +93,7 @@
                         </GroupStyle>
                     </ComboBox.GroupStyle>
                 </ComboBox>
-                <Label x:Name="EXPLab" Grid.Row="2"
+                <Label Grid.Row="2"
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
                        Content="Experience Level:" />
@@ -110,7 +110,7 @@
                                         Minimum="1"
                                         Value="{Binding Path=ExpLevel, UpdateSourceTrigger=PropertyChanged}" />
                 </DockPanel>
-                <Label x:Name="EXPointLab" Grid.Row="3"
+                <Label Grid.Row="3"
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
                        Content="Experience Points:" />
@@ -126,7 +126,7 @@
                     <xctk:IntegerUpDown Minimum="0"
                                         Value="{Binding Path=ExpPoints, UpdateSourceTrigger=PropertyChanged}" />
                 </DockPanel>
-                <Label x:Name="OPLab" Grid.Row="4"
+                <Label Grid.Row="4"
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
                        Content="Overpower Level:" />
@@ -137,7 +137,7 @@
                                     Minimum="0"
                                     Maximum="8388607"
                                     Value="{Binding Path=OverpowerLevel, UpdateSourceTrigger=PropertyChanged}" />
-                <Label x:Name="GenSkillPointLab" Grid.Row="5"
+                <Label Grid.Row="5"
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
                        Content="General Skill Points:" />
@@ -145,7 +145,7 @@
                                     Grid.Column="1"
                                     Margin="3"
                                     Value="{Binding Path=GeneralSkillPoints, UpdateSourceTrigger=PropertyChanged}" />
-                <Label x:Name="SpecialistLab" Grid.Row="6"
+                <Label Grid.Row="6"
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
                        Content="Specialist Skill Points:" />
@@ -155,7 +155,7 @@
                                     Value="{Binding Path=SpecialistSkillPoints, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
         </Expander>
-        <Expander x:Name="CustomizationLab" Header="Customization"
+        <Expander Header="Customization"
                   IsExpanded="True">
             <Grid>
                 <Grid.RowDefinitions>
@@ -174,7 +174,7 @@
                     <ColumnDefinition Width="0.50*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label x:Name="NameLab" Grid.Row="0"
+                <Label Grid.Row="0"
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
                        Content="Name:" />
@@ -182,7 +182,7 @@
                          Grid.Column="1"
                          Margin="3"
                          Text="{Binding Path=CharacterName, UpdateSourceTrigger=PropertyChanged}" />
-                <Label x:Name="HeadLab" Grid.Row="1"
+                <Label Grid.Row="1"
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
                        Content="Head:" />
@@ -205,7 +205,7 @@
                         </GroupStyle>
                     </ComboBox.GroupStyle>
                 </ComboBox>
-                <Label x:Name="SkinLab" Grid.Row="2"
+                <Label Grid.Row="2"
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
                        Content="Skin:" />

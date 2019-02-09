@@ -28,23 +28,5 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             this.InitializeComponent();
         }
-        private void Vehicle_Loaded(object sender, System.Windows.RoutedEventArgs e)
-        {
-            if(Properties.Settings.Default.isDarkEnabled == true)
-            {
-                RunnerExpander.Foreground = System.Windows.Media.Brushes.White;
-                Run1Lab.Foreground = System.Windows.Media.Brushes.White;
-                Run2Lab.Foreground = System.Windows.Media.Brushes.White;
-                BanditTechExpander.Foreground = System.Windows.Media.Brushes.White;
-                Bandit1Lab.Foreground = System.Windows.Media.Brushes.White;
-                BanditSkin2Lab.Foreground = System.Windows.Media.Brushes.White;
-                HovercraftExpander.Foreground = System.Windows.Media.Brushes.White;
-                Hovercraft1Lab.Foreground = System.Windows.Media.Brushes.White;
-                Hovercraft2Lab.Foreground = System.Windows.Media.Brushes.White;
-                FanBoatExpander.Foreground = System.Windows.Media.Brushes.White;
-                FanBoat1Lab.Foreground = System.Windows.Media.Brushes.White;
-                Fanboat2Lab.Foreground = System.Windows.Media.Brushes.White;
-            }
-        }
     }
 }

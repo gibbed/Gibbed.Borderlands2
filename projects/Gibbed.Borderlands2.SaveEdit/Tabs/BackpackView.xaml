@@ -21,7 +21,7 @@
  *    distribution.
  */
 -->
-<UserControl x:Name="BackpackControl" x:Class="Gibbed.Borderlands2.SaveEdit.BackpackView"
+<UserControl x:Class="Gibbed.Borderlands2.SaveEdit.BackpackView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -33,7 +33,7 @@
              xmlns:gameInfo="clr-namespace:Gibbed.Borderlands2.GameInfo;assembly=Gibbed.Borderlands2.GameInfo"
              mc:Ignorable="d"
              d:DesignWidth="720"
-             d:DesignHeight="480" Loaded="UserControl_Loaded">
+             d:DesignHeight="480">
     <UserControl.Resources>
         <CollectionViewSource x:Key="SlotCollectionViewSource"
                               Source="{Binding Path=Slots}">
@@ -55,7 +55,7 @@
                 <StackPanel Orientation="Horizontal">
                     <Image Height="24"
                            Source="..\Resources\assaultrifle.png" />
-                    <Label x:Name="NewWepLabel" Content="New Weapon" />
+                    <Label Content="New Weapon" />
                 </StackPanel>
             </Button>
             <xctk:DropDownButton IsEnabled="{Binding Path=HasDownloadablePackages}">
@@ -79,7 +79,7 @@
                 <StackPanel Orientation="Horizontal">
                     <Image Height="24"
                            Source="..\Resources\shield.png" />
-                    <Label x:Name="NewItemLabel" Content="New Item" />
+                    <Label Content="New Item" />
                 </StackPanel>
             </Button>
             <xctk:DropDownButton IsEnabled="{Binding Path=HasDownloadablePackages}">
@@ -104,7 +104,7 @@
                 <StackPanel Orientation="Horizontal">
                     <Image Height="24"
                            Source="..\Resources\fugue\scanner.png" />
-                    <Label x:Name="PasteCodeLabel" Content="Paste Code" />
+                    <Label Content="Paste Code" />
                 </StackPanel>
             </Button>
             <Separator />
@@ -113,7 +113,7 @@
                 <StackPanel Orientation="Horizontal">
                     <Image Height="24"
                            Source="..\Resources\fugue\control-090.png" />
-                    <Label x:Name="SyncEquipLabel" Content="Sync Equipped" />
+                    <Label Content="Sync Equipped" />
                 </StackPanel>
             </Button>
             <Button x:Name="SyncAllLevels"
@@ -121,22 +121,22 @@
                 <StackPanel Orientation="Horizontal">
                     <Image Height="24"
                            Source="..\Resources\fugue\control-double-090.png" />
-                    <Label x:Name="SyncAllLabel" Content="Sync All" />
+                    <Label Content="Sync All" />
                 </StackPanel>
             </Button>
         </ToolBar>
-        <se:GearCalculatorView x:Name="GearCalcView" DockPanel.Dock="Bottom" />
-        <Grid x:Name="BackgroundGrid">
+        <se:GearCalculatorView DockPanel.Dock="Bottom" />
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.35*" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <ListView x:Name="BackpackListView" Grid.Column="0"
+            <ListView Grid.Column="0"
                       ItemsSource="{Binding Source={StaticResource SlotCollectionViewSource}}"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       SelectedValue="{Binding Path=SelectedSlot}"
-                      SelectionMode="Single" Background="White">
+                      SelectionMode="Single">
                 <cal:Message.Attach>
                     [Shortcut Delete] = [Action DeleteSelectedSlot];
                     [Shortcut Control+C] = [Action CopySelectedSlotCode];
@@ -147,9 +147,9 @@
                     <GroupStyle>
                         <GroupStyle.HeaderTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="WeaponsBlock" FontSize="15"
+                                <TextBlock FontSize="15"
                                            FontWeight="Bold"
-                                           Text="{Binding Path=Name}" Foreground="White"/>
+                                           Text="{Binding Path=Name}" />
                             </DataTemplate>
                         </GroupStyle.HeaderTemplate>
                     </GroupStyle>
@@ -157,8 +157,8 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Name="TextBlock2" Text="{Binding Path=DisplayName}"
-                                       VerticalAlignment="Center" Foreground="White"/>
+                            <TextBlock Text="{Binding Path=DisplayName}"
+                                       VerticalAlignment="Center" />
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -205,7 +205,7 @@
                     </ContextMenu>
                 </ListView.ContextMenu>
             </ListView>
-            <GridSplitter x:Name="BackpackGridSplitter" Grid.Column="1"
+            <GridSplitter Grid.Column="1"
                           Width="4"
                           ResizeBehavior="PreviousAndNext" />
             <ScrollViewer Grid.Column="2"

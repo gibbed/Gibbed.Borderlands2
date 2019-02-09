@@ -28,6 +28,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             this.InitializeComponent();
         }
+<<<<<<< HEAD
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             System.Windows.Media.Color DarkBack = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#141414");
@@ -39,5 +40,7 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             }
         }
+=======
+>>>>>>> parent of 7576c52... Add Wonky Dark Mode
     }
 }
