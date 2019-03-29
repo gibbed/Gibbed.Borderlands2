@@ -27,6 +27,27 @@ using Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave;
 
 namespace Gibbed.Borderlands2.FileFormats
 {
+    /* All of this handling is a workaround/hack implemented by Gearbox
+     * programmers to get around a limitation of having used the lite runtime
+     * for protobufs.
+     *
+     * The protobuf lite runtime has a notable limitation that is relevant for
+     * save data: the lite runtime cannot persist unknown data.
+     *
+     * Due to this limitation, if you take a save from a newer version of the
+     * game and load it in an earlier version of a game, any new protobuf
+     * fields Gearbox has added in a newer version will be silently lost.
+     *
+     * That's bad! Gearbox wants you to be able to round trip saves between
+     * different versions of the game without losing data.
+     *
+     * The Gearbox programmers came up with a workaround: they know how the
+     * original release version of the game reacts to strange item data: it
+     * ignores it but keeps it around.
+     *
+     * So, their workaround was to store new data fields in specially crafted
+     * blobs of item data.
+     */
     public static class SaveExpansion
     {
         private static readonly byte[] _HackInventorySerialNumber = new byte[]
