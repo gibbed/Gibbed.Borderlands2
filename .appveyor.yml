@@ -55,4 +55,4 @@ after_build:
   - if "%CONFIGURATION%"=="SaveEdit Packaging" 7z a -r -tzip -mx=9 -x!*/LICENSE.txt bl2_saveedit_%APPVEYOR_BUILD_VERSION%-with-symbols.zip ./LICENSE.txt ./README.txt ./git-log.txt ./bin_saveedit/*.exe ./bin_saveedit/*.pdb ./dist/*
 
 artifacts:
-  - path: '*-*.zip'
+  - path: '*.zip'
