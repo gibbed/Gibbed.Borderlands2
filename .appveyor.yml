@@ -8,6 +8,7 @@ skip_tags: true
 skip_commits:
   files:
     - README.md
+    - .github/*
 
 max_jobs: 1
 
