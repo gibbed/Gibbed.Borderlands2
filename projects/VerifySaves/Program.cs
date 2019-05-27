@@ -68,7 +68,7 @@ namespace VerifySaves
                         var uncompressedBytes = new byte[uncompressedSize];
                         var compressedSize = (int)(data.Length - 4);
                         var compressedBytes = data.ReadBytes(compressedSize);
-                        var result = MiniLZO.LZO.Decompress(
+                        var result = MiniLZO.LZO.DecompressSafe(
                             compressedBytes,
                             0,
                             compressedSize,
