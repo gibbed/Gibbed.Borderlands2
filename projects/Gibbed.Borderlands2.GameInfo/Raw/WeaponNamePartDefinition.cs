@@ -32,7 +32,7 @@ namespace Gibbed.Borderlands2.GameInfo.Raw
         [JsonProperty(PropertyName = "unique")]
         public bool Unique { get; set; }
 
-        [JsonProperty(PropertyName = "name", Required = Required.Always)]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
     }
 }

@@ -139,7 +139,7 @@ namespace Gibbed.Borderlands2.GameInfo
             {
                 if (source != null)
                 {
-                    destination.AddRange(source);
+                    destination.AddRange(source.Where(s => s != null));
                 }
             }
             else if (mode == PartReplacementMode.Selective)
@@ -147,7 +147,7 @@ namespace Gibbed.Borderlands2.GameInfo
                 if (source != null)
                 {
                     destination.Clear();
-                    destination.AddRange(source);
+                    destination.AddRange(source.Where(s => s != null));
                 }
             }
             else if (mode == PartReplacementMode.Complete)
@@ -155,7 +155,7 @@ namespace Gibbed.Borderlands2.GameInfo
                 destination.Clear();
                 if (source != null)
                 {
-                    destination.AddRange(source);
+                    destination.AddRange(source.Where(s => s != null));
                 }
             }
             else
