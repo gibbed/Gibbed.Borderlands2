@@ -10,7 +10,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_SniperRifles.Body.SR_Body_Vladof_5"
+        "GD_Weap_SniperRifles.Body.SR_Body_Vladof_4"
       ],
       "barrel": [
         "GD_Weap_SniperRifles.Barrel.SR_Barrel_Vladof"
@@ -25,7 +25,7 @@
         "GD_Weap_SniperRifles.Accessory.Sniper_Accessory_Mount3_Damage"
       ],
       "material": [
-        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Vladof_5"
+        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Vladof_4"
       ]
     }
   },
@@ -69,7 +69,7 @@
         "GD_Anemone_Weap_SniperRifles.Stock.SR_Stock_Hyperion"
       ],
       "material": [
-        "GD_Anemone_Weap_SniperRifles.ManufacturerMaterials.Material_Jakobs_2"
+        "GD_Anemone_Weap_SniperRifles.ManufacturerMaterials.Material_Jakobs_1"
       ]
     }
   },
@@ -78,7 +78,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Anemone_Weap_SniperRifles.Body.SR_Body_Jakobs_3"
+        "GD_Anemone_Weap_SniperRifles.Body.SR_Body_Jakobs_2"
       ],
       "accessory1": [
         "GD_Anemone_Weap_SniperRifles.Accessory.Sniperl_Accessory_None",
@@ -91,7 +91,7 @@
         "GD_Anemone_Weap_SniperRifles.Accessory.Sniper_Accessory_Mount3_Damage"
       ],
       "material": [
-        "GD_Anemone_Weap_SniperRifles.ManufacturerMaterials.Material_Jakobs_3"
+        "GD_Anemone_Weap_SniperRifles.ManufacturerMaterials.Material_Jakobs_2"
       ]
     }
   },
@@ -100,10 +100,10 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Anemone_Weap_SniperRifles.Body.SR_Body_Jakobs_4"
+        "GD_Anemone_Weap_SniperRifles.Body.SR_Body_Jakobs_3"
       ],
       "material": [
-        "GD_Anemone_Weap_SniperRifles.ManufacturerMaterials.Material_Jakobs_4"
+        "GD_Anemone_Weap_SniperRifles.ManufacturerMaterials.Material_Jakobs_3"
       ]
     }
   },
@@ -112,13 +112,13 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Anemone_Weap_SniperRifles.Body.SR_Body_Jakobs_5"
+        "GD_Anemone_Weap_SniperRifles.Body.SR_Body_Jakobs_4"
       ],
       "accessory1": [
         "GD_Anemone_Weap_SniperRifles.Accessory.Sniper_Accessory_Bayonet1"
       ],
       "material": [
-        "GD_Anemone_Weap_SniperRifles.ManufacturerMaterials.Material_Jakobs_5"
+        "GD_Anemone_Weap_SniperRifles.ManufacturerMaterials.Material_Jakobs_4"
       ]
     }
   },
@@ -127,7 +127,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Anemone_Weapons.Body.Pistol_Body_Vladof_5"
+        "GD_Anemone_Weapons.Body.Pistol_Body_Vladof_4"
       ],
       "barrel": [
         "GD_Weap_Pistol.Barrel.Pistol_Barrel_Bandit",
@@ -150,7 +150,7 @@
         "GD_Weap_Pistol.Sight.Pistol_Sight_Hyperion"
       ],
       "accessory1": [
-        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_2",
+        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_1",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Accuracy",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Double",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Stock_Stability",
@@ -159,7 +159,7 @@
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Tech_3_Firerate"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Vladof_5"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Vladof_4"
       ]
     }
   },
@@ -168,7 +168,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Anemone_Weapons.Body.SG_Body_Torgue_8"
+        "GD_Anemone_Weapons.Body.SG_Body_Torgue_7"
       ],
       "barrel": [
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Bandit",
@@ -185,16 +185,16 @@
         "GD_Weap_Shotgun.Sight.SG_Sight_Hyperion"
       ],
       "accessory1": [
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_3",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_2",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_MoonClip",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_ShotgunShell",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_1",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_2",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_3",
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_4",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_VerticalGrip"
       ],
       "material": [
-        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Torgue_5"
+        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Torgue_4"
       ]
     }
   },
@@ -209,7 +209,7 @@
         "GD_Weap_Pistol.elemental.Pistol_Elemental_Shock"
       ],
       "accessory1": [
-        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_2"
+        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_1"
       ],
       "material": [
         "GD_Anemone_Weapons.ManufacturerMaterials.Mat_Dahl_5_Legendary_Hector"
@@ -228,7 +228,7 @@
       ],
       "accessory1": [
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_None",
-        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_2",
+        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_1",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Accuracy",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Double_DvaInfinity",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Stock_Stability",
@@ -276,12 +276,12 @@
       ]
     }
   },
-  "GD_Anemone_Weapons.A_Weapons_Unique.RL_Maliwan_Alien_Norfleet_Fire_101": {
+  "GD_Anemone_Weapons.A_Weapons_Unique.RL_Maliwan_Alien_Norfleet_Fire_100": {
     "base": "GD_Weap_Launchers.A_Weapons.RL_Maliwan_4_VeryRare",
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Launchers.Body.L_Body_Maliwan_5"
+        "GD_Weap_Launchers.Body.L_Body_Maliwan_4"
       ],
       "barrel": [
         "GD_Weap_Launchers.Barrel.L_Barrel_Alien_Maliwan_Norfleet"
@@ -370,7 +370,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_AssaultRifle.Body.AR_Body_Torgue_5"
+        "GD_Weap_AssaultRifle.Body.AR_Body_Torgue_4"
       ],
       "barrel": [
         "GD_Anemone_Weapons.AssaultRifle.PeakOpener.AR_Barrel_Torgue_PeakOpener"
@@ -388,7 +388,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Launchers.Body.L_Body_Maliwan_5"
+        "GD_Weap_Launchers.Body.L_Body_Maliwan_4"
       ],
       "barrel": [
         "GD_Anemone_Weapons.Rocket_Launcher.L_Barrel_Maliwan_Pyrophobia"
@@ -406,7 +406,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Launchers.Body.L_Body_Torgue_5"
+        "GD_Weap_Launchers.Body.L_Body_Torgue_4"
       ],
       "barrel": [
         "GD_Anemone_Weapons.Rocket_Launcher.WorldBurn.L_Barrel_Torgue_WorldBurn"
@@ -497,7 +497,7 @@
       ]
     }
   },
-  "GD_Anemone_Weapons.Testing_Resist_101.100_Fire": {
+  "GD_Anemone_Weapons.Testing_Resist_100.100_Fire": {
     "base": "GD_Anemone_Weapons.A_Weapons.Pistol_Vladof_4_VeryRare",
     "parts": {
       "mode": "Selective",
@@ -509,7 +509,7 @@
       ],
       "accessory1": [
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_None",
-        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_2",
+        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_1",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Accuracy",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Double_DvaInfinity",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Stock_Stability",
@@ -558,7 +558,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Shotgun.Body.SG_Body_Tediore_5"
+        "GD_Weap_Shotgun.Body.SG_Body_Tediore_4"
       ],
       "barrel": [
         "GD_Aster_RaidWeapons.Shotguns.SG_Barrel_Alien_Omen"
@@ -698,7 +698,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Maliwan_4"
+        "GD_Weap_Pistol.Body.Pistol_Body_Maliwan_3"
       ],
       "barrel": [
         "GD_Aster_Weapons.Pistols.Pistol_Barrel_Bandit_GrogNozzle"
@@ -962,7 +962,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Gladiolus_Weapons.Launchers.L_Body_Torgue_7"
+        "GD_Gladiolus_Weapons.Launchers.L_Body_Torgue_6"
       ],
       "barrel": [
         "GD_Gladiolus_Weapons.Launchers.L_Barrel_Bandit_Tunguska"
@@ -977,7 +977,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Gladiolus_Weapons.Pistol.Pistol_Body_Jakobs_7"
+        "GD_Gladiolus_Weapons.Pistol.Pistol_Body_Jakobs_6"
       ],
       "barrel": [
         "GD_Gladiolus_Weapons.Pistol.Pistol_Barrel_Jakobs_Unforgiven"
@@ -992,7 +992,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Gladiolus_Weapons.Pistol.Pistol_Body_Vladof_7"
+        "GD_Gladiolus_Weapons.Pistol.Pistol_Body_Vladof_6"
       ],
       "barrel": [
         "GD_Gladiolus_Weapons.Pistol.Pistol_Barrel_Stalker"
@@ -1007,7 +1007,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Gladiolus_Weapons.Shotgun.SG_Body_Hyperion_7"
+        "GD_Gladiolus_Weapons.Shotgun.SG_Body_Hyperion_6"
       ],
       "barrel": [
         "GD_Gladiolus_Weapons.Shotgun.SG_Barrel_Torgue_Butcher"
@@ -1122,6 +1122,35 @@
       ]
     }
   },
+  "GD_Lilac_SkillsBase.Buzzaxe.Buzzaxe": {
+    "type": "GD_Lilac_SkillsBase.Buzzaxe.WeaponType_Buzzaxe",
+    "manufacturers": [
+      "GD_Manufacturers.Manufacturers.Bandit"
+    ],
+    "parts": {
+      "mode": "Complete",
+      "type": "GD_Lilac_SkillsBase.Buzzaxe.WeaponType_Buzzaxe",
+      "body": [
+        "GD_Lilac_SkillsBase.Buzzaxe.Dynamite_Buzzaxe"
+      ],
+      "grip": [
+        "GD_Lilac_SkillsBase.Buzzaxe.Grip_Buzzaxe"
+      ],
+      "barrel": [
+        "GD_Lilac_SkillsBase.Buzzaxe.Blades_Buzzaxe"
+      ],
+      "stock": [
+        "GD_Lilac_SkillsBase.Buzzaxe.BottomSpike_Buzzaxe"
+      ],
+      "accessory1": [
+        "GD_Lilac_SkillsBase.Buzzaxe.Claw_Buzzaxe"
+      ],
+      "material": [
+        "GD_Lilac_SkillsBase.Buzzaxe.Material_Buzzaxe",
+        "GD_Lilac_SkillsBase.Buzzaxe.Material_Buzzaxe_Fire"
+      ]
+    }
+  },
   "GD_Lobelia_Weapons.AssaultRifles.AR_Jakobs_6_Bekah": {
     "base": "GD_Weap_AssaultRifle.A_Weapons.AR_Jakobs_4_VeryRare",
     "parts": {
@@ -1163,12 +1192,12 @@
         "GD_Lobelia_Weapons.Shotguns.SG_Barrel_Torgue_Carnage"
       ],
       "accessory1": [
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_3",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_2",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_MoonClip",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_ShotgunShell",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_1",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_2",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_3",
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_4",
         "GD_Lobelia_Weapons.Shotguns.SG_Accessory_VerticalGrip_Carnage"
       ],
       "material": [
@@ -1293,7 +1322,7 @@
       "accessory1": [],
       "accessory2": [],
       "material": [
-        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Tediore_5"
+        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Tediore_4"
       ]
     }
   },
@@ -1302,7 +1331,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Shotgun.Body.SG_Body_Bandit_4"
+        "GD_Weap_Shotgun.Body.SG_Body_Bandit_3"
       ],
       "barrel": [
         "GD_Orchid_BossWeapons.Shotgun.SG_Barrel_Bandit_JollyRoger"
@@ -1422,7 +1451,7 @@
         "GD_Orchid_RaidWeapons.SMG.Tattler.Orchid_Seraph_Tattler_Barrel"
       ],
       "accessory1": [
-        "GD_Weap_SMG.Accessory.SMG_Accessory_Bayonet_2"
+        "GD_Weap_SMG.Accessory.SMG_Accessory_Bayonet_1"
       ],
       "material": [
         "GD_Orchid_RaidWeapons.ManufacturerMaterials.Mat_Bandit_1_Tattler"
@@ -1446,14 +1475,14 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Launchers.Body.L_Body_Bandit_4"
+        "GD_Weap_Launchers.Body.L_Body_Bandit_3"
       ],
       "barrel": [
         "GD_Sage_HarpoonGun.Barrel.Sage_HarpoonGun_Barrel"
       ],
       "sight": [],
       "material": [
-        "GD_Weap_Launchers.ManufacturerMaterials.Mat_BanditMade_4"
+        "GD_Weap_Launchers.ManufacturerMaterials.Mat_BanditMade_3"
       ]
     }
   },
@@ -1537,7 +1566,7 @@
       "accessory1": [
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_None",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Foregrip_Stability",
-        "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Bayonet_2",
+        "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Bayonet_1",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_BanditClamp_Damage",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_BanditClamp_Wild",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Shroud1_MagSize",
@@ -1577,7 +1606,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Shotgun.Body.SG_Body_Jakobs_4"
+        "GD_Weap_Shotgun.Body.SG_Body_Jakobs_3"
       ],
       "barrel": [
         "GD_Sage_Weapons.Shotgun.SG_Barrel_Torgue_Twister"
@@ -1665,7 +1694,7 @@
       ],
       "elemental": [],
       "material": [
-        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_BanditMade_2"
+        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_BanditMade_1"
       ]
     }
   },
@@ -1674,7 +1703,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_AssaultRifle.Body.AR_Body_Bandit_3"
+        "GD_Weap_AssaultRifle.Body.AR_Body_Bandit_2"
       ],
       "barrel": [
         "GD_Weap_AssaultRifle.Barrel.AR_Barrel_Bandit",
@@ -1702,7 +1731,7 @@
       "accessory1": [
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_None",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Foregrip_Stability",
-        "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Bayonet_3",
+        "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Bayonet_2",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_BanditClamp_Damage",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_BanditClamp_Wild",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Box_BulletSpeed",
@@ -1710,7 +1739,7 @@
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Shroud2_Accuracy"
       ],
       "material": [
-        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_BanditMade_3"
+        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_BanditMade_2"
       ]
     }
   },
@@ -1719,7 +1748,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_AssaultRifle.Body.AR_Body_Bandit_4"
+        "GD_Weap_AssaultRifle.Body.AR_Body_Bandit_3"
       ],
       "barrel": [
         "GD_Weap_AssaultRifle.Barrel.AR_Barrel_Bandit",
@@ -1730,7 +1759,7 @@
         "GD_Weap_AssaultRifle.Barrel.AR_Barrel_Vladof_Minigun"
       ],
       "material": [
-        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_BanditMade_4"
+        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_BanditMade_3"
       ]
     }
   },
@@ -1739,7 +1768,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_AssaultRifle.Body.AR_Body_Bandit_5"
+        "GD_Weap_AssaultRifle.Body.AR_Body_Bandit_4"
       ],
       "barrel": [
         "GD_Weap_AssaultRifle.Barrel.AR_Barrel_Alien"
@@ -1748,7 +1777,7 @@
         "GD_Weap_AssaultRifle.Sight.AR_Sight_None"
       ],
       "material": [
-        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_BanditMade_4"
+        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_BanditMade_3"
       ]
     }
   },
@@ -1757,7 +1786,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_AssaultRifle.Body.AR_Body_Bandit_5"
+        "GD_Weap_AssaultRifle.Body.AR_Body_Bandit_4"
       ],
       "sight": [
         "GD_Weap_AssaultRifle.Sight.AR_Sight_Bandit",
@@ -1768,7 +1797,7 @@
       ],
       "accessory1": [
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Foregrip_Stability",
-        "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Bayonet_3",
+        "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Bayonet_2",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_BanditClamp_Damage",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_BanditClamp_Wild",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Box_BulletSpeed",
@@ -1776,7 +1805,7 @@
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Shroud2_Accuracy"
       ],
       "material": [
-        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_BanditMade_5"
+        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_BanditMade_4"
       ]
     }
   },
@@ -1794,7 +1823,7 @@
         "GD_Weap_AssaultRifle.elemental.AR_Elemental_Slag"
       ],
       "material": [
-        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_BanditMade_5"
+        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_BanditMade_4"
       ]
     }
   },
@@ -1832,7 +1861,7 @@
         "GD_Weap_AssaultRifle.Stock.AR_Stock_Vladof"
       ],
       "material": [
-        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Dahl_2"
+        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Dahl_1"
       ]
     }
   },
@@ -1841,7 +1870,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_AssaultRifle.Body.AR_Body_Dahl_3"
+        "GD_Weap_AssaultRifle.Body.AR_Body_Dahl_2"
       ],
       "barrel": [
         "GD_Weap_AssaultRifle.Barrel.AR_Barrel_Bandit",
@@ -1869,7 +1898,7 @@
       "accessory1": [
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_None",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Foregrip_Stability",
-        "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Bayonet_2",
+        "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Bayonet_1",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_BanditClamp_Damage",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_BanditClamp_Wild",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Box_BulletSpeed",
@@ -1877,7 +1906,7 @@
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Shroud2_Accuracy"
       ],
       "material": [
-        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Dahl_3"
+        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Dahl_2"
       ]
     }
   },
@@ -1886,7 +1915,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_AssaultRifle.Body.AR_Body_Dahl_4"
+        "GD_Weap_AssaultRifle.Body.AR_Body_Dahl_3"
       ],
       "barrel": [
         "GD_Weap_AssaultRifle.Barrel.AR_Barrel_Bandit",
@@ -1897,7 +1926,7 @@
         "GD_Weap_AssaultRifle.Barrel.AR_Barrel_Vladof_Minigun"
       ],
       "material": [
-        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Dahl_4"
+        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Dahl_3"
       ]
     }
   },
@@ -1906,7 +1935,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_AssaultRifle.Body.AR_Body_Dahl_5"
+        "GD_Weap_AssaultRifle.Body.AR_Body_Dahl_4"
       ],
       "sight": [
         "GD_Weap_AssaultRifle.Sight.AR_Sight_Bandit",
@@ -1917,7 +1946,7 @@
       ],
       "accessory1": [
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Foregrip_Stability",
-        "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Bayonet_2",
+        "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Bayonet_1",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_BanditClamp_Damage",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_BanditClamp_Wild",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Box_BulletSpeed",
@@ -1925,7 +1954,7 @@
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Shroud2_Accuracy"
       ],
       "material": [
-        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Dahl_5"
+        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Dahl_4"
       ]
     }
   },
@@ -1978,7 +2007,7 @@
         "GD_Weap_AssaultRifle.Stock.AR_Stock_Vladof"
       ],
       "material": [
-        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Jakobs_2"
+        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Jakobs_1"
       ]
     }
   },
@@ -1987,7 +2016,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_AssaultRifle.Body.AR_Body_Jakobs_3"
+        "GD_Weap_AssaultRifle.Body.AR_Body_Jakobs_2"
       ],
       "barrel": [
         "GD_Weap_AssaultRifle.Barrel.AR_Barrel_Bandit",
@@ -2008,7 +2037,7 @@
       "accessory1": [
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_None",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Foregrip_Stability",
-        "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Bayonet_2",
+        "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Bayonet_1",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_BanditClamp_Damage",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_BanditClamp_Wild",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Box_BulletSpeed",
@@ -2016,7 +2045,7 @@
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Shroud2_Accuracy"
       ],
       "material": [
-        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Jakobs_3"
+        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Jakobs_2"
       ]
     }
   },
@@ -2025,10 +2054,10 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_AssaultRifle.Body.AR_Body_Jakobs_4"
+        "GD_Weap_AssaultRifle.Body.AR_Body_Jakobs_3"
       ],
       "material": [
-        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Jakobs_4"
+        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Jakobs_3"
       ]
     }
   },
@@ -2037,7 +2066,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_AssaultRifle.Body.AR_Body_Jakobs_5"
+        "GD_Weap_AssaultRifle.Body.AR_Body_Jakobs_4"
       ],
       "sight": [
         "GD_Weap_AssaultRifle.Sight.AR_Sight_Bandit",
@@ -2048,7 +2077,7 @@
       ],
       "accessory1": [
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Foregrip_Stability",
-        "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Bayonet_2",
+        "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Bayonet_1",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_BanditClamp_Damage",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_BanditClamp_Wild",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Box_BulletSpeed",
@@ -2056,7 +2085,7 @@
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Shroud2_Accuracy"
       ],
       "material": [
-        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Jakobs_5"
+        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Jakobs_4"
       ]
     }
   },
@@ -2094,7 +2123,7 @@
         "GD_Weap_AssaultRifle.Stock.AR_Stock_Vladof"
       ],
       "material": [
-        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Torgue_2"
+        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Torgue_1"
       ]
     }
   },
@@ -2103,7 +2132,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_AssaultRifle.Body.AR_Body_Torgue_3"
+        "GD_Weap_AssaultRifle.Body.AR_Body_Torgue_2"
       ],
       "barrel": [
         "GD_Weap_AssaultRifle.Barrel.AR_Barrel_Bandit",
@@ -2124,7 +2153,7 @@
       "accessory1": [
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_None",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Foregrip_Stability",
-        "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Bayonet_3",
+        "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Bayonet_2",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_BanditClamp_Damage",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_BanditClamp_Wild",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Box_BulletSpeed",
@@ -2132,7 +2161,7 @@
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Shroud2_Accuracy"
       ],
       "material": [
-        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Torgue_3"
+        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Torgue_2"
       ]
     }
   },
@@ -2141,7 +2170,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_AssaultRifle.Body.AR_Body_Torgue_4"
+        "GD_Weap_AssaultRifle.Body.AR_Body_Torgue_3"
       ],
       "barrel": [
         "GD_Weap_AssaultRifle.Barrel.AR_Barrel_Bandit",
@@ -2152,7 +2181,7 @@
         "GD_Weap_AssaultRifle.Barrel.AR_Barrel_Vladof_Minigun"
       ],
       "material": [
-        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Torgue_4"
+        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Torgue_3"
       ]
     }
   },
@@ -2161,7 +2190,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_AssaultRifle.Body.AR_Body_Torgue_5"
+        "GD_Weap_AssaultRifle.Body.AR_Body_Torgue_4"
       ],
       "sight": [
         "GD_Weap_AssaultRifle.Sight.AR_Sight_Bandit",
@@ -2172,7 +2201,7 @@
       ],
       "accessory1": [
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Foregrip_Stability",
-        "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Bayonet_3",
+        "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Bayonet_2",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_BanditClamp_Damage",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_BanditClamp_Wild",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Box_BulletSpeed",
@@ -2180,7 +2209,7 @@
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Shroud2_Accuracy"
       ],
       "material": [
-        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Torgue_5"
+        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Torgue_4"
       ]
     }
   },
@@ -2218,7 +2247,7 @@
         "GD_Weap_AssaultRifle.Stock.AR_Stock_Vladof"
       ],
       "material": [
-        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Vladof_2"
+        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Vladof_1"
       ]
     }
   },
@@ -2227,7 +2256,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_AssaultRifle.Body.AR_Body_Vladof_3"
+        "GD_Weap_AssaultRifle.Body.AR_Body_Vladof_2"
       ],
       "barrel": [
         "GD_Weap_AssaultRifle.Barrel.AR_Barrel_Bandit",
@@ -2255,7 +2284,7 @@
       "accessory1": [
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_None",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Foregrip_Stability",
-        "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Bayonet_2",
+        "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Bayonet_1",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_BanditClamp_Damage",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_BanditClamp_Wild",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Box_BulletSpeed",
@@ -2263,7 +2292,7 @@
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Shroud2_Accuracy"
       ],
       "material": [
-        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Vladof_3"
+        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Vladof_2"
       ]
     }
   },
@@ -2272,7 +2301,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_AssaultRifle.Body.AR_Body_Vladof_4"
+        "GD_Weap_AssaultRifle.Body.AR_Body_Vladof_3"
       ],
       "barrel": [
         "GD_Weap_AssaultRifle.Barrel.AR_Barrel_Bandit",
@@ -2283,7 +2312,7 @@
         "GD_Weap_AssaultRifle.Barrel.AR_Barrel_Vladof_Minigun"
       ],
       "material": [
-        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Vladof_4"
+        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Vladof_3"
       ]
     }
   },
@@ -2292,7 +2321,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_AssaultRifle.Body.AR_Body_Vladof_5"
+        "GD_Weap_AssaultRifle.Body.AR_Body_Vladof_4"
       ],
       "sight": [
         "GD_Weap_AssaultRifle.Sight.AR_Sight_Bandit",
@@ -2303,7 +2332,7 @@
       ],
       "accessory1": [
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Foregrip_Stability",
-        "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Bayonet_2",
+        "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Bayonet_1",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_BanditClamp_Damage",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_BanditClamp_Wild",
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Box_BulletSpeed",
@@ -2311,7 +2340,7 @@
         "GD_Weap_AssaultRifle.Accessory.AR_Accessory_Shroud2_Accuracy"
       ],
       "material": [
-        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Vladof_5"
+        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Vladof_4"
       ]
     }
   },
@@ -2404,10 +2433,10 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_AssaultRifle.Body.AR_Body_Gearbox_2"
+        "GD_Weap_AssaultRifle.Body.AR_Body_Gearbox_1"
       ],
       "material": [
-        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Gearbox_2"
+        "GD_Weap_AssaultRifle.ManufacturerMaterials.Mat_Gearbox_1"
       ]
     }
   },
@@ -2511,7 +2540,7 @@
       ],
       "elemental": [],
       "material": [
-        "GD_Weap_Launchers.ManufacturerMaterials.Mat_BanditMade_2"
+        "GD_Weap_Launchers.ManufacturerMaterials.Mat_BanditMade_1"
       ]
     }
   },
@@ -2520,7 +2549,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Launchers.Body.L_Body_Bandit_3"
+        "GD_Weap_Launchers.Body.L_Body_Bandit_2"
       ],
       "elemental": [
         "GD_Weap_Launchers.elemental.RL_Elemental_None",
@@ -2540,7 +2569,7 @@
         "GD_Weap_Launchers.Accessory.RL_Accessory_TipCover_Damage"
       ],
       "material": [
-        "GD_Weap_Launchers.ManufacturerMaterials.Mat_BanditMade_3"
+        "GD_Weap_Launchers.ManufacturerMaterials.Mat_BanditMade_2"
       ]
     }
   },
@@ -2549,7 +2578,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Launchers.Body.L_Body_Bandit_4"
+        "GD_Weap_Launchers.Body.L_Body_Bandit_3"
       ],
       "sight": [
         "GD_Weap_Launchers.Sight.RL_Sight_Bandit",
@@ -2559,7 +2588,7 @@
         "GD_Weap_Launchers.Sight.RL_Sight_Torgue"
       ],
       "material": [
-        "GD_Weap_Launchers.ManufacturerMaterials.Mat_BanditMade_4"
+        "GD_Weap_Launchers.ManufacturerMaterials.Mat_BanditMade_3"
       ]
     }
   },
@@ -2568,7 +2597,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Launchers.Body.L_Body_Bandit_5"
+        "GD_Weap_Launchers.Body.L_Body_Bandit_4"
       ],
       "accessory1": [
         "GD_Weap_Launchers.Accessory.RL_Accessory_BodyMod_1_Mag",
@@ -2580,7 +2609,7 @@
         "GD_Weap_Launchers.Accessory.RL_Accessory_TipCover_Damage"
       ],
       "material": [
-        "GD_Weap_Launchers.ManufacturerMaterials.Mat_BanditMade_5"
+        "GD_Weap_Launchers.ManufacturerMaterials.Mat_BanditMade_4"
       ]
     }
   },
@@ -2645,7 +2674,7 @@
         "GD_Weap_Launchers.elemental.RL_Elemental_Slag"
       ],
       "material": [
-        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Maliwan_2"
+        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Maliwan_1"
       ]
     }
   },
@@ -2654,7 +2683,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Launchers.Body.L_Body_Maliwan_3"
+        "GD_Weap_Launchers.Body.L_Body_Maliwan_2"
       ],
       "accessory1": [
         "GD_Weap_Launchers.Accessory.RL_Accessory_None",
@@ -2667,7 +2696,7 @@
         "GD_Weap_Launchers.Accessory.RL_Accessory_TipCover_Damage"
       ],
       "material": [
-        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Maliwan_3"
+        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Maliwan_2"
       ]
     }
   },
@@ -2676,7 +2705,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Launchers.Body.L_Body_Maliwan_4"
+        "GD_Weap_Launchers.Body.L_Body_Maliwan_3"
       ],
       "sight": [
         "GD_Weap_Launchers.Sight.RL_Sight_Bandit",
@@ -2686,7 +2715,7 @@
         "GD_Weap_Launchers.Sight.RL_Sight_Torgue"
       ],
       "material": [
-        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Maliwan_4"
+        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Maliwan_3"
       ]
     }
   },
@@ -2695,7 +2724,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Launchers.Body.L_Body_Maliwan_5"
+        "GD_Weap_Launchers.Body.L_Body_Maliwan_4"
       ],
       "accessory1": [
         "GD_Weap_Launchers.Accessory.RL_Accessory_BodyMod_1_Mag",
@@ -2707,7 +2736,7 @@
         "GD_Weap_Launchers.Accessory.RL_Accessory_TipCover_Damage"
       ],
       "material": [
-        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Maliwan_5"
+        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Maliwan_4"
       ]
     }
   },
@@ -2767,7 +2796,7 @@
       ],
       "elemental": [],
       "material": [
-        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Tediore_2"
+        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Tediore_1"
       ]
     }
   },
@@ -2776,7 +2805,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Launchers.Body.L_Body_Tediore_3"
+        "GD_Weap_Launchers.Body.L_Body_Tediore_2"
       ],
       "elemental": [
         "GD_Weap_Launchers.elemental.RL_Elemental_None",
@@ -2796,7 +2825,7 @@
         "GD_Weap_Launchers.Accessory.RL_Accessory_TipCover_Damage"
       ],
       "material": [
-        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Tediore_3"
+        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Tediore_2"
       ]
     }
   },
@@ -2805,7 +2834,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Launchers.Body.L_Body_Tediore_4"
+        "GD_Weap_Launchers.Body.L_Body_Tediore_3"
       ],
       "sight": [
         "GD_Weap_Launchers.Sight.RL_Sight_Bandit",
@@ -2815,7 +2844,7 @@
         "GD_Weap_Launchers.Sight.RL_Sight_Torgue"
       ],
       "material": [
-        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Tediore_4"
+        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Tediore_3"
       ]
     }
   },
@@ -2824,7 +2853,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Launchers.Body.L_Body_Tediore_5"
+        "GD_Weap_Launchers.Body.L_Body_Tediore_4"
       ],
       "accessory1": [
         "GD_Weap_Launchers.Accessory.RL_Accessory_BodyMod_1_Mag",
@@ -2836,7 +2865,7 @@
         "GD_Weap_Launchers.Accessory.RL_Accessory_TipCover_Damage"
       ],
       "material": [
-        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Tediore_5"
+        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Tediore_4"
       ]
     }
   },
@@ -2896,7 +2925,7 @@
       ],
       "elemental": [],
       "material": [
-        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Torgue_2"
+        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Torgue_1"
       ]
     }
   },
@@ -2905,7 +2934,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Launchers.Body.L_Body_Torgue_3"
+        "GD_Weap_Launchers.Body.L_Body_Torgue_2"
       ],
       "elemental": [
         "GD_Weap_Launchers.elemental.RL_Elemental_None"
@@ -2921,7 +2950,7 @@
         "GD_Weap_Launchers.Accessory.RL_Accessory_TipCover_Damage"
       ],
       "material": [
-        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Torgue_3"
+        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Torgue_2"
       ]
     }
   },
@@ -2930,7 +2959,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Launchers.Body.L_Body_Torgue_4"
+        "GD_Weap_Launchers.Body.L_Body_Torgue_3"
       ],
       "sight": [
         "GD_Weap_Launchers.Sight.RL_Sight_Bandit",
@@ -2940,7 +2969,7 @@
         "GD_Weap_Launchers.Sight.RL_Sight_Torgue"
       ],
       "material": [
-        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Torgue_4"
+        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Torgue_3"
       ]
     }
   },
@@ -2949,7 +2978,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Launchers.Body.L_Body_Torgue_5"
+        "GD_Weap_Launchers.Body.L_Body_Torgue_4"
       ],
       "accessory1": [
         "GD_Weap_Launchers.Accessory.RL_Accessory_BodyMod_1_Mag",
@@ -2961,7 +2990,7 @@
         "GD_Weap_Launchers.Accessory.RL_Accessory_TipCover_Damage"
       ],
       "material": [
-        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Torgue_5"
+        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Torgue_4"
       ]
     }
   },
@@ -3006,7 +3035,7 @@
       ],
       "elemental": [],
       "material": [
-        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Vladof_2"
+        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Vladof_1"
       ]
     }
   },
@@ -3015,7 +3044,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Launchers.Body.L_Body_Vladof_3"
+        "GD_Weap_Launchers.Body.L_Body_Vladof_2"
       ],
       "elemental": [
         "GD_Weap_Launchers.elemental.RL_Elemental_None",
@@ -3035,7 +3064,7 @@
         "GD_Weap_Launchers.Accessory.RL_Accessory_TipCover_Damage"
       ],
       "material": [
-        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Vladof_3"
+        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Vladof_2"
       ]
     }
   },
@@ -3044,7 +3073,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Launchers.Body.L_Body_Vladof_4"
+        "GD_Weap_Launchers.Body.L_Body_Vladof_3"
       ],
       "sight": [
         "GD_Weap_Launchers.Sight.RL_Sight_Bandit",
@@ -3054,7 +3083,7 @@
         "GD_Weap_Launchers.Sight.RL_Sight_Torgue"
       ],
       "material": [
-        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Vladof_4"
+        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Vladof_3"
       ]
     }
   },
@@ -3063,7 +3092,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Launchers.Body.L_Body_Vladof_5"
+        "GD_Weap_Launchers.Body.L_Body_Vladof_4"
       ],
       "accessory1": [
         "GD_Weap_Launchers.Accessory.RL_Accessory_BodyMod_1_Mag",
@@ -3075,7 +3104,7 @@
         "GD_Weap_Launchers.Accessory.RL_Accessory_TipCover_Damage"
       ],
       "material": [
-        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Vladof_5"
+        "GD_Weap_Launchers.ManufacturerMaterials.Mat_Vladof_4"
       ]
     }
   },
@@ -3099,7 +3128,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Launchers.Body.L_Body_Bandit_5"
+        "GD_Weap_Launchers.Body.L_Body_Bandit_4"
       ],
       "barrel": [
         "GD_Weap_Launchers.Barrel.L_Barrel_Bandit_BadaBoom"
@@ -3114,7 +3143,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Launchers.Body.L_Body_Maliwan_5"
+        "GD_Weap_Launchers.Body.L_Body_Maliwan_4"
       ],
       "barrel": [
         "GD_Weap_Launchers.Barrel.L_Barrel_Maliwan_Pyrophobia"
@@ -3132,7 +3161,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Launchers.Body.L_Body_Tediore_5"
+        "GD_Weap_Launchers.Body.L_Body_Tediore_4"
       ],
       "barrel": [
         "GD_Weap_Launchers.Barrel.L_Barrel_Tediore_Bunny"
@@ -3147,7 +3176,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Launchers.Body.L_Body_Torgue_5"
+        "GD_Weap_Launchers.Body.L_Body_Torgue_4"
       ],
       "barrel": [
         "GD_Weap_Launchers.Barrel.L_Barrel_Torgue_Nukem"
@@ -3162,7 +3191,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Launchers.Body.L_Body_Vladof_5"
+        "GD_Weap_Launchers.Body.L_Body_Vladof_4"
       ],
       "barrel": [
         "GD_Weap_Launchers.Barrel.L_Barrel_Vladof_Mongol"
@@ -3189,7 +3218,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Launchers.Body.L_Body_Maliwan_4"
+        "GD_Weap_Launchers.Body.L_Body_Maliwan_3"
       ],
       "barrel": [
         "GD_Weap_Launchers.Barrel.L_Barrel_Torgue_TheHive"
@@ -3207,7 +3236,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Launchers.Body.L_Body_Maliwan_5"
+        "GD_Weap_Launchers.Body.L_Body_Maliwan_4"
       ],
       "barrel": [
         "GD_Weap_Launchers.Barrel.L_Barrel_Alien_Maliwan_Norfleet"
@@ -3222,7 +3251,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Launchers.Body.L_Body_Torgue_4"
+        "GD_Weap_Launchers.Body.L_Body_Torgue_3"
       ],
       "barrel": [
         "GD_Weap_Launchers.Barrel.L_Barrel_Maliwan_Creamer"
@@ -3273,7 +3302,7 @@
         "GD_Weap_Pistol.Sight.Pistol_Sight_None"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Bandit_2"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Bandit_1"
       ]
     }
   },
@@ -3282,7 +3311,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Bandit_3"
+        "GD_Weap_Pistol.Body.Pistol_Body_Bandit_2"
       ],
       "barrel": [
         "GD_Weap_Pistol.Barrel.Pistol_Barrel_Bandit",
@@ -3314,7 +3343,7 @@
       ],
       "accessory1": [
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_None",
-        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_3",
+        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_2",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Accuracy",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Double",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Stock_Stability",
@@ -3323,7 +3352,7 @@
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Tech_3_Firerate"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Bandit_3"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Bandit_2"
       ]
     }
   },
@@ -3332,10 +3361,10 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Bandit_4"
+        "GD_Weap_Pistol.Body.Pistol_Body_Bandit_3"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Bandit_4"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Bandit_3"
       ]
     }
   },
@@ -3344,7 +3373,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Bandit_5"
+        "GD_Weap_Pistol.Body.Pistol_Body_Bandit_4"
       ],
       "barrel": [
         "GD_Weap_Pistol.Barrel.Pistol_Barrel_Bandit",
@@ -3367,7 +3396,7 @@
         "GD_Weap_Pistol.Sight.Pistol_Sight_Hyperion"
       ],
       "accessory1": [
-        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_3",
+        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_2",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Accuracy",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Double",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Stock_Stability",
@@ -3376,7 +3405,7 @@
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Tech_3_Firerate"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Bandit_5"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Bandit_4"
       ]
     }
   },
@@ -3428,7 +3457,7 @@
         "GD_Weap_Pistol.Sight.Pistol_Sight_None"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Dahl_2"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Dahl_1"
       ]
     }
   },
@@ -3437,7 +3466,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Dahl_3"
+        "GD_Weap_Pistol.Body.Pistol_Body_Dahl_2"
       ],
       "barrel": [
         "GD_Weap_Pistol.Barrel.Pistol_Barrel_Bandit",
@@ -3469,7 +3498,7 @@
       ],
       "accessory1": [
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_None",
-        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_2",
+        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_1",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Accuracy",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Double",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Stock_Stability",
@@ -3478,7 +3507,7 @@
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Tech_3_Firerate"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Dahl_3"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Dahl_2"
       ]
     }
   },
@@ -3487,10 +3516,10 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Dahl_4"
+        "GD_Weap_Pistol.Body.Pistol_Body_Dahl_3"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Dahl_4"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Dahl_3"
       ]
     }
   },
@@ -3499,7 +3528,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Dahl_5"
+        "GD_Weap_Pistol.Body.Pistol_Body_Dahl_4"
       ],
       "barrel": [
         "GD_Weap_Pistol.Barrel.Pistol_Barrel_Bandit",
@@ -3522,7 +3551,7 @@
         "GD_Weap_Pistol.Sight.Pistol_Sight_Hyperion"
       ],
       "accessory1": [
-        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_2",
+        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_1",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Accuracy",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Double",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Stock_Stability",
@@ -3531,7 +3560,7 @@
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Tech_3_Firerate"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Dahl_5"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Dahl_4"
       ]
     }
   },
@@ -3583,7 +3612,7 @@
         "GD_Weap_Pistol.Sight.Pistol_Sight_None"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Hyperion_2"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Hyperion_1"
       ]
     }
   },
@@ -3592,7 +3621,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Hyperion_3"
+        "GD_Weap_Pistol.Body.Pistol_Body_Hyperion_2"
       ],
       "barrel": [
         "GD_Weap_Pistol.Barrel.Pistol_Barrel_Bandit",
@@ -3623,7 +3652,7 @@
       ],
       "accessory1": [
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_None",
-        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_2",
+        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_1",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Accuracy",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Double",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Stock_Stability",
@@ -3632,7 +3661,7 @@
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Tech_3_Firerate"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Hyperion_3"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Hyperion_2"
       ]
     }
   },
@@ -3641,10 +3670,10 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Hyperion_4"
+        "GD_Weap_Pistol.Body.Pistol_Body_Hyperion_3"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Hyperion_4"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Hyperion_3"
       ]
     }
   },
@@ -3653,7 +3682,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Hyperion_5"
+        "GD_Weap_Pistol.Body.Pistol_Body_Hyperion_4"
       ],
       "barrel": [
         "GD_Weap_Pistol.Barrel.Pistol_Barrel_Bandit",
@@ -3677,7 +3706,7 @@
         "GD_Weap_Pistol.Sight.Pistol_Sight_Hyperion"
       ],
       "accessory1": [
-        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_2",
+        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_1",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Accuracy",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Double",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Stock_Stability",
@@ -3686,7 +3715,7 @@
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Tech_3_Firerate"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Hyperion_5"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Hyperion_4"
       ]
     }
   },
@@ -3737,7 +3766,7 @@
         "GD_Weap_Pistol.Sight.Pistol_Sight_None"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Jakobs_2"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Jakobs_1"
       ]
     }
   },
@@ -3746,7 +3775,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Jakobs_3"
+        "GD_Weap_Pistol.Body.Pistol_Body_Jakobs_2"
       ],
       "barrel": [
         "GD_Weap_Pistol.Barrel.Pistol_Barrel_Bandit",
@@ -3770,7 +3799,7 @@
       ],
       "accessory1": [
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_None",
-        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_2",
+        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_1",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Accuracy",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Double",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Stock_Stability",
@@ -3779,7 +3808,7 @@
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Tech_3_Firerate"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Jakobs_3"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Jakobs_2"
       ]
     }
   },
@@ -3788,10 +3817,10 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Jakobs_4"
+        "GD_Weap_Pistol.Body.Pistol_Body_Jakobs_3"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Jakobs_4"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Jakobs_3"
       ]
     }
   },
@@ -3800,7 +3829,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Jakobs_5"
+        "GD_Weap_Pistol.Body.Pistol_Body_Jakobs_4"
       ],
       "barrel": [
         "GD_Weap_Pistol.Barrel.Pistol_Barrel_Bandit",
@@ -3822,7 +3851,7 @@
         "GD_Weap_Pistol.Sight.Pistol_Sight_Hyperion"
       ],
       "accessory1": [
-        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_2",
+        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_1",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Accuracy",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Double",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Stock_Stability",
@@ -3831,7 +3860,7 @@
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Tech_3_Firerate"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Jakobs_5"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Jakobs_4"
       ]
     }
   },
@@ -3873,7 +3902,7 @@
         "GD_Weap_Pistol.elemental.Pistol_Elemental_Slag"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Maliwan_2"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Maliwan_1"
       ]
     }
   },
@@ -3882,7 +3911,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Maliwan_3"
+        "GD_Weap_Pistol.Body.Pistol_Body_Maliwan_2"
       ],
       "barrel": [
         "GD_Weap_Pistol.Barrel.Pistol_Barrel_Bandit",
@@ -3907,7 +3936,7 @@
       ],
       "accessory1": [
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_None",
-        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_2",
+        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_1",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Accuracy",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Double",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Stock_Stability",
@@ -3916,7 +3945,7 @@
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Tech_3_Firerate"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Maliwan_3"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Maliwan_2"
       ]
     }
   },
@@ -3925,10 +3954,10 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Maliwan_4"
+        "GD_Weap_Pistol.Body.Pistol_Body_Maliwan_3"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Maliwan_4"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Maliwan_3"
       ]
     }
   },
@@ -3937,7 +3966,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Maliwan_5"
+        "GD_Weap_Pistol.Body.Pistol_Body_Maliwan_4"
       ],
       "barrel": [
         "GD_Weap_Pistol.Barrel.Pistol_Barrel_Bandit",
@@ -3960,7 +3989,7 @@
         "GD_Weap_Pistol.Sight.Pistol_Sight_Hyperion"
       ],
       "accessory1": [
-        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_2",
+        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_1",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Accuracy",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Double",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Stock_Stability",
@@ -3969,7 +3998,7 @@
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Tech_3_Firerate"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Maliwan_5"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Maliwan_4"
       ]
     }
   },
@@ -4021,7 +4050,7 @@
         "GD_Weap_Pistol.Sight.Pistol_Sight_None"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Tediore_2"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Tediore_1"
       ]
     }
   },
@@ -4030,7 +4059,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Tediore_3"
+        "GD_Weap_Pistol.Body.Pistol_Body_Tediore_2"
       ],
       "barrel": [
         "GD_Weap_Pistol.Barrel.Pistol_Barrel_Bandit",
@@ -4062,7 +4091,7 @@
       ],
       "accessory1": [
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_None",
-        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_2",
+        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_1",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Accuracy",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Double",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Stock_Stability",
@@ -4071,7 +4100,7 @@
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Tech_3_Firerate"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Tediore_3"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Tediore_2"
       ]
     }
   },
@@ -4080,10 +4109,10 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Tediore_4"
+        "GD_Weap_Pistol.Body.Pistol_Body_Tediore_3"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Tediore_4"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Tediore_3"
       ]
     }
   },
@@ -4092,7 +4121,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Tediore_5"
+        "GD_Weap_Pistol.Body.Pistol_Body_Tediore_4"
       ],
       "barrel": [
         "GD_Weap_Pistol.Barrel.Pistol_Barrel_Bandit",
@@ -4115,7 +4144,7 @@
         "GD_Weap_Pistol.Sight.Pistol_Sight_Hyperion"
       ],
       "accessory1": [
-        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_2",
+        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_1",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Accuracy",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Double",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Stock_Stability",
@@ -4124,7 +4153,7 @@
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Tech_3_Firerate"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Tediore_5"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Tediore_4"
       ]
     }
   },
@@ -4176,7 +4205,7 @@
         "GD_Weap_Pistol.Sight.Pistol_Sight_None"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Torgue_2"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Torgue_1"
       ]
     }
   },
@@ -4185,7 +4214,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Torgue_3"
+        "GD_Weap_Pistol.Body.Pistol_Body_Torgue_2"
       ],
       "barrel": [
         "GD_Weap_Pistol.Barrel.Pistol_Barrel_Bandit",
@@ -4210,7 +4239,7 @@
       ],
       "accessory1": [
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_None",
-        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_3",
+        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_2",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Accuracy",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Double",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Stock_Stability",
@@ -4219,7 +4248,7 @@
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Tech_3_Firerate"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Torgue_3"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Torgue_2"
       ]
     }
   },
@@ -4228,10 +4257,10 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Torgue_4"
+        "GD_Weap_Pistol.Body.Pistol_Body_Torgue_3"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Torgue_4"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Torgue_3"
       ]
     }
   },
@@ -4240,7 +4269,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Torgue_5"
+        "GD_Weap_Pistol.Body.Pistol_Body_Torgue_4"
       ],
       "barrel": [
         "GD_Weap_Pistol.Barrel.Pistol_Barrel_Bandit",
@@ -4263,7 +4292,7 @@
         "GD_Weap_Pistol.Sight.Pistol_Sight_Hyperion"
       ],
       "accessory1": [
-        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_3",
+        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_2",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Accuracy",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Double",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Stock_Stability",
@@ -4272,7 +4301,7 @@
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Tech_3_Firerate"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Torgue_5"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Torgue_4"
       ]
     }
   },
@@ -4306,7 +4335,7 @@
         "GD_Weap_Pistol.Sight.Pistol_Sight_None"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Vladof_2"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Vladof_1"
       ]
     }
   },
@@ -4315,7 +4344,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Vladof_3"
+        "GD_Weap_Pistol.Body.Pistol_Body_Vladof_2"
       ],
       "barrel": [
         "GD_Weap_Pistol.Barrel.Pistol_Barrel_Bandit",
@@ -4347,7 +4376,7 @@
       ],
       "accessory1": [
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_None",
-        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_2",
+        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_1",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Accuracy",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Double",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Stock_Stability",
@@ -4356,7 +4385,7 @@
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Tech_3_Firerate"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Vladof_3"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Vladof_2"
       ]
     }
   },
@@ -4365,10 +4394,10 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Vladof_4"
+        "GD_Weap_Pistol.Body.Pistol_Body_Vladof_3"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Vladof_4"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Vladof_3"
       ]
     }
   },
@@ -4377,7 +4406,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Vladof_5"
+        "GD_Weap_Pistol.Body.Pistol_Body_Vladof_4"
       ],
       "barrel": [
         "GD_Weap_Pistol.Barrel.Pistol_Barrel_Bandit",
@@ -4400,7 +4429,7 @@
         "GD_Weap_Pistol.Sight.Pistol_Sight_Hyperion"
       ],
       "accessory1": [
-        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_2",
+        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_1",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Accuracy",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Double",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Stock_Stability",
@@ -4409,7 +4438,7 @@
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Tech_3_Firerate"
       ],
       "material": [
-        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Vladof_5"
+        "GD_Weap_Pistol.ManufacturerMaterials.Mat_Vladof_4"
       ]
     }
   },
@@ -4576,7 +4605,7 @@
       ],
       "accessory1": [
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_None",
-        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_2",
+        "GD_Weap_Pistol.Accessory.Pistol_Accessory_Bayonet_1",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Accuracy",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Laser_Double_DvaInfinity",
         "GD_Weap_Pistol.Accessory.Pistol_Accessory_Stock_Stability",
@@ -4692,9 +4721,9 @@
     "parts": {
       "mode": "Selective",
       "barrel": [
+        "GD_Weap_Pistol.Barrel.Fibber.Pistol_Barrel_Bandit_Fibber_1",
         "GD_Weap_Pistol.Barrel.Fibber.Pistol_Barrel_Bandit_Fibber_2",
-        "GD_Weap_Pistol.Barrel.Fibber.Pistol_Barrel_Bandit_Fibber_3",
-        "GD_Weap_Pistol.Barrel.Fibber.Pistol_Barrel_Bandit_Fibber_4"
+        "GD_Weap_Pistol.Barrel.Fibber.Pistol_Barrel_Bandit_Fibber_3"
       ],
       "material": [
         "GD_Weap_Pistol.ManufacturerMaterials.Mat_Hyperion_3_Fibber"
@@ -4718,7 +4747,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Jakobs_4"
+        "GD_Weap_Pistol.Body.Pistol_Body_Jakobs_3"
       ],
       "barrel": [
         "GD_Weap_Pistol.Barrel.Pistol_Barrel_Tediore_Judge"
@@ -4733,7 +4762,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Jakobs_4"
+        "GD_Weap_Pistol.Body.Pistol_Body_Jakobs_3"
       ],
       "barrel": [
         "GD_Weap_Pistol.Barrel.Pistol_Barrel_Dahl_Law"
@@ -4751,7 +4780,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Maliwan_4"
+        "GD_Weap_Pistol.Body.Pistol_Body_Maliwan_3"
       ],
       "barrel": [
         "GD_Weap_Pistol.Barrel.Pistol_Barrel_Maliwan_Rubi"
@@ -4766,7 +4795,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Pistol.Body.Pistol_Body_Vladof_4"
+        "GD_Weap_Pistol.Body.Pistol_Body_Vladof_3"
       ],
       "barrel": [
         "GD_Weap_Pistol.Barrel.Pistol_Barrel_Hyperion_Veritas"
@@ -4810,7 +4839,7 @@
         "GD_Weap_Shotgun.Stock.SG_Stock_Jakobs"
       ],
       "material": [
-        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Bandit_2"
+        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Bandit_1"
       ]
     }
   },
@@ -4819,7 +4848,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Shotgun.Body.SG_Body_Bandit_3"
+        "GD_Weap_Shotgun.Body.SG_Body_Bandit_2"
       ],
       "barrel": [
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Bandit",
@@ -4844,16 +4873,16 @@
       ],
       "accessory1": [
         "GD_Weap_Shotgun.Accessory.SG_Accessory_None",
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_3",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_2",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_MoonClip",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_ShotgunShell",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_1",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_2",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_3",
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_4",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_VerticalGrip"
       ],
       "material": [
-        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Bandit_3"
+        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Bandit_2"
       ]
     }
   },
@@ -4862,7 +4891,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Shotgun.Body.SG_Body_Bandit_4"
+        "GD_Weap_Shotgun.Body.SG_Body_Bandit_3"
       ],
       "barrel": [
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Bandit",
@@ -4872,7 +4901,7 @@
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Hyperion"
       ],
       "material": [
-        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Bandit_4"
+        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Bandit_3"
       ]
     }
   },
@@ -4881,7 +4910,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Shotgun.Body.SG_Body_Bandit_5"
+        "GD_Weap_Shotgun.Body.SG_Body_Bandit_4"
       ],
       "barrel": [
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Bandit",
@@ -4898,16 +4927,16 @@
         "GD_Weap_Shotgun.Sight.SG_Sight_Hyperion"
       ],
       "accessory1": [
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_3",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_2",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_MoonClip",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_ShotgunShell",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_1",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_2",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_3",
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_4",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_VerticalGrip"
       ],
       "material": [
-        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Bandit_5"
+        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Bandit_4"
       ]
     }
   },
@@ -4925,12 +4954,12 @@
         "GD_Weap_Shotgun.elemental.Shotgun_Elemental_Slag"
       ],
       "accessory1": [
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_3",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_2",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_MoonClip",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_ShotgunShell",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_1",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_2",
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_3",
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_4"
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_3"
       ]
     }
   },
@@ -4968,7 +4997,7 @@
         "GD_Weap_Shotgun.Stock.SG_Stock_Jakobs"
       ],
       "material": [
-        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Hyperion_2"
+        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Hyperion_1"
       ]
     }
   },
@@ -4977,7 +5006,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Shotgun.Body.SG_Body_Hyperion_3"
+        "GD_Weap_Shotgun.Body.SG_Body_Hyperion_2"
       ],
       "barrel": [
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Bandit",
@@ -5002,16 +5031,16 @@
       ],
       "accessory1": [
         "GD_Weap_Shotgun.Accessory.SG_Accessory_None",
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_2",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_1",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_MoonClip",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_ShotgunShell",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_1",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_2",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_3",
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_4",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_VerticalGrip"
       ],
       "material": [
-        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Hyperion_3"
+        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Hyperion_2"
       ]
     }
   },
@@ -5020,7 +5049,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Shotgun.Body.SG_Body_Hyperion_4"
+        "GD_Weap_Shotgun.Body.SG_Body_Hyperion_3"
       ],
       "barrel": [
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Bandit",
@@ -5030,7 +5059,7 @@
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Hyperion"
       ],
       "material": [
-        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Hyperion_4"
+        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Hyperion_3"
       ]
     }
   },
@@ -5039,7 +5068,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Shotgun.Body.SG_Body_Hyperion_5"
+        "GD_Weap_Shotgun.Body.SG_Body_Hyperion_4"
       ],
       "barrel": [
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Bandit",
@@ -5056,16 +5085,16 @@
         "GD_Weap_Shotgun.Sight.SG_Sight_Hyperion"
       ],
       "accessory1": [
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_2",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_1",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_MoonClip",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_ShotgunShell",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_1",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_2",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_3",
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_4",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_VerticalGrip"
       ],
       "material": [
-        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Hyperion_5"
+        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Hyperion_4"
       ]
     }
   },
@@ -5083,12 +5112,12 @@
         "GD_Weap_Shotgun.elemental.Shotgun_Elemental_Slag"
       ],
       "accessory1": [
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_2",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_1",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_MoonClip",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_ShotgunShell",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_1",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_2",
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_3",
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_4"
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_3"
       ]
     }
   },
@@ -5126,7 +5155,7 @@
         "GD_Weap_Shotgun.Stock.SG_Stock_Jakobs"
       ],
       "material": [
-        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Jakobs_2"
+        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Jakobs_1"
       ]
     }
   },
@@ -5135,7 +5164,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Shotgun.Body.SG_Body_Jakobs_3"
+        "GD_Weap_Shotgun.Body.SG_Body_Jakobs_2"
       ],
       "barrel": [
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Bandit",
@@ -5153,16 +5182,16 @@
       ],
       "accessory1": [
         "GD_Weap_Shotgun.Accessory.SG_Accessory_None",
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_2",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_1",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_MoonClip",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_ShotgunShell",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_1",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_2",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_3",
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_4",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_VerticalGrip"
       ],
       "material": [
-        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Jakobs_3"
+        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Jakobs_2"
       ]
     }
   },
@@ -5171,7 +5200,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Shotgun.Body.SG_Body_Jakobs_4"
+        "GD_Weap_Shotgun.Body.SG_Body_Jakobs_3"
       ],
       "barrel": [
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Bandit",
@@ -5181,7 +5210,7 @@
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Hyperion"
       ],
       "material": [
-        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Jakobs_4"
+        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Jakobs_3"
       ]
     }
   },
@@ -5190,7 +5219,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Shotgun.Body.SG_Body_Jakobs_5"
+        "GD_Weap_Shotgun.Body.SG_Body_Jakobs_4"
       ],
       "barrel": [
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Bandit",
@@ -5207,16 +5236,16 @@
         "GD_Weap_Shotgun.Sight.SG_Sight_Hyperion"
       ],
       "accessory1": [
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_2",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_1",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_MoonClip",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_ShotgunShell",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_1",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_2",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_3",
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_4",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_VerticalGrip"
       ],
       "material": [
-        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Jakobs_5"
+        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Jakobs_4"
       ]
     }
   },
@@ -5254,7 +5283,7 @@
         "GD_Weap_Shotgun.Stock.SG_Stock_Jakobs"
       ],
       "material": [
-        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Tediore_2"
+        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Tediore_1"
       ]
     }
   },
@@ -5263,7 +5292,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Shotgun.Body.SG_Body_Tediore_3"
+        "GD_Weap_Shotgun.Body.SG_Body_Tediore_2"
       ],
       "barrel": [
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Bandit",
@@ -5288,16 +5317,16 @@
       ],
       "accessory1": [
         "GD_Weap_Shotgun.Accessory.SG_Accessory_None",
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_2",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_1",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_MoonClip",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_ShotgunShell",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_1",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_2",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_3",
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_4",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_VerticalGrip"
       ],
       "material": [
-        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Tediore_3"
+        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Tediore_2"
       ]
     }
   },
@@ -5306,7 +5335,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Shotgun.Body.SG_Body_Tediore_4"
+        "GD_Weap_Shotgun.Body.SG_Body_Tediore_3"
       ],
       "barrel": [
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Bandit",
@@ -5316,7 +5345,7 @@
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Hyperion"
       ],
       "material": [
-        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Tediore_4"
+        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Tediore_3"
       ]
     }
   },
@@ -5325,7 +5354,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Shotgun.Body.SG_Body_Tediore_5"
+        "GD_Weap_Shotgun.Body.SG_Body_Tediore_4"
       ],
       "barrel": [
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Bandit",
@@ -5342,16 +5371,16 @@
         "GD_Weap_Shotgun.Sight.SG_Sight_Hyperion"
       ],
       "accessory1": [
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_2",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_1",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_MoonClip",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_ShotgunShell",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_1",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_2",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_3",
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_4",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_VerticalGrip"
       ],
       "material": [
-        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Tediore_5"
+        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Tediore_4"
       ]
     }
   },
@@ -5369,12 +5398,12 @@
         "GD_Weap_Shotgun.elemental.Shotgun_Elemental_Slag"
       ],
       "accessory1": [
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_2",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_1",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_MoonClip",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_ShotgunShell",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_1",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_2",
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_3",
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_4"
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_3"
       ]
     }
   },
@@ -5412,7 +5441,7 @@
         "GD_Weap_Shotgun.Stock.SG_Stock_Jakobs"
       ],
       "material": [
-        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Torgue_2"
+        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Torgue_1"
       ]
     }
   },
@@ -5421,7 +5450,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Shotgun.Body.SG_Body_Torgue_3"
+        "GD_Weap_Shotgun.Body.SG_Body_Torgue_2"
       ],
       "barrel": [
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Bandit",
@@ -5439,16 +5468,16 @@
       ],
       "accessory1": [
         "GD_Weap_Shotgun.Accessory.SG_Accessory_None",
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_3",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_2",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_MoonClip",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_ShotgunShell",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_1",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_2",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_3",
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_4",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_VerticalGrip"
       ],
       "material": [
-        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Torgue_3"
+        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Torgue_2"
       ]
     }
   },
@@ -5457,7 +5486,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Shotgun.Body.SG_Body_Torgue_4"
+        "GD_Weap_Shotgun.Body.SG_Body_Torgue_3"
       ],
       "barrel": [
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Bandit",
@@ -5467,7 +5496,7 @@
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Hyperion"
       ],
       "material": [
-        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Torgue_4"
+        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Torgue_3"
       ]
     }
   },
@@ -5476,7 +5505,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Shotgun.Body.SG_Body_Torgue_5"
+        "GD_Weap_Shotgun.Body.SG_Body_Torgue_4"
       ],
       "barrel": [
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Bandit",
@@ -5493,16 +5522,16 @@
         "GD_Weap_Shotgun.Sight.SG_Sight_Hyperion"
       ],
       "accessory1": [
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_3",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Bayonet_2",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_MoonClip",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_ShotgunShell",
+        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_1",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_2",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_3",
-        "GD_Weap_Shotgun.Accessory.SG_Accessory_Tech_4",
         "GD_Weap_Shotgun.Accessory.SG_Accessory_VerticalGrip"
       ],
       "material": [
-        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Torgue_5"
+        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Torgue_4"
       ]
     }
   },
@@ -5571,7 +5600,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Shotgun.Body.SG_Body_Bandit_4"
+        "GD_Weap_Shotgun.Body.SG_Body_Bandit_3"
       ],
       "barrel": [
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Bandit_Dog"
@@ -5586,7 +5615,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Shotgun.Body.SG_Body_Bandit_4"
+        "GD_Weap_Shotgun.Body.SG_Body_Bandit_3"
       ],
       "barrel": [
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Jakobs_RockSalt"
@@ -5616,7 +5645,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Shotgun.Body.SG_Body_Hyperion_4"
+        "GD_Weap_Shotgun.Body.SG_Body_Hyperion_3"
       ],
       "barrel": [
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Hyperion_HeartBreaker"
@@ -5637,7 +5666,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Shotgun.Body.SG_Body_Hyperion_4"
+        "GD_Weap_Shotgun.Body.SG_Body_Hyperion_3"
       ],
       "barrel": [
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Tediore_Shotgun1340"
@@ -5651,7 +5680,7 @@
         "GD_Weap_Shotgun.elemental.Shotgun_Elemental_None"
       ],
       "material": [
-        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Hyperion_3_1341"
+        "GD_Weap_Shotgun.ManufacturerMaterials.Mat_Hyperion_3_1340"
       ]
     }
   },
@@ -5660,7 +5689,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Shotgun.Body.SG_Body_Jakobs_4"
+        "GD_Weap_Shotgun.Body.SG_Body_Jakobs_3"
       ],
       "barrel": [
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Jakobs_TidalWave"
@@ -5675,7 +5704,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Shotgun.Body.SG_Body_Jakobs_4"
+        "GD_Weap_Shotgun.Body.SG_Body_Jakobs_3"
       ],
       "barrel": [
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Bandit_Triquetra"
@@ -5690,7 +5719,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Shotgun.Body.SG_Body_Tediore_4"
+        "GD_Weap_Shotgun.Body.SG_Body_Tediore_3"
       ],
       "barrel": [
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Tediore_Blockhead"
@@ -5708,7 +5737,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_Shotgun.Body.SG_Body_Tediore_4"
+        "GD_Weap_Shotgun.Body.SG_Body_Tediore_3"
       ],
       "barrel": [
         "GD_Weap_Shotgun.Barrel.SG_Barrel_Tediore_Octo"
@@ -5764,7 +5793,7 @@
         "GD_Weap_SMG.Stock.SMG_Stock_Hyperion"
       ],
       "material": [
-        "GD_Weap_SMG.ManufacturerMaterials.Mat_Bandit_2"
+        "GD_Weap_SMG.ManufacturerMaterials.Mat_Bandit_1"
       ]
     }
   },
@@ -5799,7 +5828,7 @@
       ],
       "accessory1": [
         "GD_Weap_SMG.Accessory.SMG_Accessory_None",
-        "GD_Weap_SMG.Accessory.SMG_Accessory_Bayonet_3",
+        "GD_Weap_SMG.Accessory.SMG_Accessory_Bayonet_2",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body1_Accurate",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body2_Damage",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body3_Accelerated",
@@ -5807,7 +5836,7 @@
         "GD_Weap_SMG.Accessory.SMG_Accessory_Stock2_Reload"
       ],
       "material": [
-        "GD_Weap_SMG.ManufacturerMaterials.Mat_Bandit_3"
+        "GD_Weap_SMG.ManufacturerMaterials.Mat_Bandit_2"
       ]
     }
   },
@@ -5819,7 +5848,7 @@
         "GD_Weap_SMG.Body.SMG_Body_Bandit_VarB"
       ],
       "material": [
-        "GD_Weap_SMG.ManufacturerMaterials.Mat_Bandit_4"
+        "GD_Weap_SMG.ManufacturerMaterials.Mat_Bandit_3"
       ]
     }
   },
@@ -5845,7 +5874,7 @@
         "GD_Weap_SMG.Sight.SMG_Sight_Hyperion"
       ],
       "accessory1": [
-        "GD_Weap_SMG.Accessory.SMG_Accessory_Bayonet_3",
+        "GD_Weap_SMG.Accessory.SMG_Accessory_Bayonet_2",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body1_Accurate",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body2_Damage",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body3_Accelerated",
@@ -5853,7 +5882,7 @@
         "GD_Weap_SMG.Accessory.SMG_Accessory_Stock2_Reload"
       ],
       "material": [
-        "GD_Weap_SMG.ManufacturerMaterials.Mat_Bandit_5"
+        "GD_Weap_SMG.ManufacturerMaterials.Mat_Bandit_4"
       ]
     }
   },
@@ -5913,7 +5942,7 @@
         "GD_Weap_SMG.Stock.SMG_Stock_Hyperion"
       ],
       "material": [
-        "GD_Weap_SMG.ManufacturerMaterials.Mat_Dahl_2"
+        "GD_Weap_SMG.ManufacturerMaterials.Mat_Dahl_1"
       ]
     }
   },
@@ -5948,7 +5977,7 @@
       ],
       "accessory1": [
         "GD_Weap_SMG.Accessory.SMG_Accessory_None",
-        "GD_Weap_SMG.Accessory.SMG_Accessory_Bayonet_2",
+        "GD_Weap_SMG.Accessory.SMG_Accessory_Bayonet_1",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body1_Accurate",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body2_Damage",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body3_Accelerated",
@@ -5956,7 +5985,7 @@
         "GD_Weap_SMG.Accessory.SMG_Accessory_Stock2_Reload"
       ],
       "material": [
-        "GD_Weap_SMG.ManufacturerMaterials.Mat_Dahl_3"
+        "GD_Weap_SMG.ManufacturerMaterials.Mat_Dahl_2"
       ]
     }
   },
@@ -5968,7 +5997,7 @@
         "GD_Weap_SMG.Body.SMG_Body_Dahl_VarB"
       ],
       "material": [
-        "GD_Weap_SMG.ManufacturerMaterials.Mat_Dahl_4"
+        "GD_Weap_SMG.ManufacturerMaterials.Mat_Dahl_3"
       ]
     }
   },
@@ -5994,7 +6023,7 @@
         "GD_Weap_SMG.Sight.SMG_Sight_Hyperion"
       ],
       "accessory1": [
-        "GD_Weap_SMG.Accessory.SMG_Accessory_Bayonet_2",
+        "GD_Weap_SMG.Accessory.SMG_Accessory_Bayonet_1",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body1_Accurate",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body2_Damage",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body3_Accelerated",
@@ -6002,7 +6031,7 @@
         "GD_Weap_SMG.Accessory.SMG_Accessory_Stock2_Reload"
       ],
       "material": [
-        "GD_Weap_SMG.ManufacturerMaterials.Mat_Dahl_5"
+        "GD_Weap_SMG.ManufacturerMaterials.Mat_Dahl_4"
       ]
     }
   },
@@ -6062,7 +6091,7 @@
         "GD_Weap_SMG.Stock.SMG_Stock_Hyperion"
       ],
       "material": [
-        "GD_Weap_SMG.ManufacturerMaterials.Mat_Hyperion_2"
+        "GD_Weap_SMG.ManufacturerMaterials.Mat_Hyperion_1"
       ]
     }
   },
@@ -6097,7 +6126,7 @@
       ],
       "accessory1": [
         "GD_Weap_SMG.Accessory.SMG_Accessory_None",
-        "GD_Weap_SMG.Accessory.SMG_Accessory_Bayonet_2",
+        "GD_Weap_SMG.Accessory.SMG_Accessory_Bayonet_1",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body1_Accurate",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body2_Damage",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body3_Accelerated",
@@ -6105,7 +6134,7 @@
         "GD_Weap_SMG.Accessory.SMG_Accessory_Stock2_Reload"
       ],
       "material": [
-        "GD_Weap_SMG.ManufacturerMaterials.Mat_Hyperion_3"
+        "GD_Weap_SMG.ManufacturerMaterials.Mat_Hyperion_2"
       ]
     }
   },
@@ -6117,7 +6146,7 @@
         "GD_Weap_SMG.Body.SMG_Body_Hyperion_VarB"
       ],
       "material": [
-        "GD_Weap_SMG.ManufacturerMaterials.Mat_Hyperion_4"
+        "GD_Weap_SMG.ManufacturerMaterials.Mat_Hyperion_3"
       ]
     }
   },
@@ -6143,7 +6172,7 @@
         "GD_Weap_SMG.Sight.SMG_Sight_Hyperion"
       ],
       "accessory1": [
-        "GD_Weap_SMG.Accessory.SMG_Accessory_Bayonet_2",
+        "GD_Weap_SMG.Accessory.SMG_Accessory_Bayonet_1",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body1_Accurate",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body2_Damage",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body3_Accelerated",
@@ -6151,7 +6180,7 @@
         "GD_Weap_SMG.Accessory.SMG_Accessory_Stock2_Reload"
       ],
       "material": [
-        "GD_Weap_SMG.ManufacturerMaterials.Mat_Hyperion_5"
+        "GD_Weap_SMG.ManufacturerMaterials.Mat_Hyperion_4"
       ]
     }
   },
@@ -6217,7 +6246,7 @@
         "GD_Weap_SMG.elemental.SMG_Elemental_Slag"
       ],
       "material": [
-        "GD_Weap_SMG.ManufacturerMaterials.Mat_Maliwan_2"
+        "GD_Weap_SMG.ManufacturerMaterials.Mat_Maliwan_1"
       ]
     }
   },
@@ -6245,7 +6274,7 @@
       ],
       "accessory1": [
         "GD_Weap_SMG.Accessory.SMG_Accessory_None",
-        "GD_Weap_SMG.Accessory.SMG_Accessory_Bayonet_2",
+        "GD_Weap_SMG.Accessory.SMG_Accessory_Bayonet_1",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body1_Accurate",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body2_Damage",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body3_Accelerated",
@@ -6253,7 +6282,7 @@
         "GD_Weap_SMG.Accessory.SMG_Accessory_Stock2_Reload"
       ],
       "material": [
-        "GD_Weap_SMG.ManufacturerMaterials.Mat_Maliwan_3"
+        "GD_Weap_SMG.ManufacturerMaterials.Mat_Maliwan_2"
       ]
     }
   },
@@ -6265,7 +6294,7 @@
         "GD_Weap_SMG.Body.SMG_Body_Maliwan_VarC"
       ],
       "material": [
-        "GD_Weap_SMG.ManufacturerMaterials.Mat_Maliwan_4"
+        "GD_Weap_SMG.ManufacturerMaterials.Mat_Maliwan_3"
       ]
     }
   },
@@ -6291,7 +6320,7 @@
         "GD_Weap_SMG.Sight.SMG_Sight_Hyperion"
       ],
       "accessory1": [
-        "GD_Weap_SMG.Accessory.SMG_Accessory_Bayonet_2",
+        "GD_Weap_SMG.Accessory.SMG_Accessory_Bayonet_1",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body1_Accurate",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body2_Damage",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body3_Accelerated",
@@ -6299,7 +6328,7 @@
         "GD_Weap_SMG.Accessory.SMG_Accessory_Stock2_Reload"
       ],
       "material": [
-        "GD_Weap_SMG.ManufacturerMaterials.Mat_Maliwan_5"
+        "GD_Weap_SMG.ManufacturerMaterials.Mat_Maliwan_4"
       ]
     }
   },
@@ -6359,7 +6388,7 @@
         "GD_Weap_SMG.Stock.SMG_Stock_Hyperion"
       ],
       "material": [
-        "GD_Weap_SMG.ManufacturerMaterials.Mat_Tedior_2"
+        "GD_Weap_SMG.ManufacturerMaterials.Mat_Tedior_1"
       ]
     }
   },
@@ -6394,7 +6423,7 @@
       ],
       "accessory1": [
         "GD_Weap_SMG.Accessory.SMG_Accessory_None",
-        "GD_Weap_SMG.Accessory.SMG_Accessory_Bayonet_2",
+        "GD_Weap_SMG.Accessory.SMG_Accessory_Bayonet_1",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body1_Accurate",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body2_Damage",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body3_Accelerated",
@@ -6402,7 +6431,7 @@
         "GD_Weap_SMG.Accessory.SMG_Accessory_Stock2_Reload"
       ],
       "material": [
-        "GD_Weap_SMG.ManufacturerMaterials.Mat_Tedior_3"
+        "GD_Weap_SMG.ManufacturerMaterials.Mat_Tedior_2"
       ]
     }
   },
@@ -6414,7 +6443,7 @@
         "GD_Weap_SMG.Body.SMG_Body_Tediore_VarB"
       ],
       "material": [
-        "GD_Weap_SMG.ManufacturerMaterials.Mat_Tedior_4"
+        "GD_Weap_SMG.ManufacturerMaterials.Mat_Tedior_3"
       ]
     }
   },
@@ -6440,7 +6469,7 @@
         "GD_Weap_SMG.Sight.SMG_Sight_Hyperion"
       ],
       "accessory1": [
-        "GD_Weap_SMG.Accessory.SMG_Accessory_Bayonet_2",
+        "GD_Weap_SMG.Accessory.SMG_Accessory_Bayonet_1",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body1_Accurate",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body2_Damage",
         "GD_Weap_SMG.Accessory.SMG_Accessory_Body3_Accelerated",
@@ -6448,7 +6477,7 @@
         "GD_Weap_SMG.Accessory.SMG_Accessory_Stock2_Reload"
       ],
       "material": [
-        "GD_Weap_SMG.ManufacturerMaterials.Mat_Tedior_5"
+        "GD_Weap_SMG.ManufacturerMaterials.Mat_Tedior_4"
       ]
     }
   },
@@ -6582,15 +6611,15 @@
       ]
     }
   },
-  "GD_Weap_SMG.A_Weapons_Unique.SMG_Gearbox_2": {
+  "GD_Weap_SMG.A_Weapons_Unique.SMG_Gearbox_1": {
     "base": "GD_Weap_SMG.A_Weapons.SMG_Hyperion",
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_SMG.Body.SMG_Body_Gearbox_2"
+        "GD_Weap_SMG.Body.SMG_Body_Gearbox_1"
       ],
       "material": [
-        "GD_Weap_SMG.ManufacturerMaterials.Mat_Gearbox_2"
+        "GD_Weap_SMG.ManufacturerMaterials.Mat_Gearbox_1"
       ]
     }
   },
@@ -6715,7 +6744,7 @@
         "GD_Weap_SniperRifles.Stock.SR_Stock_Hyperion"
       ],
       "material": [
-        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Dahl_2"
+        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Dahl_1"
       ]
     }
   },
@@ -6724,7 +6753,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_SniperRifles.Body.SR_Body_Dahl_3"
+        "GD_Weap_SniperRifles.Body.SR_Body_Dahl_2"
       ],
       "elemental": [
         "GD_Weap_SniperRifles.elemental.SR_Elemental_None",
@@ -6744,7 +6773,7 @@
         "GD_Weap_SniperRifles.Accessory.Sniper_Accessory_Mount3_Damage"
       ],
       "material": [
-        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Dahl_3"
+        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Dahl_2"
       ]
     }
   },
@@ -6753,10 +6782,10 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_SniperRifles.Body.SR_Body_Dahl_4"
+        "GD_Weap_SniperRifles.Body.SR_Body_Dahl_3"
       ],
       "material": [
-        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Dahl_4"
+        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Dahl_3"
       ]
     }
   },
@@ -6765,7 +6794,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_SniperRifles.Body.SR_Body_Dahl_5"
+        "GD_Weap_SniperRifles.Body.SR_Body_Dahl_4"
       ],
       "accessory1": [
         "GD_Weap_SniperRifles.Accessory.Sniper_Accessory_Bayonet1",
@@ -6777,7 +6806,7 @@
         "GD_Weap_SniperRifles.Accessory.Sniper_Accessory_Mount3_Damage"
       ],
       "material": [
-        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Dahl_5"
+        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Dahl_4"
       ]
     }
   },
@@ -6836,7 +6865,7 @@
         "GD_Weap_SniperRifles.Stock.SR_Stock_Hyperion"
       ],
       "material": [
-        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Hyperion_2"
+        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Hyperion_1"
       ]
     }
   },
@@ -6845,7 +6874,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_SniperRifles.Body.SR_Body_Hyperion_3"
+        "GD_Weap_SniperRifles.Body.SR_Body_Hyperion_2"
       ],
       "elemental": [
         "GD_Weap_SniperRifles.elemental.SR_Elemental_None",
@@ -6865,7 +6894,7 @@
         "GD_Weap_SniperRifles.Accessory.Sniper_Accessory_Mount3_Damage"
       ],
       "material": [
-        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Hyperion_3"
+        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Hyperion_2"
       ]
     }
   },
@@ -6874,10 +6903,10 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_SniperRifles.Body.SR_Body_Hyperion_4"
+        "GD_Weap_SniperRifles.Body.SR_Body_Hyperion_3"
       ],
       "material": [
-        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Hyperion_4"
+        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Hyperion_3"
       ]
     }
   },
@@ -6886,7 +6915,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_SniperRifles.Body.SR_Body_Hyperion_5"
+        "GD_Weap_SniperRifles.Body.SR_Body_Hyperion_4"
       ],
       "accessory1": [
         "GD_Weap_SniperRifles.Accessory.Sniper_Accessory_Bayonet1",
@@ -6898,7 +6927,7 @@
         "GD_Weap_SniperRifles.Accessory.Sniper_Accessory_Mount3_Damage"
       ],
       "material": [
-        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Hyperion_5"
+        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Hyperion_4"
       ]
     }
   },
@@ -6957,7 +6986,7 @@
         "GD_Weap_SniperRifles.Stock.SR_Stock_Hyperion"
       ],
       "material": [
-        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Jakobs_2"
+        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Jakobs_1"
       ]
     }
   },
@@ -6966,7 +6995,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_SniperRifles.Body.SR_Body_Jakobs_3"
+        "GD_Weap_SniperRifles.Body.SR_Body_Jakobs_2"
       ],
       "accessory1": [
         "GD_Weap_SniperRifles.Accessory.Sniperl_Accessory_None",
@@ -6979,7 +7008,7 @@
         "GD_Weap_SniperRifles.Accessory.Sniper_Accessory_Mount3_Damage"
       ],
       "material": [
-        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Jakobs_3"
+        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Jakobs_2"
       ]
     }
   },
@@ -6988,10 +7017,10 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_SniperRifles.Body.SR_Body_Jakobs_4"
+        "GD_Weap_SniperRifles.Body.SR_Body_Jakobs_3"
       ],
       "material": [
-        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Jakobs_4"
+        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Jakobs_3"
       ]
     }
   },
@@ -7000,7 +7029,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_SniperRifles.Body.SR_Body_Jakobs_5"
+        "GD_Weap_SniperRifles.Body.SR_Body_Jakobs_4"
       ],
       "accessory1": [
         "GD_Weap_SniperRifles.Accessory.Sniper_Accessory_Bayonet1",
@@ -7012,7 +7041,7 @@
         "GD_Weap_SniperRifles.Accessory.Sniper_Accessory_Mount3_Damage"
       ],
       "material": [
-        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Jakobs_5"
+        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Jakobs_4"
       ]
     }
   },
@@ -7062,7 +7091,7 @@
         "GD_Weap_SniperRifles.elemental.SR_Elemental_Slag"
       ],
       "material": [
-        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Maliwan_2"
+        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Maliwan_1"
       ]
     }
   },
@@ -7071,7 +7100,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_SniperRifles.Body.SR_Body_Maliwan_3"
+        "GD_Weap_SniperRifles.Body.SR_Body_Maliwan_2"
       ],
       "accessory1": [
         "GD_Weap_SniperRifles.Accessory.Sniperl_Accessory_None",
@@ -7084,7 +7113,7 @@
         "GD_Weap_SniperRifles.Accessory.Sniper_Accessory_Mount3_Damage"
       ],
       "material": [
-        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Maliwan_3"
+        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Maliwan_2"
       ]
     }
   },
@@ -7093,10 +7122,10 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_SniperRifles.Body.SR_Body_Maliwan_4"
+        "GD_Weap_SniperRifles.Body.SR_Body_Maliwan_3"
       ],
       "material": [
-        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Maliwan_4"
+        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Maliwan_3"
       ]
     }
   },
@@ -7105,7 +7134,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_SniperRifles.Body.SR_Body_Maliwan_5"
+        "GD_Weap_SniperRifles.Body.SR_Body_Maliwan_4"
       ],
       "accessory1": [
         "GD_Weap_SniperRifles.Accessory.Sniper_Accessory_Bayonet1",
@@ -7117,7 +7146,7 @@
         "GD_Weap_SniperRifles.Accessory.Sniper_Accessory_Mount3_Damage"
       ],
       "material": [
-        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Maliwan_5"
+        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Maliwan_4"
       ]
     }
   },
@@ -7176,7 +7205,7 @@
         "GD_Weap_SniperRifles.Stock.SR_Stock_Hyperion"
       ],
       "material": [
-        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Vladof_2"
+        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Vladof_1"
       ]
     }
   },
@@ -7185,7 +7214,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_SniperRifles.Body.SR_Body_Vladof_3"
+        "GD_Weap_SniperRifles.Body.SR_Body_Vladof_2"
       ],
       "elemental": [
         "GD_Weap_SniperRifles.elemental.SR_Elemental_None",
@@ -7205,7 +7234,7 @@
         "GD_Weap_SniperRifles.Accessory.Sniper_Accessory_Mount3_Damage"
       ],
       "material": [
-        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Vladof_3"
+        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Vladof_2"
       ]
     }
   },
@@ -7214,10 +7243,10 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_SniperRifles.Body.SR_Body_Vladof_4"
+        "GD_Weap_SniperRifles.Body.SR_Body_Vladof_3"
       ],
       "material": [
-        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Vladof_4"
+        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Vladof_3"
       ]
     }
   },
@@ -7226,7 +7255,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_SniperRifles.Body.SR_Body_Vladof_5"
+        "GD_Weap_SniperRifles.Body.SR_Body_Vladof_4"
       ],
       "accessory1": [
         "GD_Weap_SniperRifles.Accessory.Sniper_Accessory_Bayonet1",
@@ -7238,7 +7267,7 @@
         "GD_Weap_SniperRifles.Accessory.Sniper_Accessory_Mount3_Damage"
       ],
       "material": [
-        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Vladof_5"
+        "GD_Weap_SniperRifles.ManufacturerMaterials.Material_Vladof_4"
       ]
     }
   },
@@ -7262,7 +7291,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_SniperRifles.Body.SR_Body_Dahl_5"
+        "GD_Weap_SniperRifles.Body.SR_Body_Dahl_4"
       ],
       "barrel": [
         "GD_Weap_SniperRifles.Barrel.SR_Barrel_Dahl_Pitchfork"
@@ -7277,7 +7306,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_SniperRifles.Body.SR_Body_Hyperion_5"
+        "GD_Weap_SniperRifles.Body.SR_Body_Hyperion_4"
       ],
       "barrel": [
         "GD_Weap_SniperRifles.Barrel.SR_Barrel_Hyperion_Invader"
@@ -7304,7 +7333,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_SniperRifles.Body.SR_Body_Maliwan_5"
+        "GD_Weap_SniperRifles.Body.SR_Body_Maliwan_4"
       ],
       "barrel": [
         "GD_Weap_SniperRifles.Barrel.SR_Barrel_Maliwan_Volcano"
@@ -7322,7 +7351,7 @@
     "parts": {
       "mode": "Selective",
       "body": [
-        "GD_Weap_SniperRifles.Body.SR_Body_Vladof_5"
+        "GD_Weap_SniperRifles.Body.SR_Body_Vladof_4"
       ],
       "barrel": [
         "GD_Weap_SniperRifles.Barrel.SR_Barrel_Vladof_Lyudmila"
@@ -7344,7 +7373,7 @@
       ]
     }
   },
-  "GD_Weap_SniperRifles.A_Weapons_Unique.Sniper_Gearbox_2": {
+  "GD_Weap_SniperRifles.A_Weapons_Unique.Sniper_Gearbox_1": {
     "base": "GD_Weap_SniperRifles.A_Weapons.Sniper_Jakobs",
     "parts": {
       "mode": "Selective",
@@ -7352,7 +7381,7 @@
         "GD_Weap_SniperRifles.Body.SR_Body_Gearbox"
       ],
       "material": [
-        "GD_Weap_SniperRifles.ManufacturerMaterials.Mat_Gearbox_2"
+        "GD_Weap_SniperRifles.ManufacturerMaterials.Mat_Gearbox_1"
       ]
     }
   },

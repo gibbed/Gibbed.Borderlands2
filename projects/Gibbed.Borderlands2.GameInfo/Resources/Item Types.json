@@ -17302,7 +17302,7 @@
       "GD_Shields.Material.Material5_Legendary_AbsorptionShock"
     ]
   },
-  "GD_Shields.A_Item.Shield_Absorption_1341": {
+  "GD_Shields.A_Item.Shield_Absorption_1340": {
     "name": "Orb Shield",
     "type": "Shield",
     "alpha_parts": [
@@ -17341,7 +17341,7 @@
       "GD_Shields.Capacitor.Capacitor8_Pangolin"
     ],
     "delta_parts": [
-      "GD_Shields.Accessory.Accessory3_Absorption_1341"
+      "GD_Shields.Accessory.Accessory3_Absorption_1340"
     ],
     "material_parts": [
       "GD_Shields.Material.Material3_Rare_Absorption"

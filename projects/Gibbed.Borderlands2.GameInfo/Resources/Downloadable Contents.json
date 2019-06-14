@@ -515,7 +515,7 @@
     "package": "GD_TulipPackageDef.PackageDef_Tulip",
     "type": "CustomizationSet"
   },
-  "Transient.DownloadableItemSetDefinition_1": {
+  "Transient.DownloadableItemSetDefinition_0": {
     "id": 4,
     "name": "Dragon Keep",
     "package": "GD_AsterPackageDef.PackageDef_Aster",

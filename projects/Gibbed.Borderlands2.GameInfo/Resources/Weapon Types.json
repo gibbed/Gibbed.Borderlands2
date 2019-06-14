@@ -8,8 +8,8 @@
     "body_parts": [
       "GD_Anemone_Weap_SniperRifles.Body.SR_Body_Dahl",
       "GD_Anemone_Weap_SniperRifles.Body.SR_Body_Hyperion",
+      "GD_Anemone_Weap_SniperRifles.Body.SR_Body_Hyperion_2",
       "GD_Anemone_Weap_SniperRifles.Body.SR_Body_Hyperion_3",
-      "GD_Anemone_Weap_SniperRifles.Body.SR_Body_Hyperion_4",
       "GD_Anemone_Weap_SniperRifles.Body.SR_Body_Jakobs",
       "GD_Anemone_Weap_SniperRifles.Body.SR_Body_Maliwan",
       "GD_Anemone_Weap_SniperRifles.Body.SR_Body_Vladof"
@@ -74,6 +74,10 @@
       "GD_Weap_AssaultRifle.Stock.AR_Stock_Torgue",
       "GD_Weap_AssaultRifle.Stock.AR_Stock_Vladof"
     ]
+  },
+  "GD_Lilac_SkillsBase.Buzzaxe.WeaponType_Buzzaxe": {
+    "type": "Pistol",
+    "name": ""
   },
   "GD_Weap_AssaultRifle.A_Weapons.WT_Bandit_AssaultRifle": {
     "type": "AssaultRifle",
@@ -697,8 +701,8 @@
     "body_parts": [
       "GD_Weap_SniperRifles.Body.SR_Body_Dahl",
       "GD_Weap_SniperRifles.Body.SR_Body_Hyperion",
+      "GD_Weap_SniperRifles.Body.SR_Body_Hyperion_2",
       "GD_Weap_SniperRifles.Body.SR_Body_Hyperion_3",
-      "GD_Weap_SniperRifles.Body.SR_Body_Hyperion_4",
       "GD_Weap_SniperRifles.Body.SR_Body_Jakobs",
       "GD_Weap_SniperRifles.Body.SR_Body_Maliwan",
       "GD_Weap_SniperRifles.Body.SR_Body_Vladof"
@@ -734,8 +738,8 @@
     "body_parts": [
       "GD_Weap_SniperRifles.Body.SR_Body_Dahl",
       "GD_Weap_SniperRifles.Body.SR_Body_Hyperion",
+      "GD_Weap_SniperRifles.Body.SR_Body_Hyperion_2",
       "GD_Weap_SniperRifles.Body.SR_Body_Hyperion_3",
-      "GD_Weap_SniperRifles.Body.SR_Body_Hyperion_4",
       "GD_Weap_SniperRifles.Body.SR_Body_Jakobs",
       "GD_Weap_SniperRifles.Body.SR_Body_Maliwan",
       "GD_Weap_SniperRifles.Body.SR_Body_Vladof"
@@ -771,8 +775,8 @@
     "body_parts": [
       "GD_Weap_SniperRifles.Body.SR_Body_Dahl",
       "GD_Weap_SniperRifles.Body.SR_Body_Hyperion",
+      "GD_Weap_SniperRifles.Body.SR_Body_Hyperion_2",
       "GD_Weap_SniperRifles.Body.SR_Body_Hyperion_3",
-      "GD_Weap_SniperRifles.Body.SR_Body_Hyperion_4",
       "GD_Weap_SniperRifles.Body.SR_Body_Jakobs",
       "GD_Weap_SniperRifles.Body.SR_Body_Maliwan",
       "GD_Weap_SniperRifles.Body.SR_Body_Vladof"
@@ -808,8 +812,8 @@
     "body_parts": [
       "GD_Weap_SniperRifles.Body.SR_Body_Dahl",
       "GD_Weap_SniperRifles.Body.SR_Body_Hyperion",
+      "GD_Weap_SniperRifles.Body.SR_Body_Hyperion_2",
       "GD_Weap_SniperRifles.Body.SR_Body_Hyperion_3",
-      "GD_Weap_SniperRifles.Body.SR_Body_Hyperion_4",
       "GD_Weap_SniperRifles.Body.SR_Body_Jakobs",
       "GD_Weap_SniperRifles.Body.SR_Body_Maliwan",
       "GD_Weap_SniperRifles.Body.SR_Body_Vladof"
@@ -845,8 +849,8 @@
     "body_parts": [
       "GD_Weap_SniperRifles.Body.SR_Body_Dahl",
       "GD_Weap_SniperRifles.Body.SR_Body_Hyperion",
+      "GD_Weap_SniperRifles.Body.SR_Body_Hyperion_2",
       "GD_Weap_SniperRifles.Body.SR_Body_Hyperion_3",
-      "GD_Weap_SniperRifles.Body.SR_Body_Hyperion_4",
       "GD_Weap_SniperRifles.Body.SR_Body_Jakobs",
       "GD_Weap_SniperRifles.Body.SR_Body_Maliwan",
       "GD_Weap_SniperRifles.Body.SR_Body_Vladof"
