@@ -98,7 +98,8 @@ namespace Gibbed.Borderlands2.FileFormats.Huffman
                 if (bits == null)
                 {
                     throw new InvalidOperationException(string.Format(
-                        "could not traverse '{0}'", frequency.Key));
+                        "could not traverse '{0}'",
+                        frequency.Key));
                 }
                 this._Codes.Add(frequency.Key, new BitArray(bits.ToArray()));
             }
@@ -215,7 +216,9 @@ namespace Gibbed.Borderlands2.FileFormats.Huffman
             return code.Length;
         }
 
+        // ReSharper disable UnusedMethodReturnValue.Local
         private int Encode(IEnumerable<byte> bytes, BitArray bits, int offset)
+            // ReSharper restore UnusedMethodReturnValue.Local
         {
             if (bytes == null)
             {
@@ -230,7 +233,8 @@ namespace Gibbed.Borderlands2.FileFormats.Huffman
                 if (this._Codes.ContainsKey(b) == false)
                 {
                     throw new ArgumentException(string.Format(
-                        "could not lookup '{0}'", b),
+                        "could not lookup '{0}'",
+                        b),
                                                 "bytes");
                 }
 

@@ -50,7 +50,7 @@ namespace Gibbed.Borderlands2.FileFormats
      */
     public static class SaveExpansion
     {
-        private static readonly byte[] _HackInventorySerialNumber = new byte[]
+        private static readonly byte[] _HackInventorySerialNumber =
         {
             0x07, 0x00, 0x00, 0x00, 0x00, 0x39, 0x2A, 0xFF,
             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -76,7 +76,9 @@ namespace Gibbed.Borderlands2.FileFormats
                                                                      byte id,
                                                                      int value1)
         {
+            // ReSharper disable IntroduceOptionalParameters.Local
             AddExpansionSavedataToUnloadableItemData(saveGame, id, value1, 0);
+            // ReSharper restore IntroduceOptionalParameters.Local
         }
 
         public static void AddExpansionSavedataToUnloadableItemData(WillowTwoPlayerSaveGame saveGame)
