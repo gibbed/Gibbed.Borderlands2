@@ -38,7 +38,7 @@
         <CollectionViewSource x:Key="SlotCollectionViewSource"
                               Source="{Binding Path=Slots}">
             <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="DisplayGroup"></PropertyGroupDescription>
+                <PropertyGroupDescription PropertyName="DisplayGroup" />
             </CollectionViewSource.GroupDescriptions>
         </CollectionViewSource>
         <system:Int32 x:Key="DefaultWeaponSetId">0</system:Int32>
@@ -50,23 +50,22 @@
         </cal:Message.Attach>
         <ToolBar Name="ButtonBar"
                  DockPanel.Dock="Top">
-            <Button Command="{Binding Path=NewWeapon}"
-                    CommandParameter="{StaticResource DefaultWeaponSetId}">
+            <xctk:DropDownButton IsEnabled="{Binding Path=HasDownloadablePackages}"
+                                 IsOpen="{Binding Path=NewWeaponDropDownIsOpen, Mode=TwoWay}">
                 <StackPanel Orientation="Horizontal">
                     <Image Height="24"
                            Source="..\Resources\assaultrifle.png" />
                     <Label Content="New Weapon" />
                 </StackPanel>
-            </Button>
-            <xctk:DropDownButton IsEnabled="{Binding Path=HasDownloadablePackages}">
                 <xctk:DropDownButton.DropDownContent>
                     <ItemsControl ItemsSource="{Binding Path=DownloadablePackages}"
                                   Width="Auto"
                                   Height="Auto">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="gameInfo:DownloadablePackageDefinition">
-                                <Button Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}, Path=DataContext.NewWeapon}"
-                                        CommandParameter="{Binding Path=Id}">
+                                <Button
+                                    Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}, Path=DataContext.NewWeapon}"
+                                    CommandParameter="{Binding Path=Id}">
                                     <Label Content="{Binding Path=DisplayName}" />
                                 </Button>
                             </DataTemplate>
@@ -74,23 +73,22 @@
                     </ItemsControl>
                 </xctk:DropDownButton.DropDownContent>
             </xctk:DropDownButton>
-            <Button Command="{Binding Path=NewItem}"
-                    CommandParameter="{StaticResource DefaultItemSetId}">
+            <xctk:DropDownButton IsEnabled="{Binding Path=HasDownloadablePackages}"
+                                 IsOpen="{Binding Path=NewItemDropDownIsOpen, Mode=TwoWay}">
                 <StackPanel Orientation="Horizontal">
                     <Image Height="24"
                            Source="..\Resources\shield.png" />
                     <Label Content="New Item" />
                 </StackPanel>
-            </Button>
-            <xctk:DropDownButton IsEnabled="{Binding Path=HasDownloadablePackages}">
                 <xctk:DropDownButton.DropDownContent>
                     <ItemsControl ItemsSource="{Binding Path=DownloadablePackages}"
                                   Width="Auto"
                                   Height="Auto">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="gameInfo:DownloadablePackageDefinition">
-                                <Button Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}, Path=DataContext.NewItem}"
-                                        CommandParameter="{Binding Path=Id}">
+                                <Button
+                                    Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}, Path=DataContext.NewItem}"
+                                    CommandParameter="{Binding Path=Id}">
                                     <Label Content="{Binding Path=DisplayName}" />
                                 </Button>
                             </DataTemplate>
@@ -203,7 +201,7 @@
             <ScrollViewer Grid.Column="2"
                           HorizontalScrollBarVisibility="Disabled"
                           VerticalScrollBarVisibility="Auto">
-                <ContentControl x:Name="SelectedSlot"></ContentControl>
+                <ContentControl x:Name="SelectedSlot" />
             </ScrollViewer>
         </Grid>
     </DockPanel>

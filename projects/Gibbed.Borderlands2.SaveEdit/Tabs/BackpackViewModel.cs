@@ -41,6 +41,13 @@ namespace Gibbed.Borderlands2.SaveEdit
     [Export(typeof(BackpackViewModel))]
     internal class BackpackViewModel : PropertyChangedBase
     {
+        private static readonly DownloadablePackageDefinition[] _DefaultDownloadablePackages;
+
+        static BackpackViewModel()
+        {
+            _DefaultDownloadablePackages = new[] { DownloadablePackageDefinition.Default };
+        }
+
         #region Imports
         private CharacterViewModel _Character;
         private BankViewModel _Bank;
@@ -80,7 +87,9 @@ namespace Gibbed.Borderlands2.SaveEdit
         private IBackpackSlotViewModel _SelectedSlot;
 
         private ICommand _NewWeapon;
+        private bool _NewWeaponDropDownIsOpen;
         private ICommand _NewItem;
+        private bool _NewItemDropDownIsOpen;
         #endregion
 
         #region Properties
@@ -88,14 +97,14 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             get
             {
-                return
+                return _DefaultDownloadablePackages.Concat(
                     InfoManager.DownloadableContents.Items
                                .Where(dc => dc.Value.Type == DownloadableContentType.ItemSet &&
                                             dc.Value.Package != null)
                                .Select(dc => dc.Value.Package)
                                .Where(dp => InfoManager.AssetLibraryManager.Sets.Any(s => s.Id == dp.Id) == true)
                                .Distinct()
-                               .OrderBy(dp => dp.Id);
+                               .OrderBy(dp => dp.Id));
             }
         }
 
@@ -134,9 +143,29 @@ namespace Gibbed.Borderlands2.SaveEdit
             get { return this._NewWeapon; }
         }
 
+        public bool NewWeaponDropDownIsOpen
+        {
+            get { return this._NewWeaponDropDownIsOpen; }
+            set
+            {
+                this._NewWeaponDropDownIsOpen = value;
+                this.NotifyOfPropertyChange(() => this.NewWeaponDropDownIsOpen);
+            }
+        }
+
         public ICommand NewItem
         {
             get { return this._NewItem; }
+        }
+
+        public bool NewItemDropDownIsOpen
+        {
+            get { return this._NewItemDropDownIsOpen; }
+            set
+            {
+                this._NewItemDropDownIsOpen = value;
+                this.NotifyOfPropertyChange(() => this.NewItemDropDownIsOpen);
+            }
         }
         #endregion
 
@@ -162,6 +191,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             var viewModel = new BackpackWeaponViewModel(weapon);
             this.Slots.Add(viewModel);
             this.SelectedSlot = viewModel;
+            this.NewWeaponDropDownIsOpen = false;
         }
 
         public void DoNewItem(int assetLibrarySetId)
@@ -175,6 +205,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             var viewModel = new BackpackItemViewModel(item);
             this.Slots.Add(viewModel);
             this.SelectedSlot = viewModel;
+            this.NewItemDropDownIsOpen = false;
         }
 
         private static readonly Regex _CodeSignature =

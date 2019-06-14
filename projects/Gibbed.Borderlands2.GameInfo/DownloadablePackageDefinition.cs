@@ -32,5 +32,18 @@ namespace Gibbed.Borderlands2.GameInfo
         public int Id { get; internal set; }
         public string DLCName { get; internal set; }
         public string DisplayName { get; internal set; }
+
+        public static readonly DownloadablePackageDefinition Default;
+
+        static DownloadablePackageDefinition()
+        {
+            Default = new DownloadablePackageDefinition()
+            {
+                ResourcePath = null,
+                Id = 0,
+                DLCName = null,
+                DisplayName = "Base Game",
+            };
+        }
     }
 }
