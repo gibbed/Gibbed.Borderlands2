@@ -26,7 +26,7 @@ using System.Linq;
 using Gibbed.Borderlands2.FileFormats;
 using Gibbed.IO;
 using ProtoBuf;
-using Huffman = Gibbed.Borderlands2.FileFormats.Huffman;
+using Huffman = Gibbed.Gearbox.Common.Huffman;
 using WillowTwoSave = Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave;
 
 namespace VerifySaves
