@@ -125,7 +125,6 @@
                 </StackPanel>
             </Button>
         </ToolBar>
-        <se:GearCalculatorView DockPanel.Dock="Bottom" />
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.35*" />
