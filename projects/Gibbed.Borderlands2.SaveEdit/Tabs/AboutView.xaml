@@ -7,6 +7,11 @@
              mc:Ignorable="d"
              d:DesignHeight="500"
              d:DesignWidth="500">
+    <d:DesignerProperties.DesignStyle>
+        <Style TargetType="UserControl">
+            <Setter Property="Background" Value="White" />
+        </Style>
+    </d:DesignerProperties.DesignStyle>
     <UserControl.Resources>
         <LinearGradientBrush x:Key="Gibbed"
                              EndPoint="1,0.5"

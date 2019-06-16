@@ -29,11 +29,15 @@
              xmlns:cal="http://www.caliburnproject.org"
              xmlns:se="clr-namespace:Gibbed.Borderlands2.SaveEdit"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-             xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:gameInfo="clr-namespace:Gibbed.Borderlands2.GameInfo;assembly=Gibbed.Borderlands2.GameInfo"
              mc:Ignorable="d"
              d:DesignWidth="720"
              d:DesignHeight="480">
+    <d:DesignerProperties.DesignStyle>
+        <Style TargetType="UserControl">
+            <Setter Property="Background" Value="White" />
+        </Style>
+    </d:DesignerProperties.DesignStyle>
     <UserControl.Resources>
         <CollectionViewSource x:Key="SlotCollectionViewSource"
                               Source="{Binding Path=Slots}">

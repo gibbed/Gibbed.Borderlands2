@@ -31,6 +31,11 @@
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="480">
+    <d:DesignerProperties.DesignStyle>
+        <Style TargetType="UserControl">
+            <Setter Property="Background" Value="White" />
+        </Style>
+    </d:DesignerProperties.DesignStyle>
     <UserControl.Resources>
         <CollectionViewSource x:Key="GroupedPlayerClasses"
                               Source="{Binding Path=PlayerClasses}">

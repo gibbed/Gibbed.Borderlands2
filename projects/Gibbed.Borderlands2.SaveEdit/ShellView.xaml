@@ -33,6 +33,11 @@
              xmlns:se="clr-namespace:Gibbed.Borderlands2.SaveEdit"
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
              xmlns:gameInfo="clr-namespace:Gibbed.Borderlands2.GameInfo;assembly=Gibbed.Borderlands2.GameInfo">
+    <d:DesignerProperties.DesignStyle>
+        <Style TargetType="UserControl">
+            <Setter Property="Background" Value="White" />
+        </Style>
+    </d:DesignerProperties.DesignStyle>
     <UserControl.Resources>
         <se:NullToBooleanConverter x:Key="NullToBooleanConverter1" />
     </UserControl.Resources>

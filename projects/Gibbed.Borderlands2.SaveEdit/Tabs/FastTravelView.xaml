@@ -30,6 +30,11 @@
              mc:Ignorable="d"
              d:DesignWidth="720"
              d:DesignHeight="480">
+    <d:DesignerProperties.DesignStyle>
+        <Style TargetType="UserControl">
+            <Setter Property="Background" Value="White" />
+        </Style>
+    </d:DesignerProperties.DesignStyle>
     <UserControl.Resources>
         <CollectionViewSource x:Key="GroupedAvailableTeleporters"
                               Source="{Binding Path=AvailableTeleporters}">
