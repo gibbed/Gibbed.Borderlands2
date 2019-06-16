@@ -234,11 +234,11 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             saveGame.LastVisitedTeleporter = this.LastVisitedTeleporter;
             saveGame.VisitedTeleporters.Clear();
-            foreach (var travelStation in this.VisitedTeleporters)
+            foreach (var station in this.VisitedTeleporters)
             {
-                if (travelStation.Visited == true)
+                if (station.Visited == true)
                 {
-                    saveGame.VisitedTeleporters.Add(travelStation.ResourceName);
+                    saveGame.VisitedTeleporters.Add(station.ResourceName);
                 }
             }
         }

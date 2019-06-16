@@ -33,7 +33,8 @@
              d:DesignHeight="480">
     <d:DesignerProperties.DesignStyle>
         <Style TargetType="UserControl">
-            <Setter Property="Background" Value="White" />
+            <Setter Property="Background"
+                    Value="White" />
         </Style>
     </d:DesignerProperties.DesignStyle>
     <UserControl.Resources>

@@ -190,7 +190,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             var playerClasses = new List<KeyValuePair<AssetDisplay, int>>();
             foreach (var kv in InfoManager.PlayerClasses.Items.OrderBy(kv => kv.Value.SortOrder))
             {
-                var group = GetDLCName(kv.Value.DLC, out int priority);
+                var group = GetDLCName(kv.Value.DLC, out var priority);
                 playerClasses.Add(
                     new KeyValuePair<AssetDisplay, int>(
                         new AssetDisplay($"{kv.Value.Name} ({kv.Value.Class})", kv.Key, group),
@@ -277,7 +277,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                                                        kv.Value.Usage.Contains(usage) == true)
                                           .OrderBy(cd => cd.Value.Name))
             {
-                var group = GetDLCName(kv.Value.DLC, out int priority);
+                var group = GetDLCName(kv.Value.DLC, out var priority);
                 headAssets.Add(new KeyValuePair<AssetDisplay, int>(
                     new AssetDisplay(kv.Value.Name, kv.Key, group),
                     priority));
@@ -289,7 +289,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                                                        kv.Value.Usage.Contains(usage) == true)
                                           .OrderBy(cd => cd.Value.Name))
             {
-                var group = GetDLCName(kv.Value.DLC, out int priority);
+                var group = GetDLCName(kv.Value.DLC, out var priority);
                 skinAssets.Add(new KeyValuePair<AssetDisplay, int>(
                     new AssetDisplay(kv.Value.Name, kv.Key, group),
                     priority));

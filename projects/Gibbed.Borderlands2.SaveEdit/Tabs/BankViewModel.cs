@@ -223,7 +223,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             yield return new DelegateResult(
                 () =>
                 {
-                    if (MyClipboard.GetText(out string codes) != MyClipboard.Result.Success)
+                    if (MyClipboard.GetText(out var codes) != MyClipboard.Result.Success)
                     {
                         MessageBox.Show(
                             "Clipboard failure.",

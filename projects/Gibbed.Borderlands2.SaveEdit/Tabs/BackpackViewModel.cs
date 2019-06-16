@@ -214,7 +214,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         public IEnumerable<IResult> PasteCode()
         {
             bool containsUnicodeText = false;
-            if (MyClipboard.ContainsText(TextDataFormat.Text, out bool containsText) != MyClipboard.Result.Success ||
+            if (MyClipboard.ContainsText(TextDataFormat.Text, out var containsText) != MyClipboard.Result.Success ||
                 MyClipboard.ContainsText(TextDataFormat.UnicodeText, out containsUnicodeText) !=
                 MyClipboard.Result.Success)
             {
@@ -233,7 +233,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             yield return new DelegateResult(
                 () =>
                 {
-                    if (MyClipboard.GetText(out string codes) != MyClipboard.Result.Success)
+                    if (MyClipboard.GetText(out var codes) != MyClipboard.Result.Success)
                     {
                         MessageBox.Show("Clipboard failure.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;

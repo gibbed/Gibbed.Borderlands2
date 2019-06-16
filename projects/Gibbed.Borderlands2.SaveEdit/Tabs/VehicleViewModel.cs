@@ -277,11 +277,12 @@ namespace Gibbed.Borderlands2.SaveEdit
                 s => this.ExtraFanBoat.Add(s));
         }
 
-        private static void ExportTarget(string name,
-                                         List<ChosenVehicleCustomization> customizations,
-                                         string skin1,
-                                         string skin2,
-                                         IEnumerable<string> extras)
+        private static void ExportTarget(
+            string name,
+                List<ChosenVehicleCustomization> customizations,
+                string skin1,
+                string skin2,
+                IEnumerable<string> extras)
         {
             customizations.RemoveAll(c => c.Family == name);
 

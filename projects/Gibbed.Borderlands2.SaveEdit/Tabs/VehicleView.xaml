@@ -31,56 +31,57 @@
              d:DesignHeight="480">
     <d:DesignerProperties.DesignStyle>
         <Style TargetType="UserControl">
-            <Setter Property="Background" Value="White" />
+            <Setter Property="Background"
+                    Value="White" />
         </Style>
     </d:DesignerProperties.DesignStyle>
     <UserControl.Resources>
         <CollectionViewSource x:Key="GroupedRunnerAssets1"
                               Source="{Binding Path=RunnerAssets}">
             <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="Group"></PropertyGroupDescription>
+                <PropertyGroupDescription PropertyName="Group" />
             </CollectionViewSource.GroupDescriptions>
         </CollectionViewSource>
         <CollectionViewSource x:Key="GroupedRunnerAssets2"
                               Source="{Binding Path=RunnerAssets}">
             <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="Group"></PropertyGroupDescription>
+                <PropertyGroupDescription PropertyName="Group" />
             </CollectionViewSource.GroupDescriptions>
         </CollectionViewSource>
         <CollectionViewSource x:Key="GroupedBanditTechAssets1"
                               Source="{Binding Path=BanditTechAssets}">
             <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="Group"></PropertyGroupDescription>
+                <PropertyGroupDescription PropertyName="Group" />
             </CollectionViewSource.GroupDescriptions>
         </CollectionViewSource>
         <CollectionViewSource x:Key="GroupedBanditTechAssets2"
                               Source="{Binding Path=BanditTechAssets}">
             <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="Group"></PropertyGroupDescription>
+                <PropertyGroupDescription PropertyName="Group" />
             </CollectionViewSource.GroupDescriptions>
         </CollectionViewSource>
         <CollectionViewSource x:Key="GroupedHovercraftAssets1"
                               Source="{Binding Path=HovercraftAssets}">
             <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="Group"></PropertyGroupDescription>
+                <PropertyGroupDescription PropertyName="Group" />
             </CollectionViewSource.GroupDescriptions>
         </CollectionViewSource>
         <CollectionViewSource x:Key="GroupedHovercraftAssets2"
                               Source="{Binding Path=HovercraftAssets}">
             <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="Group"></PropertyGroupDescription>
+                <PropertyGroupDescription PropertyName="Group" />
             </CollectionViewSource.GroupDescriptions>
         </CollectionViewSource>
         <CollectionViewSource x:Key="GroupedFanBoatAssets1"
                               Source="{Binding Path=FanBoatAssets}">
             <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="Group"></PropertyGroupDescription>
+                <PropertyGroupDescription PropertyName="Group" />
             </CollectionViewSource.GroupDescriptions>
         </CollectionViewSource>
         <CollectionViewSource x:Key="GroupedFanBoatAssets2"
                               Source="{Binding Path=FanBoatAssets}">
             <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="Group"></PropertyGroupDescription>
+                <PropertyGroupDescription PropertyName="Group" />
             </CollectionViewSource.GroupDescriptions>
         </CollectionViewSource>
     </UserControl.Resources>

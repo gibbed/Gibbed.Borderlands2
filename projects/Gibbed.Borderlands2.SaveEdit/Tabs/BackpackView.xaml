@@ -23,19 +23,19 @@
 -->
 <UserControl x:Class="Gibbed.Borderlands2.SaveEdit.BackpackView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:c="http://www.caliburnproject.org"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:cal="http://www.caliburnproject.org"
-             xmlns:se="clr-namespace:Gibbed.Borderlands2.SaveEdit"
+             xmlns:gi="clr-namespace:Gibbed.Borderlands2.GameInfo;assembly=Gibbed.Borderlands2.GameInfo"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-             xmlns:gameInfo="clr-namespace:Gibbed.Borderlands2.GameInfo;assembly=Gibbed.Borderlands2.GameInfo"
              mc:Ignorable="d"
              d:DesignWidth="720"
              d:DesignHeight="480">
     <d:DesignerProperties.DesignStyle>
         <Style TargetType="UserControl">
-            <Setter Property="Background" Value="White" />
+            <Setter Property="Background"
+                    Value="White" />
         </Style>
     </d:DesignerProperties.DesignStyle>
     <UserControl.Resources>
@@ -47,9 +47,9 @@
         </CollectionViewSource>
     </UserControl.Resources>
     <DockPanel>
-        <cal:Message.Attach>
+        <c:Message.Attach>
             [Shortcut Control+V] = [Action PasteCode]
-        </cal:Message.Attach>
+        </c:Message.Attach>
         <ToolBar Name="ButtonBar"
                  DockPanel.Dock="Top">
             <xctk:DropDownButton IsEnabled="{Binding Path=HasDownloadablePackages}"
@@ -64,10 +64,9 @@
                                   Width="Auto"
                                   Height="Auto">
                         <ItemsControl.ItemTemplate>
-                            <DataTemplate DataType="gameInfo:DownloadablePackageDefinition">
-                                <Button
-                                    Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}, Path=DataContext.NewWeapon}"
-                                    CommandParameter="{Binding Path=Id}">
+                            <DataTemplate DataType="gi:DownloadablePackageDefinition">
+                                <Button Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}, Path=DataContext.NewWeapon}"
+                                        CommandParameter="{Binding Path=Id}">
                                     <Label Content="{Binding Path=DisplayName}" />
                                 </Button>
                             </DataTemplate>
@@ -87,10 +86,9 @@
                                   Width="Auto"
                                   Height="Auto">
                         <ItemsControl.ItemTemplate>
-                            <DataTemplate DataType="gameInfo:DownloadablePackageDefinition">
-                                <Button
-                                    Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}, Path=DataContext.NewItem}"
-                                    CommandParameter="{Binding Path=Id}">
+                            <DataTemplate DataType="gi:DownloadablePackageDefinition">
+                                <Button Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}, Path=DataContext.NewItem}"
+                                        CommandParameter="{Binding Path=Id}">
                                     <Label Content="{Binding Path=DisplayName}" />
                                 </Button>
                             </DataTemplate>
@@ -100,7 +98,7 @@
             </xctk:DropDownButton>
             <Separator />
             <Button>
-                <cal:Message.Attach>PasteCode</cal:Message.Attach>
+                <c:Message.Attach>PasteCode</c:Message.Attach>
                 <StackPanel Orientation="Horizontal">
                     <Image Height="24"
                            Source="..\Resources\fugue\scanner.png" />
@@ -136,12 +134,12 @@
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       SelectedValue="{Binding Path=SelectedSlot}"
                       SelectionMode="Single">
-                <cal:Message.Attach>
+                <c:Message.Attach>
                     [Shortcut Delete] = [Action DeleteSelectedSlot];
                     [Shortcut Control+C] = [Action CopySelectedSlotCode];
                     [Shortcut Control+D] = [Action DuplicateSelectedSlot];
                     [Shortcut Control+B] = [Action BankSelectedSlot];
-                </cal:Message.Attach>
+                </c:Message.Attach>
                 <ListView.GroupStyle>
                     <GroupStyle>
                         <GroupStyle.HeaderTemplate>
@@ -170,7 +168,7 @@
                             </MenuItem.Icon>
                             <MenuItem.Header>Copy Code</MenuItem.Header>
                             <MenuItem.InputGestureText>Ctrl+C</MenuItem.InputGestureText>
-                            <cal:Message.Attach>CopySelectedSlotCode</cal:Message.Attach>
+                            <c:Message.Attach>CopySelectedSlotCode</c:Message.Attach>
                         </MenuItem>
                         <Separator />
                         <MenuItem>
@@ -180,7 +178,7 @@
                             </MenuItem.Icon>
                             <MenuItem.Header>Duplicate</MenuItem.Header>
                             <MenuItem.InputGestureText>Ctrl+D</MenuItem.InputGestureText>
-                            <cal:Message.Attach>DuplicateSelectedSlot</cal:Message.Attach>
+                            <c:Message.Attach>DuplicateSelectedSlot</c:Message.Attach>
                         </MenuItem>
                         <MenuItem>
                             <MenuItem.Icon>
@@ -189,7 +187,7 @@
                             </MenuItem.Icon>
                             <MenuItem.Header>Bank</MenuItem.Header>
                             <MenuItem.InputGestureText>Ctrl+B</MenuItem.InputGestureText>
-                            <cal:Message.Attach>BankSelectedSlot</cal:Message.Attach>
+                            <c:Message.Attach>BankSelectedSlot</c:Message.Attach>
                         </MenuItem>
                         <Separator />
                         <MenuItem>
@@ -199,7 +197,7 @@
                             </MenuItem.Icon>
                             <MenuItem.Header>Delete</MenuItem.Header>
                             <MenuItem.InputGestureText>Delete</MenuItem.InputGestureText>
-                            <cal:Message.Attach>DeleteSelectedSlot</cal:Message.Attach>
+                            <c:Message.Attach>DeleteSelectedSlot</c:Message.Attach>
                         </MenuItem>
                     </ContextMenu>
                 </ListView.ContextMenu>
