@@ -29,6 +29,7 @@ using System.Reflection;
 using System.Windows;
 using Caliburn.Micro;
 using Caliburn.Micro.Contrib;
+using Gibbed.Gearbox.WPF;
 
 namespace Gibbed.Borderlands2.SaveEdit
 {

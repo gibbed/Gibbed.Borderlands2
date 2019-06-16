@@ -32,6 +32,7 @@ using Caliburn.Micro;
 using Caliburn.Micro.Contrib;
 using Caliburn.Micro.Contrib.Results;
 using Gibbed.Borderlands2.GameInfo;
+using Gibbed.Gearbox.WPF;
 using DeserializeSettings = Gibbed.Borderlands2.FileFormats.SaveFile.DeserializeSettings;
 using GameGuid = Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave.Guid;
 using SaveFile = Gibbed.Borderlands2.FileFormats.SaveFile;

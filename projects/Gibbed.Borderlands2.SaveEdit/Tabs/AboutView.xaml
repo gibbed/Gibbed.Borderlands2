@@ -1,15 +1,16 @@
 ﻿<UserControl x:Class="Gibbed.Borderlands2.SaveEdit.AboutView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:se="clr-namespace:Gibbed.Borderlands2.SaveEdit"
+             xmlns:gbx="clr-namespace:Gibbed.Gearbox.WPF;assembly=Gibbed.Gearbox.WPF"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              mc:Ignorable="d"
              d:DesignHeight="500"
              d:DesignWidth="500">
     <d:DesignerProperties.DesignStyle>
         <Style TargetType="UserControl">
-            <Setter Property="Background" Value="White" />
+            <Setter Property="Background"
+                    Value="White" />
         </Style>
     </d:DesignerProperties.DesignStyle>
     <UserControl.Resources>
@@ -43,12 +44,24 @@
     <DockPanel LastChildFill="True">
         <TextBlock TextWrapping="Wrap"
                    Margin="4">
-            <Run Text="Developed by " /><Hyperlink NavigateUri="http://gib.me/" Foreground="{StaticResource Gibbed}" se:HyperlinkExtensions.IsExternal="true"><Run Text="gibbed" Foreground="{StaticResource Gibbed}" /></Hyperlink><Run Text=" for use with Borderlands 2." />
+            <Run Text="Developed by " /><Hyperlink NavigateUri="http://gib.me/"
+                                                   Foreground="{StaticResource Gibbed}"
+                                                   gbx:HyperlinkExtensions.IsExternal="true"><Run Text="gibbed"
+                                                                                                  Foreground="{StaticResource Gibbed}" /></Hyperlink><Run Text=" for use with Borderlands 2." />
             <LineBreak />
             <LineBreak />
-            <Run Text="Want to support the developer?" FontSize="15" FontWeight="Bold" />
+            <Run Text="Want to support the developer?"
+                 FontSize="15"
+                 FontWeight="Bold" />
             <LineBreak />
-            <Hyperlink NavigateUri="http://www.patreon.com/gibbed" Foreground="{StaticResource Gibbed}" se:HyperlinkExtensions.IsExternal="true"><Run Text="Contribute to gibbed's Patreon" FontSize="15" FontWeight="Bold" Foreground="{StaticResource Gibbed}" /></Hyperlink><Run Text="." FontSize="15" FontWeight="Bold" />
+            <Hyperlink NavigateUri="http://www.patreon.com/gibbed"
+                       Foreground="{StaticResource Gibbed}"
+                       gbx:HyperlinkExtensions.IsExternal="true"><Run Text="Contribute to gibbed's Patreon"
+                                                                      FontSize="15"
+                                                                      FontWeight="Bold"
+                                                                      Foreground="{StaticResource Gibbed}" /></Hyperlink><Run Text="."
+                                                                                                                              FontSize="15"
+                                                                                                                              FontWeight="Bold" />
             <LineBreak />
             <LineBreak />
             <Run Text="With special thanks to..." />

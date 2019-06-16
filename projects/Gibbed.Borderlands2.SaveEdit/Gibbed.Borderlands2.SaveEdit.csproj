@@ -38,6 +38,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Gearbox\Gibbed.Gearbox.WPF\Gibbed.Gearbox.WPF.csproj" />
     <ProjectReference Include="..\Gibbed.Borderlands2.FileFormats\Gibbed.Borderlands2.FileFormats.csproj" />
     <ProjectReference Include="..\Gibbed.Borderlands2.GameInfo\Gibbed.Borderlands2.GameInfo.csproj" />
     <ProjectReference Include="..\Gibbed.Borderlands2.ProtoBufFormats\Gibbed.Borderlands2.ProtoBufFormats.csproj" />

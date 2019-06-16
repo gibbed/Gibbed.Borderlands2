@@ -23,18 +23,19 @@
 -->
 <UserControl x:Class="Gibbed.Borderlands2.SaveEdit.GeneralView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:c="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:gbx="clr-namespace:Gibbed.Gearbox.WPF;assembly=Gibbed.Gearbox.WPF"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-             xmlns:se="clr-namespace:Gibbed.Borderlands2.SaveEdit"
-             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
              mc:Ignorable="d"
              d:DesignWidth="720"
              d:DesignHeight="480">
     <d:DesignerProperties.DesignStyle>
         <Style TargetType="UserControl">
-            <Setter Property="Background" Value="White" />
+            <Setter Property="Background"
+                    Value="White" />
         </Style>
     </d:DesignerProperties.DesignStyle>
     <StackPanel Orientation="Vertical">
@@ -78,13 +79,13 @@
                        Grid.Column="0"
                        HorizontalContentAlignment="Right"
                        Content="Platform:" />
-                <se:MyComboBox Grid.Row="2"
-                               Grid.Column="1"
-                               ItemsSource="{Binding Path=Platforms}"
-                               DisplayMemberPath="Name"
-                               SelectedValuePath="Value"
-                               SelectedValue="{Binding Path=Platform}"
-                               Margin="3" />
+                <gbx:MyComboBox Grid.Row="2"
+                                Grid.Column="1"
+                                ItemsSource="{Binding Path=Platforms}"
+                                DisplayMemberPath="Name"
+                                SelectedValuePath="Value"
+                                SelectedValue="{Binding Path=Platform}"
+                                Margin="3" />
             </Grid>
         </Expander>
         <Expander Header="Importing"
@@ -111,19 +112,19 @@
                            Grid.Column="1">
                     <Button Margin="3"
                             Content="Import Skills">
-                        <cal:Message.Attach>[Event Click] = [Action DoImportSkills]</cal:Message.Attach>
+                        <c:Message.Attach>[Event Click] = [Action DoImportSkills]</c:Message.Attach>
                     </Button>
                     <Button Margin="3"
                             Content="Import Missions">
-                        <cal:Message.Attach>[Event Click] = [Action DoImportMissions]</cal:Message.Attach>
+                        <c:Message.Attach>[Event Click] = [Action DoImportMissions]</c:Message.Attach>
                     </Button>
                     <Button Margin="3"
                             Content="Import World">
-                        <cal:Message.Attach>[Event Click] = [Action DoImportWorld]</cal:Message.Attach>
+                        <c:Message.Attach>[Event Click] = [Action DoImportWorld]</c:Message.Attach>
                     </Button>
                     <Button Margin="3"
                             Content="Import Stats">
-                        <cal:Message.Attach>[Event Click] = [Action DoImportStats]</cal:Message.Attach>
+                        <c:Message.Attach>[Event Click] = [Action DoImportStats]</c:Message.Attach>
                     </Button>
                 </WrapPanel>
             </Grid>

@@ -26,6 +26,7 @@ using System.ComponentModel.Composition;
 using System.IO;
 using Caliburn.Micro;
 using Gibbed.Borderlands2.GameInfo;
+using Gibbed.Gearbox.WPF;
 
 namespace Gibbed.Borderlands2.SaveEdit
 {
