@@ -32,8 +32,8 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
         {
             try
             {
-                var raws = LoaderHelper
-                    .DeserializeJson<Dictionary<string, Raw.ItemNamePartDefinition>>("Item Name Parts");
+                var raws = LoaderHelper.DeserializeDump<Dictionary<string, Raw.ItemNamePartDefinition>>(
+                    "Item Name Parts");
                 return new InfoDictionary<ItemNamePartDefinition>(
                     raws.ToDictionary(kv => kv.Key,
                                       GetItemNamePartDefinition));

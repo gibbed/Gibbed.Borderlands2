@@ -24,6 +24,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Gibbed.Borderlands2.GameInfo.Loaders
 {
@@ -42,22 +43,23 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             var stream = (UnmanagedMemoryStream)assembly.GetManifestResourceStream(path);
             if (stream == null)
             {
-                throw new ArgumentException("The specified embedded resource could not be found.",
-                                            "embeddedResourceName");
+                throw new ArgumentException(
+                    string.Format("The embedded resource '{0}' could not be found.", path),
+                    "embeddedResourceName");
             }
             return stream;
         }
 
-        public static TType DeserializeJson<TType>(string embeddedResourceName)
+        public static TType Deserialize<TType>(string embeddedResourceName)
         {
             var settings = new JsonSerializerSettings()
             {
                 MissingMemberHandling = MissingMemberHandling.Error,
                 TypeNameHandling = TypeNameHandling.Auto,
-                Binder =
-                    new TypeNameSerializationBinder("Gibbed.Borderlands2.GameInfo.Raw.{0}, Gibbed.Borderlands2.GameInfo")
+                Binder = new TypeNameSerializationBinder(
+                    "Gibbed.Borderlands2.GameInfo.Raw.{0}, Gibbed.Borderlands2.GameInfo")
             };
-            settings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
+            settings.Converters.Add(new StringEnumConverter());
 
             try
             {
@@ -74,6 +76,11 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             {
                 throw;
             }
+        }
+
+        public static TType DeserializeDump<TType>(string embeddedResourceName)
+        {
+            return Deserialize<TType>("Dumps." + embeddedResourceName);
         }
     }
 }

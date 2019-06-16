@@ -39,5 +39,11 @@ namespace Gibbed.Borderlands2.GameInfo
         {
             return this.Sets.SingleOrDefault(s => s.Id == id);
         }
+
+        public bool TryGetSet(int id, out AssetLibrarySet set)
+        {
+            set = this.Sets.SingleOrDefault(s => s.Id == id);
+            return set != null;
+        }
     }
 }

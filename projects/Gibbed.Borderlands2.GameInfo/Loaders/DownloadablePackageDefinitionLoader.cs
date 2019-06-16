@@ -32,8 +32,8 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
         {
             try
             {
-                var raws = LoaderHelper
-                    .DeserializeJson<Dictionary<string, Raw.DownloadablePackage>>("Downloadable Packages");
+                var raws = LoaderHelper.DeserializeDump<Dictionary<string, Raw.DownloadablePackage>>(
+                    "Downloadable Packages");
                 return new InfoDictionary<DownloadablePackageDefinition>(
                     raws.ToDictionary(kv => kv.Key,
                                       GetDownloadablePackage));

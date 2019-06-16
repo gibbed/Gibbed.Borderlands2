@@ -32,8 +32,8 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
         {
             try
             {
-                var raws = LoaderHelper
-                    .DeserializeJson<Dictionary<string, Raw.WeaponTypeDefinition>>("Weapon Types");
+                var raws = LoaderHelper.DeserializeDump<Dictionary<string, Raw.WeaponTypeDefinition>>(
+                    "Weapon Types");
                 return new InfoDictionary<WeaponTypeDefinition>(
                     raws.ToDictionary(kv => kv.Key, GetWeaponTypeDefinition));
             }

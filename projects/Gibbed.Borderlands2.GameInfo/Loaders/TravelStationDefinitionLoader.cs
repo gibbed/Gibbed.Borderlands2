@@ -33,8 +33,8 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
         {
             try
             {
-                var raws = LoaderHelper
-                    .DeserializeJson<Dictionary<string, Raw.TravelStationDefinition>>("Travel Stations");
+                var raws = LoaderHelper.DeserializeDump<Dictionary<string, Raw.TravelStationDefinition>>(
+                    "Travel Stations");
                 var defs = new InfoDictionary<TravelStationDefinition>(
                     raws.ToDictionary(kv => kv.Key,
                                       kv => GetTravelStationDefinition(downloadableContents, kv)));

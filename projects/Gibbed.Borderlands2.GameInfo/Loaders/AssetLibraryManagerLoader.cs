@@ -32,8 +32,8 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
         {
             try
             {
-                var raw = LoaderHelper
-                    .DeserializeJson<Raw.AssetLibraryManager>("Asset Library Manager");
+                var raw = LoaderHelper.DeserializeDump<Raw.AssetLibraryManager>(
+                    "Asset Library Manager");
                 return GetAssetLibraryManager(raw);
             }
             catch (Exception e)

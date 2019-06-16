@@ -4,3 +4,6 @@
 [submodule "projects/Gibbed.IO"]
 	path = projects/Gibbed.IO
 	url = https://github.com/gibbed/Gibbed.IO
+[submodule "projects/Gibbed.Borderlands2.GameInfo/Resources/Dumps"]
+	path = projects/Gibbed.Borderlands2.GameInfo/Resources/Dumps
+	url = https://github.com/gibbed/Borderlands2Dumps.git

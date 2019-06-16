@@ -133,19 +133,19 @@
     <Content Include="todo.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Asset Library Manager.json" />
-    <EmbeddedResource Include="Resources\Customizations.json" />
-    <EmbeddedResource Include="Resources\Item Balance.json" />
-    <EmbeddedResource Include="Resources\Item Types.json" />
-    <EmbeddedResource Include="Resources\Weapon Balance.json" />
-    <EmbeddedResource Include="Resources\Weapon Types.json" />
-    <EmbeddedResource Include="Resources\Player Classes.json" />
-    <EmbeddedResource Include="Resources\Downloadable Contents.json" />
-    <EmbeddedResource Include="Resources\Downloadable Packages.json" />
-    <EmbeddedResource Include="Resources\Travel Stations.json" />
-    <EmbeddedResource Include="Resources\Fast Travel Station Ordering.json" />
-    <EmbeddedResource Include="Resources\Item Name Parts.json" />
-    <EmbeddedResource Include="Resources\Weapon Name Parts.json" />
+    <EmbeddedResource Include="Resources\Dumps\Asset Library Manager.json" />
+    <EmbeddedResource Include="Resources\Dumps\Customizations.json" />
+    <EmbeddedResource Include="Resources\Dumps\Item Balance.json" />
+    <EmbeddedResource Include="Resources\Dumps\Item Types.json" />
+    <EmbeddedResource Include="Resources\Dumps\Weapon Balance.json" />
+    <EmbeddedResource Include="Resources\Dumps\Weapon Types.json" />
+    <EmbeddedResource Include="Resources\Dumps\Player Classes.json" />
+    <EmbeddedResource Include="Resources\Dumps\Downloadable Contents.json" />
+    <EmbeddedResource Include="Resources\Dumps\Downloadable Packages.json" />
+    <EmbeddedResource Include="Resources\Dumps\Travel Stations.json" />
+    <EmbeddedResource Include="Resources\Dumps\Fast Travel Station Ordering.json" />
+    <EmbeddedResource Include="Resources\Dumps\Item Name Parts.json" />
+    <EmbeddedResource Include="Resources\Dumps\Weapon Name Parts.json" />
     <EmbeddedResource Include="Resources\Platform Configurations.json" />
   </ItemGroup>
   <ItemGroup>
