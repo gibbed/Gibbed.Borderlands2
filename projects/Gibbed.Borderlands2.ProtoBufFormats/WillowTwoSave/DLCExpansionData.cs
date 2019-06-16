@@ -20,6 +20,7 @@
  *    distribution.
  */
 
+using System.Collections.Generic;
 using System.ComponentModel;
 using ProtoBuf;
 
@@ -30,7 +31,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
     {
         #region Fields
         private int _Tag;
-        private byte[] _Data;
+        private List<byte> _Data = new List<byte>();
         #endregion
 
         #region Properties
@@ -49,7 +50,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         }
 
         [ProtoMember(2, IsRequired = true)]
-        public byte[] Data
+        public List<byte> Data
         {
             get { return this._Data; }
             set
