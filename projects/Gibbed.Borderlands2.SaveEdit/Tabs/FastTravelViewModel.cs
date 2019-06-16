@@ -44,7 +44,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._LastVisitedTeleporter = value;
-                this.NotifyOfPropertyChange(() => this.LastVisitedTeleporter);
+                this.NotifyOfPropertyChange(nameof(LastVisitedTeleporter));
             }
         }
 
@@ -103,8 +103,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                     string displayName = string.IsNullOrEmpty(station.Sign) == false
                                              ? station.Sign
                                              : station.StationDisplayName;
-                    int displayCount;
-                    displayNames.TryGetValue(displayName, out displayCount);
+                    displayNames.TryGetValue(displayName, out var displayCount);
                     if (displayCount > 1 && string.IsNullOrEmpty(station.ResourceName) == false)
                     {
                         displayName += $" ({station.ResourceName})";
@@ -135,8 +134,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 string displayName = string.IsNullOrEmpty(station.Sign) == false
                                          ? station.Sign
                                          : station.StationDisplayName;
-                int displayCount;
-                displayNames.TryGetValue(displayName, out displayCount);
+                displayNames.TryGetValue(displayName, out var displayCount);
                 if (displayCount > 1 && string.IsNullOrEmpty(station.ResourceName) == false)
                 {
                     displayName += $" ({station.ResourceName})";
@@ -170,8 +168,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 var displayName = string.IsNullOrEmpty(station.DisplayName) == false
                                       ? station.DisplayName
                                       : station.ResourceName;
-                int displayCount;
-                displayNames.TryGetValue(displayName, out displayCount);
+                displayNames.TryGetValue(displayName, out var displayCount);
                 if (displayCount > 1 && string.IsNullOrEmpty(station.ResourceName) == false)
                 {
                     displayName += $" ({station.ResourceName})";
@@ -180,7 +177,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 this.AvailableTeleporters.Add(new AssetDisplay(
                     displayName,
                     station.ResourceName,
-                    "Level Transitions (" + group + ")"));
+                    $"Level Transitions ({group})"));
             }
         }
 
@@ -280,7 +277,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 set
                 {
                     this._DisplayName = value;
-                    this.NotifyOfPropertyChange(() => this.DisplayName);
+                    this.NotifyOfPropertyChange(nameof(DisplayName));
                 }
             }
 
@@ -290,7 +287,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 set
                 {
                     this._ResourceName = value;
-                    this.NotifyOfPropertyChange(() => this.ResourceName);
+                    this.NotifyOfPropertyChange(nameof(ResourceName));
                 }
             }
 
@@ -300,7 +297,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 set
                 {
                     this._Visited = value;
-                    this.NotifyOfPropertyChange(() => this.Visited);
+                    this.NotifyOfPropertyChange(nameof(Visited));
                 }
             }
 
@@ -310,7 +307,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 set
                 {
                     this._Custom = value;
-                    this.NotifyOfPropertyChange(() => this.Custom);
+                    this.NotifyOfPropertyChange(nameof(Custom));
                 }
             }
 
@@ -320,7 +317,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 set
                 {
                     this._Group = value;
-                    this.NotifyOfPropertyChange(() => this.Group);
+                    this.NotifyOfPropertyChange(nameof(Group));
                 }
             }
             #endregion

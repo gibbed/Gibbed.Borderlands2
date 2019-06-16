@@ -45,9 +45,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         #region Serialization
         [ProtoAfterDeserialization]
-        // ReSharper disable UnusedMember.Local
         private void OnDeserialization()
-            // ReSharper restore UnusedMember.Local
         {
             this._ObjectivesProgress = this._ObjectivesProgress ?? new List<int>();
             this._SubObjectiveSetIndexes = this._SubObjectiveSetIndexes ?? new List<int>();
@@ -76,7 +74,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Mission)
                 {
                     this._Mission = value;
-                    this.NotifyPropertyChanged("Mission");
+                    this.NotifyOfPropertyChange(nameof(Mission));
                 }
             }
         }
@@ -90,7 +88,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Status)
                 {
                     this._Status = value;
-                    this.NotifyPropertyChanged("Status");
+                    this.NotifyOfPropertyChange(nameof(Status));
                 }
             }
         }
@@ -104,7 +102,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._IsFromDLC)
                 {
                     this._IsFromDLC = value;
-                    this.NotifyPropertyChanged("IsFromDLC");
+                    this.NotifyOfPropertyChange(nameof(IsFromDLC));
                 }
             }
         }
@@ -118,7 +116,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._DLCPackageId)
                 {
                     this._DLCPackageId = value;
-                    this.NotifyPropertyChanged("DLCPackageId");
+                    this.NotifyOfPropertyChange(nameof(DLCPackageId));
                 }
             }
         }
@@ -132,7 +130,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._ObjectivesProgress)
                 {
                     this._ObjectivesProgress = value;
-                    this.NotifyPropertyChanged("ObjectivesProgress");
+                    this.NotifyOfPropertyChange(nameof(ObjectivesProgress));
                 }
             }
         }
@@ -146,7 +144,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._ActiveObjectiveSetIndex)
                 {
                     this._ActiveObjectiveSetIndex = value;
-                    this.NotifyPropertyChanged("ActiveObjectiveSetIndex");
+                    this.NotifyOfPropertyChange(nameof(ActiveObjectiveSetIndex));
                 }
             }
         }
@@ -160,7 +158,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._SubObjectiveSetIndexes)
                 {
                     this._SubObjectiveSetIndexes = value;
-                    this.NotifyPropertyChanged("SubObjectiveSetIndexes");
+                    this.NotifyOfPropertyChange(nameof(SubObjectiveSetIndexes));
                 }
             }
         }
@@ -174,7 +172,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._NeedsRewards)
                 {
                     this._NeedsRewards = value;
-                    this.NotifyPropertyChanged("NeedsRewards");
+                    this.NotifyOfPropertyChange(nameof(NeedsRewards));
                 }
             }
         }
@@ -188,7 +186,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown9)
                 {
                     this._Unknown9 = value;
-                    this.NotifyPropertyChanged("Unknown9");
+                    this.NotifyOfPropertyChange(nameof(Unknown9));
                 }
             }
         }
@@ -202,7 +200,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._HeardKickoff)
                 {
                     this._HeardKickoff = value;
-                    this.NotifyPropertyChanged("HeardKickoff");
+                    this.NotifyOfPropertyChange(nameof(HeardKickoff));
                 }
             }
         }
@@ -216,7 +214,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._GameStage)
                 {
                     this._GameStage = value;
-                    this.NotifyPropertyChanged("GameStage");
+                    this.NotifyOfPropertyChange(nameof(GameStage));
                 }
             }
         }
@@ -225,12 +223,9 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged(string propertyName)
+        private void NotifyOfPropertyChange(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
 

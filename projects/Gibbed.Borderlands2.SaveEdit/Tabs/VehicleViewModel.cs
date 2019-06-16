@@ -59,7 +59,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._SelectedRunner1 = value;
-                this.NotifyOfPropertyChange(() => this.SelectedRunner1);
+                this.NotifyOfPropertyChange(nameof(SelectedRunner1));
             }
         }
 
@@ -69,7 +69,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._SelectedRunner2 = value;
-                this.NotifyOfPropertyChange(() => this.SelectedRunner2);
+                this.NotifyOfPropertyChange(nameof(SelectedRunner2));
             }
         }
 
@@ -84,7 +84,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._SelectedBanditTech1 = value;
-                this.NotifyOfPropertyChange(() => this.SelectedBanditTech1);
+                this.NotifyOfPropertyChange(nameof(SelectedBanditTech1));
             }
         }
 
@@ -94,7 +94,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._SelectedBanditTech2 = value;
-                this.NotifyOfPropertyChange(() => this.SelectedBanditTech2);
+                this.NotifyOfPropertyChange(nameof(SelectedBanditTech2));
             }
         }
 
@@ -109,7 +109,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._SelectedHovercraft1 = value;
-                this.NotifyOfPropertyChange(() => this.SelectedHovercraft1);
+                this.NotifyOfPropertyChange(nameof(SelectedHovercraft1));
             }
         }
 
@@ -119,7 +119,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._SelectedHovercraft2 = value;
-                this.NotifyOfPropertyChange(() => this.SelectedHovercraft2);
+                this.NotifyOfPropertyChange(nameof(SelectedHovercraft2));
             }
         }
 
@@ -134,7 +134,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._SelectedFanBoat1 = value;
-                this.NotifyOfPropertyChange(() => this.SelectedFanBoat1);
+                this.NotifyOfPropertyChange(nameof(SelectedFanBoat1));
             }
         }
 
@@ -144,7 +144,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._SelectedFanBoat2 = value;
-                this.NotifyOfPropertyChange(() => this.SelectedFanBoat2);
+                this.NotifyOfPropertyChange(nameof(SelectedFanBoat2));
             }
         }
 
@@ -195,7 +195,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                     }
                     else
                     {
-                        group = "??? " + kv.Value.DLC.ResourcePath + " ???";
+                        group = $"??? {kv.Value.DLC.ResourcePath} ???";
                         priority = int.MaxValue;
                     }
                 }
@@ -211,11 +211,12 @@ namespace Gibbed.Borderlands2.SaveEdit
             assets.OrderBy(kv => kv.Value).Apply(kv => target.Add(kv.Key));
         }
 
-        private static void ImportTarget(string name,
-                                         IEnumerable<ChosenVehicleCustomization> customizations,
-                                         Action<string> skin1,
-                                         Action<string> skin2,
-                                         Action<string> extra)
+        private static void ImportTarget(
+            string name,
+            IEnumerable<ChosenVehicleCustomization> customizations,
+            Action<string> skin1,
+            Action<string> skin2,
+            Action<string> extra)
         {
             skin1("None");
             skin2("None");
@@ -244,32 +245,36 @@ namespace Gibbed.Borderlands2.SaveEdit
         public void ImportData(WillowTwoPlayerSaveGame saveGame)
         {
             this.ExtraRunner.Clear();
-            ImportTarget("GD_Globals.VehicleSpawnStation.VehicleFamily_Runner",
-                         saveGame.ChosenVehicleCustomizations,
-                         s => this.SelectedRunner1 = s,
-                         s => this.SelectedRunner2 = s,
-                         s => this.ExtraRunner.Add(s));
+            ImportTarget(
+                "GD_Globals.VehicleSpawnStation.VehicleFamily_Runner",
+                saveGame.ChosenVehicleCustomizations,
+                s => this.SelectedRunner1 = s,
+                s => this.SelectedRunner2 = s,
+                s => this.ExtraRunner.Add(s));
 
             this.ExtraBanditTech.Clear();
-            ImportTarget("GD_Globals.VehicleSpawnStation.VehicleFamily_BanditTechnical",
-                         saveGame.ChosenVehicleCustomizations,
-                         s => this.SelectedBanditTech1 = s,
-                         s => this.SelectedBanditTech2 = s,
-                         s => this.ExtraBanditTech.Add(s));
+            ImportTarget(
+                "GD_Globals.VehicleSpawnStation.VehicleFamily_BanditTechnical",
+                saveGame.ChosenVehicleCustomizations,
+                s => this.SelectedBanditTech1 = s,
+                s => this.SelectedBanditTech2 = s,
+                s => this.ExtraBanditTech.Add(s));
 
             this.ExtraHovercraft.Clear();
-            ImportTarget("GD_OrchidPackageDef.Vehicles.VehicleFamily_Hovercraft",
-                         saveGame.ChosenVehicleCustomizations,
-                         s => this.SelectedHovercraft1 = s,
-                         s => this.SelectedHovercraft2 = s,
-                         s => this.ExtraHovercraft.Add(s));
+            ImportTarget(
+                "GD_OrchidPackageDef.Vehicles.VehicleFamily_Hovercraft",
+                saveGame.ChosenVehicleCustomizations,
+                s => this.SelectedHovercraft1 = s,
+                s => this.SelectedHovercraft2 = s,
+                s => this.ExtraHovercraft.Add(s));
 
             this.ExtraFanBoat.Clear();
-            ImportTarget("GD_SagePackageDef.Vehicles.VehicleFamily_FanBoat",
-                         saveGame.ChosenVehicleCustomizations,
-                         s => this.SelectedFanBoat1 = s,
-                         s => this.SelectedFanBoat2 = s,
-                         s => this.ExtraFanBoat.Add(s));
+            ImportTarget(
+                "GD_SagePackageDef.Vehicles.VehicleFamily_FanBoat",
+                saveGame.ChosenVehicleCustomizations,
+                s => this.SelectedFanBoat1 = s,
+                s => this.SelectedFanBoat2 = s,
+                s => this.ExtraFanBoat.Add(s));
         }
 
         private static void ExportTarget(string name,
@@ -298,28 +303,32 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         public void ExportData(WillowTwoPlayerSaveGame saveGame)
         {
-            ExportTarget("GD_Globals.VehicleSpawnStation.VehicleFamily_Runner",
-                         saveGame.ChosenVehicleCustomizations,
-                         this.SelectedRunner1,
-                         this.SelectedRunner2,
-                         this.ExtraRunner);
-            ExportTarget("GD_Globals.VehicleSpawnStation.VehicleFamily_BanditTechnical",
-                         saveGame.ChosenVehicleCustomizations,
-                         this.SelectedBanditTech1,
-                         this.SelectedBanditTech2,
-                         this.ExtraBanditTech);
+            ExportTarget(
+                "GD_Globals.VehicleSpawnStation.VehicleFamily_Runner",
+                saveGame.ChosenVehicleCustomizations,
+                this.SelectedRunner1,
+                this.SelectedRunner2,
+                this.ExtraRunner);
+            ExportTarget(
+                "GD_Globals.VehicleSpawnStation.VehicleFamily_BanditTechnical",
+                saveGame.ChosenVehicleCustomizations,
+                this.SelectedBanditTech1,
+                this.SelectedBanditTech2,
+                this.ExtraBanditTech);
 
-            ExportTarget("GD_OrchidPackageDef.Vehicles.VehicleFamily_Hovercraft",
-                         saveGame.ChosenVehicleCustomizations,
-                         this.SelectedHovercraft1,
-                         this.SelectedHovercraft2,
-                         this.ExtraHovercraft);
+            ExportTarget(
+                "GD_OrchidPackageDef.Vehicles.VehicleFamily_Hovercraft",
+                saveGame.ChosenVehicleCustomizations,
+                this.SelectedHovercraft1,
+                this.SelectedHovercraft2,
+                this.ExtraHovercraft);
 
-            ExportTarget("GD_SagePackageDef.Vehicles.VehicleFamily_FanBoat",
-                         saveGame.ChosenVehicleCustomizations,
-                         this.SelectedFanBoat1,
-                         this.SelectedFanBoat2,
-                         this.ExtraFanBoat);
+            ExportTarget(
+                "GD_SagePackageDef.Vehicles.VehicleFamily_FanBoat",
+                saveGame.ChosenVehicleCustomizations,
+                this.SelectedFanBoat1,
+                this.SelectedFanBoat2,
+                this.ExtraFanBoat);
         }
     }
 }

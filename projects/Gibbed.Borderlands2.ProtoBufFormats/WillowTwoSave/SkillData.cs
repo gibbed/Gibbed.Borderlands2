@@ -45,7 +45,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Skill)
                 {
                     this._Skill = value;
-                    this.NotifyPropertyChanged("Skill");
+                    this.NotifyOfPropertyChange(nameof(Skill));
                 }
             }
         }
@@ -59,7 +59,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Grade)
                 {
                     this._Grade = value;
-                    this.NotifyPropertyChanged("Grade");
+                    this.NotifyOfPropertyChange(nameof(Grade));
                 }
             }
         }
@@ -73,7 +73,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._GradePoints)
                 {
                     this._GradePoints = value;
-                    this.NotifyPropertyChanged("GradePoints");
+                    this.NotifyOfPropertyChange(nameof(GradePoints));
                 }
             }
         }
@@ -87,7 +87,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._EquippedSlotIndex)
                 {
                     this._EquippedSlotIndex = value;
-                    this.NotifyPropertyChanged("EquippedSlotIndex");
+                    this.NotifyOfPropertyChange(nameof(EquippedSlotIndex));
                 }
             }
         }
@@ -96,12 +96,9 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged(string propertyName)
+        private void NotifyOfPropertyChange(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
 

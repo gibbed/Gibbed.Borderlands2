@@ -45,7 +45,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Lockout)
                 {
                     this._Lockout = value;
-                    this.NotifyPropertyChanged("Lockout");
+                    this.NotifyOfPropertyChange(nameof(Lockout));
                 }
             }
         }
@@ -59,7 +59,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Time)
                 {
                     this._Time = value;
-                    this.NotifyPropertyChanged("Time");
+                    this.NotifyOfPropertyChange(nameof(Time));
                 }
             }
         }
@@ -73,7 +73,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._IsFromDLC)
                 {
                     this._IsFromDLC = value;
-                    this.NotifyPropertyChanged("IsFromDLC");
+                    this.NotifyOfPropertyChange(nameof(IsFromDLC));
                 }
             }
         }
@@ -87,7 +87,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._DLCPackageId)
                 {
                     this._DLCPackageId = value;
-                    this.NotifyPropertyChanged("DLCPackageId");
+                    this.NotifyOfPropertyChange(nameof(DLCPackageId));
                 }
             }
         }
@@ -96,12 +96,9 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged(string propertyName)
+        private void NotifyOfPropertyChange(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
     }

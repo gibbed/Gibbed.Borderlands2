@@ -59,7 +59,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._Quantity)
                 {
                     this._Quantity = value;
-                    this.NotifyPropertyChanged("Quantity");
+                    this.NotifyOfPropertyChange(nameof(Quantity));
                 }
             }
         }
@@ -72,7 +72,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._Equipped)
                 {
                     this._Equipped = value;
-                    this.NotifyPropertyChanged("Equipped");
+                    this.NotifyOfPropertyChange(nameof(Equipped));
                 }
             }
         }
@@ -85,7 +85,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._Mark)
                 {
                     this._Mark = value;
-                    this.NotifyPropertyChanged("Mark");
+                    this.NotifyOfPropertyChange(nameof(Mark));
                 }
             }
         }

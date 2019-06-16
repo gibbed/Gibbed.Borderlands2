@@ -18,21 +18,23 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         public static TriggerBase CreateTrigger(string triggerText)
         {
-            var triggerDetail = triggerText.Replace("[", string.Empty)
-                                           .Replace("]", string.Empty)
-                                           .Replace("Shortcut", string.Empty)
-                                           .Trim();
+            var triggerDetail = triggerText
+                .Replace("[", string.Empty)
+                .Replace("]", string.Empty)
+                .Replace("Shortcut", string.Empty)
+                .Trim();
 
             var allKeys = triggerDetail.Split('+');
             var key = (Key)Enum.Parse(typeof(Key), allKeys.Last());
 
-            var modifierKeys = allKeys.Take(allKeys.Count() - 1)
-                                      .Aggregate(ModifierKeys.None,
-                                                 (current, modifierKey) =>
-                                                 current | (ModifierKeys)Enum.Parse(typeof(ModifierKeys), modifierKey));
+            var modifierKeys = allKeys
+                .Take(allKeys.Count() - 1)
+                .Aggregate(
+                     ModifierKeys.None,
+                     (c, mk) => c | (ModifierKeys)Enum.Parse(typeof(ModifierKeys), mk));
 
             var keyBinding = new KeyBinding(new InputBindingTrigger(), key, modifierKeys);
-            var trigger = new InputBindingTrigger
+            var trigger = new InputBindingTrigger()
             {
                 InputBinding = keyBinding,
             };

@@ -40,15 +40,15 @@ namespace Gibbed.Borderlands2.SaveEdit
         }
 
         public static readonly DependencyProperty IsExternalProperty =
-            DependencyProperty.RegisterAttached("IsExternal",
-                                                typeof(bool),
-                                                typeof(HyperlinkExtensions),
-                                                new UIPropertyMetadata(false, OnIsExternalChanged));
+            DependencyProperty.RegisterAttached(
+                "IsExternal",
+                typeof(bool),
+                typeof(HyperlinkExtensions),
+                new UIPropertyMetadata(false, OnIsExternalChanged));
 
         private static void OnIsExternalChanged(object sender, DependencyPropertyChangedEventArgs args)
         {
-            var hyperlink = sender as Hyperlink;
-            if (hyperlink != null)
+            if (sender is Hyperlink hyperlink && hyperlink != null)
             {
                 if ((bool)args.NewValue)
                 {

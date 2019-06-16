@@ -52,8 +52,8 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Weapon.QuickSlot = value;
-                this.NotifyOfPropertyChange(() => this.QuickSlot);
-                this.NotifyOfPropertyChange(() => this.DisplayGroup);
+                this.NotifyOfPropertyChange(nameof(QuickSlot));
+                this.NotifyOfPropertyChange(nameof(DisplayGroup));
             }
         }
 
@@ -63,7 +63,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Weapon.Mark = value;
-                this.NotifyOfPropertyChange(() => this.Mark);
+                this.NotifyOfPropertyChange(nameof(Mark));
             }
         }
         #endregion

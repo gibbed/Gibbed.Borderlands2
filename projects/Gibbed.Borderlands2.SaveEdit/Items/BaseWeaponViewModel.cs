@@ -41,17 +41,13 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         public BaseWeaponViewModel(BaseWeapon weapon)
         {
-            if (weapon == null)
-            {
-                throw new ArgumentNullException("weapon");
-            }
+            this._Weapon = weapon ?? throw new ArgumentNullException(nameof(weapon));
 
-            this._Weapon = weapon;
-
-            this.TypeAssets =
-                CreateAssetList(
-                    InfoManager.WeaponBalance.Items.Where(kv => kv.Value.Type != null).Select(
-                        kv => kv.Value.Type.ResourcePath).Distinct().OrderBy(s => s));
+            this.TypeAssets = CreateAssetList(InfoManager.WeaponBalance.Items
+                .Where(kv => kv.Value.Type != null)
+                .Select(kv => kv.Value.Type.ResourcePath)
+                .Distinct()
+                .OrderBy(s => s));
             this.BuildBalanceAssets();
             this.UpdateDisplayName();
         }
@@ -89,7 +85,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Weapon.Type = value;
-                this.NotifyOfPropertyChange(() => this.Type);
+                this.NotifyOfPropertyChange(nameof(Type));
                 this.BuildBalanceAssets();
                 this.UpdateDisplayName();
             }
@@ -101,7 +97,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Weapon.Balance = value;
-                this.NotifyOfPropertyChange(() => this.Balance);
+                this.NotifyOfPropertyChange(nameof(Balance));
                 this.BuildPartAssets();
             }
         }
@@ -112,7 +108,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Weapon.Manufacturer = value;
-                this.NotifyOfPropertyChange(() => this.Manufacturer);
+                this.NotifyOfPropertyChange(nameof(Manufacturer));
             }
         }
 
@@ -122,7 +118,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Weapon.ManufacturerGradeIndex = value;
-                this.NotifyOfPropertyChange(() => this.ManufacturerGradeIndex);
+                this.NotifyOfPropertyChange(nameof(ManufacturerGradeIndex));
             }
         }
 
@@ -132,7 +128,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Weapon.BodyPart = value;
-                this.NotifyOfPropertyChange(() => this.BodyPart);
+                this.NotifyOfPropertyChange(nameof(BodyPart));
             }
         }
 
@@ -142,7 +138,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Weapon.GripPart = value;
-                this.NotifyOfPropertyChange(() => this.GripPart);
+                this.NotifyOfPropertyChange(nameof(GripPart));
             }
         }
 
@@ -152,7 +148,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Weapon.BarrelPart = value;
-                this.NotifyOfPropertyChange(() => this.BarrelPart);
+                this.NotifyOfPropertyChange(nameof(BarrelPart));
             }
         }
 
@@ -162,7 +158,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Weapon.SightPart = value;
-                this.NotifyOfPropertyChange(() => this.SightPart);
+                this.NotifyOfPropertyChange(nameof(SightPart));
             }
         }
 
@@ -172,7 +168,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Weapon.StockPart = value;
-                this.NotifyOfPropertyChange(() => this.StockPart);
+                this.NotifyOfPropertyChange(nameof(StockPart));
             }
         }
 
@@ -182,7 +178,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Weapon.ElementalPart = value;
-                this.NotifyOfPropertyChange(() => this.ElementalPart);
+                this.NotifyOfPropertyChange(nameof(ElementalPart));
             }
         }
 
@@ -192,7 +188,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Weapon.Accessory1Part = value;
-                this.NotifyOfPropertyChange(() => this.Accessory1Part);
+                this.NotifyOfPropertyChange(nameof(Accessory1Part));
             }
         }
 
@@ -202,7 +198,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Weapon.Accessory2Part = value;
-                this.NotifyOfPropertyChange(() => this.Accessory2Part);
+                this.NotifyOfPropertyChange(nameof(Accessory2Part));
             }
         }
 
@@ -212,7 +208,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Weapon.MaterialPart = value;
-                this.NotifyOfPropertyChange(() => this.MaterialPart);
+                this.NotifyOfPropertyChange(nameof(MaterialPart));
             }
         }
 
@@ -222,7 +218,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Weapon.PrefixPart = value;
-                this.NotifyOfPropertyChange(() => this.PrefixPart);
+                this.NotifyOfPropertyChange(nameof(PrefixPart));
                 this.UpdateDisplayName();
             }
         }
@@ -233,7 +229,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Weapon.TitlePart = value;
-                this.NotifyOfPropertyChange(() => this.TitlePart);
+                this.NotifyOfPropertyChange(nameof(TitlePart));
                 this.UpdateDisplayName();
             }
         }
@@ -244,7 +240,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Weapon.GameStage = value;
-                this.NotifyOfPropertyChange(() => this.GameStage);
+                this.NotifyOfPropertyChange(nameof(GameStage));
             }
         }
 
@@ -254,7 +250,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Weapon.UniqueId = value;
-                this.NotifyOfPropertyChange(() => this.UniqueId);
+                this.NotifyOfPropertyChange(nameof(UniqueId));
             }
         }
 
@@ -264,7 +260,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Weapon.AssetLibrarySetId = value;
-                this.NotifyOfPropertyChange(() => this.AssetLibrarySetId);
+                this.NotifyOfPropertyChange(nameof(AssetLibrarySetId));
             }
         }
         #endregion
@@ -284,12 +280,10 @@ namespace Gibbed.Borderlands2.SaveEdit
                                          .FirstOrDefault(dp => dp.Id == this.AssetLibrarySetId);
                 if (package == null)
                 {
-                    return string.Format("(unknown #{0})", this.AssetLibrarySetId);
+                    return $"(unknown #{this.AssetLibrarySetId})";
                 }
 
-                return string.Format("{1} (#{0})",
-                                     this.AssetLibrarySetId,
-                                     package.DisplayName);
+                return $"{package.DisplayName} (#{this.AssetLibrarySetId})";
             }
         }
 
@@ -299,7 +293,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             private set
             {
                 this._DisplayName = value;
-                this.NotifyOfPropertyChange(() => this.DisplayName);
+                this.NotifyOfPropertyChange(nameof(DisplayName));
             }
         }
 
@@ -312,7 +306,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         #region Assets
         private static IEnumerable<string> CreateAssetList(IEnumerable<string> items)
         {
-            var list = new List<string>
+            var list = new List<string>()
             {
                 "None"
             };
@@ -348,7 +342,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             private set
             {
                 this._BalanceAssets = value;
-                this.NotifyOfPropertyChange(() => this.BalanceAssets);
+                this.NotifyOfPropertyChange(nameof(BalanceAssets));
             }
         }
 
@@ -358,7 +352,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             private set
             {
                 this._ManufacturerAssets = value;
-                this.NotifyOfPropertyChange(() => this.ManufacturerAssets);
+                this.NotifyOfPropertyChange(nameof(ManufacturerAssets));
             }
         }
 
@@ -368,7 +362,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             private set
             {
                 this._BodyPartAssets = value;
-                this.NotifyOfPropertyChange(() => this.BodyPartAssets);
+                this.NotifyOfPropertyChange(nameof(BodyPartAssets));
             }
         }
 
@@ -378,7 +372,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             private set
             {
                 this._GripPartAssets = value;
-                this.NotifyOfPropertyChange(() => this.GripPartAssets);
+                this.NotifyOfPropertyChange(nameof(GripPartAssets));
             }
         }
 
@@ -388,7 +382,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             private set
             {
                 this._BarrelPartAssets = value;
-                this.NotifyOfPropertyChange(() => this.BarrelPartAssets);
+                this.NotifyOfPropertyChange(nameof(BarrelPartAssets));
             }
         }
 
@@ -398,7 +392,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             private set
             {
                 this._SightPartAssets = value;
-                this.NotifyOfPropertyChange(() => this.SightPartAssets);
+                this.NotifyOfPropertyChange(nameof(SightPartAssets));
             }
         }
 
@@ -408,7 +402,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             private set
             {
                 this._StockPartAssets = value;
-                this.NotifyOfPropertyChange(() => this.StockPartAssets);
+                this.NotifyOfPropertyChange(nameof(StockPartAssets));
             }
         }
 
@@ -418,7 +412,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             private set
             {
                 this._ElementalPartAssets = value;
-                this.NotifyOfPropertyChange(() => this.ElementalPartAssets);
+                this.NotifyOfPropertyChange(nameof(ElementalPartAssets));
             }
         }
 
@@ -428,7 +422,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             private set
             {
                 this._Accessory1PartAssets = value;
-                this.NotifyOfPropertyChange(() => this.Accessory1PartAssets);
+                this.NotifyOfPropertyChange(nameof(Accessory1PartAssets));
             }
         }
 
@@ -438,7 +432,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             private set
             {
                 this._Accessory2PartAssets = value;
-                this.NotifyOfPropertyChange(() => this.Accessory2PartAssets);
+                this.NotifyOfPropertyChange(nameof(Accessory2PartAssets));
             }
         }
 
@@ -448,7 +442,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             private set
             {
                 this._MaterialPartAssets = value;
-                this.NotifyOfPropertyChange(() => this.MaterialPartAssets);
+                this.NotifyOfPropertyChange(nameof(MaterialPartAssets));
             }
         }
         #endregion
@@ -467,11 +461,11 @@ namespace Gibbed.Borderlands2.SaveEdit
             else
             {
                 var type = InfoManager.WeaponTypes[this.Type];
-                this.BalanceAssets =
-                    CreateAssetList(
-                        InfoManager.WeaponBalance.Items
-                                   .Where(bd => bd.Value.IsSuitableFor(type) == true)
-                                   .Select(kv => kv.Key).Distinct().OrderBy(s => s));
+                this.BalanceAssets = CreateAssetList(InfoManager.WeaponBalance.Items
+                    .Where(bd => bd.Value.IsSuitableFor(type) == true)
+                    .Select(kv => kv.Key)
+                    .Distinct()
+                    .OrderBy(s => s));
             }
 
             this.BuildPartAssets();

@@ -42,7 +42,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._InventorySerialNumber)
                 {
                     this._InventorySerialNumber = value;
-                    this.NotifyPropertyChanged("InventorySerialNumber");
+                    this.NotifyOfPropertyChange(nameof(InventorySerialNumber));
                 }
             }
         }
@@ -51,12 +51,9 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged(string propertyName)
+        private void NotifyOfPropertyChange(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
     }

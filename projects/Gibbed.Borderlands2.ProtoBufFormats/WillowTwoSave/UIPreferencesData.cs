@@ -45,7 +45,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._CharacterName)
                 {
                     this._CharacterName = value;
-                    this.NotifyPropertyChanged("CharacterName");
+                    this.NotifyOfPropertyChange(nameof(CharacterName));
                 }
             }
         }
@@ -59,7 +59,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._PrimaryColor)
                 {
                     this._PrimaryColor = value;
-                    this.NotifyPropertyChanged("PrimaryColor");
+                    this.NotifyOfPropertyChange(nameof(PrimaryColor));
                 }
             }
         }
@@ -73,7 +73,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._SecondaryColor)
                 {
                     this._SecondaryColor = value;
-                    this.NotifyPropertyChanged("SecondaryColor");
+                    this.NotifyOfPropertyChange(nameof(SecondaryColor));
                 }
             }
         }
@@ -87,7 +87,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._TertiaryColor)
                 {
                     this._TertiaryColor = value;
-                    this.NotifyPropertyChanged("TertiaryColor");
+                    this.NotifyOfPropertyChange(nameof(TertiaryColor));
                 }
             }
         }
@@ -96,12 +96,9 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged(string propertyName)
+        private void NotifyOfPropertyChange(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
     }

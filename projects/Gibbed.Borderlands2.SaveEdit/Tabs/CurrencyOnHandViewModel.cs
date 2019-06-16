@@ -54,7 +54,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 if (this._Credits != value)
                 {
                     this._Credits = value;
-                    this.NotifyOfPropertyChange(() => this.Credits);
+                    this.NotifyOfPropertyChange(nameof(Credits));
                 }
             }
         }
@@ -67,7 +67,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 if (this._Eridium != value)
                 {
                     this._Eridium = value;
-                    this.NotifyOfPropertyChange(() => this.Eridium);
+                    this.NotifyOfPropertyChange(nameof(Eridium));
                 }
             }
         }
@@ -80,7 +80,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 if (this._SeraphCrystals != value)
                 {
                     this._SeraphCrystals = value;
-                    this.NotifyOfPropertyChange(() => this.SeraphCrystals);
+                    this.NotifyOfPropertyChange(nameof(SeraphCrystals));
                 }
             }
         }
@@ -93,7 +93,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 if (this._ReservedA != value)
                 {
                     this._ReservedA = value;
-                    this.NotifyOfPropertyChange(() => this.ReservedA);
+                    this.NotifyOfPropertyChange(nameof(ReservedA));
                 }
             }
         }
@@ -106,7 +106,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 if (this._TorgueTokens != value)
                 {
                     this._TorgueTokens = value;
-                    this.NotifyOfPropertyChange(() => this.TorgueTokens);
+                    this.NotifyOfPropertyChange(nameof(TorgueTokens));
                 }
             }
         }
@@ -119,7 +119,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 if (this._ReservedC != value)
                 {
                     this._ReservedC = value;
-                    this.NotifyOfPropertyChange(() => this.ReservedC);
+                    this.NotifyOfPropertyChange(nameof(ReservedC));
                 }
             }
         }
@@ -132,7 +132,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 if (this._ReservedD != value)
                 {
                     this._ReservedD = value;
-                    this.NotifyOfPropertyChange(() => this.ReservedD);
+                    this.NotifyOfPropertyChange(nameof(ReservedD));
                 }
             }
         }
@@ -145,7 +145,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 if (this._ReservedE != value)
                 {
                     this._ReservedE = value;
-                    this.NotifyOfPropertyChange(() => this.ReservedE);
+                    this.NotifyOfPropertyChange(nameof(ReservedE));
                 }
             }
         }
@@ -158,7 +158,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 if (this._ReservedF != value)
                 {
                     this._ReservedF = value;
-                    this.NotifyOfPropertyChange(() => this.ReservedF);
+                    this.NotifyOfPropertyChange(nameof(ReservedF));
                 }
             }
         }
@@ -171,7 +171,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 if (this._ReservedG != value)
                 {
                     this._ReservedG = value;
-                    this.NotifyOfPropertyChange(() => this.ReservedG);
+                    this.NotifyOfPropertyChange(nameof(ReservedG));
                 }
             }
         }
@@ -184,7 +184,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 if (this._ReservedH != value)
                 {
                     this._ReservedH = value;
-                    this.NotifyOfPropertyChange(() => this.ReservedH);
+                    this.NotifyOfPropertyChange(nameof(ReservedH));
                 }
             }
         }
@@ -197,7 +197,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 if (this._ReservedI != value)
                 {
                     this._ReservedI = value;
-                    this.NotifyOfPropertyChange(() => this.ReservedI);
+                    this.NotifyOfPropertyChange(nameof(ReservedI));
                 }
             }
         }
@@ -210,7 +210,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 if (this._ReservedJ != value)
                 {
                     this._ReservedJ = value;
-                    this.NotifyOfPropertyChange(() => this.ReservedJ);
+                    this.NotifyOfPropertyChange(nameof(ReservedJ));
                 }
             }
         }

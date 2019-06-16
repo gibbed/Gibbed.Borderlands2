@@ -63,7 +63,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Balance)
                 {
                     this._Balance = value;
-                    this.NotifyPropertyChanged("Balance");
+                    this.NotifyOfPropertyChange(nameof(Balance));
                 }
             }
         }
@@ -77,7 +77,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Manufacturer)
                 {
                     this._Manufacturer = value;
-                    this.NotifyPropertyChanged("Manufacturer");
+                    this.NotifyOfPropertyChange(nameof(Manufacturer));
                 }
             }
         }
@@ -91,7 +91,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Type)
                 {
                     this._Type = value;
-                    this.NotifyPropertyChanged("Type");
+                    this.NotifyOfPropertyChange(nameof(Type));
                 }
             }
         }
@@ -105,7 +105,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._BodyPart)
                 {
                     this._BodyPart = value;
-                    this.NotifyPropertyChanged("BodyPart");
+                    this.NotifyOfPropertyChange(nameof(BodyPart));
                 }
             }
         }
@@ -119,7 +119,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._GripPart)
                 {
                     this._GripPart = value;
-                    this.NotifyPropertyChanged("GripPart");
+                    this.NotifyOfPropertyChange(nameof(GripPart));
                 }
             }
         }
@@ -133,7 +133,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._BarrelPart)
                 {
                     this._BarrelPart = value;
-                    this.NotifyPropertyChanged("BarrelPart");
+                    this.NotifyOfPropertyChange(nameof(BarrelPart));
                 }
             }
         }
@@ -147,7 +147,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._SightPart)
                 {
                     this._SightPart = value;
-                    this.NotifyPropertyChanged("SightPart");
+                    this.NotifyOfPropertyChange(nameof(SightPart));
                 }
             }
         }
@@ -161,7 +161,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._StockPart)
                 {
                     this._StockPart = value;
-                    this.NotifyPropertyChanged("StockPart");
+                    this.NotifyOfPropertyChange(nameof(StockPart));
                 }
             }
         }
@@ -175,7 +175,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown9)
                 {
                     this._Unknown9 = value;
-                    this.NotifyPropertyChanged("Unknown9");
+                    this.NotifyOfPropertyChange(nameof(Unknown9));
                 }
             }
         }
@@ -189,7 +189,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown10)
                 {
                     this._Unknown10 = value;
-                    this.NotifyPropertyChanged("Unknown10");
+                    this.NotifyOfPropertyChange(nameof(Unknown10));
                 }
             }
         }
@@ -203,7 +203,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown11)
                 {
                     this._Unknown11 = value;
-                    this.NotifyPropertyChanged("Unknown11");
+                    this.NotifyOfPropertyChange(nameof(Unknown11));
                 }
             }
         }
@@ -217,7 +217,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown12)
                 {
                     this._Unknown12 = value;
-                    this.NotifyPropertyChanged("Unknown12");
+                    this.NotifyOfPropertyChange(nameof(Unknown12));
                 }
             }
         }
@@ -231,7 +231,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._MaterialPart)
                 {
                     this._MaterialPart = value;
-                    this.NotifyPropertyChanged("MaterialPart");
+                    this.NotifyOfPropertyChange(nameof(MaterialPart));
                 }
             }
         }
@@ -245,7 +245,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._PrefixPart)
                 {
                     this._PrefixPart = value;
-                    this.NotifyPropertyChanged("PrefixPart");
+                    this.NotifyOfPropertyChange(nameof(PrefixPart));
                 }
             }
         }
@@ -259,7 +259,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._TitlePart)
                 {
                     this._TitlePart = value;
-                    this.NotifyPropertyChanged("TitlePart");
+                    this.NotifyOfPropertyChange(nameof(TitlePart));
                 }
             }
         }
@@ -273,7 +273,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown16)
                 {
                     this._Unknown16 = value;
-                    this.NotifyPropertyChanged("Unknown16");
+                    this.NotifyOfPropertyChange(nameof(Unknown16));
                 }
             }
         }
@@ -287,7 +287,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._ManufacturerGradeIndex)
                 {
                     this._ManufacturerGradeIndex = value;
-                    this.NotifyPropertyChanged("ManufacturerGradeIndex");
+                    this.NotifyOfPropertyChange(nameof(ManufacturerGradeIndex));
                 }
             }
         }
@@ -301,7 +301,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._QuickSlot)
                 {
                     this._QuickSlot = value;
-                    this.NotifyPropertyChanged("QuickSlot");
+                    this.NotifyOfPropertyChange(nameof(QuickSlot));
                 }
             }
         }
@@ -315,7 +315,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Mark)
                 {
                     this._Mark = value;
-                    this.NotifyPropertyChanged("Mark");
+                    this.NotifyOfPropertyChange(nameof(Mark));
                 }
             }
         }
@@ -329,7 +329,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._ElementalPart)
                 {
                     this._ElementalPart = value;
-                    this.NotifyPropertyChanged("ElementalPart");
+                    this.NotifyOfPropertyChange(nameof(ElementalPart));
                 }
             }
         }
@@ -343,7 +343,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Accessory1Part)
                 {
                     this._Accessory1Part = value;
-                    this.NotifyPropertyChanged("Accessory1Part");
+                    this.NotifyOfPropertyChange(nameof(Accessory1Part));
                 }
             }
         }
@@ -357,7 +357,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Accessory2Part)
                 {
                     this._Accessory2Part = value;
-                    this.NotifyPropertyChanged("Accessory2Part");
+                    this.NotifyOfPropertyChange(nameof(Accessory2Part));
                 }
             }
         }
@@ -366,12 +366,9 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged(string propertyName)
+        private void NotifyOfPropertyChange(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
     }

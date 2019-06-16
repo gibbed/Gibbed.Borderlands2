@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.IO;
 
 namespace Gibbed.Borderlands2.FileFormats
 {
@@ -42,7 +43,7 @@ namespace Gibbed.Borderlands2.FileFormats
         {
             if (buffer == null)
             {
-                throw new ArgumentNullException("buffer");
+                throw new ArgumentNullException(nameof(buffer));
             }
 
             this.Initialize(buffer, 0, buffer.Length);
@@ -52,20 +53,20 @@ namespace Gibbed.Borderlands2.FileFormats
         {
             if (buffer == null)
             {
-                throw new ArgumentNullException("buffer");
+                throw new ArgumentNullException(nameof(buffer));
             }
 
             if (offset < 0 ||
                 offset > buffer.Length)
             {
-                throw new ArgumentOutOfRangeException("offset");
+                throw new ArgumentOutOfRangeException(nameof(offset));
             }
 
             if (length < 0 ||
                 offset + length < 0 ||
                 offset + length > buffer.Length)
             {
-                throw new ArgumentOutOfRangeException("length");
+                throw new ArgumentOutOfRangeException(nameof(length));
             }
 
             this.Initialize(buffer, offset, length);
@@ -75,7 +76,7 @@ namespace Gibbed.Borderlands2.FileFormats
         {
             if (bits < 0 || bits > 16)
             {
-                throw new ArgumentOutOfRangeException("bits");
+                throw new ArgumentOutOfRangeException(nameof(bits));
             }
 
             return (short)this.ReadUInt32(bits);
@@ -85,7 +86,7 @@ namespace Gibbed.Borderlands2.FileFormats
         {
             if (bits < 0 || bits > 16)
             {
-                throw new ArgumentOutOfRangeException("bits");
+                throw new ArgumentOutOfRangeException(nameof(bits));
             }
 
             return (ushort)this.ReadUInt32(bits);
@@ -100,7 +101,7 @@ namespace Gibbed.Borderlands2.FileFormats
         {
             if (bits < 0 || bits > 32)
             {
-                throw new ArgumentOutOfRangeException("bits");
+                throw new ArgumentOutOfRangeException(nameof(bits));
             }
 
             uint result = 0;
@@ -109,7 +110,7 @@ namespace Gibbed.Borderlands2.FileFormats
             {
                 if (this.Position >= this.Length)
                 {
-                    throw new InvalidOperationException();
+                    throw new EndOfStreamException();
                 }
 
                 int offset = this.Position % 8;
@@ -137,7 +138,7 @@ namespace Gibbed.Borderlands2.FileFormats
         {
             if (bits < 0 || bits > 64)
             {
-                throw new ArgumentOutOfRangeException("bits");
+                throw new ArgumentOutOfRangeException(nameof(bits));
             }
 
             if (bits <= 32)
@@ -151,7 +152,7 @@ namespace Gibbed.Borderlands2.FileFormats
             {
                 if (this.Position >= this.Length)
                 {
-                    throw new InvalidOperationException();
+                    throw new EndOfStreamException();
                 }
 
                 int offset = this.Position % 8;

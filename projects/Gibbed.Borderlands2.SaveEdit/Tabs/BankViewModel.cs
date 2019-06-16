@@ -59,7 +59,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Character = value;
-                this.NotifyOfPropertyChange(() => this.Character);
+                this.NotifyOfPropertyChange(nameof(Character));
             }
         }
 
@@ -70,7 +70,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Backpack = value;
-                this.NotifyOfPropertyChange(() => this.Backpack);
+                this.NotifyOfPropertyChange(nameof(Backpack));
             }
         }
         #endregion
@@ -125,7 +125,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._SelectedSlot = value;
-                this.NotifyOfPropertyChange(() => this.SelectedSlot);
+                this.NotifyOfPropertyChange(nameof(SelectedSlot));
             }
         }
 
@@ -140,7 +140,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._NewWeaponDropDownIsOpen = value;
-                this.NotifyOfPropertyChange(() => this.NewWeaponDropDownIsOpen);
+                this.NotifyOfPropertyChange(nameof(NewWeaponDropDownIsOpen));
             }
         }
 
@@ -155,7 +155,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._NewItemDropDownIsOpen = value;
-                this.NotifyOfPropertyChange(() => this.NewItemDropDownIsOpen);
+                this.NotifyOfPropertyChange(nameof(NewItemDropDownIsOpen));
             }
         }
         #endregion
@@ -203,9 +203,8 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         public IEnumerable<IResult> PasteCode()
         {
-            bool containsText;
             bool containsUnicodeText = false;
-            if (MyClipboard.ContainsText(TextDataFormat.Text, out containsText) != MyClipboard.Result.Success ||
+            if (MyClipboard.ContainsText(TextDataFormat.Text, out var containsText) != MyClipboard.Result.Success ||
                 MyClipboard.ContainsText(TextDataFormat.UnicodeText, out containsUnicodeText) !=
                 MyClipboard.Result.Success)
             {
@@ -224,13 +223,13 @@ namespace Gibbed.Borderlands2.SaveEdit
             yield return new DelegateResult(
                 () =>
                 {
-                    string codes;
-                    if (MyClipboard.GetText(out codes) != MyClipboard.Result.Success)
+                    if (MyClipboard.GetText(out string codes) != MyClipboard.Result.Success)
                     {
-                        MessageBox.Show("Clipboard failure.",
-                                        "Error",
-                                        MessageBoxButton.OK,
-                                        MessageBoxImage.Error);
+                        MessageBox.Show(
+                            "Clipboard failure.",
+                            "Error",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error);
                         return;
                     }
 
@@ -258,15 +257,13 @@ namespace Gibbed.Borderlands2.SaveEdit
                         // TODO: check other item unique IDs to prevent rare collisions
                         packable.UniqueId = new Random().Next(int.MinValue, int.MaxValue);
 
-                        if (packable is BaseWeapon)
+                        if (packable is BaseWeapon weapon)
                         {
-                            var weapon = (BaseWeapon)packable;
                             var viewModel = new BaseWeaponViewModel(weapon);
                             viewModels.Add(viewModel);
                         }
-                        else if (packable is BaseItem)
+                        else if (packable is BaseItem item)
                         {
-                            var item = (BaseItem)packable;
                             var viewModel = new BaseItemViewModel(item);
                             viewModels.Add(viewModel);
                         }
@@ -282,15 +279,15 @@ namespace Gibbed.Borderlands2.SaveEdit
             if (errors > 0)
             {
                 yield return
-                    new MyMessageBox("Failed to load " + errors.ToString(CultureInfo.InvariantCulture) + " codes.",
-                                     "Warning")
+                    new MyMessageBox($"Failed to load {errors} codes.", "Warning")
                         .WithIcon(MessageBoxImage.Warning);
             }
             else if (viewModels.Count == 0)
             {
                 yield return
-                    new MyMessageBox("Did not find any codes in clipboard.",
-                                     "Warning")
+                    new MyMessageBox(
+                        "Did not find any codes in clipboard.",
+                        "Warning")
                         .WithIcon(MessageBoxImage.Warning);
             }
         }
@@ -305,10 +302,11 @@ namespace Gibbed.Borderlands2.SaveEdit
                     {
                         if (MyClipboard.SetText("") != MyClipboard.Result.Success)
                         {
-                            MessageBox.Show("Clipboard failure.",
-                                            "Error",
-                                            MessageBoxButton.OK,
-                                            MessageBoxImage.Error);
+                            MessageBox.Show(
+                                "Clipboard failure.",
+                                "Error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
                         }
                         return;
                     }
@@ -325,10 +323,11 @@ namespace Gibbed.Borderlands2.SaveEdit
 
                     if (MyClipboard.SetText(sb.ToString()) != MyClipboard.Result.Success)
                     {
-                        MessageBox.Show("Clipboard failure.",
-                                        "Error",
-                                        MessageBoxButton.OK,
-                                        MessageBoxImage.Error);
+                        MessageBox.Show(
+                            "Clipboard failure.",
+                            "Error",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error);
                     }
                 });
         }
@@ -344,18 +343,14 @@ namespace Gibbed.Borderlands2.SaveEdit
             copy.UniqueId = new Random().Next(int.MinValue, int.MaxValue);
             // TODO: check other item unique IDs to prevent rare collisions
 
-            if (copy is BaseWeapon)
+            if (copy is BaseWeapon weapon)
             {
-                var weapon = (BaseWeapon)copy;
-
                 var viewModel = new BaseWeaponViewModel(weapon);
                 this.Slots.Add(viewModel);
                 this.SelectedSlot = viewModel;
             }
-            else if (copy is BaseItem)
+            else if (copy is BaseItem item)
             {
-                var item = (BaseItem)copy;
-
                 var viewModel = new BaseItemViewModel(item);
                 this.Slots.Add(viewModel);
                 this.SelectedSlot = viewModel;
@@ -376,13 +371,13 @@ namespace Gibbed.Borderlands2.SaveEdit
             var slot = this.SelectedSlot.BaseSlot;
             this.Slots.Remove(this.SelectedSlot);
 
-            if (slot is BaseItem)
+            if (slot is BaseWeapon weapon)
             {
-                this.Backpack.Slots.Add(new BackpackItemViewModel(new BackpackItem((BaseItem)slot)));
+                this.Backpack.Slots.Add(new BackpackWeaponViewModel(new BackpackWeapon(weapon)));
             }
-            else if (slot is BaseWeapon)
+            else if (slot is BaseItem item)
             {
-                this.Backpack.Slots.Add(new BackpackWeaponViewModel(new BackpackWeapon((BaseWeapon)slot)));
+                this.Backpack.Slots.Add(new BackpackItemViewModel(new BackpackItem(item)));
             }
         }
 
@@ -401,18 +396,16 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             foreach (var viewModel in this.Slots)
             {
-                if (viewModel is BaseWeaponViewModel)
+                if (viewModel is BaseWeaponViewModel weapon)
                 {
-                    var weapon = (BaseWeaponViewModel)viewModel;
                     if ((weapon.ManufacturerGradeIndex + weapon.GameStage) >= 2)
                     {
                         weapon.ManufacturerGradeIndex = this.Character.SyncLevel;
                         weapon.GameStage = this.Character.SyncLevel;
                     }
                 }
-                else if (viewModel is BaseItemViewModel)
+                else if (viewModel is BaseItemViewModel item)
                 {
-                    var item = (BaseItemViewModel)viewModel;
                     if ((item.ManufacturerGradeIndex + item.GameStage) >= 2)
                     {
                         item.ManufacturerGradeIndex = this.Character.SyncLevel;
@@ -449,14 +442,14 @@ namespace Gibbed.Borderlands2.SaveEdit
                     throw new FormatException("bank slot reencode mismatch");
                 }
 
-                if (slot is BaseWeapon)
+                if (slot is BaseWeapon weapon)
                 {
-                    var viewModel = new BaseWeaponViewModel((BaseWeapon)slot);
+                    var viewModel = new BaseWeaponViewModel(weapon);
                     this.Slots.Add(viewModel);
                 }
-                else if (slot is BaseItem)
+                else if (slot is BaseItem item)
                 {
-                    var viewModel = new BaseItemViewModel((BaseItem)slot);
+                    var viewModel = new BaseItemViewModel(item);
                     this.Slots.Add(viewModel);
                 }
             }
@@ -470,21 +463,17 @@ namespace Gibbed.Borderlands2.SaveEdit
             {
                 var slot = viewModel.BaseSlot;
 
-                if (slot is BaseWeapon)
+                if (slot is BaseWeapon weapon)
                 {
-                    var weapon = (BaseWeapon)slot;
                     var data = BaseDataHelper.Encode(weapon, platform);
-
                     saveGame.BankSlots.Add(new BankSlot()
                     {
                         InventorySerialNumber = data,
                     });
                 }
-                else if (slot is BaseItem)
+                else if (slot is BaseItem item)
                 {
-                    var item = (BaseItem)slot;
                     var data = BaseDataHelper.Encode(item, platform);
-
                     saveGame.BankSlots.Add(new BankSlot()
                     {
                         InventorySerialNumber = data,

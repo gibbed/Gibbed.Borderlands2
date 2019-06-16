@@ -37,9 +37,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         #region Serialization
         [ProtoAfterDeserialization]
-        // ReSharper disable UnusedMember.Local
         private void OnDeserialization()
-            // ReSharper restore UnusedMember.Local
         {
             this._Completion = this._Completion ?? new List<uint>();
         }
@@ -61,7 +59,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._PackageId)
                 {
                     this._PackageId = value;
-                    this.NotifyPropertyChanged("PackageId");
+                    this.NotifyOfPropertyChange(nameof(PackageId));
                 }
             }
         }
@@ -75,7 +73,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._ContentId)
                 {
                     this._ContentId = value;
-                    this.NotifyPropertyChanged("ContentId");
+                    this.NotifyOfPropertyChange(nameof(ContentId));
                 }
             }
         }
@@ -89,7 +87,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Completion)
                 {
                     this._Completion = value;
-                    this.NotifyPropertyChanged("Completion");
+                    this.NotifyOfPropertyChange(nameof(Completion));
                 }
             }
         }
@@ -98,12 +96,9 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged(string propertyName)
+        private void NotifyOfPropertyChange(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
     }

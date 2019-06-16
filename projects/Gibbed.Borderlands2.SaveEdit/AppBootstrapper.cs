@@ -38,8 +38,8 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         protected override void Configure()
         {
-            FrameworkExtensions.Message.Attach.AllowExtraSyntax(MessageSyntaxes.SpecialValueProperty |
-                                                                MessageSyntaxes.XamlBinding);
+            FrameworkExtensions.Message.Attach.AllowExtraSyntax(
+                MessageSyntaxes.SpecialValueProperty | MessageSyntaxes.XamlBinding);
             FrameworkExtensions.ActionMessage.EnableFilters();
             FrameworkExtensions.ViewLocator.EnableContextFallback();
 
@@ -48,9 +48,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                                                                 ? ShortcutParser.CreateTrigger(triggerText)
                                                                 : currentParser(target, triggerText);
 
-            this._Container =
-                new CompositionContainer(
-                    new AggregateCatalog(AssemblySource.Instance.Select(x => new AssemblyCatalog(x))));
+            this._Container = new CompositionContainer(
+                new AggregateCatalog(AssemblySource.Instance.Select(x => new AssemblyCatalog(x))));
 
             var batch = new CompositionBatch();
             batch.AddExportedValue<IWindowManager>(new AppWindowManager());
@@ -78,8 +77,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                 return exports[0];
             }
 
-            throw new InvalidOperationException(string.Format("Could not locate any instances of contract {0}.",
-                                                              contract));
+            throw new InvalidOperationException(
+                $"Could not locate any instances of contract {contract}.");
         }
 
         protected override IEnumerable<object> GetAllInstances(Type serviceType)
@@ -101,10 +100,11 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An exception was thrown (press Ctrl+C to copy):\n\n" + ex,
-                                "Error",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Error);
+                MessageBox.Show(
+                    $"An exception was thrown (press Ctrl+C to copy):\n\n{ex}",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
                 Application.Shutdown(1);
             }
         }

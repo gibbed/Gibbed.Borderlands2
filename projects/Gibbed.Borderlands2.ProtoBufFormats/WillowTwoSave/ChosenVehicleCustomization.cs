@@ -36,9 +36,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         #region Serialization
         [ProtoAfterDeserialization]
-        // ReSharper disable UnusedMember.Local
         private void OnDeserialization()
-            // ReSharper restore UnusedMember.Local
         {
             this._Customizations = this._Customizations ?? new List<string>();
         }
@@ -60,7 +58,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Family)
                 {
                     this._Family = value;
-                    this.NotifyPropertyChanged("Family");
+                    this.NotifyOfPropertyChange(nameof(Family));
                 }
             }
         }
@@ -74,7 +72,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Customizations)
                 {
                     this._Customizations = value;
-                    this.NotifyPropertyChanged("Customizations");
+                    this.NotifyOfPropertyChange(nameof(Customizations));
                 }
             }
         }
@@ -83,12 +81,9 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged(string propertyName)
+        private void NotifyOfPropertyChange(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
     }

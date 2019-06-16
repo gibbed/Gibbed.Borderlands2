@@ -112,13 +112,10 @@ namespace VerifySaves
                                                                                 innerUncompressedSize);
                             using (var innerUncompressedData = new MemoryStream(innerUncompressedBytes))
                             {
-                                using (var output = File.Create("temp.bin"))
-                                {
-                                    output.WriteBytes(innerUncompressedBytes);
-                                }
+                                File.WriteAllBytes("temp.bin", innerUncompressedBytes);
 
-                                var saveGame =
-                                    Serializer.Deserialize<WillowTwoSave.WillowTwoPlayerSaveGame>(innerUncompressedData);
+                                var saveGame = Serializer.Deserialize<WillowTwoSave.WillowTwoPlayerSaveGame>(
+                                    innerUncompressedData);
                                 SaveExpansion.ExtractExpansionSavedataFromUnloadableItemData(saveGame);
 
                                 using (var testData = new MemoryStream())
@@ -154,10 +151,11 @@ namespace VerifySaves
                 }
             }
 
-            Console.WriteLine("{0} processed ({1} failed, {2} succeeded).",
-                              paths.Length,
-                              failures,
-                              successes);
+            Console.WriteLine(
+                "{0} processed ({1} failed, {2} succeeded).",
+                paths.Length,
+                failures,
+                successes);
         }
     }
 }

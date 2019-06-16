@@ -21,52 +21,46 @@ namespace Gibbed.Borderlands2.SaveEdit
         static PropertyProxy()
         {
             var inMetadata = new FrameworkPropertyMetadata(
-                delegate(DependencyObject p, DependencyPropertyChangedEventArgs args)
+                delegate (DependencyObject p, DependencyPropertyChangedEventArgs args)
                 {
-                    if (null != BindingOperations.GetBinding(p, OutProperty))
+                    if (BindingOperations.GetBinding(p, OutProperty) != null &&
+                        p is PropertyProxy proxy && proxy != null)
                     {
-                        var proxy = p as PropertyProxy;
-                        if (proxy != null)
-                        {
-                            proxy.Out = args.NewValue;
-                        }
+                        proxy.Out = args.NewValue;
                     }
                 })
             {
                 BindsTwoWayByDefault = false,
-                DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+                DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
             };
 
-            InProperty = DependencyProperty.Register("In",
-                                                     typeof(object),
-                                                     typeof(PropertyProxy),
-                                                     inMetadata);
+            InProperty = DependencyProperty.Register(
+                nameof(In),
+                typeof(object),
+                typeof(PropertyProxy),
+                inMetadata);
 
             var outMetadata = new FrameworkPropertyMetadata(
-                delegate(DependencyObject p, DependencyPropertyChangedEventArgs args)
+                delegate (DependencyObject p, DependencyPropertyChangedEventArgs args)
                 {
-                    ValueSource source = DependencyPropertyHelper.GetValueSource(p, args.Property);
-
-                    if (source.BaseValueSource != BaseValueSource.Local)
+                    var source = DependencyPropertyHelper.GetValueSource(p, args.Property);
+                    if (source.BaseValueSource != BaseValueSource.Local &&
+                        p is PropertyProxy proxy && proxy != null)
                     {
-                        var proxy = p as PropertyProxy;
-                        if (proxy != null)
+                        object expected = proxy.In;
+                        if (ReferenceEquals(args.NewValue, expected) == false)
                         {
-                            object expected = proxy.In;
-                            if (!ReferenceEquals(args.NewValue, expected))
-                            {
-                                Dispatcher.CurrentDispatcher.BeginInvoke(
-                                    DispatcherPriority.DataBind, new Action(delegate { proxy.Out = proxy.In; }));
-                            }
+                            Dispatcher.CurrentDispatcher.BeginInvoke(
+                                DispatcherPriority.DataBind, new Action(delegate { proxy.Out = proxy.In; }));
                         }
                     }
                 })
             {
                 BindsTwoWayByDefault = true,
-                DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+                DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
             };
 
-            OutProperty = DependencyProperty.Register("Out", typeof(object), typeof(PropertyProxy), outMetadata);
+            OutProperty = DependencyProperty.Register(nameof(Out), typeof(object), typeof(PropertyProxy), outMetadata);
         }
 
         public object In

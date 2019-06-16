@@ -33,7 +33,7 @@ namespace Gibbed.Borderlands2.GameInfo
         {
             if (dictionary == null)
             {
-                throw new ArgumentNullException("dictionary");
+                throw new ArgumentNullException(nameof(dictionary));
             }
 
             this._Dictionary = new Dictionary<string, TType>();
@@ -75,7 +75,7 @@ namespace Gibbed.Borderlands2.GameInfo
         {
             if (dictionary == null)
             {
-                throw new ArgumentNullException("dictionary");
+                throw new ArgumentNullException(nameof(dictionary));
             }
 
             this._Dictionary = new Dictionary<TKey, TValue>();
@@ -94,7 +94,7 @@ namespace Gibbed.Borderlands2.GameInfo
         {
             if (this._Dictionary.ContainsKey(key) == false)
             {
-                return default(TValue);
+                return default;
             }
 
             return this._Dictionary[key];

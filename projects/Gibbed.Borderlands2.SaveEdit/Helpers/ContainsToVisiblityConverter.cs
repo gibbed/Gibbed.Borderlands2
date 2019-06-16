@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,33 +32,25 @@ namespace Gibbed.Borderlands2.SaveEdit
 {
     internal class ContainsToVisiblityConverter : IMultiValueConverter
     {
-        public object Convert(object[] values,
-                              Type targetType,
-                              object parameter,
-                              System.Globalization.CultureInfo culture)
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values == null ||
-                values.Length != 2)
+            if (values == null || values.Length != 2)
             {
                 return Visibility.Collapsed;
             }
 
-            if (values[0] is IEnumerable<string>)
+            if (values[0] is IEnumerable<string> strings)
             {
-                var a = (IEnumerable<string>)values[0];
-                var b = values[1];
-
-                if (a.Contains(b) == true)
+                var value = values[1];
+                if (strings.Contains(value) == true)
                 {
                     return Visibility.Collapsed;
                 }
             }
-            else if (values[0] is ItemCollection)
+            else if (values[0] is ItemCollection collection)
             {
-                var a = (ItemCollection)values[0];
-                var b = values[1];
-
-                if (a.Contains(b) == true)
+                var value = values[1];
+                if (collection.Contains(value) == true)
                 {
                     return Visibility.Collapsed;
                 }
@@ -66,10 +59,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             return Visibility.Visible;
         }
 
-        public object[] ConvertBack(object value,
-                                    Type[] targetTypes,
-                                    object parameter,
-                                    System.Globalization.CultureInfo culture)
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotSupportedException();
         }

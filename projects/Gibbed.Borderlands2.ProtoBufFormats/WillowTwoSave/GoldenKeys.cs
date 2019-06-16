@@ -43,7 +43,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown1)
                 {
                     this._Unknown1 = value;
-                    this.NotifyPropertyChanged("Unknown1");
+                    this.NotifyOfPropertyChange(nameof(Unknown1));
                 }
             }
         }
@@ -57,7 +57,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown2)
                 {
                     this._Unknown2 = value;
-                    this.NotifyPropertyChanged("Unknown2");
+                    this.NotifyOfPropertyChange(nameof(Unknown2));
                 }
             }
         }
@@ -66,12 +66,9 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged(string propertyName)
+        private void NotifyOfPropertyChange(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
     }

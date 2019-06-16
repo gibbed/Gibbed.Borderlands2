@@ -45,7 +45,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Resource)
                 {
                     this._Resource = value;
-                    this.NotifyPropertyChanged("Resource");
+                    this.NotifyOfPropertyChange(nameof(Resource));
                 }
             }
         }
@@ -59,7 +59,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Pool)
                 {
                     this._Pool = value;
-                    this.NotifyPropertyChanged("Pool");
+                    this.NotifyOfPropertyChange(nameof(Pool));
                 }
             }
         }
@@ -73,7 +73,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value.Equals(this._Amount) == false)
                 {
                     this._Amount = value;
-                    this.NotifyPropertyChanged("Amount");
+                    this.NotifyOfPropertyChange(nameof(Amount));
                 }
             }
         }
@@ -87,7 +87,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._UpgradeLevel)
                 {
                     this._UpgradeLevel = value;
-                    this.NotifyPropertyChanged("UpgradeLevel");
+                    this.NotifyOfPropertyChange(nameof(UpgradeLevel));
                 }
             }
         }
@@ -96,12 +96,9 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged(string propertyName)
+        private void NotifyOfPropertyChange(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
 

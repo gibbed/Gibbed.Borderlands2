@@ -66,7 +66,7 @@ namespace Gibbed.Borderlands2.FileFormats
         {
             if (bits < 0 || bits > 16)
             {
-                throw new ArgumentOutOfRangeException("bits");
+                throw new ArgumentOutOfRangeException(nameof(bits));
             }
 
             this.WriteUInt32((uint)value, bits);
@@ -76,7 +76,7 @@ namespace Gibbed.Borderlands2.FileFormats
         {
             if (bits < 0 || bits > 16)
             {
-                throw new ArgumentOutOfRangeException("bits");
+                throw new ArgumentOutOfRangeException(nameof(bits));
             }
 
             this.WriteUInt32(value, bits);
@@ -91,7 +91,7 @@ namespace Gibbed.Borderlands2.FileFormats
         {
             if (bits < 0 || bits > 32)
             {
-                throw new ArgumentOutOfRangeException("bits");
+                throw new ArgumentOutOfRangeException(nameof(bits));
             }
 
             while (bits > 0)
@@ -122,7 +122,7 @@ namespace Gibbed.Borderlands2.FileFormats
         {
             if (bits < 0 || bits > 64)
             {
-                throw new ArgumentOutOfRangeException("bits");
+                throw new ArgumentOutOfRangeException(nameof(bits));
             }
 
             while (bits > 0)

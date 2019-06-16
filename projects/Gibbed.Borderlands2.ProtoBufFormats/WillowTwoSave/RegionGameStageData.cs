@@ -46,7 +46,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Region)
                 {
                     this._Region = value;
-                    this.NotifyPropertyChanged("Region");
+                    this.NotifyOfPropertyChange(nameof(Region));
                 }
             }
         }
@@ -60,7 +60,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._GameStage)
                 {
                     this._GameStage = value;
-                    this.NotifyPropertyChanged("GameStage");
+                    this.NotifyOfPropertyChange(nameof(GameStage));
                 }
             }
         }
@@ -74,7 +74,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._IsFromDLC)
                 {
                     this._IsFromDLC = value;
-                    this.NotifyPropertyChanged("IsFromDLC");
+                    this.NotifyOfPropertyChange(nameof(IsFromDLC));
                 }
             }
         }
@@ -88,7 +88,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._DLCPackageId)
                 {
                     this._DLCPackageId = value;
-                    this.NotifyPropertyChanged("DLCPackageId");
+                    this.NotifyOfPropertyChange(nameof(DLCPackageId));
                 }
             }
         }
@@ -102,7 +102,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._PlaythroughIndex)
                 {
                     this._PlaythroughIndex = value;
-                    this.NotifyPropertyChanged("PlaythroughIndex");
+                    this.NotifyOfPropertyChange(nameof(PlaythroughIndex));
                 }
             }
         }
@@ -111,12 +111,9 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged(string propertyName)
+        private void NotifyOfPropertyChange(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
     }

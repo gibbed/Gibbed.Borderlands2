@@ -34,7 +34,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
         {
             if (embeddedResourceName == null)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(embeddedResourceName));
             }
 
             var path = "Gibbed.Borderlands2.GameInfo.Resources." + embeddedResourceName + ".json";
@@ -44,8 +44,8 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             if (stream == null)
             {
                 throw new ArgumentException(
-                    string.Format("The embedded resource '{0}' could not be found.", path),
-                    "embeddedResourceName");
+                    $"The embedded resource '{path}' could not be found.",
+                    nameof(embeddedResourceName));
             }
             return stream;
         }

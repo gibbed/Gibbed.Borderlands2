@@ -65,7 +65,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown1)
                 {
                     this._Unknown1 = value;
-                    this.NotifyPropertyChanged("Unknown1");
+                    this.NotifyOfPropertyChange(nameof(Unknown1));
                 }
             }
         }
@@ -79,7 +79,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown2)
                 {
                     this._Unknown2 = value;
-                    this.NotifyPropertyChanged("Unknown2");
+                    this.NotifyOfPropertyChange(nameof(Unknown2));
                 }
             }
         }
@@ -93,7 +93,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown3)
                 {
                     this._Unknown3 = value;
-                    this.NotifyPropertyChanged("Unknown3");
+                    this.NotifyOfPropertyChange(nameof(Unknown3));
                 }
             }
         }
@@ -107,7 +107,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown4)
                 {
                     this._Unknown4 = value;
-                    this.NotifyPropertyChanged("Unknown4");
+                    this.NotifyOfPropertyChange(nameof(Unknown4));
                 }
             }
         }
@@ -121,7 +121,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown5)
                 {
                     this._Unknown5 = value;
-                    this.NotifyPropertyChanged("Unknown5");
+                    this.NotifyOfPropertyChange(nameof(Unknown5));
                 }
             }
         }
@@ -135,7 +135,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown6)
                 {
                     this._Unknown6 = value;
-                    this.NotifyPropertyChanged("Unknown6");
+                    this.NotifyOfPropertyChange(nameof(Unknown6));
                 }
             }
         }
@@ -149,7 +149,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown7)
                 {
                     this._Unknown7 = value;
-                    this.NotifyPropertyChanged("Unknown7");
+                    this.NotifyOfPropertyChange(nameof(Unknown7));
                 }
             }
         }
@@ -163,7 +163,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown8)
                 {
                     this._Unknown8 = value;
-                    this.NotifyPropertyChanged("Unknown8");
+                    this.NotifyOfPropertyChange(nameof(Unknown8));
                 }
             }
         }
@@ -177,7 +177,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown9)
                 {
                     this._Unknown9 = value;
-                    this.NotifyPropertyChanged("Unknown9");
+                    this.NotifyOfPropertyChange(nameof(Unknown9));
                 }
             }
         }
@@ -191,7 +191,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown10)
                 {
                     this._Unknown10 = value;
-                    this.NotifyPropertyChanged("Unknown10");
+                    this.NotifyOfPropertyChange(nameof(Unknown10));
                 }
             }
         }
@@ -205,7 +205,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown11)
                 {
                     this._Unknown11 = value;
-                    this.NotifyPropertyChanged("Unknown11");
+                    this.NotifyOfPropertyChange(nameof(Unknown11));
                 }
             }
         }
@@ -219,7 +219,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown12)
                 {
                     this._Unknown12 = value;
-                    this.NotifyPropertyChanged("Unknown12");
+                    this.NotifyOfPropertyChange(nameof(Unknown12));
                 }
             }
         }
@@ -233,7 +233,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown13)
                 {
                     this._Unknown13 = value;
-                    this.NotifyPropertyChanged("Unknown13");
+                    this.NotifyOfPropertyChange(nameof(Unknown13));
                 }
             }
         }
@@ -247,7 +247,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown14)
                 {
                     this._Unknown14 = value;
-                    this.NotifyPropertyChanged("Unknown14");
+                    this.NotifyOfPropertyChange(nameof(Unknown14));
                 }
             }
         }
@@ -261,7 +261,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown15)
                 {
                     this._Unknown15 = value;
-                    this.NotifyPropertyChanged("Unknown15");
+                    this.NotifyOfPropertyChange(nameof(Unknown15));
                 }
             }
         }
@@ -275,7 +275,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown16)
                 {
                     this._Unknown16 = value;
-                    this.NotifyPropertyChanged("Unknown16");
+                    this.NotifyOfPropertyChange(nameof(Unknown16));
                 }
             }
         }
@@ -289,7 +289,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown17)
                 {
                     this._Unknown17 = value;
-                    this.NotifyPropertyChanged("Unknown17");
+                    this.NotifyOfPropertyChange(nameof(Unknown17));
                 }
             }
         }
@@ -303,7 +303,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown18)
                 {
                     this._Unknown18 = value;
-                    this.NotifyPropertyChanged("Unknown18");
+                    this.NotifyOfPropertyChange(nameof(Unknown18));
                 }
             }
         }
@@ -317,7 +317,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown19)
                 {
                     this._Unknown19 = value;
-                    this.NotifyPropertyChanged("Unknown19");
+                    this.NotifyOfPropertyChange(nameof(Unknown19));
                 }
             }
         }
@@ -331,7 +331,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown20)
                 {
                     this._Unknown20 = value;
-                    this.NotifyPropertyChanged("Unknown20");
+                    this.NotifyOfPropertyChange(nameof(Unknown20));
                 }
             }
         }
@@ -345,7 +345,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown21)
                 {
                     this._Unknown21 = value;
-                    this.NotifyPropertyChanged("Unknown21");
+                    this.NotifyOfPropertyChange(nameof(Unknown21));
                 }
             }
         }
@@ -359,7 +359,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown22)
                 {
                     this._Unknown22 = value;
-                    this.NotifyPropertyChanged("Unknown22");
+                    this.NotifyOfPropertyChange(nameof(Unknown22));
                 }
             }
         }
@@ -373,7 +373,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown23)
                 {
                     this._Unknown23 = value;
-                    this.NotifyPropertyChanged("Unknown23");
+                    this.NotifyOfPropertyChange(nameof(Unknown23));
                 }
             }
         }
@@ -387,7 +387,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Unknown24)
                 {
                     this._Unknown24 = value;
-                    this.NotifyPropertyChanged("Unknown24");
+                    this.NotifyOfPropertyChange(nameof(Unknown24));
                 }
             }
         }
@@ -396,12 +396,9 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged(string propertyName)
+        private void NotifyOfPropertyChange(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
     }

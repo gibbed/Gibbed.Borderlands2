@@ -45,30 +45,30 @@ namespace Gibbed.Borderlands2.GameInfo
         {
             if (string.IsNullOrEmpty(type) == true)
             {
-                throw new ArgumentNullException("type");
+                throw new ArgumentNullException(nameof(type));
             }
 
             if (string.IsNullOrEmpty(resourcePath) == true)
             {
-                throw new ArgumentNullException("resourcePath");
+                throw new ArgumentNullException(nameof(resourcePath));
             }
 
-            return new ResourceNotFoundException(string.Format("could not find {0} '{1}'", type, resourcePath));
+            return new ResourceNotFoundException($"could not find {type} '{resourcePath}'");
         }
 
         public static ResourceNotFoundException Create(string type, string resourcePath, Exception innerException)
         {
             if (string.IsNullOrEmpty(type) == true)
             {
-                throw new ArgumentNullException("type");
+                throw new ArgumentNullException(nameof(type));
             }
 
             if (string.IsNullOrEmpty(resourcePath) == true)
             {
-                throw new ArgumentNullException("resourcePath");
+                throw new ArgumentNullException(nameof(resourcePath));
             }
 
-            return new ResourceNotFoundException(string.Format("could not find {0} '{1}'", type, resourcePath), innerException);
+            return new ResourceNotFoundException($"could not find {type} '{resourcePath}'", innerException);
         }
     }
 }

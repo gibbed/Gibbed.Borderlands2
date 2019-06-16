@@ -45,7 +45,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._A)
                 {
                     this._A = value;
-                    this.NotifyPropertyChanged("A");
+                    this.NotifyOfPropertyChange(nameof(A));
                 }
             }
         }
@@ -59,7 +59,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._R)
                 {
                     this._R = value;
-                    this.NotifyPropertyChanged("R");
+                    this.NotifyOfPropertyChange(nameof(R));
                 }
             }
         }
@@ -73,7 +73,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._G)
                 {
                     this._G = value;
-                    this.NotifyPropertyChanged("G");
+                    this.NotifyOfPropertyChange(nameof(G));
                 }
             }
         }
@@ -87,7 +87,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._B)
                 {
                     this._B = value;
-                    this.NotifyPropertyChanged("B");
+                    this.NotifyOfPropertyChange(nameof(B));
                 }
             }
         }
@@ -132,12 +132,9 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged(string propertyName)
+        private void NotifyOfPropertyChange(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
     }

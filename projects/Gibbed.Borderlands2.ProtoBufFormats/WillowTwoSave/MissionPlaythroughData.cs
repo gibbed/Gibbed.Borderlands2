@@ -39,9 +39,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         #region Serialization
         [ProtoAfterDeserialization]
-        // ReSharper disable UnusedMember.Local
         private void OnDeserialization()
-            // ReSharper restore UnusedMember.Local
         {
             this._MissionData = this._MissionData ?? new List<MissionData>();
             this._PendingMissionRewards = this._PendingMissionRewards ?? new List<PendingMissionRewards>();
@@ -77,7 +75,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._PlayThroughNumber)
                 {
                     this._PlayThroughNumber = value;
-                    this.NotifyPropertyChanged("PlayThroughNumber");
+                    this.NotifyOfPropertyChange(nameof(PlayThroughNumber));
                 }
             }
         }
@@ -91,7 +89,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._ActiveMission)
                 {
                     this._ActiveMission = value;
-                    this.NotifyPropertyChanged("ActiveMission");
+                    this.NotifyOfPropertyChange(nameof(ActiveMission));
                 }
             }
         }
@@ -105,7 +103,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._MissionData)
                 {
                     this._MissionData = value;
-                    this.NotifyPropertyChanged("MissionData");
+                    this.NotifyOfPropertyChange(nameof(MissionData));
                 }
             }
         }
@@ -119,7 +117,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._PendingMissionRewards)
                 {
                     this._PendingMissionRewards = value;
-                    this.NotifyPropertyChanged("PendingMissionRewards");
+                    this.NotifyOfPropertyChange(nameof(PendingMissionRewards));
                 }
             }
         }
@@ -133,7 +131,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._FilteredMissions)
                 {
                     this._FilteredMissions = value;
-                    this.NotifyPropertyChanged("FilteredMissions");
+                    this.NotifyOfPropertyChange(nameof(FilteredMissions));
                 }
             }
         }
@@ -142,12 +140,9 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged(string propertyName)
+        private void NotifyOfPropertyChange(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
     }

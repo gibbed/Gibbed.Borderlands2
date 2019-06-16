@@ -41,9 +41,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
 
         #region Serialization
         [ProtoAfterDeserialization]
-        // ReSharper disable UnusedMember.Local
         private void OnDeserialization()
-            // ReSharper restore UnusedMember.Local
         {
             this._WeaponRewards = this._WeaponRewards ?? new List<WeaponData>();
             this._ItemRewards = this._ItemRewards ?? new List<ItemData>();
@@ -86,7 +84,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._Mission)
                 {
                     this._Mission = value;
-                    this.NotifyPropertyChanged("Mission");
+                    this.NotifyOfPropertyChange(nameof(Mission));
                 }
             }
         }
@@ -100,7 +98,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._WeaponRewards)
                 {
                     this._WeaponRewards = value;
-                    this.NotifyPropertyChanged("WeaponRewards");
+                    this.NotifyOfPropertyChange(nameof(WeaponRewards));
                 }
             }
         }
@@ -114,7 +112,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._ItemRewards)
                 {
                     this._ItemRewards = value;
-                    this.NotifyPropertyChanged("ItemRewards");
+                    this.NotifyOfPropertyChange(nameof(ItemRewards));
                 }
             }
         }
@@ -128,7 +126,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._PackedWeaponRewards)
                 {
                     this._PackedWeaponRewards = value;
-                    this.NotifyPropertyChanged("PackedWeaponRewards");
+                    this.NotifyOfPropertyChange(nameof(PackedWeaponRewards));
                 }
             }
         }
@@ -142,7 +140,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._PackedItemRewards)
                 {
                     this._PackedItemRewards = value;
-                    this.NotifyPropertyChanged("PackedItemRewards");
+                    this.NotifyOfPropertyChange(nameof(PackedItemRewards));
                 }
             }
         }
@@ -156,7 +154,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._IsFromDLC)
                 {
                     this._IsFromDLC = value;
-                    this.NotifyPropertyChanged("IsFromDLC");
+                    this.NotifyOfPropertyChange(nameof(IsFromDLC));
                 }
             }
         }
@@ -170,7 +168,7 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
                 if (value != this._DLCPackageId)
                 {
                     this._DLCPackageId = value;
-                    this.NotifyPropertyChanged("DLCPackageId");
+                    this.NotifyOfPropertyChange(nameof(DLCPackageId));
                 }
             }
         }
@@ -179,12 +177,9 @@ namespace Gibbed.Borderlands2.ProtoBufFormats.WillowTwoSave
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged(string propertyName)
+        private void NotifyOfPropertyChange(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
     }

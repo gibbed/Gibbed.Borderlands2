@@ -22,7 +22,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using Gibbed.IO;
 
@@ -82,9 +81,7 @@ namespace Gibbed.Borderlands2.FileFormats
             using (var temp = new MemoryStream())
             {
                 this.Serialize(temp, endian);
-                var buffer = (byte[])temp.GetBuffer().Clone();
-                Array.Resize(ref buffer, (int)temp.Length);
-                return buffer;
+                return temp.ToArray();
             }
         }
 
@@ -131,7 +128,7 @@ namespace Gibbed.Borderlands2.FileFormats
         {
             if (data == null)
             {
-                throw new ArgumentNullException("data");
+                throw new ArgumentNullException(nameof(data));
             }
 
             using (var temp = new MemoryStream(data, false))
@@ -166,9 +163,7 @@ namespace Gibbed.Borderlands2.FileFormats
                 }
             }
 
-            throw new NotImplementedException(string.Format(CultureInfo.InvariantCulture,
-                                                            "don't know how to read stat type {0}",
-                                                            type));
+            throw new NotImplementedException($"don't know how to read stat type {type}");
         }
 
         private static void WriteData(Stream output, object value, Endian endian)
@@ -189,9 +184,7 @@ namespace Gibbed.Borderlands2.FileFormats
                 }
             }
 
-            throw new NotImplementedException(string.Format(CultureInfo.InvariantCulture,
-                                                            "don't know how to write stat type {0}",
-                                                            value.GetType().Name));
+            throw new NotImplementedException($"don't know how to write stat type {value.GetType().Name}");
         }
     }
 }

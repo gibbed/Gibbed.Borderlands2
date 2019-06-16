@@ -56,7 +56,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._QuickSlot)
                 {
                     this._QuickSlot = value;
-                    this.NotifyPropertyChanged("QuickSlot");
+                    this.NotifyOfPropertyChange(nameof(QuickSlot));
                 }
             }
         }
@@ -69,7 +69,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._Mark)
                 {
                     this._Mark = value;
-                    this.NotifyPropertyChanged("Mark");
+                    this.NotifyOfPropertyChange(nameof(Mark));
                 }
             }
         }

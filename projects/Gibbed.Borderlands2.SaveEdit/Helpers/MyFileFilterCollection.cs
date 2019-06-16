@@ -93,14 +93,10 @@ namespace Gibbed.Borderlands2.SaveEdit
                 return "All Files (*.*)|*.*";
             }
 
-            return string.Join("|",
-                               this._Filters
-                                   .Select(
-                                       x =>
-                                       string.Format(CultureInfo.InvariantCulture,
-                                                     "{0}|{1}",
-                                                     x.Description,
-                                                     x.FilterExpression)));
+            return string.Join(
+                "|",
+                this._Filters.Select(x => string.Format(
+                    CultureInfo.InvariantCulture, "{0}|{1}", x.Description, x.FilterExpression)));
         }
 
         public int GetFilterIndex()
@@ -124,17 +120,11 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             public MyFilterBuilder(MyFileFilterCollection fileFilterCollection, params string[] extensions)
             {
-                if (fileFilterCollection == null)
-                {
-                    throw new ArgumentNullException("fileFilterCollection");
-                }
-
+                this.FileFilterCollection = fileFilterCollection ?? throw new ArgumentNullException(nameof(fileFilterCollection));
                 if (extensions.Any() == false || extensions.All(string.IsNullOrWhiteSpace))
                 {
-                    throw new ArgumentException("you must specify at least one extension");
+                    throw new ArgumentException("you must specify at least one extension", nameof(extensions));
                 }
-
-                this.FileFilterCollection = fileFilterCollection;
                 this.Extensions = extensions;
             }
 
@@ -146,9 +136,10 @@ namespace Gibbed.Borderlands2.SaveEdit
             {
                 get
                 {
-                    return string.Join(";",
-                                       Extensions
-                                           .Select(x => string.Format(CultureInfo.InvariantCulture, "*.{0}", x)));
+                    return string.Join(
+                        ";",
+                        Extensions.Select(
+                            x => string.Format(CultureInfo.InvariantCulture, "*.{0}", x)));
                 }
             }
 

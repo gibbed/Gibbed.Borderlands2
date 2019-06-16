@@ -77,48 +77,48 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         #region IPackable Members
         public void Unpack(PackedItem packed, Platform platform)
         {
-            var alm = InfoManager.AssetLibraryManager;
-
-            this.Type = alm.Lookup(packed.Type, platform, this.AssetLibrarySetId, AssetGroup.ItemTypes);
-            this.Balance = alm.Lookup(packed.Balance, platform, this.AssetLibrarySetId, AssetGroup.BalanceDefs);
-            this.Manufacturer =
-                alm.Lookup(packed.Manufacturer, platform, this.AssetLibrarySetId, AssetGroup.Manufacturers);
+            var m = InfoManager.AssetLibraryManager;
+            var si = this.AssetLibrarySetId;
+            this.Type = m.Lookup(packed.Type, platform, si, AssetGroup.ItemTypes);
+            this.Balance = m.Lookup(packed.Balance, platform, si, AssetGroup.BalanceDefs);
+            this.Manufacturer = m.Lookup(packed.Manufacturer, platform, si, AssetGroup.Manufacturers);
             this.ManufacturerGradeIndex = packed.ManufacturerGradeIndex;
             this.GameStage = packed.GameStage;
-            this.AlphaPart = alm.Lookup(packed.AlphaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.BetaPart = alm.Lookup(packed.BetaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.GammaPart = alm.Lookup(packed.GammaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.DeltaPart = alm.Lookup(packed.DeltaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.EpsilonPart = alm.Lookup(packed.EpsilonPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.ZetaPart = alm.Lookup(packed.ZetaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.EtaPart = alm.Lookup(packed.EtaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.ThetaPart = alm.Lookup(packed.ThetaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.MaterialPart = alm.Lookup(packed.MaterialPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.PrefixPart = alm.Lookup(packed.PrefixPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
-            this.TitlePart = alm.Lookup(packed.TitlePart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts);
+            this.AlphaPart = m.Lookup(packed.AlphaPart, platform, si, AssetGroup.ItemParts);
+            this.BetaPart = m.Lookup(packed.BetaPart, platform, si, AssetGroup.ItemParts);
+            this.GammaPart = m.Lookup(packed.GammaPart, platform, si, AssetGroup.ItemParts);
+            this.DeltaPart = m.Lookup(packed.DeltaPart, platform, si, AssetGroup.ItemParts);
+            this.EpsilonPart = m.Lookup(packed.EpsilonPart, platform, si, AssetGroup.ItemParts);
+            this.ZetaPart = m.Lookup(packed.ZetaPart, platform, si, AssetGroup.ItemParts);
+            this.EtaPart = m.Lookup(packed.EtaPart, platform, si, AssetGroup.ItemParts);
+            this.ThetaPart = m.Lookup(packed.ThetaPart, platform, si, AssetGroup.ItemParts);
+            this.MaterialPart = m.Lookup(packed.MaterialPart, platform, si, AssetGroup.ItemParts);
+            this.PrefixPart = m.Lookup(packed.PrefixPart, platform, si, AssetGroup.ItemParts);
+            this.TitlePart = m.Lookup(packed.TitlePart, platform, si, AssetGroup.ItemParts);
         }
 
         public PackedItem Pack(Platform platform)
         {
-            var alm = InfoManager.AssetLibraryManager;
+            var m = InfoManager.AssetLibraryManager;
+            var si = this.AssetLibrarySetId;
             return new PackedItem
             {
-                Type = alm.Lookup(this.Type, platform, this.AssetLibrarySetId, AssetGroup.ItemTypes),
-                Balance = alm.Lookup(this.Balance, platform, this.AssetLibrarySetId, AssetGroup.BalanceDefs),
-                Manufacturer = alm.Lookup(this.Manufacturer, platform, this.AssetLibrarySetId, AssetGroup.Manufacturers),
+                Type = m.Lookup(this.Type, platform, si, AssetGroup.ItemTypes),
+                Balance = m.Lookup(this.Balance, platform, si, AssetGroup.BalanceDefs),
+                Manufacturer = m.Lookup(this.Manufacturer, platform, si, AssetGroup.Manufacturers),
                 ManufacturerGradeIndex = this.ManufacturerGradeIndex,
                 GameStage = this.GameStage,
-                AlphaPart = alm.Lookup(this.AlphaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts),
-                BetaPart = alm.Lookup(this.BetaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts),
-                GammaPart = alm.Lookup(this.GammaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts),
-                DeltaPart = alm.Lookup(this.DeltaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts),
-                EpsilonPart = alm.Lookup(this.EpsilonPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts),
-                ZetaPart = alm.Lookup(this.ZetaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts),
-                EtaPart = alm.Lookup(this.EtaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts),
-                ThetaPart = alm.Lookup(this.ThetaPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts),
-                MaterialPart = alm.Lookup(this.MaterialPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts),
-                PrefixPart = alm.Lookup(this.PrefixPart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts),
-                TitlePart = alm.Lookup(this.TitlePart, platform, this.AssetLibrarySetId, AssetGroup.ItemParts),
+                AlphaPart = m.Lookup(this.AlphaPart, platform, si, AssetGroup.ItemParts),
+                BetaPart = m.Lookup(this.BetaPart, platform, si, AssetGroup.ItemParts),
+                GammaPart = m.Lookup(this.GammaPart, platform, si, AssetGroup.ItemParts),
+                DeltaPart = m.Lookup(this.DeltaPart, platform, si, AssetGroup.ItemParts),
+                EpsilonPart = m.Lookup(this.EpsilonPart, platform, si, AssetGroup.ItemParts),
+                ZetaPart = m.Lookup(this.ZetaPart, platform, si, AssetGroup.ItemParts),
+                EtaPart = m.Lookup(this.EtaPart, platform, si, AssetGroup.ItemParts),
+                ThetaPart = m.Lookup(this.ThetaPart, platform, si, AssetGroup.ItemParts),
+                MaterialPart = m.Lookup(this.MaterialPart, platform, si, AssetGroup.ItemParts),
+                PrefixPart = m.Lookup(this.PrefixPart, platform, si, AssetGroup.ItemParts),
+                TitlePart = m.Lookup(this.TitlePart, platform, si, AssetGroup.ItemParts),
             };
         }
         #endregion
@@ -132,7 +132,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._Type)
                 {
                     this._Type = value;
-                    this.NotifyPropertyChanged("Type");
+                    this.NotifyOfPropertyChange(nameof(Type));
                 }
             }
         }
@@ -145,7 +145,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._Balance)
                 {
                     this._Balance = value;
-                    this.NotifyPropertyChanged("Balance");
+                    this.NotifyOfPropertyChange(nameof(Balance));
                 }
             }
         }
@@ -158,7 +158,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._Manufacturer)
                 {
                     this._Manufacturer = value;
-                    this.NotifyPropertyChanged("Manufacturer");
+                    this.NotifyOfPropertyChange(nameof(Manufacturer));
                 }
             }
         }
@@ -171,7 +171,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._ManufacturerGradeIndex)
                 {
                     this._ManufacturerGradeIndex = value;
-                    this.NotifyPropertyChanged("ManufacturerGradeIndex");
+                    this.NotifyOfPropertyChange(nameof(ManufacturerGradeIndex));
                 }
             }
         }
@@ -184,7 +184,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._AlphaPart)
                 {
                     this._AlphaPart = value;
-                    this.NotifyPropertyChanged("AlphaPart");
+                    this.NotifyOfPropertyChange(nameof(AlphaPart));
                 }
             }
         }
@@ -197,7 +197,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._BetaPart)
                 {
                     this._BetaPart = value;
-                    this.NotifyPropertyChanged("BetaPart");
+                    this.NotifyOfPropertyChange(nameof(BetaPart));
                 }
             }
         }
@@ -210,7 +210,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._GammaPart)
                 {
                     this._GammaPart = value;
-                    this.NotifyPropertyChanged("GammaPart");
+                    this.NotifyOfPropertyChange(nameof(GammaPart));
                 }
             }
         }
@@ -223,7 +223,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._DeltaPart)
                 {
                     this._DeltaPart = value;
-                    this.NotifyPropertyChanged("DeltaPart");
+                    this.NotifyOfPropertyChange(nameof(DeltaPart));
                 }
             }
         }
@@ -236,7 +236,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._EpsilonPart)
                 {
                     this._EpsilonPart = value;
-                    this.NotifyPropertyChanged("EpsilonPart");
+                    this.NotifyOfPropertyChange(nameof(EpsilonPart));
                 }
             }
         }
@@ -249,7 +249,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._ZetaPart)
                 {
                     this._ZetaPart = value;
-                    this.NotifyPropertyChanged("ZetaPart");
+                    this.NotifyOfPropertyChange(nameof(ZetaPart));
                 }
             }
         }
@@ -262,7 +262,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._EtaPart)
                 {
                     this._EtaPart = value;
-                    this.NotifyPropertyChanged("EtaPart");
+                    this.NotifyOfPropertyChange(nameof(EtaPart));
                 }
             }
         }
@@ -275,7 +275,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._ThetaPart)
                 {
                     this._ThetaPart = value;
-                    this.NotifyPropertyChanged("ThetaPart");
+                    this.NotifyOfPropertyChange(nameof(ThetaPart));
                 }
             }
         }
@@ -288,7 +288,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._MaterialPart)
                 {
                     this._MaterialPart = value;
-                    this.NotifyPropertyChanged("MaterialPart");
+                    this.NotifyOfPropertyChange(nameof(MaterialPart));
                 }
             }
         }
@@ -301,7 +301,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._PrefixPart)
                 {
                     this._PrefixPart = value;
-                    this.NotifyPropertyChanged("PrefixPart");
+                    this.NotifyOfPropertyChange(nameof(PrefixPart));
                 }
             }
         }
@@ -314,7 +314,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._TitlePart)
                 {
                     this._TitlePart = value;
-                    this.NotifyPropertyChanged("TitlePart");
+                    this.NotifyOfPropertyChange(nameof(TitlePart));
                 }
             }
         }
@@ -327,7 +327,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._GameStage)
                 {
                     this._GameStage = value;
-                    this.NotifyPropertyChanged("GameStage");
+                    this.NotifyOfPropertyChange(nameof(GameStage));
                 }
             }
         }
@@ -340,7 +340,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._UniqueId)
                 {
                     this._UniqueId = value;
-                    this.NotifyPropertyChanged("UniqueId");
+                    this.NotifyOfPropertyChange(nameof(UniqueId));
                 }
             }
         }
@@ -353,7 +353,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._AssetLibrarySetId)
                 {
                     this._AssetLibrarySetId = value;
-                    this.NotifyPropertyChanged("AssetLibrarySetId");
+                    this.NotifyOfPropertyChange(nameof(AssetLibrarySetId));
                 }
             }
         }
@@ -389,12 +389,9 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void NotifyPropertyChanged(string propertyName)
+        protected void NotifyOfPropertyChange(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
     }

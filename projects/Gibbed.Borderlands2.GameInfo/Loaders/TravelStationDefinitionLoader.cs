@@ -55,8 +55,9 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
                     var rawLevelTravelStation = (Raw.LevelTravelStationDefinition)kv.Value;
                     if (defs.ContainsKey(rawLevelTravelStation.DestinationStation) == false)
                     {
-                        throw ResourceNotFoundException.Create("level travel station",
-                                                               rawLevelTravelStation.DestinationStation);
+                        throw ResourceNotFoundException.Create(
+                            "level travel station",
+                            rawLevelTravelStation.DestinationStation);
                     }
                     var levelTravelStation = (LevelTravelStationDefinition)defs[kv.Key];
                     levelTravelStation.DestinationStation =

@@ -77,53 +77,48 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         #region IPackable Members
         public void Unpack(PackedWeapon packed, Platform platform)
         {
-            var alm = InfoManager.AssetLibraryManager;
-
-            this.Type = alm.Lookup(packed.Type, platform, this.AssetLibrarySetId, AssetGroup.WeaponTypes);
-            this.Balance = alm.Lookup(packed.Balance, platform, this.AssetLibrarySetId, AssetGroup.BalanceDefs);
-            this.Manufacturer =
-                alm.Lookup(packed.Manufacturer, platform, this.AssetLibrarySetId, AssetGroup.Manufacturers);
+            var m = InfoManager.AssetLibraryManager;
+            var si = this.AssetLibrarySetId;
+            this.Type = m.Lookup(packed.Type, platform, si, AssetGroup.WeaponTypes);
+            this.Balance = m.Lookup(packed.Balance, platform, si, AssetGroup.BalanceDefs);
+            this.Manufacturer = m.Lookup(packed.Manufacturer, platform, si, AssetGroup.Manufacturers);
             this.ManufacturerGradeIndex = packed.ManufacturerGradeIndex;
             this.GameStage = packed.GameStage;
-            this.BodyPart = alm.Lookup(packed.BodyPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.GripPart = alm.Lookup(packed.GripPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.BarrelPart = alm.Lookup(packed.BarrelPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.SightPart = alm.Lookup(packed.SightPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.StockPart = alm.Lookup(packed.StockPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.ElementalPart =
-                alm.Lookup(packed.ElementalPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.Accessory1Part =
-                alm.Lookup(packed.Accessory1Part, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.Accessory2Part =
-                alm.Lookup(packed.Accessory2Part, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.MaterialPart = alm.Lookup(packed.MaterialPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.PrefixPart = alm.Lookup(packed.PrefixPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts);
-            this.TitlePart = alm.Lookup(packed.TitlePart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts);
+            this.BodyPart = m.Lookup(packed.BodyPart, platform, si, AssetGroup.WeaponParts);
+            this.GripPart = m.Lookup(packed.GripPart, platform, si, AssetGroup.WeaponParts);
+            this.BarrelPart = m.Lookup(packed.BarrelPart, platform, si, AssetGroup.WeaponParts);
+            this.SightPart = m.Lookup(packed.SightPart, platform, si, AssetGroup.WeaponParts);
+            this.StockPart = m.Lookup(packed.StockPart, platform, si, AssetGroup.WeaponParts);
+            this.ElementalPart = m.Lookup(packed.ElementalPart, platform, si, AssetGroup.WeaponParts);
+            this.Accessory1Part = m.Lookup(packed.Accessory1Part, platform, si, AssetGroup.WeaponParts);
+            this.Accessory2Part = m.Lookup(packed.Accessory2Part, platform, si, AssetGroup.WeaponParts);
+            this.MaterialPart = m.Lookup(packed.MaterialPart, platform, si, AssetGroup.WeaponParts);
+            this.PrefixPart = m.Lookup(packed.PrefixPart, platform, si, AssetGroup.WeaponParts);
+            this.TitlePart = m.Lookup(packed.TitlePart, platform, si, AssetGroup.WeaponParts);
         }
 
         public PackedWeapon Pack(Platform platform)
         {
-            var alm = InfoManager.AssetLibraryManager;
+            var m = InfoManager.AssetLibraryManager;
+            var si = this.AssetLibrarySetId;
             return new PackedWeapon
             {
-                Type = alm.Lookup(this.Type, platform, this.AssetLibrarySetId, AssetGroup.WeaponTypes),
-                Balance = alm.Lookup(this.Balance, platform, this.AssetLibrarySetId, AssetGroup.BalanceDefs),
-                Manufacturer = alm.Lookup(this.Manufacturer, platform, this.AssetLibrarySetId, AssetGroup.Manufacturers),
+                Type = m.Lookup(this.Type, platform, si, AssetGroup.WeaponTypes),
+                Balance = m.Lookup(this.Balance, platform, si, AssetGroup.BalanceDefs),
+                Manufacturer = m.Lookup(this.Manufacturer, platform, si, AssetGroup.Manufacturers),
                 ManufacturerGradeIndex = this.ManufacturerGradeIndex,
                 GameStage = this.GameStage,
-                BodyPart = alm.Lookup(this.BodyPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts),
-                GripPart = alm.Lookup(this.GripPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts),
-                BarrelPart = alm.Lookup(this.BarrelPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts),
-                SightPart = alm.Lookup(this.SightPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts),
-                StockPart = alm.Lookup(this.StockPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts),
-                ElementalPart = alm.Lookup(this.ElementalPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts),
-                Accessory1Part =
-                    alm.Lookup(this.Accessory1Part, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts),
-                Accessory2Part =
-                    alm.Lookup(this.Accessory2Part, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts),
-                MaterialPart = alm.Lookup(this.MaterialPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts),
-                PrefixPart = alm.Lookup(this.PrefixPart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts),
-                TitlePart = alm.Lookup(this.TitlePart, platform, this.AssetLibrarySetId, AssetGroup.WeaponParts)
+                BodyPart = m.Lookup(this.BodyPart, platform, si, AssetGroup.WeaponParts),
+                GripPart = m.Lookup(this.GripPart, platform, si, AssetGroup.WeaponParts),
+                BarrelPart = m.Lookup(this.BarrelPart, platform, si, AssetGroup.WeaponParts),
+                SightPart = m.Lookup(this.SightPart, platform, si, AssetGroup.WeaponParts),
+                StockPart = m.Lookup(this.StockPart, platform, si, AssetGroup.WeaponParts),
+                ElementalPart = m.Lookup(this.ElementalPart, platform, si, AssetGroup.WeaponParts),
+                Accessory1Part = m.Lookup(this.Accessory1Part, platform, si, AssetGroup.WeaponParts),
+                Accessory2Part = m.Lookup(this.Accessory2Part, platform, si, AssetGroup.WeaponParts),
+                MaterialPart = m.Lookup(this.MaterialPart, platform, si, AssetGroup.WeaponParts),
+                PrefixPart = m.Lookup(this.PrefixPart, platform, si, AssetGroup.WeaponParts),
+                TitlePart = m.Lookup(this.TitlePart, platform, si, AssetGroup.WeaponParts)
             };
         }
         #endregion
@@ -137,7 +132,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._Type)
                 {
                     this._Type = value;
-                    this.NotifyPropertyChanged("Type");
+                    this.NotifyOfPropertyChange(nameof(Type));
                 }
             }
         }
@@ -150,7 +145,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._Balance)
                 {
                     this._Balance = value;
-                    this.NotifyPropertyChanged("Balance");
+                    this.NotifyOfPropertyChange(nameof(Balance));
                 }
             }
         }
@@ -163,7 +158,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._Manufacturer)
                 {
                     this._Manufacturer = value;
-                    this.NotifyPropertyChanged("Manufacturer");
+                    this.NotifyOfPropertyChange(nameof(Manufacturer));
                 }
             }
         }
@@ -176,7 +171,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._ManufacturerGradeIndex)
                 {
                     this._ManufacturerGradeIndex = value;
-                    this.NotifyPropertyChanged("ManufacturerGradeIndex");
+                    this.NotifyOfPropertyChange(nameof(ManufacturerGradeIndex));
                 }
             }
         }
@@ -189,7 +184,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._BodyPart)
                 {
                     this._BodyPart = value;
-                    this.NotifyPropertyChanged("BodyPart");
+                    this.NotifyOfPropertyChange(nameof(BodyPart));
                 }
             }
         }
@@ -202,7 +197,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._GripPart)
                 {
                     this._GripPart = value;
-                    this.NotifyPropertyChanged("GripPart");
+                    this.NotifyOfPropertyChange(nameof(GripPart));
                 }
             }
         }
@@ -215,7 +210,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._BarrelPart)
                 {
                     this._BarrelPart = value;
-                    this.NotifyPropertyChanged("BarrelPart");
+                    this.NotifyOfPropertyChange(nameof(BarrelPart));
                 }
             }
         }
@@ -228,7 +223,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._SightPart)
                 {
                     this._SightPart = value;
-                    this.NotifyPropertyChanged("SightPart");
+                    this.NotifyOfPropertyChange(nameof(SightPart));
                 }
             }
         }
@@ -241,7 +236,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._StockPart)
                 {
                     this._StockPart = value;
-                    this.NotifyPropertyChanged("StockPart");
+                    this.NotifyOfPropertyChange(nameof(StockPart));
                 }
             }
         }
@@ -254,7 +249,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._ElementalPart)
                 {
                     this._ElementalPart = value;
-                    this.NotifyPropertyChanged("ElementalPart");
+                    this.NotifyOfPropertyChange(nameof(ElementalPart));
                 }
             }
         }
@@ -267,7 +262,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._Accessory1Part)
                 {
                     this._Accessory1Part = value;
-                    this.NotifyPropertyChanged("Accessory1Part");
+                    this.NotifyOfPropertyChange(nameof(Accessory1Part));
                 }
             }
         }
@@ -280,7 +275,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._Accessory2Part)
                 {
                     this._Accessory2Part = value;
-                    this.NotifyPropertyChanged("Accessory2Part");
+                    this.NotifyOfPropertyChange(nameof(Accessory2Part));
                 }
             }
         }
@@ -293,7 +288,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._MaterialPart)
                 {
                     this._MaterialPart = value;
-                    this.NotifyPropertyChanged("MaterialPart");
+                    this.NotifyOfPropertyChange(nameof(MaterialPart));
                 }
             }
         }
@@ -306,7 +301,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._PrefixPart)
                 {
                     this._PrefixPart = value;
-                    this.NotifyPropertyChanged("PrefixPart");
+                    this.NotifyOfPropertyChange(nameof(PrefixPart));
                 }
             }
         }
@@ -319,7 +314,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._TitlePart)
                 {
                     this._TitlePart = value;
-                    this.NotifyPropertyChanged("TitlePart");
+                    this.NotifyOfPropertyChange(nameof(TitlePart));
                 }
             }
         }
@@ -332,7 +327,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._GameStage)
                 {
                     this._GameStage = value;
-                    this.NotifyPropertyChanged("GameStage");
+                    this.NotifyOfPropertyChange(nameof(GameStage));
                 }
             }
         }
@@ -345,7 +340,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._UniqueId)
                 {
                     this._UniqueId = value;
-                    this.NotifyPropertyChanged("UniqueId");
+                    this.NotifyOfPropertyChange(nameof(UniqueId));
                 }
             }
         }
@@ -358,7 +353,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 if (value != this._AssetLibrarySetId)
                 {
                     this._AssetLibrarySetId = value;
-                    this.NotifyPropertyChanged("AssetLibrarySetId");
+                    this.NotifyOfPropertyChange(nameof(AssetLibrarySetId));
                 }
             }
         }
@@ -394,12 +389,9 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void NotifyPropertyChanged(string propertyName)
+        protected void NotifyOfPropertyChange(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
     }

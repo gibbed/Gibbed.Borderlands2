@@ -14,10 +14,11 @@ namespace Gibbed.Borderlands2.SaveEdit
     internal class InputBindingTrigger : TriggerBase<FrameworkElement>, ICommand
     {
         public static readonly DependencyProperty InputBindingProperty =
-            DependencyProperty.Register("InputBinding",
-                                        typeof(InputBinding),
-                                        typeof(InputBindingTrigger),
-                                        new UIPropertyMetadata(null));
+            DependencyProperty.Register(
+                nameof(InputBinding),
+                typeof(InputBinding),
+                typeof(InputBindingTrigger),
+                new UIPropertyMetadata(null));
 
         public InputBinding InputBinding
         {

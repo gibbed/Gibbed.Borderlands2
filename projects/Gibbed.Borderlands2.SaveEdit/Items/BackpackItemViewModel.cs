@@ -33,12 +33,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         public BackpackItemViewModel(BackpackItem item)
             : base(item)
         {
-            if (item == null)
-            {
-                throw new ArgumentNullException("item");
-            }
-
-            this._Item = item;
+            this._Item = item ?? throw new ArgumentNullException(nameof(item));
         }
 
         #region Properties
@@ -58,7 +53,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Item.Quantity = value;
-                this.NotifyOfPropertyChange(() => this.Quantity);
+                this.NotifyOfPropertyChange(nameof(Quantity));
             }
         }
 
@@ -68,8 +63,8 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Item.Equipped = value.HasValue == false ? false : value.Value;
-                this.NotifyOfPropertyChange(() => this.Equipped);
-                this.NotifyOfPropertyChange(() => this.DisplayGroup);
+                this.NotifyOfPropertyChange(nameof(Equipped));
+                this.NotifyOfPropertyChange(nameof(DisplayGroup));
             }
         }
 
@@ -79,7 +74,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Item.Mark = value;
-                this.NotifyOfPropertyChange(() => this.Mark);
+                this.NotifyOfPropertyChange(nameof(Mark));
             }
         }
         #endregion

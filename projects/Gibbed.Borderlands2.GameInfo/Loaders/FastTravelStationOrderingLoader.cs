@@ -85,12 +85,11 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
                 }
 
                 var travelStation = travelStations[raw];
-                if ((travelStation is FastTravelStationDefinition) == false)
+                if (travelStation is FastTravelStationDefinition fastTravelStation)
                 {
-                    throw new InvalidOperationException(string.Format("'{0}' is not a FastTravelStationDefinition", raw));
+                    return fastTravelStation;
                 }
-
-                return (FastTravelStationDefinition)travelStation;
+                throw new InvalidOperationException($"'{raw}' is not a FastTravelStationDefinition");
             }).ToList();
         }
     }

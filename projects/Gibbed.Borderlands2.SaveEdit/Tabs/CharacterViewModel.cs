@@ -45,7 +45,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Shell = value;
-                this.NotifyOfPropertyChange(() => this.Shell);
+                this.NotifyOfPropertyChange(nameof(Shell));
             }
         }
         #endregion
@@ -71,7 +71,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 if (this._PlayerClassDefinition != value)
                 {
                     this._PlayerClassDefinition = value;
-                    this.NotifyOfPropertyChange(() => this.PlayerClass);
+                    this.NotifyOfPropertyChange(nameof(PlayerClass));
                     this.BuildCustomizationAssets();
                 }
             }
@@ -83,7 +83,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._ExpLevel = value;
-                this.NotifyOfPropertyChange(() => this.ExpLevel);
+                this.NotifyOfPropertyChange(nameof(ExpLevel));
             }
         }
 
@@ -93,7 +93,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._ExpPoints = value;
-                this.NotifyOfPropertyChange(() => this.ExpPoints);
+                this.NotifyOfPropertyChange(nameof(ExpPoints));
             }
         }
 
@@ -103,7 +103,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._OverpowerLevel = value;
-                this.NotifyOfPropertyChange(() => this.OverpowerLevel);
+                this.NotifyOfPropertyChange(nameof(OverpowerLevel));
             }
         }
 
@@ -118,7 +118,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._GeneralSkillPoints = value;
-                this.NotifyOfPropertyChange(() => this.GeneralSkillPoints);
+                this.NotifyOfPropertyChange(nameof(GeneralSkillPoints));
             }
         }
 
@@ -128,7 +128,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._SpecialistSkillPoints = value;
-                this.NotifyOfPropertyChange(() => this.SpecialistSkillPoints);
+                this.NotifyOfPropertyChange(nameof(SpecialistSkillPoints));
             }
         }
 
@@ -138,7 +138,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._CharacterName = value;
-                this.NotifyOfPropertyChange(() => this.CharacterName);
+                this.NotifyOfPropertyChange(nameof(CharacterName));
             }
         }
 
@@ -148,7 +148,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._SelectedHead = value;
-                this.NotifyOfPropertyChange(() => this.SelectedHead);
+                this.NotifyOfPropertyChange(nameof(SelectedHead));
             }
         }
 
@@ -158,7 +158,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._SelectedSkin = value;
-                this.NotifyOfPropertyChange(() => this.SelectedSkin);
+                this.NotifyOfPropertyChange(nameof(SelectedSkin));
             }
         }
 
@@ -182,7 +182,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             }
 
             priority = int.MaxValue;
-            return "??? " + dlc.ResourcePath + " ???";
+            return $"??? {dlc.ResourcePath} ???";
         }
 
         private void BuildPlayerClasses()
@@ -190,11 +190,10 @@ namespace Gibbed.Borderlands2.SaveEdit
             var playerClasses = new List<KeyValuePair<AssetDisplay, int>>();
             foreach (var kv in InfoManager.PlayerClasses.Items.OrderBy(kv => kv.Value.SortOrder))
             {
-                int priority;
-                var group = GetDLCName(kv.Value.DLC, out priority);
+                var group = GetDLCName(kv.Value.DLC, out int priority);
                 playerClasses.Add(
                     new KeyValuePair<AssetDisplay, int>(
-                        new AssetDisplay(string.Format("{0} ({1})", kv.Value.Name, kv.Value.Class), kv.Key, group),
+                        new AssetDisplay($"{kv.Value.Name} ({kv.Value.Class})", kv.Key, group),
                         priority));
             }
 
@@ -278,10 +277,10 @@ namespace Gibbed.Borderlands2.SaveEdit
                                                        kv.Value.Usage.Contains(usage) == true)
                                           .OrderBy(cd => cd.Value.Name))
             {
-                int priority;
-                var group = GetDLCName(kv.Value.DLC, out priority);
-                headAssets.Add(new KeyValuePair<AssetDisplay, int>(new AssetDisplay(kv.Value.Name, kv.Key, group),
-                                                                   priority));
+                var group = GetDLCName(kv.Value.DLC, out int priority);
+                headAssets.Add(new KeyValuePair<AssetDisplay, int>(
+                    new AssetDisplay(kv.Value.Name, kv.Key, group),
+                    priority));
             }
 
             var skinAssets = new List<KeyValuePair<AssetDisplay, int>>();
@@ -290,10 +289,10 @@ namespace Gibbed.Borderlands2.SaveEdit
                                                        kv.Value.Usage.Contains(usage) == true)
                                           .OrderBy(cd => cd.Value.Name))
             {
-                int priority;
-                var group = GetDLCName(kv.Value.DLC, out priority);
-                skinAssets.Add(new KeyValuePair<AssetDisplay, int>(new AssetDisplay(kv.Value.Name, kv.Key, group),
-                                                                   priority));
+                var group = GetDLCName(kv.Value.DLC, out int priority);
+                skinAssets.Add(new KeyValuePair<AssetDisplay, int>(
+                    new AssetDisplay(kv.Value.Name, kv.Key, group),
+                    priority));
             }
 
             var selectedHead = this.SelectedHead;

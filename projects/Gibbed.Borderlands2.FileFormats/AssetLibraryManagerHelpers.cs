@@ -28,13 +28,14 @@ namespace Gibbed.Borderlands2.FileFormats
 {
     public static class AssetLibraryManagerHelpers
     {
-        private static bool GetIndex(this AssetLibraryManager assetLibraryManager,
-                                     Platform platform,
-                                     int setId,
-                                     AssetGroup group,
-                                     string package,
-                                     string asset,
-                                     out Items.PackedAssetReference packed)
+        private static bool GetIndex(
+            this AssetLibraryManager assetLibraryManager,
+            Platform platform,
+            int setId,
+            AssetGroup group,
+            string package,
+            string asset,
+            out Items.PackedAssetReference packed)
         {
             var set = assetLibraryManager.GetSet(setId);
             if (set == null)
@@ -45,8 +46,8 @@ namespace Gibbed.Borderlands2.FileFormats
 
             var library = set.Libraries[group];
 
-            var sublibrary =
-                library.Sublibraries.FirstOrDefault(sl => sl.Package == package && sl.Assets.Contains(asset) == true);
+            var sublibrary = library.Sublibraries.FirstOrDefault(
+                sl => sl.Package == package && sl.Assets.Contains(asset) == true);
             if (sublibrary == null)
             {
                 packed = Items.PackedAssetReference.None;
@@ -68,10 +69,7 @@ namespace Gibbed.Borderlands2.FileFormats
                     {
                         if (platformLibrary.SublibraryRemappingAtoB.ContainsKey(sublibraryIndex) == false)
                         {
-                            throw new InvalidOperationException(
-                                string.Format("don't know how to remap sublibrary {0} for set {1}!",
-                                              sublibraryIndex,
-                                              setId));
+                            throw new InvalidOperationException($"don't know how to remap sublibrary {sublibraryIndex} for set {setId}!");
                         }
                         sublibraryIndex = platformLibrary.SublibraryRemappingAtoB[sublibraryIndex];
                     }
@@ -91,7 +89,7 @@ namespace Gibbed.Borderlands2.FileFormats
         {
             if (writer == null)
             {
-                throw new ArgumentNullException("writer");
+                throw new ArgumentNullException(nameof(writer));
             }
 
             var config = assetLibraryManager.Configurations[group];
@@ -125,7 +123,7 @@ namespace Gibbed.Borderlands2.FileFormats
         {
             if (string.IsNullOrEmpty(value) == true)
             {
-                throw new ArgumentNullException("value");
+                throw new ArgumentNullException(nameof(value));
             }
 
             if (value == "None")
@@ -142,8 +140,7 @@ namespace Gibbed.Borderlands2.FileFormats
             var package = parts[0];
             var asset = parts[1];
 
-            Items.PackedAssetReference packed;
-            if (assetLibraryManager.GetIndex(platform, setId, @group, package, asset, out packed) == false)
+            if (assetLibraryManager.GetIndex(platform, setId, @group, package, asset, out var packed) == false)
             {
                 if (assetLibraryManager.GetIndex(platform, 0, @group, package, asset, out packed) == false)
                 {
@@ -173,11 +170,12 @@ namespace Gibbed.Borderlands2.FileFormats
             return new Items.PackedAssetReference(assetIndex, sublibraryIndex, useSetId);
         }
 
-        public static string Lookup(this AssetLibraryManager assetLibraryManager,
-                                    Items.PackedAssetReference packed,
-                                    Platform platform,
-                                    int setId,
-                                    AssetGroup group)
+        public static string Lookup(
+            this AssetLibraryManager assetLibraryManager,
+            Items.PackedAssetReference packed,
+            Platform platform,
+            int setId,
+            AssetGroup group)
         {
             if (packed == Items.PackedAssetReference.None)
             {
@@ -202,10 +200,7 @@ namespace Gibbed.Borderlands2.FileFormats
                     {
                         if (platformLibrary.SublibraryRemappingBtoA.ContainsKey(sublibraryIndex) == false)
                         {
-                            throw new InvalidOperationException(
-                                string.Format("don't know how to remap sublibrary {0} for set {1}!",
-                                              sublibraryIndex,
-                                              actualSetId));
+                            throw new InvalidOperationException($"don't know how to remap sublibrary {sublibraryIndex} for set {actualSetId}!");
                         }
                         sublibraryIndex = platformLibrary.SublibraryRemappingBtoA[sublibraryIndex];
                     }
@@ -215,19 +210,14 @@ namespace Gibbed.Borderlands2.FileFormats
             var set = assetLibraryManager.GetSet(actualSetId);
             if (set == null)
             {
-                throw new FormatException(
-                    string.Format(
-                        "unknown asset library set {0} in packed data (this generally means new DLC that is not supported yet)",
-                        actualSetId));
+                throw new FormatException($"unknown asset library set {actualSetId} in packed data (this generally means new DLC that is not supported yet)");
             }
 
             var library = set.Libraries[group];
 
             if (sublibraryIndex < 0 || sublibraryIndex >= library.Sublibraries.Count)
             {
-                throw new ArgumentOutOfRangeException(string.Format("invalid sublibrary index {1} in set {0}",
-                                                                    sublibraryIndex,
-                                                                    set.Id));
+                throw new ArgumentOutOfRangeException($"invalid sublibrary index {set.Id} in set {sublibraryIndex}");
             }
 
             return library.Sublibraries[sublibraryIndex].GetAsset(assetIndex);

@@ -37,8 +37,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
         }
 
-        public DelegateCommand(Action<TType> execute,
-                               Predicate<TType> canExecute)
+        public DelegateCommand(Action<TType> execute, Predicate<TType> canExecute)
         {
             this._Execute = execute;
             this._CanExecute = canExecute;
@@ -61,10 +60,7 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         public void RaiseCanExecuteChanged()
         {
-            if (this.CanExecuteChanged != null)
-            {
-                this.CanExecuteChanged(this, EventArgs.Empty);
-            }
+            this.CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

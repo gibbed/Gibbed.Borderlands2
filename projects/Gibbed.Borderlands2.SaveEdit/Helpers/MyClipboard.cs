@@ -100,7 +100,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                         }
                         else
                         {
-                            result = default(TResult);
+                            result = default;
                             return Result.Failure;
                         }
                     }

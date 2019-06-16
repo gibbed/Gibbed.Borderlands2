@@ -41,7 +41,7 @@ namespace Gibbed.Borderlands2.FileFormats.Huffman
         {
             if (bytes == null)
             {
-                throw new ArgumentNullException("bytes");
+                throw new ArgumentNullException(nameof(bytes));
             }
 
             this._Root = null;
@@ -97,9 +97,7 @@ namespace Gibbed.Borderlands2.FileFormats.Huffman
                 var bits = Traverse(this._Root, frequency.Key, new List<bool>());
                 if (bits == null)
                 {
-                    throw new InvalidOperationException(string.Format(
-                        "could not traverse '{0}'",
-                        frequency.Key));
+                    throw new InvalidOperationException($"could not traverse '{frequency.Key}'");
                 }
                 this._Codes.Add(frequency.Key, new BitArray(bits.ToArray()));
             }
@@ -222,7 +220,7 @@ namespace Gibbed.Borderlands2.FileFormats.Huffman
         {
             if (bytes == null)
             {
-                throw new ArgumentNullException("bytes");
+                throw new ArgumentNullException(nameof(bytes));
             }
 
             offset = EncodeNode(bits, this._Root, offset);
@@ -232,10 +230,7 @@ namespace Gibbed.Borderlands2.FileFormats.Huffman
             {
                 if (this._Codes.ContainsKey(b) == false)
                 {
-                    throw new ArgumentException(string.Format(
-                        "could not lookup '{0}'",
-                        b),
-                                                "bytes");
+                    throw new ArgumentException($"could not lookup '{b}'", nameof(bytes));
                 }
 
                 bitCount += this.Encode(b, bits, offset + bitCount);

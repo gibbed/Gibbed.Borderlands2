@@ -125,10 +125,7 @@ namespace Gibbed.Borderlands2.GameInfo
 
             if (result.Type != type)
             {
-                throw new ResourceNotFoundException(string.Format(
-                    "weapon type '{0}' is not valid for '{1}'",
-                    type.ResourcePath,
-                    this.ResourcePath));
+                throw new ResourceNotFoundException($"weapon type '{type.ResourcePath}' is not valid for '{this.ResourcePath}'");
             }
 
             return result;

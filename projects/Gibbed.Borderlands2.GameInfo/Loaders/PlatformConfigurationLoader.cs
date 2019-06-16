@@ -35,8 +35,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
                 var raws = LoaderHelper.Deserialize<Dictionary<Platform, Raw.PlatformConfiguration>>(
                     "Platform Configurations");
                 return new InfoDictionary<Platform, PlatformConfiguration>(
-                    raws.ToDictionary(kv => kv.Key,
-                                      GetPlatformConfiguration));
+                    raws.ToDictionary(kv => kv.Key, GetPlatformConfiguration));
             }
             catch (Exception e)
             {

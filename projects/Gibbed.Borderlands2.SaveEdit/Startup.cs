@@ -48,8 +48,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             var assemblyName = new AssemblyName(e.Name);
             var dllName = @"Assemblies\" + assemblyName.Name + @".dll";
 
-            Assembly assembly;
-            if (_LoadedEmbeddedAssemblies.TryGetValue(dllName, out assembly) == true)
+            if (_LoadedEmbeddedAssemblies.TryGetValue(dllName, out var assembly) == true)
             {
                 return assembly;
             }

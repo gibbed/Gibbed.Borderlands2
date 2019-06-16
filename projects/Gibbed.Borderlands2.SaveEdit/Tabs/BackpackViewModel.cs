@@ -59,7 +59,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Character = value;
-                this.NotifyOfPropertyChange(() => this.Character);
+                this.NotifyOfPropertyChange(nameof(Character));
             }
         }
 
@@ -70,7 +70,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._Bank = value;
-                this.NotifyOfPropertyChange(() => this.Bank);
+                this.NotifyOfPropertyChange(nameof(Bank));
             }
         }
         #endregion
@@ -78,7 +78,6 @@ namespace Gibbed.Borderlands2.SaveEdit
         #region Fields
         private readonly ObservableCollection<IBackpackSlotViewModel> _Slots;
 
-        // TODO: STUPID STUPID STUPID STUPID WHY GEARBOX WHY?????????????????????
         private readonly List<PackedItemData> _ExpansionItems;
 
         private readonly List<KeyValuePair<PackedWeaponData, Exception>> _BrokenWeapons;
@@ -86,9 +85,9 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         private IBackpackSlotViewModel _SelectedSlot;
 
-        private ICommand _NewWeapon;
+        private readonly ICommand _NewWeapon;
         private bool _NewWeaponDropDownIsOpen;
-        private ICommand _NewItem;
+        private readonly ICommand _NewItem;
         private bool _NewItemDropDownIsOpen;
         #endregion
 
@@ -134,7 +133,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._SelectedSlot = value;
-                this.NotifyOfPropertyChange(() => this.SelectedSlot);
+                this.NotifyOfPropertyChange(nameof(SelectedSlot));
             }
         }
 
@@ -149,7 +148,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._NewWeaponDropDownIsOpen = value;
-                this.NotifyOfPropertyChange(() => this.NewWeaponDropDownIsOpen);
+                this.NotifyOfPropertyChange(nameof(NewWeaponDropDownIsOpen));
             }
         }
 
@@ -164,7 +163,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             set
             {
                 this._NewItemDropDownIsOpen = value;
-                this.NotifyOfPropertyChange(() => this.NewItemDropDownIsOpen);
+                this.NotifyOfPropertyChange(nameof(NewItemDropDownIsOpen));
             }
         }
         #endregion
@@ -214,9 +213,8 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         public IEnumerable<IResult> PasteCode()
         {
-            bool containsText;
             bool containsUnicodeText = false;
-            if (MyClipboard.ContainsText(TextDataFormat.Text, out containsText) != MyClipboard.Result.Success ||
+            if (MyClipboard.ContainsText(TextDataFormat.Text, out bool containsText) != MyClipboard.Result.Success ||
                 MyClipboard.ContainsText(TextDataFormat.UnicodeText, out containsUnicodeText) !=
                 MyClipboard.Result.Success)
             {
@@ -235,8 +233,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             yield return new DelegateResult(
                 () =>
                 {
-                    string codes;
-                    if (MyClipboard.GetText(out codes) != MyClipboard.Result.Success)
+                    if (MyClipboard.GetText(out string codes) != MyClipboard.Result.Success)
                     {
                         MessageBox.Show("Clipboard failure.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
@@ -266,17 +263,15 @@ namespace Gibbed.Borderlands2.SaveEdit
                         // TODO: check other item unique IDs to prevent rare collisions
                         packable.UniqueId = new Random().Next(int.MinValue, int.MaxValue);
 
-                        if (packable is BackpackWeapon)
+                        if (packable is BackpackWeapon weapon)
                         {
-                            var weapon = (BackpackWeapon)packable;
                             weapon.QuickSlot = QuickWeaponSlot.None;
                             weapon.Mark = PlayerMark.Standard;
                             var viewModel = new BackpackWeaponViewModel(weapon);
                             viewModels.Add(viewModel);
                         }
-                        else if (packable is BackpackItem)
+                        else if (packable is BackpackItem item)
                         {
-                            var item = (BackpackItem)packable;
                             item.Quantity = 1;
                             item.Equipped = false;
                             item.Mark = PlayerMark.Standard;
@@ -294,16 +289,12 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             if (errors > 0)
             {
-                yield return
-                    new MyMessageBox("Failed to load " + errors.ToString(CultureInfo.InvariantCulture) + " codes.",
-                                     "Warning")
+                yield return new MyMessageBox($"Failed to load {errors} codes.", "Warning")
                         .WithIcon(MessageBoxImage.Warning);
             }
             else if (viewModels.Count == 0)
             {
-                yield return
-                    new MyMessageBox("Did not find any codes in clipboard.",
-                                     "Warning")
+                yield return new MyMessageBox("Did not find any codes in clipboard.", "Warning")
                         .WithIcon(MessageBoxImage.Warning);
             }
         }
@@ -318,10 +309,11 @@ namespace Gibbed.Borderlands2.SaveEdit
                     {
                         if (MyClipboard.SetText("") != MyClipboard.Result.Success)
                         {
-                            MessageBox.Show("Clipboard failure.",
-                                            "Error",
-                                            MessageBoxButton.OK,
-                                            MessageBoxImage.Error);
+                            MessageBox.Show(
+                                "Clipboard failure.",
+                                "Error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
                         }
                         return;
                     }
@@ -347,10 +339,11 @@ namespace Gibbed.Borderlands2.SaveEdit
                     dobj.SetText(sb.ToString());
                     if (MyClipboard.SetDataObject(dobj, false) != MyClipboard.Result.Success)
                     {
-                        MessageBox.Show("Clipboard failure.",
-                                        "Error",
-                                        MessageBoxButton.OK,
-                                        MessageBoxImage.Error);
+                        MessageBox.Show(
+                            "Clipboard failure.",
+                            "Error",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error);
                     }
                 });
         }
@@ -366,9 +359,8 @@ namespace Gibbed.Borderlands2.SaveEdit
             copy.UniqueId = new Random().Next(int.MinValue, int.MaxValue);
             // TODO: check other item unique IDs to prevent rare collisions
 
-            if (copy is BackpackWeapon)
+            if (copy is BackpackWeapon weapon)
             {
-                var weapon = (BackpackWeapon)copy;
                 weapon.QuickSlot = QuickWeaponSlot.None;
                 weapon.Mark = PlayerMark.Standard;
 
@@ -376,9 +368,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                 this.Slots.Add(viewModel);
                 this.SelectedSlot = viewModel;
             }
-            else if (copy is BackpackItem)
+            else if (copy is BackpackItem item)
             {
-                var item = (BackpackItem)copy;
                 item.Equipped = false;
                 item.Mark = PlayerMark.Standard;
 
@@ -402,13 +393,13 @@ namespace Gibbed.Borderlands2.SaveEdit
             var slot = this.SelectedSlot.BackpackSlot;
             this.Slots.Remove(this.SelectedSlot);
 
-            if (slot is BaseItem)
+            if (slot is BaseWeapon weapon)
             {
-                this.Bank.Slots.Add(new BaseItemViewModel(new BaseItem((BaseItem)slot)));
+                this.Bank.Slots.Add(new BaseWeaponViewModel(new BaseWeapon(weapon)));
             }
-            else if (slot is BaseWeapon)
+            else if (slot is BaseItem item)
             {
-                this.Bank.Slots.Add(new BaseWeaponViewModel(new BaseWeapon((BaseWeapon)slot)));
+                this.Bank.Slots.Add(new BaseItemViewModel(new BaseItem(item)));
             }
         }
 
@@ -427,9 +418,8 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             foreach (var viewModel in this.Slots)
             {
-                if (viewModel is BackpackWeaponViewModel)
+                if (viewModel is BackpackWeaponViewModel weapon)
                 {
-                    var weapon = (BackpackWeaponViewModel)viewModel;
                     if (weapon.QuickSlot != QuickWeaponSlot.None &&
                         (weapon.ManufacturerGradeIndex + weapon.GameStage) >= 2)
                     {
@@ -437,9 +427,8 @@ namespace Gibbed.Borderlands2.SaveEdit
                         weapon.GameStage = this.Character.SyncLevel;
                     }
                 }
-                else if (viewModel is BackpackItemViewModel)
+                else if (viewModel is BackpackItemViewModel item)
                 {
-                    var item = (BackpackItemViewModel)viewModel;
                     if (item.Equipped == true &&
                         (item.ManufacturerGradeIndex + item.GameStage) >= 2)
                     {
@@ -458,18 +447,16 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             foreach (var viewModel in this.Slots)
             {
-                if (viewModel is BackpackWeaponViewModel)
+                if (viewModel is BackpackWeaponViewModel weapon)
                 {
-                    var weapon = (BackpackWeaponViewModel)viewModel;
                     if ((weapon.ManufacturerGradeIndex + weapon.GameStage) >= 2)
                     {
                         weapon.ManufacturerGradeIndex = this.Character.SyncLevel;
                         weapon.GameStage = this.Character.SyncLevel;
                     }
                 }
-                else if (viewModel is BackpackItemViewModel)
+                else if (viewModel is BackpackItemViewModel item)
                 {
-                    var item = (BackpackItemViewModel)viewModel;
                     if ((item.ManufacturerGradeIndex + item.GameStage) >= 2)
                     {
                         item.ManufacturerGradeIndex = this.Character.SyncLevel;
@@ -518,7 +505,6 @@ namespace Gibbed.Borderlands2.SaveEdit
             this._BrokenItems.Clear();
             foreach (var packedItem in saveGame.PackedItemData)
             {
-                // TODO: STUPID STUPID STUPID STUPID WHY GEARBOX WHY?????????????????????
                 if (packedItem.Quantity < 0)
                 {
                     this._ExpansionItems.Add(packedItem);
@@ -568,11 +554,9 @@ namespace Gibbed.Borderlands2.SaveEdit
             {
                 var slot = viewModel.BackpackSlot;
 
-                if (slot is BackpackWeapon)
+                if (slot is BackpackWeapon weapon)
                 {
-                    var weapon = (BackpackWeapon)slot;
                     var data = BackpackDataHelper.Encode(weapon, platform);
-
                     saveGame.PackedWeaponData.Add(new PackedWeaponData()
                     {
                         InventorySerialNumber = data,
@@ -580,11 +564,9 @@ namespace Gibbed.Borderlands2.SaveEdit
                         Mark = weapon.Mark,
                     });
                 }
-                else if (slot is BackpackItem)
+                else if (slot is BackpackItem item)
                 {
-                    var item = (BackpackItem)slot;
                     var data = BackpackDataHelper.Encode(item, platform);
-
                     saveGame.PackedItemData.Add(new PackedItemData()
                     {
                         InventorySerialNumber = data,
@@ -602,7 +584,6 @@ namespace Gibbed.Borderlands2.SaveEdit
             this._BrokenWeapons.ForEach(kv => saveGame.PackedWeaponData.Add(kv.Key));
             this._BrokenItems.ForEach(kv => saveGame.PackedItemData.Add(kv.Key));
 
-            // TODO: STUPID STUPID STUPID STUPID WHY GEARBOX WHY?????????????????????
             foreach (var packedItem in this._ExpansionItems)
             {
                 saveGame.PackedItemData.Add(packedItem);

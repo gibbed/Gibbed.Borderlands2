@@ -132,7 +132,7 @@ namespace Gibbed.Borderlands2.SparkTmsPack
                 new MiniLZO.CompressWorkBuffer());
             if (result != MiniLZO.ErrorCode.Success)
             {
-                throw new SaveCorruptionException(string.Format("LZO compression failure ({0})", result));
+                throw new SaveCorruptionException($"LZO compression failure ({result})");
             }
 
             Array.Resize(ref compressedBytes, actualCompressedSize);

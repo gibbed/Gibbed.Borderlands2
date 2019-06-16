@@ -45,7 +45,6 @@ namespace Gibbed.Borderlands2.SaveEdit
                 {
                     return _Libraries[setId] = new AssetLibraryCache(setId);
                 }
-
                 return _Libraries[setId];
             }
         }
@@ -65,15 +64,11 @@ namespace Gibbed.Borderlands2.SaveEdit
             private static string[] GetMergedAssets(AssetGroup group, int setId)
             {
                 IEnumerable<string> assets = InfoManager.AssetLibraryManager.GetSet(0).Libraries[group].GetAssets();
-
-                AssetLibrarySet extraLibrarySet;
-                AssetLibraryDefinition extraLibrary;
-                if (InfoManager.AssetLibraryManager.TryGetSet(setId, out extraLibrarySet) == true &&
-                    extraLibrarySet.Libraries.TryGetValue(group, out extraLibrary) == true)
+                if (InfoManager.AssetLibraryManager.TryGetSet(setId, out var extraLibrarySet) == true &&
+                    extraLibrarySet.Libraries.TryGetValue(group, out var extraLibrary) == true)
                 {
                     assets = assets.Concat(extraLibrary.GetAssets());
                 }
-
                 return assets.Distinct().OrderBy(p => p).ToArray();
             }
 
@@ -87,7 +82,6 @@ namespace Gibbed.Borderlands2.SaveEdit
                         {
                             return this._Assets[group] = GetMergedAssets(group, this._SetId);
                         }
-
                         return this._Assets[group];
                     }
                 }
