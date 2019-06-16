@@ -104,8 +104,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
                 var packed = weapon.Pack(platform);
                 return Encode(packed, weapon.UniqueId, true, weapon.AssetLibrarySetId, platform);
             }
-
-            if (packable is IPackableItem item)
+            else if (packable is IPackableItem item)
             {
                 var packed = item.Pack(platform);
                 return Encode(packed, item.UniqueId, false, item.AssetLibrarySetId, platform);

@@ -171,7 +171,7 @@ namespace Gibbed.Borderlands2.FileFormats
                 var hacks = saveGame.PackedItemData.Where(pid => pid.Quantity < 0).ToArray();
                 foreach (var hack in hacks)
                 {
-                    ExtractExpansionSavedataFromUnloadableItemData(hack, out byte id, out int value1, out int value2);
+                    ExtractExpansionSavedataFromUnloadableItemData(hack, out var id, out var value1, out var value2);
 
                     if (id == 1)
                     {
