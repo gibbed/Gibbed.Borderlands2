@@ -22,11 +22,11 @@
 
 using System;
 using System.Globalization;
-using System.Runtime.Serialization;
+using Newtonsoft.Json.Serialization;
 
 namespace Gibbed.Borderlands2.GameInfo.Loaders
 {
-    internal class TypeNameSerializationBinder : SerializationBinder
+    internal class TypeNameSerializationBinder : ISerializationBinder
     {
         public string TypeFormat { get; private set; }
 
@@ -35,16 +35,16 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             this.TypeFormat = typeFormat;
         }
 
-        public override void BindToName(Type serializedType, out string assemblyName, out string typeName)
-        {
-            assemblyName = null;
-            typeName = serializedType.Name;
-        }
-
-        public override Type BindToType(string assemblyName, string typeName)
+        public Type BindToType(string assemblyName, string typeName)
         {
             var resolvedTypeName = string.Format(CultureInfo.InvariantCulture, TypeFormat, typeName);
             return Type.GetType(resolvedTypeName, true);
+        }
+
+        public void BindToName(Type serializedType, out string assemblyName, out string typeName)
+        {
+            assemblyName = null;
+            typeName = serializedType.Name;
         }
     }
 }

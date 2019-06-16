@@ -20,11 +20,14 @@
  *    distribution.
  */
 
+using System;
+
 namespace Gibbed.Borderlands2.SaveEdit
 {
-    internal static class Version
+    internal static class VersionInfo
     {
         public const string Configuration = null;
+        public static readonly Version Version = null;
         public const string Commit = null;
         public const string Timestamp = null;
     }

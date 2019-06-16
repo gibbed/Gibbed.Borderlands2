@@ -22,6 +22,7 @@
 
 using System;
 using System.Globalization;
+using System.Text;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using Caliburn.Micro;
@@ -41,34 +42,43 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             if (model is ShellViewModel)
             {
-                window.Title = _WindowTitle;
+                var sb = new StringBuilder();
+                sb.Append(_WindowTitle);
 
                 // ReSharper disable ConditionIsAlwaysTrueOrFalse
-                if (string.IsNullOrEmpty(Version.Configuration) == false)
+                if (string.IsNullOrEmpty(VersionInfo.Configuration) == false)
                 {
-                    window.Title += " [";
-                    window.Title += Version.Configuration.ToUpperInvariant();
-                    window.Title += " ]";
+                    sb.Append(" [");
+                    sb.Append(VersionInfo.Configuration.ToUpperInvariant());
+                    sb.Append("]");
                 }
-                if (string.IsNullOrEmpty(Version.Commit) == false)
+
+                if (VersionInfo.Version != null)
                 {
-                    window.Title += " (";
-                    window.Title += Version.Commit.Substring(0, 7);
-                    if (string.IsNullOrEmpty(Version.Timestamp) == false)
+                    sb.Append(" ");
+                    sb.Append(VersionInfo.Version.ToString(3));
+                }
+
+                if (string.IsNullOrEmpty(VersionInfo.Commit) == false)
+                {
+                    sb.Append(" (");
+                    sb.Append(VersionInfo.Commit.Substring(0, 7));
+                    if (string.IsNullOrEmpty(VersionInfo.Timestamp) == false)
                     {
-                        window.Title += " @ ";
-                        window.Title += MakeFriendlyTimestamp(Version.Timestamp);
+                        sb.Append(" @ ");
+                        sb.Append(MakeFriendlyTimestamp(VersionInfo.Timestamp));
                     }
-                    window.Title += ")";
+                    sb.Append(")");
                 }
-                else if (string.IsNullOrEmpty(Version.Timestamp) == false)
+                else if (string.IsNullOrEmpty(VersionInfo.Timestamp) == false)
                 {
-                    window.Title += " (@ ";
-                    window.Title += MakeFriendlyTimestamp(Version.Timestamp);
-                    window.Title += ")";
+                    sb.Append(" (@ ");
+                    sb.Append(MakeFriendlyTimestamp(VersionInfo.Timestamp));
+                    sb.Append(")");
                 }
                 // ReSharper restore ConditionIsAlwaysTrueOrFalse
 
+                window.Title = sb.ToString();
                 window.SizeToContent = SizeToContent.Manual;
                 window.Width = _WindowWidth;
                 window.Height = _WindowHeight;

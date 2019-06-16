@@ -56,7 +56,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             {
                 MissingMemberHandling = MissingMemberHandling.Error,
                 TypeNameHandling = TypeNameHandling.Auto,
-                Binder = new TypeNameSerializationBinder(
+                SerializationBinder = new TypeNameSerializationBinder(
                     "Gibbed.Borderlands2.GameInfo.Raw.{0}, Gibbed.Borderlands2.GameInfo")
             };
             settings.Converters.Add(new StringEnumConverter());

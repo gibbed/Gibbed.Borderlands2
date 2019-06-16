@@ -114,7 +114,7 @@ namespace Gibbed.Borderlands2.FileFormats
 
                 ProtoSerializer.Serialize(innerUncompressedData, saveGame);
                 innerUncompressedData.Position = 0;
-                innerUncompressedBytes = innerUncompressedData.ReadBytes((uint)innerUncompressedData.Length);
+                innerUncompressedBytes = innerUncompressedData.ReadBytes((int)innerUncompressedData.Length);
             }
 
             byte[] innerCompressedBytes;
@@ -136,7 +136,7 @@ namespace Gibbed.Borderlands2.FileFormats
                 innerCompressedData.WriteValueU32((uint)(innerCompressedData.Length - 4), Endian.Big);
 
                 innerCompressedData.Position = 0;
-                innerCompressedBytes = innerCompressedData.ReadBytes((uint)innerCompressedData.Length);
+                innerCompressedBytes = innerCompressedData.ReadBytes((int)innerCompressedData.Length);
             }
 
             byte[] compressedBytes;
@@ -172,7 +172,7 @@ namespace Gibbed.Borderlands2.FileFormats
                         zlib.Finish();
                         temp.Flush();
                         temp.Position = 0;
-                        compressedBytes = temp.ReadBytes((uint)temp.Length);
+                        compressedBytes = temp.ReadBytes((int)temp.Length);
                     }
                 }
                 else
@@ -230,7 +230,7 @@ namespace Gibbed.Borderlands2.FileFormats
                         }
 
                         blockData.Position = 0;
-                        compressedBytes = blockData.ReadBytes((uint)blockData.Length);
+                        compressedBytes = blockData.ReadBytes((int)blockData.Length);
                     }
                 }
                 else if (compressionScheme == CompressionScheme.Zlib)
@@ -258,7 +258,7 @@ namespace Gibbed.Borderlands2.FileFormats
                                 temp.Flush();
 
                                 temp.Position = 0;
-                                compressedBytes = temp.ReadBytes((uint)temp.Length);
+                                compressedBytes = temp.ReadBytes((int)temp.Length);
                             }
 
                             blockData.WriteBytes(compressedBytes);
@@ -276,7 +276,7 @@ namespace Gibbed.Borderlands2.FileFormats
                         }
 
                         blockData.Position = 0;
-                        compressedBytes = blockData.ReadBytes((uint)blockData.Length);
+                        compressedBytes = blockData.ReadBytes((int)blockData.Length);
                     }
                 }
                 else
@@ -291,7 +291,7 @@ namespace Gibbed.Borderlands2.FileFormats
                 uncompressedData.WriteValueS32(innerCompressedBytes.Length, Endian.Big);
                 uncompressedData.WriteBytes(compressedBytes);
                 uncompressedData.Position = 0;
-                uncompressedBytes = uncompressedData.ReadBytes((uint)uncompressedData.Length);
+                uncompressedBytes = uncompressedData.ReadBytes((int)uncompressedData.Length);
             }
 
             byte[] computedHash;
@@ -335,7 +335,7 @@ namespace Gibbed.Borderlands2.FileFormats
             var compressionScheme = platform.GetCompressionScheme();
 
             var readSha1Hash = input.ReadBytes(20);
-            using (var data = input.ReadToMemoryStream(input.Length - 20))
+            using (var data = input.ReadToMemoryStream((int)(input.Length - 20)))
             {
                 byte[] computedSha1Hash;
                 using (var sha1 = new System.Security.Cryptography.SHA1Managed())
@@ -358,7 +358,7 @@ namespace Gibbed.Borderlands2.FileFormats
                     if (compressionScheme == CompressionScheme.LZO)
                     {
                         var actualUncompressedSize = (int)uncompressedSize;
-                        var compressedSize = (uint)(data.Length - 4);
+                        var compressedSize = (int)(data.Length - 4);
                         var compressedBytes = data.ReadBytes(compressedSize);
                         var result = MiniLZO.LZO.DecompressSafe(
                             compressedBytes,
@@ -379,7 +379,7 @@ namespace Gibbed.Borderlands2.FileFormats
                     }
                     else if (compressionScheme == CompressionScheme.Zlib)
                     {
-                        var compressedSize = (uint)(data.Length - 4);
+                        var compressedSize = (int)(data.Length - 4);
                         using (var temp = data.ReadToMemoryStream(compressedSize))
                         {
                             var zlib = new InflaterInputStream(temp);
@@ -531,7 +531,7 @@ namespace Gibbed.Borderlands2.FileFormats
                     var readCRC32Hash = outerData.ReadValueU32(endian);
                     var innerUncompressedSize = outerData.ReadValueS32(endian);
 
-                    var innerCompressedBytes = outerData.ReadBytes(innerSize - 3 - 4 - 4 - 4);
+                    var innerCompressedBytes = outerData.ReadBytes((int)(innerSize - 3 - 4 - 4 - 4));
                     var innerUncompressedBytes = Huffman.Decoder.Decode(innerCompressedBytes,
                                                                         innerUncompressedSize);
                     if (innerUncompressedBytes.Length != innerUncompressedSize)
@@ -577,7 +577,7 @@ namespace Gibbed.Borderlands2.FileFormats
                                 }
 
                                 testData.Position = 0;
-                                var testBytes = testData.ReadBytes((uint)testData.Length);
+                                var testBytes = testData.ReadBytes((int)testData.Length);
                                 if (innerUncompressedBytes.SequenceEqual(testBytes) == false)
                                 {
                                     throw new SaveCorruptionException("reencode mismatch");

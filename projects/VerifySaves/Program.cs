@@ -47,7 +47,7 @@ namespace VerifySaves
                 using (var input = File.OpenRead(path))
                 {
                     var readHash = input.ReadBytes(20);
-                    using (var data = input.ReadToMemoryStream(input.Length - 20))
+                    using (var data = input.ReadToMemoryStream((int)(input.Length - 20)))
                     {
                         byte[] computedHash;
                         using (var sha1 = new System.Security.Cryptography.SHA1Managed())
@@ -107,7 +107,7 @@ namespace VerifySaves
                             var hash = outerData.ReadValueU32(endian);
                             var innerUncompressedSize = outerData.ReadValueS32(endian);
 
-                            var innerCompressedBytes = outerData.ReadBytes(innerSize - 3 - 4 - 4 - 4);
+                            var innerCompressedBytes = outerData.ReadBytes((int)(innerSize - 3 - 4 - 4 - 4));
                             var innerUncompressedBytes = Huffman.Decoder.Decode(innerCompressedBytes,
                                                                                 innerUncompressedSize);
                             using (var innerUncompressedData = new MemoryStream(innerUncompressedBytes))
@@ -127,7 +127,7 @@ namespace VerifySaves
                                     Serializer.Serialize(testData, saveGame);
 
                                     testData.Position = 0;
-                                    var testBytes = testData.ReadBytes((uint)testData.Length);
+                                    var testBytes = testData.ReadBytes((int)testData.Length);
                                     if (innerUncompressedBytes.SequenceEqual(testBytes) == false)
                                     {
                                         Console.WriteLine("{0}: failed (reencode mismatch)", name);

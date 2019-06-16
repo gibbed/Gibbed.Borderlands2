@@ -1,319 +1,51 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C605E071-337F-4310-B857-5303C185E951}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Gibbed.Borderlands2.SaveEdit</RootNamespace>
-    <AssemblyName>Gibbed.Borderlands2.SaveEdit</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
-    <Utf8Output>true</Utf8Output>
-    <ExpressionBlendVersion>4.0.20525.0</ExpressionBlendVersion>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>Resources\Handsome Jack.ico</ApplicationIcon>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
+    <TargetFramework>net40</TargetFramework>
+    <AssemblyTitle>Gibbed's Borderlands 2 Save Editor</AssemblyTitle>
+    <Company>Gibbed</Company>
+    <Authors>Gibbed</Authors>
+    <Description>http://gib.me/</Description>
+    <Copyright>Copyright © Gibbed 2019</Copyright>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <RepositoryUrl>https://github.com/gibbed/Gibbed.Borderlands2/</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
     <StartupObject>Gibbed.Borderlands2.SaveEdit.Startup</StartupObject>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <Configurations>Debug;Release;SaveEdit Packaging</Configurations>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SaveEdit Packaging|x86'">
-    <OutputPath>bin\x86\SaveEdit Packaging\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <CodeAnalysisLogFile>bin\Release\Gibbed.Borderlands2.SaveEdit.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
-    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
-    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
-    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\bin\</OutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SaveEdit Packaging|AnyCPU'">
-    <OutputPath>..\..\bin_saveedit\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SaveEdit Packaging|AnyCPU'">
+    <OutputPath>..\..\upload\</OutputPath>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <CodeAnalysisLogFile>bin\Release\Gibbed.Borderlands2.SaveEdit.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
-    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
-    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
-    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
-    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Caliburn.Micro, Version=1.5.1.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Caliburn.Micro.1.5.1\lib\net40\Caliburn.Micro.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Caliburn.Micro" Version="1.5.1" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="2.7.0" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="Caliburn.Micro.Contrib, Version=1.0.1.0, Culture=neutral, PublicKeyToken=23b8ce3a92a0a872, processorArchitecture=MSIL">
       <HintPath>..\..\other\wpf\Caliburn.Micro.Contrib.dll</HintPath>
     </Reference>
-    <Reference Include="PresentationFramework.Aero" />
-    <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Caliburn.Micro.1.5.1\lib\net40\System.Windows.Interactivity.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
+    <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Xceed.Wpf.Toolkit">
-      <HintPath>..\..\packages\Extended.Wpf.Toolkit.2.0.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Helpers\AssetCache.cs" />
-    <Compile Include="Helpers\Blacklisting.cs" />
-    <Compile Include="Helpers\DelegateCommand.cs" />
-    <Compile Include="Helpers\EnumToBooleanConverter.cs" />
-    <Compile Include="Helpers\GearCalculatorView.xaml.cs">
-      <DependentUpon>GearCalculatorView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Helpers\GearCalculatorViewModel.cs" />
-    <Compile Include="Helpers\HyperlinkExtensions.cs" />
-    <Compile Include="Helpers\InputBindingTrigger.cs" />
-    <Compile Include="Helpers\MyClipboard.cs" />
-    <Compile Include="Helpers\MyFileFilterCollection.cs" />
-    <Compile Include="Helpers\MyMessageBox.cs" />
-    <Compile Include="Helpers\ShortcutParser.cs" />
-    <Compile Include="Items\BackpackItemView.xaml.cs">
-      <DependentUpon>BackpackItemView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Items\BackpackItemViewModel.cs" />
-    <Compile Include="Items\IBaseSlotViewModel.cs" />
-    <Compile Include="Items\ItemTypeFilter.cs" />
-    <Compile Include="SaveLoad.cs" />
-    <Compile Include="Startup.cs" />
-    <Compile Include="Tabs\AboutView.xaml.cs">
-      <DependentUpon>AboutView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tabs\AboutViewModel.cs" />
-    <Compile Include="Tabs\BackpackView.xaml.cs">
-      <DependentUpon>BackpackView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Items\BackpackWeaponView.xaml.cs">
-      <DependentUpon>BackpackWeaponView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Items\BackpackWeaponViewModel.cs" />
-    <Compile Include="Items\BaseItemViewModel.cs" />
-    <Compile Include="Items\BaseWeaponViewModel.cs" />
-    <Compile Include="Helpers\ContainsToVisiblityConverter.cs" />
-    <Compile Include="Tabs\BankView.xaml.cs">
-      <DependentUpon>BankView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tabs\BankViewModel.cs" />
-    <Compile Include="Tabs\CharacterView.xaml.cs">
-      <DependentUpon>CharacterView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tabs\CharacterViewModel.cs" />
-    <Compile Include="Tabs\CurrencyOnHandView.xaml.cs">
-      <DependentUpon>CurrencyOnHandView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tabs\CurrencyOnHandViewModel.cs" />
-    <Compile Include="Helpers\AssetDisplay.cs" />
-    <Compile Include="Items\IBackpackSlotViewModel.cs" />
-    <Compile Include="Helpers\MyOpenFileResult.cs" />
-    <Compile Include="Helpers\MySaveFileResult.cs" />
-    <Compile Include="Helpers\NullToBooleanConverter.cs" />
-    <Compile Include="Items\BaseItemView.xaml.cs">
-      <DependentUpon>BaseItemView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Items\BaseWeaponView.xaml.cs">
-      <DependentUpon>BaseWeaponView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Helpers\MyComboBox.cs" />
-    <Compile Include="Tabs\FastTravelView.xaml.cs">
-      <DependentUpon>FastTravelView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tabs\FastTravelViewModel.cs" />
-    <Compile Include="Tabs\GeneralView.xaml.cs">
-      <DependentUpon>GeneralView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Helpers\PropertyProxy.cs" />
-    <Compile Include="ShellView.xaml.cs">
-      <DependentUpon>ShellView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tabs\VehicleView.xaml.cs">
-      <DependentUpon>VehicleView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Tabs\VehicleViewModel.cs" />
-    <Compile Include="Validators\AssetLibrarySetIdValidationRule.cs" />
-    <Compile Include="Validators\AssetValidationRule.cs" />
-    <Compile Include="Validators\BalanceValidationRule.cs" />
-    <Compile Include="Validators\ItemPartValidationRule.cs" />
-    <Compile Include="Validators\ItemTypeValidationRule.cs" />
-    <Compile Include="Validators\ManufacturerValidationRule.cs" />
-    <Compile Include="Validators\WeaponPartValidationRule.cs" />
-    <Compile Include="Validators\WeaponTypeValidationRule.cs" />
-    <Compile Include="Version.cs" />
+    <ProjectReference Include="..\Gibbed.Borderlands2.FileFormats\Gibbed.Borderlands2.FileFormats.csproj" />
+    <ProjectReference Include="..\Gibbed.Borderlands2.GameInfo\Gibbed.Borderlands2.GameInfo.csproj" />
+    <ProjectReference Include="..\Gibbed.Borderlands2.ProtoBufFormats\Gibbed.Borderlands2.ProtoBufFormats.csproj" />
+    <ProjectReference Include="..\Gibbed.IO\Gibbed.IO.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="AppBootstrapper.cs" />
-    <Compile Include="AppWindowManager.cs" />
-    <Compile Include="Tabs\BackpackViewModel.cs" />
-    <Compile Include="Tabs\GeneralViewModel.cs" />
-    <Compile Include="ShellViewModel.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <AppDesigner Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="AccessiblePropertyGrid.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Helpers\GearCalculatorView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Items\BackpackItemView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Tabs\AboutView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Tabs\BackpackView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Items\BackpackWeaponView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Tabs\BankView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Tabs\CharacterView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Tabs\CurrencyOnHandView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Items\BaseItemView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ShellView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Tabs\FastTravelView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Tabs\GeneralView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Items\BaseWeaponView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Tabs\VehicleView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\Handsome Jack.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Resource Include="Resources\fugue\disk-black.png" />
     <Resource Include="Resources\fugue\document-binary.png" />
@@ -321,95 +53,35 @@
     <Resource Include="Resources\fugue\folder-open-document.png" />
     <Resource Include="Resources\fugue\luggage.png" />
     <Resource Include="Resources\fugue\piggy-bank.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\backpack.png" />
     <Resource Include="Resources\bank.png" />
     <Resource Include="Resources\stash.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Handsome Jack.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Handsome Jack.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\fugue\exclamation.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\credits.png" />
     <Resource Include="Resources\eridium.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\credits cropped.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\assaultrifle.png" />
     <Resource Include="Resources\shield.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\pink seraph crystal.png" />
     <Resource Include="Resources\seraph crystal.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\fugue\scanner.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\fugue\printer.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\fugue\document-copy.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\fugue\document-delete.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\fast travel.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\green vault symbol.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\red skull.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\fugue\control-090.png" />
     <Resource Include="Resources\fugue\control-double-090.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\exclamation mark.png" />
     <Resource Include="Resources\question mark.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\torgue token.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\fugue\computer.png" />
     <Resource Include="Resources\fugue\television-image.png" />
     <Resource Include="Resources\fugue\television-test.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Gibbed.Borderlands2.FileFormats\Gibbed.Borderlands2.FileFormats.csproj">
-      <Project>{75063A4E-0024-4B68-BE6C-1B3D52FD4845}</Project>
-      <Name>Gibbed.Borderlands2.FileFormats</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Gibbed.Borderlands2.GameInfo\Gibbed.Borderlands2.GameInfo.csproj">
-      <Project>{9B42EE82-42E9-455C-A3DE-7B93F1FF2476}</Project>
-      <Name>Gibbed.Borderlands2.GameInfo</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Gibbed.Borderlands2.ProtoBufFormats\Gibbed.Borderlands2.ProtoBufFormats.csproj">
-      <Project>{17A51353-4224-43DC-91FE-A1407BD318EC}</Project>
-      <Name>Gibbed.Borderlands2.ProtoBufFormats</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Gibbed.IO\Gibbed.IO.csproj">
-      <Project>{047857BA-DAA3-4CA7-AFB8-A1B082B28C6A}</Project>
-      <Name>Gibbed.IO</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\scooter.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\wheel.png" />
   </ItemGroup>
   <ItemGroup>
@@ -423,26 +95,38 @@
     <Resource Include="Resources\Xceed.Wpf.Toolkit\PropertyGrid\Images\SortAscending16.png" />
     <Resource Include="Resources\Xceed.Wpf.Toolkit\PropertyGrid\Images\Style11.png" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="AfterResolveReferences">
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="**\*.xaml" Exclude="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </Page>
+    <Compile Update="**\*.xaml.cs" SubType="Code" DependentUpon="%(Filename)" />
+  </ItemGroup>
+  <Target Name="RemoveBadReferencedAssemblies" AfterTargets="ResolveAssemblyReferences" Condition="'$(Configuration)'!='SaveEdit Packaging'">
     <ItemGroup>
-      <EmbeddedResource Include="@(ReferenceCopyLocalPaths)" Condition="'%(ReferenceCopyLocalPaths.Extension)' == '.dll'">
-        <LogicalName>%(ReferenceCopyLocalPaths.DestinationSubDirectory)%(ReferenceCopyLocalPaths.Filename)%(ReferenceCopyLocalPaths.Extension)</LogicalName>
-      </EmbeddedResource>
+      <AssembliesToEmbed Include="@(ReferenceCopyLocalPaths)" Condition="'%(ReferenceCopyLocalPaths.Extension)'=='.dll'" />
+      <!-- Exclude Xceed's AvalonDock/DataGrid -->
+      <AssembliesToRemove Include="@(AssembliesToEmbed)" Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('%(AssembliesToEmbed.Filename)','^Xceed\.Wpf\.(AvalonDock|DataGrid).*|.*\.resources.*$'))" />
+      <ReferenceCopyLocalPaths Remove="@(AssembliesToRemove)" />
     </ItemGroup>
   </Target>
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  <Target Name="EmbedReferencedAssemblies" AfterTargets="ResolveAssemblyReferences" Condition="'$(Configuration)'=='SaveEdit Packaging'">
+    <ItemGroup>
+      <AssembliesToEmbed Include="@(ReferenceCopyLocalPaths)" Condition="'%(ReferenceCopyLocalPaths.Extension)'=='.dll'" />
+      <!-- Exclude Xceed's AvalonDock/DataGrid -->
+      <AssembliesToRemove Include="@(AssembliesToEmbed)" Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('%(AssembliesToEmbed.Filename)','^Xceed\.Wpf\.(AvalonDock|DataGrid).*|.*\.resources.*$'))" />
+      <AssembliesToEmbed Remove="@(AssembliesToRemove)" />
+      <EmbeddedResource Include="@(AssembliesToEmbed)">
+        <LogicalName>Assemblies\%(AssembliesToEmbed.DestinationSubDirectory)%(AssembliesToEmbed.Filename)%(AssembliesToEmbed.Extension)</LogicalName>
+      </EmbeddedResource>
+      <ReferenceCopyLocalPaths Remove="@(AssembliesToEmbed)" />
+      <ReferenceCopyLocalPaths Remove="@(AssembliesToRemove)" />
+    </ItemGroup>
   </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

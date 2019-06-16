@@ -28,6 +28,14 @@ configuration:
   - SaveEdit Packaging
   - Debug
 
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  assembly_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
+
 build:
   project: Borderlands 2.sln
   parallel: true
@@ -35,24 +43,26 @@ build:
 
 before_build:
   - nuget restore
-  - echo namespace Gibbed.Borderlands2.SaveEdit > projects/Gibbed.Borderlands2.SaveEdit/Version.cs
-  - echo { >> projects/Gibbed.Borderlands2.SaveEdit/Version.cs
-  - echo   internal static class Version >> projects/Gibbed.Borderlands2.SaveEdit/Version.cs
-  - echo   { >> projects/Gibbed.Borderlands2.SaveEdit/Version.cs
-  - if "%CONFIGURATION%"=="SaveEdit Packaging" echo public const string Configuration = null; >> projects/Gibbed.Borderlands2.SaveEdit/Version.cs
-  - if NOT "%CONFIGURATION%"=="SaveEdit Packaging" echo public const string Configuration = "%CONFIGURATION%"; >> projects/Gibbed.Borderlands2.SaveEdit/Version.cs
-  - echo     public const string Commit = "%APPVEYOR_REPO_COMMIT%"; >> projects/Gibbed.Borderlands2.SaveEdit/Version.cs
-  - echo     public const string Timestamp = "%APPVEYOR_REPO_COMMIT_TIMESTAMP%"; >> projects/Gibbed.Borderlands2.SaveEdit/Version.cs
-  - echo   } >> projects/Gibbed.Borderlands2.SaveEdit/Version.cs
-  - echo } >> projects/Gibbed.Borderlands2.SaveEdit/Version.cs
-  
+  - echo namespace Gibbed.Borderlands2.SaveEdit > projects/Gibbed.Borderlands2.SaveEdit/VersionInfo.cs
+  - echo { >> projects/Gibbed.Borderlands2.SaveEdit/VersionInfo.cs
+  - echo   using System; >> projects/Gibbed.Borderlands2.SaveEdit/VersionInfo.cs
+  - echo   internal static class VersionInfo >> projects/Gibbed.Borderlands2.SaveEdit/VersionInfo.cs
+  - echo   { >> projects/Gibbed.Borderlands2.SaveEdit/VersionInfo.cs
+  - if "%CONFIGURATION%"=="SaveEdit Packaging" echo public const string Configuration = null; >> projects/Gibbed.Borderlands2.SaveEdit/VersionInfo.cs
+  - if NOT "%CONFIGURATION%"=="SaveEdit Packaging" echo public const string Configuration = "%CONFIGURATION%"; >> projects/Gibbed.Borderlands2.SaveEdit/VersionInfo.cs
+  - echo     public static readonly Version Version = new Version("%APPVEYOR_BUILD_VERSION%"); >> projects/Gibbed.Borderlands2.SaveEdit/VersionInfo.cs
+  - echo     public const string Commit = "%APPVEYOR_REPO_COMMIT%"; >> projects/Gibbed.Borderlands2.SaveEdit/VersionInfo.cs
+  - echo     public const string Timestamp = "%APPVEYOR_REPO_COMMIT_TIMESTAMP%"; >> projects/Gibbed.Borderlands2.SaveEdit/VersionInfo.cs
+  - echo   } >> projects/Gibbed.Borderlands2.SaveEdit/VersionInfo.cs
+  - echo } >> projects/Gibbed.Borderlands2.SaveEdit/VersionInfo.cs
+
 after_build:
   - set TZ=GMT
   - git log . > git-log.txt
-  - if NOT "%CONFIGURATION%"=="SaveEdit Packaging" 7z a -r -tzip -mx=9 -x!bin/Test.exe -x!*/LICENSE.txt bl2_all-tools_%APPVEYOR_BUILD_VERSION%.zip ./LICENSE.txt ./README.txt git-log.txt bin/*.exe bin/*.dll bin/projects
-  - if NOT "%CONFIGURATION%"=="SaveEdit Packaging" 7z a -r -tzip -mx=9 -x!bin/Test.exe -x!*/LICENSE.txt bl2_all-tools_%APPVEYOR_BUILD_VERSION%-with-symbols.zip ./LICENSE.txt ./README.txt git-log.txt bin/*.exe bin/*.dll bin/*.pdb bin/projects
-  - if "%CONFIGURATION%"=="SaveEdit Packaging" 7z a -r -tzip -mx=9 -x!*/LICENSE.txt bl2_saveedit_%APPVEYOR_BUILD_VERSION%.zip ./LICENSE.txt ./README.txt ./git-log.txt ./bin_saveedit/*.exe ./dist/*
-  - if "%CONFIGURATION%"=="SaveEdit Packaging" 7z a -r -tzip -mx=9 -x!*/LICENSE.txt bl2_saveedit_%APPVEYOR_BUILD_VERSION%-with-symbols.zip ./LICENSE.txt ./README.txt ./git-log.txt ./bin_saveedit/*.exe ./bin_saveedit/*.pdb ./dist/*
+  - if NOT "%CONFIGURATION%"=="SaveEdit Packaging" 7z a -r -tzip -mx=9 -x!bin/Test.exe -x!*/LICENSE.txt bl2_all-tools_%APPVEYOR_BUILD_VERSION%.zip              ./LICENSE.txt ./README.txt   git-log.txt bin/*.exe bin/*.dll           bin/projects -x!bin/Xceed.Wpf.AvalonDock* -x!bin/Xceed.Wpf.DataGrid*
+  - if NOT "%CONFIGURATION%"=="SaveEdit Packaging" 7z a -r -tzip -mx=9 -x!bin/Test.exe -x!*/LICENSE.txt bl2_all-tools_%APPVEYOR_BUILD_VERSION%-with-symbols.zip ./LICENSE.txt ./README.txt   git-log.txt bin/*.exe bin/*.dll bin/*.pdb bin/projects -x!bin/Xceed.Wpf.AvalonDock* -x!bin/Xceed.Wpf.DataGrid*
+  - if     "%CONFIGURATION%"=="SaveEdit Packaging" 7z a -r -tzip -mx=9                 -x!*/LICENSE.txt bl2_saveedit_%APPVEYOR_BUILD_VERSION%.zip               ./LICENSE.txt ./README.txt ./git-log.txt ./upload/*.exe                ./dist/*     -x!./upload/Xceed.Wpf.AvalonDock* -x!./upload/Xceed.Wpf.DataGrid*
+  - if     "%CONFIGURATION%"=="SaveEdit Packaging" 7z a -r -tzip -mx=9                 -x!*/LICENSE.txt bl2_saveedit_%APPVEYOR_BUILD_VERSION%-with-symbols.zip  ./LICENSE.txt ./README.txt ./git-log.txt ./upload/*.exe ./upload/*.pdb ./dist/*     -x!./upload/Xceed.Wpf.AvalonDock* -x!./upload/Xceed.Wpf.DataGrid*
 
 artifacts:
   - path: '*.zip'

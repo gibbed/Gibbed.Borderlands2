@@ -33,12 +33,12 @@ namespace Gibbed.Borderlands2.SaveEdit
          * more than once which would result in multiple copies of the
          * assembly loaded otherwise.
          */
-        private static Dictionary<string, Assembly> _LoadedAssemblies; 
+        private static Dictionary<string, Assembly> _LoadedEmbeddedAssemblies; 
 
         [STAThread]
         public static void Main()
         {
-            _LoadedAssemblies = new Dictionary<string, Assembly>();
+            _LoadedEmbeddedAssemblies = new Dictionary<string, Assembly>();
             AppDomain.CurrentDomain.AssemblyResolve += OnResolveAssembly;
             App.Main();
         }
@@ -46,10 +46,10 @@ namespace Gibbed.Borderlands2.SaveEdit
         private static Assembly OnResolveAssembly(object sender, ResolveEventArgs e)
         {
             var assemblyName = new AssemblyName(e.Name);
-            var dllName = assemblyName.Name + ".dll";
+            var dllName = @"Assemblies\" + assemblyName.Name + @".dll";
 
             Assembly assembly;
-            if (_LoadedAssemblies.TryGetValue(dllName, out assembly) == true)
+            if (_LoadedEmbeddedAssemblies.TryGetValue(dllName, out assembly) == true)
             {
                 return assembly;
             }
@@ -73,7 +73,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                         return null;
                     }
 
-                    return _LoadedAssemblies[dllName] = assembly;
+                    return _LoadedEmbeddedAssemblies[dllName] = assembly;
                 }
                 catch (IOException)
                 {
