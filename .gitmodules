@@ -1,9 +1,11 @@
-[submodule "projects/NDesk.Options"]
-	path = projects/NDesk.Options
-	url = https://github.com/gibbed/NDesk.Options
 [submodule "projects/Gibbed.IO"]
 	path = projects/Gibbed.IO
-	url = https://github.com/gibbed/Gibbed.IO
+	url = https://github.com/gibbed/Gibbed.IO.git
+	branch = vs2017
+[submodule "projects/NDesk.Options"]
+	path = projects/NDesk.Options
+	url = https://github.com/gibbed/NDesk.Options.git
+	branch = vs2017
 [submodule "projects/Gibbed.Borderlands2.GameInfo/Resources/Dumps"]
 	path = projects/Gibbed.Borderlands2.GameInfo/Resources/Dumps
 	url = https://github.com/gibbed/Borderlands2Dumps.git
