@@ -115,8 +115,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 return true;
             }
 
-            if (selectedSecondItemType != ItemType.Unknown &&
-                selectedSecondItemType == itemType.Type)
+            if (selectedSecondItemType != ItemType.Unknown && selectedSecondItemType == itemType.Type)
             {
                 return true;
             }
@@ -665,7 +664,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             else
             {
                 var type = InfoManager.ItemTypes[this.Type];
-                var balance = InfoManager.ItemBalance[this.Balance].Merge(type);
+                var balance = InfoManager.ItemBalance[this.Balance].Create(type);
                 this.ManufacturerAssets = CreateAssetList(balance.Manufacturers.OrderBy(s => s).Distinct());
                 this.AlphaPartAssets = CreateAssetList(balance.Parts.AlphaParts.OrderBy(s => s).Distinct());
                 this.BetaPartAssets = CreateAssetList(balance.Parts.BetaParts.OrderBy(s => s).Distinct());

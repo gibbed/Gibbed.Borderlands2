@@ -60,8 +60,26 @@ namespace Gibbed.Borderlands2.GameInfo
             return false;
         }
 
-        public WeaponBalanceDefinition Merge(WeaponTypeDefinition type)
+        public WeaponBalanceDefinition Create(WeaponTypeDefinition type)
         {
+            var result = new WeaponBalanceDefinition()
+            {
+                ResourcePath = this.ResourcePath,
+                Parts = new WeaponBalancePartCollection()
+                {
+                    Mode = PartReplacementMode.Complete,
+                    BodyParts = type.BodyParts.ToList(),
+                    GripParts = type.GripParts.ToList(),
+                    BarrelParts = type.BarrelParts.ToList(),
+                    SightParts = type.SightParts.ToList(),
+                    StockParts = type.StockParts.ToList(),
+                    ElementalParts = type.ElementalParts.ToList(),
+                    Accessory1Parts = type.Accessory1Parts.ToList(),
+                    Accessory2Parts = type.Accessory2Parts.ToList(),
+                    MaterialParts = type.MaterialParts.ToList(),
+                },
+            };
+
             var balances = new List<WeaponBalanceDefinition>();
 
             var current = this;
@@ -72,34 +90,16 @@ namespace Gibbed.Borderlands2.GameInfo
             }
             while (current != null);
 
-            var merged = new WeaponBalanceDefinition()
-            {
-                ResourcePath = this.ResourcePath,
-                Parts = new WeaponBalancePartCollection()
-                {
-                    Mode = PartReplacementMode.Complete,
-                    BodyParts = new List<string>(),
-                    GripParts = new List<string>(),
-                    BarrelParts = new List<string>(),
-                    SightParts = new List<string>(),
-                    StockParts = new List<string>(),
-                    ElementalParts = new List<string>(),
-                    Accessory1Parts = new List<string>(),
-                    Accessory2Parts = new List<string>(),
-                    MaterialParts = new List<string>(),
-                },
-            };
-
             foreach (var balance in balances)
             {
                 if (balance.Type != null)
                 {
-                    merged.Type = balance.Type;
+                    result.Type = balance.Type;
                 }
 
                 if (balance.Manufacturers != null)
                 {
-                    merged.Manufacturers = balance.Manufacturers.ToList();
+                    result.Manufacturers = balance.Manufacturers.ToList();
                 }
 
                 if (balance.Parts == null)
@@ -109,58 +109,68 @@ namespace Gibbed.Borderlands2.GameInfo
 
                 if (balance.Parts.Type != null)
                 {
-                    merged.Parts.Type = balance.Parts.Type;
+                    result.Parts.Type = balance.Parts.Type;
                 }
 
-                MergePartList(merged.Parts.BodyParts, balance.Parts.Mode, balance.Parts.BodyParts);
-                MergePartList(merged.Parts.GripParts, balance.Parts.Mode, balance.Parts.GripParts);
-                MergePartList(merged.Parts.BarrelParts, balance.Parts.Mode, balance.Parts.BarrelParts);
-                MergePartList(merged.Parts.SightParts, balance.Parts.Mode, balance.Parts.SightParts);
-                MergePartList(merged.Parts.StockParts, balance.Parts.Mode, balance.Parts.StockParts);
-                MergePartList(merged.Parts.ElementalParts, balance.Parts.Mode, balance.Parts.ElementalParts);
-                MergePartList(merged.Parts.Accessory1Parts, balance.Parts.Mode, balance.Parts.Accessory1Parts);
-                MergePartList(merged.Parts.Accessory2Parts, balance.Parts.Mode, balance.Parts.Accessory2Parts);
-                MergePartList(merged.Parts.MaterialParts, balance.Parts.Mode, balance.Parts.MaterialParts);
+                AddPartList(balance.Parts.BodyParts, balance.Parts.Mode, result.Parts.BodyParts);
+                AddPartList(balance.Parts.GripParts, balance.Parts.Mode, result.Parts.GripParts);
+                AddPartList(balance.Parts.BarrelParts, balance.Parts.Mode, result.Parts.BarrelParts);
+                AddPartList(balance.Parts.SightParts, balance.Parts.Mode, result.Parts.SightParts);
+                AddPartList(balance.Parts.StockParts, balance.Parts.Mode, result.Parts.StockParts);
+                AddPartList(balance.Parts.ElementalParts, balance.Parts.Mode, result.Parts.ElementalParts);
+                AddPartList(balance.Parts.Accessory1Parts, balance.Parts.Mode, result.Parts.Accessory1Parts);
+                AddPartList(balance.Parts.Accessory2Parts, balance.Parts.Mode, result.Parts.Accessory2Parts);
+                AddPartList(balance.Parts.MaterialParts, balance.Parts.Mode, result.Parts.MaterialParts);
             }
 
-            if (merged.Type != type)
+            if (result.Type != type)
             {
-                throw new ResourceNotFoundException(string.Format("weapon type '{0}' is not valid for '{1}'",
-                                                                  type.ResourcePath,
-                                                                  this.ResourcePath));
+                throw new ResourceNotFoundException(string.Format(
+                    "weapon type '{0}' is not valid for '{1}'",
+                    type.ResourcePath,
+                    this.ResourcePath));
             }
 
-            return merged;
+            return result;
         }
 
-        private static void MergePartList(List<string> destination, PartReplacementMode mode, IEnumerable<string> source)
+        private static void AddPartList(IEnumerable<string> source, PartReplacementMode mode, List<string> destination)
         {
-            if (mode == PartReplacementMode.Additive)
+            switch (mode)
             {
-                if (source != null)
+                case PartReplacementMode.Additive:
                 {
-                    destination.AddRange(source.Where(s => s != null));
+                    if (source != null)
+                    {
+                        destination.AddRange(source.Where(s => s != null));
+                    }
+                    break;
                 }
-            }
-            else if (mode == PartReplacementMode.Selective)
-            {
-                if (source != null)
+
+                case PartReplacementMode.Selective:
+                {
+                    if (source != null)
+                    {
+                        destination.Clear();
+                        destination.AddRange(source.Where(s => s != null));
+                    }
+                    break;
+                }
+
+                case PartReplacementMode.Complete:
                 {
                     destination.Clear();
-                    destination.AddRange(source.Where(s => s != null));
+                    if (source != null)
+                    {
+                        destination.AddRange(source.Where(s => s != null));
+                    }
+                    break;
                 }
-            }
-            else if (mode == PartReplacementMode.Complete)
-            {
-                destination.Clear();
-                if (source != null)
+
+                default:
                 {
-                    destination.AddRange(source.Where(s => s != null));
+                    throw new NotSupportedException();
                 }
-            }
-            else
-            {
-                throw new NotSupportedException();
             }
         }
     }

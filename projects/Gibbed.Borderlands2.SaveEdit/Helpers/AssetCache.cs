@@ -64,16 +64,14 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             private static string[] GetMergedAssets(AssetGroup group, int setId)
             {
-                IEnumerable<string> assets;
+                IEnumerable<string> assets = InfoManager.AssetLibraryManager.GetSet(0).Libraries[group].GetAssets();
 
-                assets = InfoManager.AssetLibraryManager.GetSet(0).Libraries[group].GetAssets();
-                if (setId != 0)
+                AssetLibrarySet extraLibrarySet;
+                AssetLibraryDefinition extraLibrary;
+                if (InfoManager.AssetLibraryManager.TryGetSet(setId, out extraLibrarySet) == true &&
+                    extraLibrarySet.Libraries.TryGetValue(group, out extraLibrary) == true)
                 {
-                    var moreAssets = InfoManager.AssetLibraryManager.GetSet(setId);
-                    if (moreAssets != null)
-                    {
-                        assets = assets.Concat(moreAssets.Libraries[group].GetAssets());
-                    }
+                    assets = assets.Concat(extraLibrary.GetAssets());
                 }
 
                 return assets.Distinct().OrderBy(p => p).ToArray();

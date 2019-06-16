@@ -63,8 +63,26 @@ namespace Gibbed.Borderlands2.GameInfo
             return false;
         }
 
-        public ItemBalanceDefinition Merge(ItemTypeDefinition itemType)
+        public ItemBalanceDefinition Create(ItemTypeDefinition type)
         {
+            var result = new ItemBalanceDefinition()
+            {
+                ResourcePath = this.ResourcePath,
+                Parts = new ItemBalancePartCollection()
+                {
+                    Mode = PartReplacementMode.Complete,
+                    AlphaParts = type.AlphaParts.ToList(),
+                    BetaParts = type.BetaParts.ToList(),
+                    GammaParts = type.GammaParts.ToList(),
+                    DeltaParts = type.DeltaParts.ToList(),
+                    EpsilonParts = type.EpsilonParts.ToList(),
+                    ZetaParts = type.ZetaParts.ToList(),
+                    EtaParts = type.EtaParts.ToList(),
+                    ThetaParts = type.ThetaParts.ToList(),
+                    MaterialParts = type.MaterialParts.ToList(),
+                },
+            };
+
             var balances = new List<ItemBalanceDefinition>();
             var current = this;
             do
@@ -74,39 +92,21 @@ namespace Gibbed.Borderlands2.GameInfo
             }
             while (current != null);
 
-            var merged = new ItemBalanceDefinition()
-            {
-                ResourcePath = this.ResourcePath,
-                Parts = new ItemBalancePartCollection()
-                {
-                    Mode = PartReplacementMode.Complete,
-                    AlphaParts = itemType.AlphaParts.ToList(),
-                    BetaParts = itemType.BetaParts.ToList(),
-                    GammaParts = itemType.GammaParts.ToList(),
-                    DeltaParts = itemType.DeltaParts.ToList(),
-                    EpsilonParts = itemType.EpsilonParts.ToList(),
-                    ZetaParts = itemType.ZetaParts.ToList(),
-                    EtaParts = itemType.EtaParts.ToList(),
-                    ThetaParts = itemType.ThetaParts.ToList(),
-                    MaterialParts = itemType.MaterialParts.ToList(),
-                },
-            };
-
             foreach (var balance in balances)
             {
                 if (balance.Type != null)
                 {
-                    merged.Type = balance.Type;
+                    result.Type = balance.Type;
                 }
 
                 if (balance.Types != null)
                 {
-                    merged.Types = balance.Types.ToList();
+                    result.Types = balance.Types.ToList();
                 }
 
                 if (balance.Manufacturers != null)
                 {
-                    merged.Manufacturers = balance.Manufacturers.ToList();
+                    result.Manufacturers = balance.Manufacturers.ToList();
                 }
 
                 if (balance.Parts == null)
@@ -116,59 +116,68 @@ namespace Gibbed.Borderlands2.GameInfo
 
                 if (balance.Parts.Type != null)
                 {
-                    merged.Parts.Type = balance.Parts.Type;
+                    result.Parts.Type = balance.Parts.Type;
                 }
 
-                MergePartList(merged.Parts.AlphaParts, balance.Parts.Mode, balance.Parts.AlphaParts);
-                MergePartList(merged.Parts.BetaParts, balance.Parts.Mode, balance.Parts.BetaParts);
-                MergePartList(merged.Parts.GammaParts, balance.Parts.Mode, balance.Parts.GammaParts);
-                MergePartList(merged.Parts.DeltaParts, balance.Parts.Mode, balance.Parts.DeltaParts);
-                MergePartList(merged.Parts.EpsilonParts, balance.Parts.Mode, balance.Parts.EpsilonParts);
-                MergePartList(merged.Parts.ZetaParts, balance.Parts.Mode, balance.Parts.ZetaParts);
-                MergePartList(merged.Parts.EtaParts, balance.Parts.Mode, balance.Parts.EtaParts);
-                MergePartList(merged.Parts.ThetaParts, balance.Parts.Mode, balance.Parts.ThetaParts);
-                MergePartList(merged.Parts.MaterialParts, balance.Parts.Mode, balance.Parts.MaterialParts);
+                AddPartList(balance.Parts.AlphaParts, balance.Parts.Mode, result.Parts.AlphaParts);
+                AddPartList(balance.Parts.BetaParts, balance.Parts.Mode, result.Parts.BetaParts);
+                AddPartList(balance.Parts.GammaParts, balance.Parts.Mode, result.Parts.GammaParts);
+                AddPartList(balance.Parts.DeltaParts, balance.Parts.Mode, result.Parts.DeltaParts);
+                AddPartList(balance.Parts.EpsilonParts, balance.Parts.Mode, result.Parts.EpsilonParts);
+                AddPartList(balance.Parts.ZetaParts, balance.Parts.Mode, result.Parts.ZetaParts);
+                AddPartList(balance.Parts.EtaParts, balance.Parts.Mode, result.Parts.EtaParts);
+                AddPartList(balance.Parts.ThetaParts, balance.Parts.Mode, result.Parts.ThetaParts);
+                AddPartList(balance.Parts.MaterialParts, balance.Parts.Mode, result.Parts.MaterialParts);
             }
 
-            if (merged.Type != itemType &&
-                merged.Types.Contains(itemType) == false)
+            if (result.Type != type && result.Types.Contains(type) == false)
             {
-                throw new ResourceNotFoundException(string.Format("item type '{0}' is not valid for '{1}'",
-                                                                  itemType.ResourcePath,
-                                                                  this.ResourcePath));
+                throw new ResourceNotFoundException(string.Format(
+                    "item type '{0}' is not valid for '{1}'",
+                    type.ResourcePath,
+                    this.ResourcePath));
             }
 
-            return merged;
+            return result;
         }
 
-        private static void MergePartList(List<string> destination, PartReplacementMode mode, IEnumerable<string> source)
+        private static void AddPartList(IEnumerable<string> source, PartReplacementMode mode, List<string> destination)
         {
-            if (mode == PartReplacementMode.Additive)
+            switch (mode)
             {
-                if (source != null)
+                case PartReplacementMode.Additive:
                 {
-                    destination.AddRange(source);
+                    if (source != null)
+                    {
+                        destination.AddRange(source);
+                    }
+                    break;
                 }
-            }
-            else if (mode == PartReplacementMode.Selective)
-            {
-                if (source != null)
+
+                case PartReplacementMode.Selective:
+                {
+                    if (source != null)
+                    {
+                        destination.Clear();
+                        destination.AddRange(source);
+                    }
+                    break;
+                }
+
+                case PartReplacementMode.Complete:
                 {
                     destination.Clear();
-                    destination.AddRange(source);
+                    if (source != null)
+                    {
+                        destination.AddRange(source);
+                    }
+                    break;
                 }
-            }
-            else if (mode == PartReplacementMode.Complete)
-            {
-                destination.Clear();
-                if (source != null)
+
+                default:
                 {
-                    destination.AddRange(source);
+                    throw new NotSupportedException();
                 }
-            }
-            else
-            {
-                throw new NotSupportedException();
             }
         }
     }

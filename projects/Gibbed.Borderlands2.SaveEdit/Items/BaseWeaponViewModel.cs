@@ -499,7 +499,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             else
             {
                 var type = InfoManager.WeaponTypes[this.Type];
-                var balance = InfoManager.WeaponBalance[this.Balance].Merge(type);
+                var balance = InfoManager.WeaponBalance[this.Balance].Create(type);
                 this.ManufacturerAssets = CreateAssetList(balance.Manufacturers.OrderBy(s => s).Distinct());
                 this.BodyPartAssets = CreateAssetList(balance.Parts.BodyParts.OrderBy(s => s).Distinct());
                 this.GripPartAssets = CreateAssetList(balance.Parts.GripParts.OrderBy(s => s).Distinct());
