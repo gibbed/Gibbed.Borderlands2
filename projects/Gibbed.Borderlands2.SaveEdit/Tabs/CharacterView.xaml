@@ -89,13 +89,24 @@
                           SelectedValue="{Binding Path=PlayerClass}">
                     <ComboBox.GroupStyle>
                         <GroupStyle>
-                            <GroupStyle.HeaderTemplate>
-                                <DataTemplate>
-                                    <TextBlock FontSize="15"
-                                               FontWeight="Bold"
-                                               Text="{Binding Path=Name}" />
-                                </DataTemplate>
-                            </GroupStyle.HeaderTemplate>
+                            <GroupStyle.ContainerStyle>
+                                <Style TargetType="{x:Type GroupItem}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <Expander IsExpanded="True">
+                                                    <Expander.Header>
+                                                        <TextBlock FontSize="15"
+                                                                   FontWeight="Bold"
+                                                                   Text="{Binding Path=Name}" />
+                                                    </Expander.Header>
+                                                    <ItemsPresenter />
+                                                </Expander>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </GroupStyle.ContainerStyle>
                         </GroupStyle>
                     </ComboBox.GroupStyle>
                 </ComboBox>
@@ -201,13 +212,24 @@
                           SelectedValue="{Binding Path=SelectedHead}">
                     <ComboBox.GroupStyle>
                         <GroupStyle>
-                            <GroupStyle.HeaderTemplate>
-                                <DataTemplate>
-                                    <TextBlock FontSize="15"
-                                               FontWeight="Bold"
-                                               Text="{Binding Path=Name}" />
-                                </DataTemplate>
-                            </GroupStyle.HeaderTemplate>
+                            <GroupStyle.ContainerStyle>
+                                <Style TargetType="{x:Type GroupItem}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <Expander IsExpanded="True">
+                                                    <Expander.Header>
+                                                        <TextBlock FontSize="15"
+                                                                   FontWeight="Bold"
+                                                                   Text="{Binding Path=Name}" />
+                                                    </Expander.Header>
+                                                    <ItemsPresenter />
+                                                </Expander>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </GroupStyle.ContainerStyle>
                         </GroupStyle>
                     </ComboBox.GroupStyle>
                 </ComboBox>
@@ -224,13 +246,24 @@
                           SelectedValue="{Binding Path=SelectedSkin}">
                     <ComboBox.GroupStyle>
                         <GroupStyle>
-                            <GroupStyle.HeaderTemplate>
-                                <DataTemplate>
-                                    <TextBlock FontSize="15"
-                                               FontWeight="Bold"
-                                               Text="{Binding Path=Name}" />
-                                </DataTemplate>
-                            </GroupStyle.HeaderTemplate>
+                            <GroupStyle.ContainerStyle>
+                                <Style TargetType="{x:Type GroupItem}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <Expander IsExpanded="True">
+                                                    <Expander.Header>
+                                                        <TextBlock FontSize="15"
+                                                                   FontWeight="Bold"
+                                                                   Text="{Binding Path=Name}" />
+                                                    </Expander.Header>
+                                                    <ItemsPresenter />
+                                                </Expander>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </GroupStyle.ContainerStyle>
                         </GroupStyle>
                     </ComboBox.GroupStyle>
                 </ComboBox>
