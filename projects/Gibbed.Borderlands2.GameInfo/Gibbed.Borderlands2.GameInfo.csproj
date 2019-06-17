@@ -24,6 +24,7 @@
     <EmbeddedResource Include="Resources\Dumps\Player Classes.json" />
     <EmbeddedResource Include="Resources\Dumps\Downloadable Contents.json" />
     <EmbeddedResource Include="Resources\Dumps\Downloadable Packages.json" />
+    <EmbeddedResource Include="Resources\Downloadable Package Display Name Overrides.json" />
     <EmbeddedResource Include="Resources\Dumps\Travel Stations.json" />
     <EmbeddedResource Include="Resources\Dumps\Fast Travel Station Ordering.json" />
     <EmbeddedResource Include="Resources\Dumps\Item Name Parts.json" />
