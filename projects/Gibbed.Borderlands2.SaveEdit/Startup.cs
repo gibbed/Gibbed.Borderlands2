@@ -33,7 +33,7 @@ namespace Gibbed.Borderlands2.SaveEdit
          * more than once which would result in multiple copies of the
          * assembly loaded otherwise.
          */
-        private static Dictionary<string, Assembly> _LoadedEmbeddedAssemblies; 
+        private static Dictionary<string, Assembly> _LoadedEmbeddedAssemblies;
 
         [STAThread]
         public static void Main()
@@ -46,15 +46,13 @@ namespace Gibbed.Borderlands2.SaveEdit
         private static Assembly OnResolveAssembly(object sender, ResolveEventArgs e)
         {
             var assemblyName = new AssemblyName(e.Name);
-            var dllName = @"Assemblies\" + assemblyName.Name + @".dll";
-
-            if (_LoadedEmbeddedAssemblies.TryGetValue(dllName, out var assembly) == true)
+            var resourceName = @"Assemblies\" + assemblyName.Name + @".dll";
+            if (_LoadedEmbeddedAssemblies.TryGetValue(resourceName, out var assembly) == true)
             {
                 return assembly;
             }
-            
-            assembly = Assembly.GetExecutingAssembly();
-            using (var stream = assembly.GetManifestResourceStream(dllName))
+
+            using (var stream = typeof(Startup).Assembly.GetManifestResourceStream(resourceName))
             {
                 if (stream == null)
                 {
@@ -63,16 +61,20 @@ namespace Gibbed.Borderlands2.SaveEdit
 
                 try
                 {
-                    var block = new byte[stream.Length];
-                    stream.Read(block, 0, block.Length);
-                    
-                    assembly = Assembly.Load(block);
+                    var bytes = new byte[stream.Length];
+                    var read = stream.Read(bytes, 0, bytes.Length);
+                    if (read != bytes.Length)
+                    {
+                        throw new EndOfStreamException();
+                    }
+
+                    assembly = Assembly.Load(bytes);
                     if (assembly == null)
                     {
                         return null;
                     }
 
-                    return _LoadedEmbeddedAssemblies[dllName] = assembly;
+                    return _LoadedEmbeddedAssemblies[resourceName] = assembly;
                 }
                 catch (IOException)
                 {
