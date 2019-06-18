@@ -29,7 +29,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
     internal static class FastTravelStationOrderingLoader
     {
         public static InfoDictionary<FastTravelStationOrdering> Load(
-            InfoDictionary<TravelStationDefinition> travelStations,
+            InfoDictionary<TravelStationDefinition> stations,
             InfoDictionary<DownloadableContentDefinition> downloadableContents)
         {
             try
@@ -37,8 +37,12 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
                 var raws = LoaderHelper.DeserializeDump<Dictionary<string, Raw.FastTravelStationOrdering>>(
                     "Fast Travel Station Ordering");
                 return new InfoDictionary<FastTravelStationOrdering>(
-                    raws.ToDictionary(kv => kv.Key,
-                                      kv => GetFastTravelStationOrdering(travelStations, downloadableContents, kv)));
+                    raws.ToDictionary(
+                        kv => kv.Key,
+                        kv => CreateFastTravelStationOrdering(
+                            stations,
+                            downloadableContents,
+                            kv)));
             }
             catch (Exception e)
             {
@@ -46,50 +50,52 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             }
         }
 
-        private static FastTravelStationOrdering GetFastTravelStationOrdering(
-            InfoDictionary<TravelStationDefinition> travelStations,
+        private static FastTravelStationOrdering CreateFastTravelStationOrdering(
+            InfoDictionary<TravelStationDefinition> stations,
             InfoDictionary<DownloadableContentDefinition> downloadableContents,
             KeyValuePair<string, Raw.FastTravelStationOrdering> kv)
         {
+            var raw = kv.Value;
+
             DownloadableContentDefinition dlcExpansion = null;
-            if (string.IsNullOrEmpty(kv.Value.DLCExpansion) == false)
+            if (string.IsNullOrEmpty(raw.DLCExpansion) == false)
             {
-                if (downloadableContents.ContainsKey(kv.Value.DLCExpansion) == false)
+                if (downloadableContents.TryGetValue(raw.DLCExpansion, out dlcExpansion) == false)
                 {
                     throw ResourceNotFoundException.Create("downloadable content", kv.Value.DLCExpansion);
                 }
-                dlcExpansion = downloadableContents[kv.Value.DLCExpansion];
             }
 
             return new FastTravelStationOrdering()
             {
                 ResourcePath = kv.Key,
-                Stations = GetStations(travelStations, kv.Value.Stations),
+                Stations = GetStations(stations, raw.Stations),
                 DLCExpansion = dlcExpansion,
             };
         }
 
         private static List<FastTravelStationDefinition> GetStations(
-            InfoDictionary<TravelStationDefinition> travelStations, IEnumerable<string> raws)
+            InfoDictionary<TravelStationDefinition> stations,
+            IEnumerable<string> paths)
         {
-            if (raws == null)
+            if (paths == null)
             {
                 return null;
             }
 
-            return raws.Select(raw =>
+            return paths.Select(path =>
             {
-                if (travelStations.ContainsKey(raw) == false)
+                if (stations.TryGetValue(path, out var station) == false)
                 {
-                    throw ResourceNotFoundException.Create("fast travel station", raw);
+                    throw ResourceNotFoundException.Create("fast travel station", path);
                 }
 
-                var travelStation = travelStations[raw];
-                if (travelStation is FastTravelStationDefinition fastTravelStation)
+                if (station is FastTravelStationDefinition fastTravelStation)
                 {
                     return fastTravelStation;
                 }
-                throw new InvalidOperationException($"'{raw}' is not a FastTravelStationDefinition");
+
+                throw new InvalidOperationException($"'{path}' is not a {nameof(FastTravelStationDefinition)}");
             }).ToList();
         }
     }

@@ -32,20 +32,29 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
         {
             try
             {
+                var rawPartLists = LoaderHelper.DeserializeDump<Dictionary<string, Raw.WeaponBalancePartCollection>>(
+                    "Weapon Balance Part Lists");
+                var partLists = new InfoDictionary<WeaponBalancePartCollection>(
+                    rawPartLists.ToDictionary(
+                        kv => kv.Key,
+                        kv => CreateWeaponBalancePartCollection(weaponTypes, kv)));
+
                 var raws = LoaderHelper.DeserializeDump<Dictionary<string, Raw.WeaponBalanceDefinition>>(
                     "Weapon Balance");
-                var defs = new InfoDictionary<WeaponBalanceDefinition>(
-                    raws.ToDictionary(kv => kv.Key,
-                                      kv => GetWeaponBalanceDefinition(weaponTypes, kv)));
+                var balances = new InfoDictionary<WeaponBalanceDefinition>(
+                    raws.ToDictionary(
+                        kv => kv.Key,
+                        kv => CreateWeaponBalanceDefinition(weaponTypes, kv, partLists)));
+
                 foreach (var kv in raws.Where(kv => string.IsNullOrEmpty(kv.Value.Base) == false))
                 {
-                    if (defs.ContainsKey(kv.Value.Base) == false)
+                    if (balances.TryGetValue(kv.Value.Base, out var baseBalance) == false)
                     {
                         throw ResourceNotFoundException.Create("weapon balance", kv.Value.Base);
                     }
-                    defs[kv.Key].Base = defs[kv.Value.Base];
+                    balances[kv.Key].Base = baseBalance;
                 }
-                return defs;
+                return balances;
             }
             catch (Exception e)
             {
@@ -53,65 +62,39 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             }
         }
 
-        private static WeaponBalanceDefinition GetWeaponBalanceDefinition(
-            InfoDictionary<WeaponTypeDefinition> weaponTypes, KeyValuePair<string, Raw.WeaponBalanceDefinition> kv)
+        private static WeaponBalanceDefinition CreateWeaponBalanceDefinition(
+            InfoDictionary<WeaponTypeDefinition> weaponTypes,
+            KeyValuePair<string, Raw.WeaponBalanceDefinition> kv,
+            InfoDictionary<WeaponBalancePartCollection> partLists)
         {
+            var raw = kv.Value;
             return new WeaponBalanceDefinition()
             {
                 ResourcePath = kv.Key,
-                Type = GetWeaponType(weaponTypes, kv.Value.Type),
-                Manufacturers = GetManufacturers(kv.Value.Manufacturers),
-                Parts = GetWeaponBalancePartCollection(weaponTypes, kv.Value.Parts),
+                WeaponType = GetWeaponType(weaponTypes, raw.WeaponType),
+                Manufacturers = GetManufacturers(raw.Manufacturers),
+                Parts = GetWeaponBalancePartCollection(partLists, raw.Parts),
             };
         }
 
-        private static WeaponTypeDefinition GetWeaponType(InfoDictionary<WeaponTypeDefinition> weaponTypes, string type)
+        private static WeaponBalancePartCollection CreateWeaponBalancePartCollection(
+            InfoDictionary<WeaponTypeDefinition> weaponTypes,
+            KeyValuePair<string, Raw.WeaponBalancePartCollection> kv)
         {
-            if (string.IsNullOrEmpty(type) == true)
-            {
-                return null;
-            }
-
-            if (weaponTypes.ContainsKey(type) == false)
-            {
-                throw ResourceNotFoundException.Create("weapon type", type);
-            }
-
-            return weaponTypes[type];
-        }
-
-        private static List<string> GetManufacturers(IEnumerable<string> manufacturers)
-        {
-            if (manufacturers == null)
-            {
-                return null;
-            }
-
-            return manufacturers.ToList();
-        }
-
-        private static WeaponBalancePartCollection GetWeaponBalancePartCollection(
-            InfoDictionary<WeaponTypeDefinition> weaponTypes, Raw.WeaponBalancePartCollection raw)
-        {
-            if (raw == null)
-            {
-                return null;
-            }
+            var raw = kv.Value;
 
             WeaponTypeDefinition type = null;
-            if (string.IsNullOrEmpty(raw.Type) == false)
+            if (string.IsNullOrEmpty(raw.WeaponType) == false)
             {
-                if (weaponTypes.ContainsKey(raw.Type) == false)
+                if (weaponTypes.TryGetValue(raw.WeaponType, out type) == false)
                 {
-                    throw ResourceNotFoundException.Create("weapon type", raw.Type);
+                    throw ResourceNotFoundException.Create("weapon type", raw.WeaponType);
                 }
-
-                type = weaponTypes[raw.Type];
             }
 
             return new WeaponBalancePartCollection()
             {
-                Type = type,
+                WeaponType = type,
                 Mode = raw.Mode,
                 BodyParts = raw.BodyParts,
                 GripParts = raw.GripParts,
@@ -123,6 +106,43 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
                 Accessory2Parts = raw.Accessory2Parts,
                 MaterialParts = raw.MaterialParts,
             };
+        }
+
+        private static WeaponTypeDefinition GetWeaponType(InfoDictionary<WeaponTypeDefinition> types, string path)
+        {
+            if (string.IsNullOrEmpty(path) == true)
+            {
+                return null;
+            }
+            if (types.TryGetValue(path, out var type) == true)
+            {
+                return type;
+            }
+            throw ResourceNotFoundException.Create("weapon type", path);
+        }
+
+        private static WeaponBalancePartCollection GetWeaponBalancePartCollection(
+            InfoDictionary<WeaponBalancePartCollection> partLists,
+            string partListPath)
+        {
+            if (string.IsNullOrEmpty(partListPath) == true)
+            {
+                return null;
+            }
+            if (partLists.TryGetValue(partListPath, out var partList) == true)
+            {
+                return partList;
+            }
+            throw ResourceNotFoundException.Create("weapon balance part list", partListPath);
+        }
+
+        private static List<string> GetManufacturers(IEnumerable<string> manufacturers)
+        {
+            if (manufacturers == null)
+            {
+                return null;
+            }
+            return manufacturers.ToList();
         }
     }
 }

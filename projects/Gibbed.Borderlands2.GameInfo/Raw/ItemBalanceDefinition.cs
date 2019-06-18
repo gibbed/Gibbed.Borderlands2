@@ -32,17 +32,17 @@ namespace Gibbed.Borderlands2.GameInfo.Raw
     {
         public ItemBalanceDefinition()
         {
-            this.Types = null;
+            this.Items = null;
             this.Base = null;
             this.Manufacturers = null;
             this.Parts = null;
         }
 
-        [JsonProperty(PropertyName = "type")]
-        public string Type { get; set; }
+        [JsonProperty(PropertyName = "item")]
+        public string Item { get; set; }
 
-        [JsonProperty(PropertyName = "types")]
-        public List<string> Types { get; set; }
+        [JsonProperty(PropertyName = "items")]
+        public List<string> Items { get; set; }
 
         [JsonProperty(PropertyName = "base")]
         public string Base { get; set; }
@@ -51,7 +51,7 @@ namespace Gibbed.Borderlands2.GameInfo.Raw
         public List<string> Manufacturers { get; set; }
 
         [JsonProperty(PropertyName = "parts")]
-        public ItemBalancePartCollection Parts { get; set; }
+        public string Parts { get; set; }
     }
 }
 

@@ -33,7 +33,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
 
         public BaseWeapon(BaseWeapon other)
         {
-            this.Type = other.Type;
+            this.WeaponType = other.WeaponType;
             this.Balance = other.Balance;
             this.Manufacturer = other.Manufacturer;
             this.ManufacturerGradeIndex = other.ManufacturerGradeIndex;
@@ -54,7 +54,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         }
 
         #region Fields
-        private string _Type = "None";
+        private string _WeaponType = "None";
         private string _Balance = "None";
         private string _Manufacturer = "None";
         private int _ManufacturerGradeIndex;
@@ -79,7 +79,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         {
             var m = InfoManager.AssetLibraryManager;
             var si = this.AssetLibrarySetId;
-            this.Type = m.Lookup(packed.Type, platform, si, AssetGroup.WeaponTypes);
+            this.WeaponType = m.Lookup(packed.WeaponType, platform, si, AssetGroup.WeaponTypes);
             this.Balance = m.Lookup(packed.Balance, platform, si, AssetGroup.BalanceDefs);
             this.Manufacturer = m.Lookup(packed.Manufacturer, platform, si, AssetGroup.Manufacturers);
             this.ManufacturerGradeIndex = packed.ManufacturerGradeIndex;
@@ -101,9 +101,9 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         {
             var m = InfoManager.AssetLibraryManager;
             var si = this.AssetLibrarySetId;
-            return new PackedWeapon
+            return new PackedWeapon()
             {
-                Type = m.Lookup(this.Type, platform, si, AssetGroup.WeaponTypes),
+                WeaponType = m.Lookup(this.WeaponType, platform, si, AssetGroup.WeaponTypes),
                 Balance = m.Lookup(this.Balance, platform, si, AssetGroup.BalanceDefs),
                 Manufacturer = m.Lookup(this.Manufacturer, platform, si, AssetGroup.Manufacturers),
                 ManufacturerGradeIndex = this.ManufacturerGradeIndex,
@@ -124,15 +124,15 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         #endregion
 
         #region Properties
-        public string Type
+        public string WeaponType
         {
-            get { return this._Type; }
+            get { return this._WeaponType; }
             set
             {
-                if (value != this._Type)
+                if (value != this._WeaponType)
                 {
-                    this._Type = value;
-                    this.NotifyOfPropertyChange(nameof(Type));
+                    this._WeaponType = value;
+                    this.NotifyOfPropertyChange(nameof(WeaponType));
                 }
             }
         }
@@ -364,7 +364,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         {
             return new BaseWeapon()
             {
-                Type = this.Type,
+                WeaponType = this.WeaponType,
                 Balance = this.Balance,
                 Manufacturer = this.Manufacturer,
                 ManufacturerGradeIndex = this.ManufacturerGradeIndex,

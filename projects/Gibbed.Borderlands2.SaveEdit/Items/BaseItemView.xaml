@@ -30,9 +30,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d">
+    <d:DesignerProperties.DesignStyle>
+        <Style TargetType="UserControl">
+            <Setter Property="Background"
+                    Value="White" />
+        </Style>
+    </d:DesignerProperties.DesignStyle>
     <UserControl.Resources>
         <gbx:ContainsToVisiblityConverter x:Key="ContainsToVisiblityConverter1" />
-        <v:ItemTypeValidationRule x:Key="TypeValidator" />
+        <v:ItemValidationRule x:Key="ItemValidator" />
         <v:BalanceValidationRule x:Key="BalanceValidator" />
         <v:ManufacturerValidationRule x:Key="ManufacturerValidator" />
         <v:ItemPartValidationRule x:Key="PartValidator" />
@@ -64,7 +70,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <gbx:PropertyProxy In="{Binding AssetLibrarySetId, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                           Out="{Binding Source={StaticResource TypeValidator}, Path=AssetLibrarySetId}" />
+                           Out="{Binding Source={StaticResource ItemValidator}, Path=AssetLibrarySetId}" />
         <gbx:PropertyProxy In="{Binding AssetLibrarySetId, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                            Out="{Binding Source={StaticResource BalanceValidator}, Path=AssetLibrarySetId}" />
         <gbx:PropertyProxy In="{Binding AssetLibrarySetId, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
@@ -85,14 +91,14 @@
                Grid.Row="1" />
         <gbx:MyComboBox Grid.Column="1"
                         Grid.Row="1"
-                        x:Name="TypeFilterComboBox"
+                        x:Name="ItemTypeFilterComboBox"
                         IsEditable="false"
                         ItemsSource="{Binding Path=ItemTypeFilters}"
                         DisplayMemberPath="DisplayName"
                         SelectedItem="{Binding Path=SelectedItemTypeFilter, UpdateSourceTrigger=PropertyChanged}" />
         <Label Grid.Column="0"
                HorizontalContentAlignment="Right"
-               Content="Type:"
+               Content="Item:"
                Grid.Row="2" />
         <DockPanel Grid.Column="1"
                    LastChildFill="True"
@@ -104,22 +110,22 @@
                    ToolTip="Unsupported value, item will probably be deleted.">
                 <Image.Visibility>
                     <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
-                        <Binding Path="TypeAssets"
+                        <Binding Path="ItemAssets"
                                  Mode="OneWay" />
-                        <Binding ElementName="TypeComboBox"
+                        <Binding ElementName="ItemComboBox"
                                  Path="Text"
                                  Mode="OneWay" />
                     </MultiBinding>
                 </Image.Visibility>
             </Image>
-            <gbx:MyComboBox x:Name="TypeComboBox"
+            <gbx:MyComboBox x:Name="ItemComboBox"
                             IsEditable="true"
-                            ItemsSource="{Binding Path=FilteredTypeAssets}">
+                            ItemsSource="{Binding Path=FilteredItemAssets}">
                 <ComboBox.Text>
-                    <Binding Path="Type"
+                    <Binding Path="Item"
                              UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
-                            <StaticResource ResourceKey="TypeValidator" />
+                            <StaticResource ResourceKey="ItemValidator" />
                         </Binding.ValidationRules>
                     </Binding>
                 </ComboBox.Text>

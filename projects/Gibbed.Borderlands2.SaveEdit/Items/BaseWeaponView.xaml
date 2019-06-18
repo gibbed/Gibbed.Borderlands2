@@ -30,9 +30,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d">
+    <d:DesignerProperties.DesignStyle>
+        <Style TargetType="UserControl">
+            <Setter Property="Background"
+                    Value="White" />
+        </Style>
+    </d:DesignerProperties.DesignStyle>
     <UserControl.Resources>
         <gbx:ContainsToVisiblityConverter x:Key="ContainsToVisiblityConverter1" />
-        <v:WeaponTypeValidationRule x:Key="TypeValidator" />
+        <v:WeaponTypeValidationRule x:Key="WeaponTypeValidator" />
         <v:BalanceValidationRule x:Key="BalanceValidator" />
         <v:ManufacturerValidationRule x:Key="ManufacturerValidator" />
         <v:WeaponPartValidationRule x:Key="PartValidator" />
@@ -63,7 +69,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <gbx:PropertyProxy In="{Binding AssetLibrarySetId, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                           Out="{Binding Source={StaticResource TypeValidator}, Path=AssetLibrarySetId}" />
+                           Out="{Binding Source={StaticResource WeaponTypeValidator}, Path=AssetLibrarySetId}" />
         <gbx:PropertyProxy In="{Binding AssetLibrarySetId, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                            Out="{Binding Source={StaticResource BalanceValidator}, Path=AssetLibrarySetId}" />
         <gbx:PropertyProxy In="{Binding AssetLibrarySetId, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
@@ -92,23 +98,23 @@
                    ToolTip="Unsupported value, weapon will probably be deleted.">
                 <Image.Visibility>
                     <MultiBinding Converter="{StaticResource ContainsToVisiblityConverter1}">
-                        <Binding ElementName="TypeComboBox"
+                        <Binding ElementName="WeaponTypeComboBox"
                                  Path="ItemsSource"
                                  Mode="OneWay" />
-                        <Binding ElementName="TypeComboBox"
+                        <Binding ElementName="WeaponTypeComboBox"
                                  Path="Text"
                                  Mode="OneWay" />
                     </MultiBinding>
                 </Image.Visibility>
             </Image>
-            <gbx:MyComboBox x:Name="TypeComboBox"
+            <gbx:MyComboBox x:Name="WeaponTypeComboBox"
                             IsEditable="true"
-                            ItemsSource="{Binding Path=TypeAssets}">
+                            ItemsSource="{Binding Path=WeaponTypeAssets}">
                 <ComboBox.Text>
-                    <Binding Path="Type"
+                    <Binding Path="WeaponType"
                              UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
-                            <StaticResource ResourceKey="TypeValidator" />
+                            <StaticResource ResourceKey="WeaponTypeValidator" />
                         </Binding.ValidationRules>
                     </Binding>
                 </ComboBox.Text>

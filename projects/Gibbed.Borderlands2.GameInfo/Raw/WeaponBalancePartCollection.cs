@@ -44,8 +44,8 @@ namespace Gibbed.Borderlands2.GameInfo.Raw
             this.MaterialParts = null;
         }
 
-        [JsonProperty(PropertyName = "type")]
-        public string Type { get; set; }
+        [JsonProperty(PropertyName = "weapon_type")]
+        public string WeaponType { get; set; }
 
         [JsonProperty(PropertyName = "mode")]
         public PartReplacementMode Mode { get; set; }

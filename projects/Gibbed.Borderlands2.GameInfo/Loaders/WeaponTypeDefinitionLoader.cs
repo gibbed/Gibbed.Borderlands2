@@ -32,10 +32,14 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
         {
             try
             {
+                var partLists = LoaderHelper.DeserializeDump<Dictionary<string, List<string>>>(
+                    "Weapon Part Lists");
                 var raws = LoaderHelper.DeserializeDump<Dictionary<string, Raw.WeaponTypeDefinition>>(
                     "Weapon Types");
                 return new InfoDictionary<WeaponTypeDefinition>(
-                    raws.ToDictionary(kv => kv.Key, GetWeaponTypeDefinition));
+                    raws.ToDictionary(
+                        kv => kv.Key,
+                        kv => CreateWeaponTypeDefinition(kv, partLists)));
             }
             catch (Exception e)
             {
@@ -43,25 +47,41 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             }
         }
 
-        private static WeaponTypeDefinition GetWeaponTypeDefinition(KeyValuePair<string, Raw.WeaponTypeDefinition> kv)
+        private static WeaponTypeDefinition CreateWeaponTypeDefinition(
+            KeyValuePair<string, Raw.WeaponTypeDefinition> kv,
+            Dictionary<string, List<string>> partLists)
         {
+            var raw = kv.Value;
             return new WeaponTypeDefinition()
             {
                 ResourcePath = kv.Key,
-                Type = kv.Value.Type,
-                Name = kv.Value.Name,
-                Titles = kv.Value.Titles,
-                Prefixes = kv.Value.Prefixes,
-                BodyParts = kv.Value.BodyParts,
-                GripParts = kv.Value.GripParts,
-                BarrelParts = kv.Value.BarrelParts,
-                SightParts = kv.Value.SightParts,
-                StockParts = kv.Value.StockParts,
-                ElementalParts = kv.Value.ElementalParts,
-                Accessory1Parts = kv.Value.Accessory1Parts,
-                Accessory2Parts = kv.Value.Accessory2Parts,
-                MaterialParts = kv.Value.MaterialParts,
+                Type = raw.Type,
+                Name = raw.Name,
+                Titles = raw.Titles,
+                Prefixes = raw.Prefixes,
+                BodyParts = GetPartList(raw.BodyParts, partLists),
+                GripParts = GetPartList(raw.GripParts, partLists),
+                BarrelParts = GetPartList(raw.BarrelParts, partLists),
+                SightParts = GetPartList(raw.SightParts, partLists),
+                StockParts = GetPartList(raw.StockParts, partLists),
+                ElementalParts = GetPartList(raw.ElementalParts, partLists),
+                Accessory1Parts = GetPartList(raw.Accessory1Parts, partLists),
+                Accessory2Parts = GetPartList(raw.Accessory2Parts, partLists),
+                MaterialParts = GetPartList(raw.MaterialParts, partLists),
             };
+        }
+
+        private static List<string> GetPartList(string path, Dictionary<string, List<string>> partLists)
+        {
+            if (path == null)
+            {
+                return new List<string>();
+            }
+            if (partLists.TryGetValue(path, out var partList) == true)
+            {
+                return partList;
+            }
+            throw ResourceNotFoundException.Create("weapon type part list", path);
         }
     }
 }

@@ -36,8 +36,8 @@ namespace Gibbed.Borderlands2.GameInfo.Raw
             this.Parts = null;
         }
 
-        [JsonProperty(PropertyName = "type")]
-        public string Type { get; set; }
+        [JsonProperty(PropertyName = "weapon_type")]
+        public string WeaponType { get; set; }
 
         [JsonProperty(PropertyName = "base")]
         public string Base { get; set; }
@@ -46,7 +46,7 @@ namespace Gibbed.Borderlands2.GameInfo.Raw
         public List<string> Manufacturers { get; set; }
 
         [JsonProperty(PropertyName = "parts")]
-        public WeaponBalancePartCollection Parts { get; set; }
+        public string Parts { get; set; }
     }
 }
 

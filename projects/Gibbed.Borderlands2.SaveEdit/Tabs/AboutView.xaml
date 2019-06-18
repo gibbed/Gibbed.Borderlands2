@@ -41,31 +41,40 @@
                           Offset="1" />
         </LinearGradientBrush>
     </UserControl.Resources>
-    <DockPanel LastChildFill="True">
-        <TextBlock TextWrapping="Wrap"
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0"
+                   TextWrapping="Wrap"
                    Margin="4">
             <Run Text="Developed by " /><Hyperlink NavigateUri="http://gib.me/"
                                                    Foreground="{StaticResource Gibbed}"
                                                    gbx:HyperlinkExtensions.IsExternal="true"><Run Text="gibbed"
                                                                                                   Foreground="{StaticResource Gibbed}" /></Hyperlink><Run Text=" for use with Borderlands 2." />
-            <LineBreak />
-            <LineBreak />
-            <TextBlock TextWrapping="Wrap"
-                       FontSize="15"
-                       FontWeight="Bold">
+        </TextBlock>
+        <TextBlock Grid.Row="1"
+                   TextWrapping="Wrap"
+                   TextAlignment="Center"
+                   FontSize="15"
+                   FontWeight="Bold"
+                   Margin="4">
             <Run Text="Like what " /><Run Text="gibbed"
                                           Foreground="{StaticResource Gibbed}" /><Run Text=" has done?" />
             <LineBreak />
-            <Run Text="Consider supporting the developer on " /><Hyperlink Foreground="{StaticResource Gibbed}"
-                                                                           NavigateUri="https://patreon.com/gibbed"
-                                                                           gbx:HyperlinkExtensions.IsExternal="true">Patreon</Hyperlink><Run Text=", " /><Hyperlink Foreground="{StaticResource Gibbed}"
-                                                                                                                                                                    NavigateUri="https://ko-fi.com/gibbed"
-                                                                                                                                                                    gbx:HyperlinkExtensions.IsExternal="true">Ko-fi</Hyperlink><Run Text=", or " /><Hyperlink Foreground="{StaticResource Gibbed}"
-                                                                                                                                                                                                                                                              NavigateUri="https://paypal.me/gibbed"
-                                                                                                                                                                                                                                                              gbx:HyperlinkExtensions.IsExternal="true">PayPal</Hyperlink><Run Text="." />
-            </TextBlock>
+            <Run Text="Consider supporting the developer on " /><Hyperlink NavigateUri="https://patreon.com/gibbed"
+                                                                           gbx:HyperlinkExtensions.IsExternal="true">Patreon</Hyperlink><Run Text=", " /><Hyperlink NavigateUri="https://ko-fi.com/gibbed"
+                                                                                                                                                                    gbx:HyperlinkExtensions.IsExternal="true">Ko-fi</Hyperlink><Run Text=", " /><Hyperlink NavigateUri="https://paypal.me/gibbed"
+                                                                                                                                                                                                                                                           gbx:HyperlinkExtensions.IsExternal="true">PayPal</Hyperlink><Run Text="," />
             <LineBreak />
-            <LineBreak />
+            <Run Text="or by using the Epic Support-A-Creator Tag &quot;" /><Run Foreground="{StaticResource Gibbed}"
+                                                                                 Text="GIBBED" /><Run Text="&quot;." />
+        </TextBlock>
+        <TextBlock Grid.Row="2"
+                   TextWrapping="Wrap"
+                   Margin="4">
             <Run Text="With special thanks to..." />
             <LineBreak />
             <LineBreak />
@@ -84,5 +93,5 @@
             <LineBreak />
             <Run Text="For anyone else I missed, you know who you are!" />
         </TextBlock>
-    </DockPanel>
+    </Grid>
 </UserControl>

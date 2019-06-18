@@ -30,8 +30,8 @@ namespace Gibbed.Borderlands2.GameInfo.Raw
     [JsonObject(MemberSerialization.OptIn)]
     internal sealed class ItemBalancePartCollection
     {
-        [JsonProperty(PropertyName = "type")]
-        public string Type { get; set; }
+        [JsonProperty(PropertyName = "item")]
+        public string Item { get; set; }
 
         [JsonProperty(PropertyName = "mode")]
         public PartReplacementMode Mode { get; set; }

@@ -35,7 +35,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
                 var raws = LoaderHelper.DeserializeDump<Dictionary<string, Raw.ItemNamePartDefinition>>(
                     "Item Name Parts");
                 return new InfoDictionary<ItemNamePartDefinition>(
-                    raws.ToDictionary(kv => kv.Key, GetItemNamePartDefinition));
+                    raws.ToDictionary(kv => kv.Key, CreateItemNamePart));
             }
             catch (Exception e)
             {
@@ -43,14 +43,15 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             }
         }
 
-        private static ItemNamePartDefinition GetItemNamePartDefinition(
+        private static ItemNamePartDefinition CreateItemNamePart(
             KeyValuePair<string, Raw.ItemNamePartDefinition> kv)
         {
+            var raw = kv.Value;
             return new ItemNamePartDefinition()
             {
                 ResourcePath = kv.Key,
-                Unique = kv.Value.Unique,
-                Name = kv.Value.Name,
+                Unique = raw.Unique,
+                Name = raw.Name,
             };
         }
     }

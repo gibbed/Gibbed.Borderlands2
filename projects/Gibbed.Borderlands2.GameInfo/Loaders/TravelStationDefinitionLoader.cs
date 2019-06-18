@@ -35,35 +35,40 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             {
                 var raws = LoaderHelper.DeserializeDump<Dictionary<string, Raw.TravelStationDefinition>>(
                     "Travel Stations");
-                var defs = new InfoDictionary<TravelStationDefinition>(
-                    raws.ToDictionary(kv => kv.Key,
-                                      kv => GetTravelStationDefinition(downloadableContents, kv)));
-                foreach (var kv in raws.Where(kv => string.IsNullOrEmpty(kv.Value.PreviousStation) == false))
+                var stations = new InfoDictionary<TravelStationDefinition>(
+                    raws.ToDictionary(
+                        kv => kv.Key,
+                        kv => CreateTravelStation(downloadableContents, kv)));
+
+                foreach (var kv in raws)
                 {
-                    if (defs.ContainsKey(kv.Value.PreviousStation) == false)
+                    var stationPath = kv.Value.PreviousStation;
+                    if (string.IsNullOrEmpty(stationPath) == true)
                     {
-                        throw ResourceNotFoundException.Create("travel station", kv.Value.PreviousStation);
+                        continue;
                     }
-                    defs[kv.Key].PreviousStation = defs[kv.Value.PreviousStation];
+                    if (stations.TryGetValue(stationPath, out var station) == false)
+                    {
+                        throw ResourceNotFoundException.Create("travel station", stationPath);
+                    }
+                    stations[kv.Key].PreviousStation = station;
                 }
-                foreach (var kv in raws
-                    .Where(
-                        kv =>
-                        (kv.Value is Raw.LevelTravelStationDefinition) &&
-                        string.IsNullOrEmpty(((Raw.LevelTravelStationDefinition)kv.Value).DestinationStation) == false))
+
+                foreach (var kv in raws.Where(kv => kv.Value is Raw.LevelTravelStationDefinition))
                 {
-                    var rawLevelTravelStation = (Raw.LevelTravelStationDefinition)kv.Value;
-                    if (defs.ContainsKey(rawLevelTravelStation.DestinationStation) == false)
+                    var raw = (Raw.LevelTravelStationDefinition)kv.Value;
+                    if (string.IsNullOrEmpty(raw.DestinationStation) == true)
                     {
-                        throw ResourceNotFoundException.Create(
-                            "level travel station",
-                            rawLevelTravelStation.DestinationStation);
+                        continue;
                     }
-                    var levelTravelStation = (LevelTravelStationDefinition)defs[kv.Key];
-                    levelTravelStation.DestinationStation =
-                        (LevelTravelStationDefinition)defs[rawLevelTravelStation.DestinationStation];
+                    if (stations.TryGetValue(raw.DestinationStation, out var destination) == false)
+                    {
+                        throw ResourceNotFoundException.Create("level travel station", raw.DestinationStation);
+                    }
+                    var station = (LevelTravelStationDefinition)stations[kv.Key];
+                    station.DestinationStation = (LevelTravelStationDefinition)destination;
                 }
-                return defs;
+                return stations;
             }
             catch (Exception e)
             {
@@ -71,46 +76,46 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             }
         }
 
-        private static TravelStationDefinition GetTravelStationDefinition(
+        private static TravelStationDefinition CreateTravelStation(
             InfoDictionary<DownloadableContentDefinition> downloadableContents,
             KeyValuePair<string, Raw.TravelStationDefinition> kv)
         {
-            DownloadableContentDefinition dlcExpansion = null;
-            if (string.IsNullOrEmpty(kv.Value.DLCExpansion) == false)
+            var raw = kv.Value;
+
+            if (raw is Raw.FastTravelStationDefinition rawFastTravelStation)
             {
-                if (downloadableContents.ContainsKey(kv.Value.DLCExpansion) == false)
-                {
-                    throw ResourceNotFoundException.Create("downloadable content", kv.Value.DLCExpansion);
-                }
-                dlcExpansion = downloadableContents[kv.Value.DLCExpansion];
+                return CreateFastTravelStation(downloadableContents, kv.Key, rawFastTravelStation);
             }
 
-            if (kv.Value is Raw.FastTravelStationDefinition)
+            if (raw is Raw.LevelTravelStationDefinition rawLevelTravelStation)
             {
-                return GetFastTravelStationDefinition(dlcExpansion, kv);
+                return CreateLevelTravelStation(downloadableContents, kv.Key, rawLevelTravelStation);
             }
 
-            if (kv.Value is Raw.LevelTravelStationDefinition)
-            {
-                return GetLevelTravelStationDefinition(dlcExpansion, kv);
-            }
-
-            throw new InvalidOperationException();
+            throw new NotSupportedException($"unsupported type '{raw.GetType()}'");
         }
 
-        private static TravelStationDefinition GetFastTravelStationDefinition(
-            DownloadableContentDefinition dlcExpansion, KeyValuePair<string, Raw.TravelStationDefinition> kv)
+        private static TravelStationDefinition CreateFastTravelStation(
+            InfoDictionary<DownloadableContentDefinition> downloadableContents,
+            string path,
+            Raw.FastTravelStationDefinition raw)
         {
-            var raw = (Raw.FastTravelStationDefinition)kv.Value;
-
+            DownloadableContentDefinition dlcExpansion = null;
+            if (string.IsNullOrEmpty(raw.DLCExpansion) == false)
+            {
+                if (downloadableContents.TryGetValue(raw.DLCExpansion, out dlcExpansion) == false)
+                {
+                    throw ResourceNotFoundException.Create("downloadable content", raw.DLCExpansion);
+                }
+            }
             return new FastTravelStationDefinition()
             {
-                ResourcePath = kv.Key,
+                ResourcePath = path,
                 ResourceName = raw.ResourceName,
                 LevelName = raw.LevelName,
                 DLCExpansion = dlcExpansion,
                 StationDisplayName = raw.StationDisplayName,
-                MissionDependencies = GetMissionStatusData(raw.MissionDependencies),
+                MissionDependencies = CreateMissionStatusData(raw.MissionDependencies),
                 InitiallyActive = raw.InitiallyActive,
                 SendOnly = raw.SendOnly,
                 Description = raw.Description,
@@ -120,29 +125,36 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             };
         }
 
-        private static TravelStationDefinition GetLevelTravelStationDefinition(
-            DownloadableContentDefinition dlcExpansion, KeyValuePair<string, Raw.TravelStationDefinition> kv)
+        private static TravelStationDefinition CreateLevelTravelStation(
+            InfoDictionary<DownloadableContentDefinition> downloadableContents,
+            string path,
+            Raw.LevelTravelStationDefinition raw)
         {
-            var raw = (Raw.LevelTravelStationDefinition)kv.Value;
-
+            DownloadableContentDefinition dlcExpansion = null;
+            if (string.IsNullOrEmpty(raw.DLCExpansion) == false)
+            {
+                if (downloadableContents.TryGetValue(raw.DLCExpansion, out dlcExpansion) == false)
+                {
+                    throw ResourceNotFoundException.Create("downloadable content", raw.DLCExpansion);
+                }
+            }
             return new LevelTravelStationDefinition()
             {
-                ResourcePath = kv.Key,
+                ResourcePath = path,
                 ResourceName = raw.ResourceName,
                 LevelName = raw.LevelName,
                 DLCExpansion = dlcExpansion,
                 StationDisplayName = raw.StationDisplayName,
-                MissionDependencies = GetMissionStatusData(kv.Value.MissionDependencies),
+                MissionDependencies = CreateMissionStatusData(raw.MissionDependencies),
             };
         }
 
-        private static List<MissionStatusData> GetMissionStatusData(IEnumerable<Raw.MissionStatusData> raws)
+        private static List<MissionStatusData> CreateMissionStatusData(IEnumerable<Raw.MissionStatusData> raws)
         {
             if (raws == null)
             {
                 return null;
             }
-
             return raws.Select(raw => new MissionStatusData()
             {
                 MissionDefinition = raw.MissionDefinition,

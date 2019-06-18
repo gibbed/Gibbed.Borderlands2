@@ -28,24 +28,34 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
 {
     internal static class ItemBalanceDefinitionLoader
     {
-        public static InfoDictionary<ItemBalanceDefinition> Load(InfoDictionary<ItemTypeDefinition> itemTypes)
+        public static InfoDictionary<ItemBalanceDefinition> Load(InfoDictionary<ItemDefinition> items)
         {
             try
             {
+                var rawPartLists = LoaderHelper.DeserializeDump<Dictionary<string, Raw.ItemBalancePartCollection>>(
+                    "Item Balance Part Lists");
+                var partLists = new InfoDictionary<ItemBalancePartCollection>(
+                    rawPartLists.ToDictionary(
+                        kv => kv.Key,
+                        kv => CreateItemBalancePartCollection(items, kv)));
+
                 var raws = LoaderHelper.DeserializeDump<Dictionary<string, Raw.ItemBalanceDefinition>>(
                     "Item Balance");
-                var defs = new InfoDictionary<ItemBalanceDefinition>(
-                    raws.ToDictionary(kv => kv.Key,
-                                      kv => GetItemBalanceDefinition(itemTypes, kv)));
+                var balances = new InfoDictionary<ItemBalanceDefinition>(
+                    raws.ToDictionary(
+                        kv => kv.Key,
+                        kv => CreateItemBalance(items, kv, partLists)));
+
                 foreach (var kv in raws.Where(kv => string.IsNullOrEmpty(kv.Value.Base) == false))
                 {
-                    if (defs.ContainsKey(kv.Value.Base) == false)
+                    if (balances.TryGetValue(kv.Value.Base, out var baseBalance) == false)
                     {
                         throw ResourceNotFoundException.Create("item balance", kv.Value.Base);
                     }
-                    defs[kv.Key].Base = defs[kv.Value.Base];
+                    balances[kv.Key].Base = baseBalance;
                 }
-                return defs;
+
+                return balances;
             }
             catch (Exception e)
             {
@@ -53,85 +63,53 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             }
         }
 
-        private static ItemBalanceDefinition GetItemBalanceDefinition(InfoDictionary<ItemTypeDefinition> itemTypes,
-                                                                      KeyValuePair<string, Raw.ItemBalanceDefinition> kv)
+        private static ItemDefinition GetItem(InfoDictionary<ItemDefinition> items, string itemPath)
         {
+            if (string.IsNullOrEmpty(itemPath) == true)
+            {
+                return null;
+            }
+            if (items.TryGetValue(itemPath, out var item) == true)
+            {
+                return item;
+            }
+            throw ResourceNotFoundException.Create("item", itemPath);
+        }
+
+        private static ItemBalanceDefinition CreateItemBalance(
+            InfoDictionary<ItemDefinition> items,
+            KeyValuePair<string, Raw.ItemBalanceDefinition> kv,
+            InfoDictionary<ItemBalancePartCollection> partLists)
+        {
+            var raw = kv.Value;
             return new ItemBalanceDefinition()
             {
                 ResourcePath = kv.Key,
-                Type = GetItemType(itemTypes, kv.Value.Type),
-                Types = GetTypes(itemTypes, kv.Value.Types),
-                Manufacturers = GetManufacturers(kv.Value.Manufacturers),
-                Parts = GetItemBalancePartCollection(itemTypes, kv.Value.Parts),
+                Item = GetItem(items, raw.Item),
+                Items = GetItems(items, raw.Items),
+                Manufacturers = GetManufacturers(raw.Manufacturers),
+                Parts = GetItemBalancePartCollection(partLists, raw.Parts),
             };
         }
 
-        private static ItemTypeDefinition GetItemType(InfoDictionary<ItemTypeDefinition> itemTypes, string type)
+        private static ItemBalancePartCollection CreateItemBalancePartCollection(
+            InfoDictionary<ItemDefinition> items,
+            KeyValuePair<string, Raw.ItemBalancePartCollection> kv)
         {
-            if (string.IsNullOrEmpty(type) == true)
+            var raw = kv.Value;
+
+            ItemDefinition type = null;
+            if (string.IsNullOrEmpty(raw.Item) == false)
             {
-                return null;
-            }
-
-            if (itemTypes.ContainsKey(type) == false)
-            {
-                throw ResourceNotFoundException.Create("item type", type);
-            }
-
-            return itemTypes[type];
-        }
-
-        private static List<string> GetManufacturers(IEnumerable<string> manufacturers)
-        {
-            if (manufacturers == null)
-            {
-                return null;
-            }
-
-            return manufacturers.ToList();
-        }
-
-        private static List<ItemTypeDefinition> GetTypes(InfoDictionary<ItemTypeDefinition> itemTypes,
-                                                         IEnumerable<string> types)
-        {
-            if (types == null)
-            {
-                return null;
-            }
-
-            return types.Select(t =>
-            {
-                if (itemTypes.ContainsKey(t) == false)
+                if (items.TryGetValue(raw.Item, out type) == false)
                 {
-                    throw ResourceNotFoundException.Create("item type", t);
+                    throw ResourceNotFoundException.Create("item type", raw.Item);
                 }
-
-                return itemTypes[t];
-            }).ToList();
-        }
-
-        private static ItemBalancePartCollection GetItemBalancePartCollection(
-            InfoDictionary<ItemTypeDefinition> itemTypes, Raw.ItemBalancePartCollection raw)
-        {
-            if (raw == null)
-            {
-                return null;
-            }
-
-            ItemTypeDefinition type = null;
-            if (string.IsNullOrEmpty(raw.Type) == false)
-            {
-                if (itemTypes.ContainsKey(raw.Type) == false)
-                {
-                    throw ResourceNotFoundException.Create("item type", raw.Type);
-                }
-
-                type = itemTypes[raw.Type];
             }
 
             return new ItemBalancePartCollection()
             {
-                Type = type,
+                Item = type,
                 Mode = raw.Mode,
                 AlphaParts = raw.AlphaParts,
                 BetaParts = raw.BetaParts,
@@ -143,6 +121,48 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
                 ThetaParts = raw.ThetaParts,
                 MaterialParts = raw.MaterialParts,
             };
+        }
+
+        private static List<ItemDefinition> GetItems(
+            InfoDictionary<ItemDefinition> items,
+            IEnumerable<string> itemPaths)
+        {
+            if (itemPaths == null)
+            {
+                return null;
+            }
+            return itemPaths.Select(t =>
+            {
+                if (items.TryGetValue(t, out var item) == false)
+                {
+                    throw ResourceNotFoundException.Create("item type", t);
+                }
+                return item;
+            }).ToList();
+        }
+
+        private static ItemBalancePartCollection GetItemBalancePartCollection(
+            InfoDictionary<ItemBalancePartCollection> partLists,
+            string partListPath)
+        {
+            if (string.IsNullOrEmpty(partListPath) == true)
+            {
+                return null;
+            }
+            if (partLists.TryGetValue(partListPath, out var partList) == true)
+            {
+                return partList;
+            }
+            throw ResourceNotFoundException.Create("item balance part list", partListPath);
+        }
+
+        private static List<string> GetManufacturers(IEnumerable<string> manufacturers)
+        {
+            if (manufacturers == null)
+            {
+                return null;
+            }
+            return manufacturers.ToList();
         }
     }
 }

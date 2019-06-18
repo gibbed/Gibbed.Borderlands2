@@ -35,7 +35,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
                 var raws = LoaderHelper.Deserialize<Dictionary<Platform, Raw.PlatformConfiguration>>(
                     "Platform Configurations");
                 return new InfoDictionary<Platform, PlatformConfiguration>(
-                    raws.ToDictionary(kv => kv.Key, GetPlatformConfiguration));
+                    raws.ToDictionary(kv => kv.Key, CreatePlatformConfiguration));
             }
             catch (Exception e)
             {
@@ -43,36 +43,38 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             }
         }
 
-        private static PlatformConfiguration GetPlatformConfiguration(
+        private static PlatformConfiguration CreatePlatformConfiguration(
             KeyValuePair<Platform, Raw.PlatformConfiguration> kv)
         {
             var raw = kv.Value;
             return new PlatformConfiguration()
             {
                 Platform = kv.Key,
-                AssetLibrarySets = raw.AssetLibrarySets.Select(GetPlatformAssetLibrarySet).ToList(),
+                AssetLibrarySets = raw.AssetLibrarySets.Select(CreatePlatformAssetLibrarySet).ToList(),
             };
         }
 
-        private static PlatformAssetLibrarySet GetPlatformAssetLibrarySet(Raw.PlatformAssetLibrarySet raw)
+        private static PlatformAssetLibrarySet CreatePlatformAssetLibrarySet(Raw.PlatformAssetLibrarySet raw)
         {
             return new PlatformAssetLibrarySet()
             {
                 Id = raw.Id,
-                Libraries = raw.Libraries.ToDictionary(kv => kv.Key, GetPlatformAssetLibraryConfiguration),
+                Libraries = raw.Libraries.ToDictionary(kv => kv.Key, CreatePlatformAssetLibraryConfiguration),
             };
         }
 
-        private static PlatformAssetLibraryConfiguration GetPlatformAssetLibraryConfiguration(
+        private static PlatformAssetLibraryConfiguration CreatePlatformAssetLibraryConfiguration(
             KeyValuePair<AssetGroup, Raw.PlatformAssetLibraryConfiguration> kv)
         {
             return new PlatformAssetLibraryConfiguration()
             {
                 Group = kv.Key,
-                SublibraryRemappingAtoB =
-                    kv.Value.SublibraryRemapping.ToDictionary(pair => pair.Key, pair => pair.Value),
-                SublibraryRemappingBtoA =
-                    kv.Value.SublibraryRemapping.ToDictionary(pair => pair.Value, pair => pair.Key),
+                SublibraryRemappingAtoB = kv.Value.SublibraryRemapping.ToDictionary(
+                    pair => pair.Key,
+                    pair => pair.Value),
+                SublibraryRemappingBtoA = kv.Value.SublibraryRemapping.ToDictionary(
+                    pair => pair.Value,
+                    pair => pair.Key),
             };
         }
     }

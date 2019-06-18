@@ -29,7 +29,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
     public class PackedItem : IPackedSlot, INotifyPropertyChanged
     {
         #region Fields
-        private PackedAssetReference _Type = PackedAssetReference.None;
+        private PackedAssetReference _Item = PackedAssetReference.None;
         private PackedAssetReference _Balance = PackedAssetReference.None;
         private PackedAssetReference _Manufacturer = PackedAssetReference.None;
         private int _ManufacturerGradeIndex;
@@ -52,7 +52,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         {
             var alm = InfoManager.AssetLibraryManager;
 
-            this.Type = alm.Decode(reader, platform, AssetGroup.ItemTypes);
+            this.Item = alm.Decode(reader, platform, AssetGroup.ItemTypes);
             this.Balance = alm.Decode(reader, platform, AssetGroup.BalanceDefs);
             this.Manufacturer = alm.Decode(reader, platform, AssetGroup.Manufacturers);
             this.ManufacturerGradeIndex = reader.ReadInt32(7);
@@ -74,7 +74,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         {
             var alm = InfoManager.AssetLibraryManager;
 
-            alm.Encode(writer, platform, AssetGroup.ItemTypes, this.Type);
+            alm.Encode(writer, platform, AssetGroup.ItemTypes, this.Item);
             alm.Encode(writer, platform, AssetGroup.BalanceDefs, this.Balance);
             alm.Encode(writer, platform, AssetGroup.Manufacturers, this.Manufacturer);
             writer.WriteInt32(this.ManufacturerGradeIndex, 7);
@@ -94,15 +94,15 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         #endregion
 
         #region Properties
-        public PackedAssetReference Type
+        public PackedAssetReference Item
         {
-            get { return this._Type; }
+            get { return this._Item; }
             set
             {
-                if (value != this._Type)
+                if (value != this._Item)
                 {
-                    this._Type = value;
-                    this.NotifyOfPropertyChange(nameof(Type));
+                    this._Item = value;
+                    this.NotifyOfPropertyChange(nameof(Item));
                 }
             }
         }
@@ -308,7 +308,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         {
             return new PackedItem()
             {
-                Type = this.Type,
+                Item = this.Item,
                 Balance = this.Balance,
                 Manufacturer = this.Manufacturer,
                 ManufacturerGradeIndex = this.ManufacturerGradeIndex,

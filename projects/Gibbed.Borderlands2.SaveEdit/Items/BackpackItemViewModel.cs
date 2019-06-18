@@ -28,41 +28,41 @@ namespace Gibbed.Borderlands2.SaveEdit
 {
     internal class BackpackItemViewModel : BaseItemViewModel, IBackpackSlotViewModel
     {
-        private readonly BackpackItem _Item;
+        private readonly BackpackItem _BackpackItem;
 
         public BackpackItemViewModel(BackpackItem item)
             : base(item)
         {
-            this._Item = item ?? throw new ArgumentNullException(nameof(item));
+            this._BackpackItem = item ?? throw new ArgumentNullException(nameof(item));
         }
 
         #region Properties
         public IBackpackSlot BackpackSlot
         {
-            get { return this._Item; }
+            get { return this._BackpackItem; }
         }
 
-        public BackpackItem Item
+        public BackpackItem BackpackItem
         {
-            get { return this._Item; }
+            get { return this._BackpackItem; }
         }
 
         public int Quantity
         {
-            get { return this._Item.Quantity; }
+            get { return this._BackpackItem.Quantity; }
             set
             {
-                this._Item.Quantity = value;
+                this._BackpackItem.Quantity = value;
                 this.NotifyOfPropertyChange(nameof(Quantity));
             }
         }
 
         public bool? Equipped
         {
-            get { return this._Item.Equipped; }
+            get { return this._BackpackItem.Equipped; }
             set
             {
-                this._Item.Equipped = value.HasValue == false ? false : value.Value;
+                this._BackpackItem.Equipped = value.HasValue == false ? false : value.Value;
                 this.NotifyOfPropertyChange(nameof(Equipped));
                 this.NotifyOfPropertyChange(nameof(DisplayGroup));
             }
@@ -70,10 +70,10 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         public PlayerMark Mark
         {
-            get { return this._Item.Mark; }
+            get { return this._BackpackItem.Mark; }
             set
             {
-                this._Item.Mark = value;
+                this._BackpackItem.Mark = value;
                 this.NotifyOfPropertyChange(nameof(Mark));
             }
         }

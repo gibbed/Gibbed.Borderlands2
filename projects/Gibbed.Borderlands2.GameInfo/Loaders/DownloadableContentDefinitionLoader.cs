@@ -29,15 +29,16 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
     internal static class DownloadableContentDefinitionLoader
     {
         public static InfoDictionary<DownloadableContentDefinition> Load(
-            InfoDictionary<DownloadablePackageDefinition> downloadablePackages)
+            InfoDictionary<DownloadablePackageDefinition> packages)
         {
             try
             {
                 var raws = LoaderHelper.DeserializeDump<Dictionary<string, Raw.DownloadableContentDefinition>>(
                     "Downloadable Contents");
                 return new InfoDictionary<DownloadableContentDefinition>(
-                    raws.ToDictionary(kv => kv.Key,
-                                      kv => GetDownloadableContent(downloadablePackages, kv)));
+                    raws.ToDictionary(
+                        kv => kv.Key,
+                        kv => CreateDownloadableContent(packages, kv)));
             }
             catch (Exception e)
             {
@@ -45,27 +46,28 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             }
         }
 
-        private static DownloadableContentDefinition GetDownloadableContent(
-            InfoDictionary<DownloadablePackageDefinition> downloadablePackages,
+        private static DownloadableContentDefinition CreateDownloadableContent(
+            InfoDictionary<DownloadablePackageDefinition> packages,
             KeyValuePair<string, Raw.DownloadableContentDefinition> kv)
         {
+            var raw = kv.Value;
+
             DownloadablePackageDefinition package = null;
-            if (string.IsNullOrEmpty(kv.Value.Package) == false)
+            if (string.IsNullOrEmpty(raw.Package) == false)
             {
-                if (downloadablePackages.ContainsKey(kv.Value.Package) == false)
+                if (packages.TryGetValue(raw.Package, out package) == false)
                 {
                     throw ResourceNotFoundException.Create("downloadable package", kv.Value.Package);
                 }
-                package = downloadablePackages[kv.Value.Package];
             }
 
             return new DownloadableContentDefinition()
             {
                 ResourcePath = kv.Key,
-                Id = kv.Value.Id,
-                Name = kv.Value.Name,
+                Id = raw.Id,
+                Name = raw.Name,
                 Package = package,
-                Type = kv.Value.Type,
+                Type = raw.Type,
             };
         }
     }

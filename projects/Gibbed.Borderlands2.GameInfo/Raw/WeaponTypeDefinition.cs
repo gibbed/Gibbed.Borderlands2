@@ -34,15 +34,6 @@ namespace Gibbed.Borderlands2.GameInfo.Raw
         {
             this.Titles = new List<string>();
             this.Prefixes = new List<string>();
-            this.BodyParts = new List<string>();
-            this.GripParts = new List<string>();
-            this.BarrelParts = new List<string>();
-            this.SightParts = new List<string>();
-            this.StockParts = new List<string>();
-            this.ElementalParts = new List<string>();
-            this.Accessory1Parts = new List<string>();
-            this.Accessory2Parts = new List<string>();
-            this.MaterialParts = new List<string>();
         }
 
         [JsonProperty(PropertyName = "type", Required = Required.Always)]
@@ -58,31 +49,31 @@ namespace Gibbed.Borderlands2.GameInfo.Raw
         public List<string> Prefixes { get; set; }
 
         [JsonProperty(PropertyName = "body_parts")]
-        public List<string> BodyParts { get; set; }
+        public string BodyParts { get; set; }
 
         [JsonProperty(PropertyName = "grip_parts")]
-        public List<string> GripParts { get; set; }
+        public string GripParts { get; set; }
 
         [JsonProperty(PropertyName = "barrel_parts")]
-        public List<string> BarrelParts { get; set; }
+        public string BarrelParts { get; set; }
 
         [JsonProperty(PropertyName = "sight_parts")]
-        public List<string> SightParts { get; set; }
+        public string SightParts { get; set; }
 
         [JsonProperty(PropertyName = "stock_parts")]
-        public List<string> StockParts { get; set; }
+        public string StockParts { get; set; }
 
         [JsonProperty(PropertyName = "elemental_parts")]
-        public List<string> ElementalParts { get; set; }
+        public string ElementalParts { get; set; }
 
         [JsonProperty(PropertyName = "accessory1_parts")]
-        public List<string> Accessory1Parts { get; set; }
+        public string Accessory1Parts { get; set; }
 
         [JsonProperty(PropertyName = "accessory2_parts")]
-        public List<string> Accessory2Parts { get; set; }
+        public string Accessory2Parts { get; set; }
 
         [JsonProperty(PropertyName = "material_parts")]
-        public List<string> MaterialParts { get; set; }
+        public string MaterialParts { get; set; }
     }
 }
 

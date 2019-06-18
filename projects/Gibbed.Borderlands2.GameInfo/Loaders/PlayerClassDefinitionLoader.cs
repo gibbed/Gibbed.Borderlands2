@@ -36,8 +36,9 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
                 var raws = LoaderHelper.DeserializeDump<Dictionary<string, Raw.PlayerClassDefinition>>(
                     "Player Classes");
                 return new InfoDictionary<PlayerClassDefinition>(
-                    raws.ToDictionary(kv => kv.Key,
-                                      kv => GetPlayerClassDefinition(downloadableContents, kv)));
+                    raws.ToDictionary(
+                        kv => kv.Key,
+                        kv => CreatePlayerClass(downloadableContents, kv)));
             }
             catch (Exception e)
             {
@@ -45,27 +46,28 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             }
         }
 
-        private static PlayerClassDefinition GetPlayerClassDefinition(
+        private static PlayerClassDefinition CreatePlayerClass(
             InfoDictionary<DownloadableContentDefinition> downloadableContents,
             KeyValuePair<string, Raw.PlayerClassDefinition> kv)
         {
-            DownloadableContentDefinition content = null;
-            if (string.IsNullOrEmpty(kv.Value.DLC) == false)
+            var raw = kv.Value;
+
+            DownloadableContentDefinition downloadableContent = null;
+            if (string.IsNullOrEmpty(raw.DLC) == false)
             {
-                if (downloadableContents.ContainsKey(kv.Value.DLC) == false)
+                if (downloadableContents.TryGetValue(kv.Value.DLC, out downloadableContent) == false)
                 {
-                    throw ResourceNotFoundException.Create("downloadable content", kv.Value.DLC);
+                    throw ResourceNotFoundException.Create("downloadable content", raw.DLC);
                 }
-                content = downloadableContents[kv.Value.DLC];
             }
 
             return new PlayerClassDefinition()
             {
                 ResourcePath = kv.Key,
-                Name = kv.Value.Name,
-                Class = kv.Value.Class,
-                SortOrder = kv.Value.SortOrder,
-                DLC = content,
+                Name = raw.Name,
+                Class = raw.Class,
+                SortOrder = raw.SortOrder,
+                DLC = downloadableContent,
             };
         }
     }

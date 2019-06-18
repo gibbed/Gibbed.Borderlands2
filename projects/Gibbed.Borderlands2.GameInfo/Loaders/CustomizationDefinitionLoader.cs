@@ -36,8 +36,9 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
                 var raws = LoaderHelper.DeserializeDump<Dictionary<string, Raw.CustomizationDefinition>>(
                     "Customizations");
                 return new InfoDictionary<CustomizationDefinition>(
-                    raws.ToDictionary(kv => kv.Key,
-                                      kv => GetCustomizationDefinition(downloadableContents, kv)));
+                    raws.ToDictionary(
+                        kv => kv.Key,
+                        kv => CreateCustomizationDefinition(downloadableContents, kv)));
             }
             catch (Exception e)
             {
@@ -45,26 +46,27 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             }
         }
 
-        private static CustomizationDefinition GetCustomizationDefinition(
+        private static CustomizationDefinition CreateCustomizationDefinition(
             InfoDictionary<DownloadableContentDefinition> downloadableContents,
             KeyValuePair<string, Raw.CustomizationDefinition> kv)
         {
+            var raw = kv.Value;
+
             DownloadableContentDefinition content = null;
-            if (string.IsNullOrEmpty(kv.Value.DLC) == false)
+            if (string.IsNullOrEmpty(raw.DLC) == false)
             {
-                if (downloadableContents.ContainsKey(kv.Value.DLC) == false)
+                if (downloadableContents.TryGetValue(raw.DLC, out content) == false)
                 {
                     throw ResourceNotFoundException.Create("downloadable content", kv.Value.DLC);
                 }
-                content = downloadableContents[kv.Value.DLC];
             }
 
             return new CustomizationDefinition()
             {
                 ResourcePath = kv.Key,
-                Name = kv.Value.Name,
-                Type = kv.Value.Type,
-                Usage = kv.Value.Usage,
+                Name = raw.Name,
+                Type = raw.Type,
+                Usage = raw.Usage,
                 DLC = content,
             };
         }

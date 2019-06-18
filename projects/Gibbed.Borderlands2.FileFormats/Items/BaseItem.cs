@@ -33,7 +33,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
 
         public BaseItem(BaseItem other)
         {
-            this.Type = other.Type;
+            this.Item = other.Item;
             this.Balance = other.Balance;
             this.Manufacturer = other.Manufacturer;
             this.ManufacturerGradeIndex = other.ManufacturerGradeIndex;
@@ -54,7 +54,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         }
 
         #region Fields
-        private string _Type = "None";
+        private string _Item = "None";
         private string _Balance = "None";
         private string _Manufacturer = "None";
         private int _ManufacturerGradeIndex;
@@ -79,7 +79,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         {
             var m = InfoManager.AssetLibraryManager;
             var si = this.AssetLibrarySetId;
-            this.Type = m.Lookup(packed.Type, platform, si, AssetGroup.ItemTypes);
+            this.Item = m.Lookup(packed.Item, platform, si, AssetGroup.ItemTypes);
             this.Balance = m.Lookup(packed.Balance, platform, si, AssetGroup.BalanceDefs);
             this.Manufacturer = m.Lookup(packed.Manufacturer, platform, si, AssetGroup.Manufacturers);
             this.ManufacturerGradeIndex = packed.ManufacturerGradeIndex;
@@ -101,9 +101,9 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         {
             var m = InfoManager.AssetLibraryManager;
             var si = this.AssetLibrarySetId;
-            return new PackedItem
+            return new PackedItem()
             {
-                Type = m.Lookup(this.Type, platform, si, AssetGroup.ItemTypes),
+                Item = m.Lookup(this.Item, platform, si, AssetGroup.ItemTypes),
                 Balance = m.Lookup(this.Balance, platform, si, AssetGroup.BalanceDefs),
                 Manufacturer = m.Lookup(this.Manufacturer, platform, si, AssetGroup.Manufacturers),
                 ManufacturerGradeIndex = this.ManufacturerGradeIndex,
@@ -124,15 +124,15 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         #endregion
 
         #region Properties
-        public string Type
+        public string Item
         {
-            get { return this._Type; }
+            get { return this._Item; }
             set
             {
-                if (value != this._Type)
+                if (value != this._Item)
                 {
-                    this._Type = value;
-                    this.NotifyOfPropertyChange(nameof(Type));
+                    this._Item = value;
+                    this.NotifyOfPropertyChange(nameof(Item));
                 }
             }
         }
@@ -364,7 +364,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         {
             return new BaseItem()
             {
-                Type = this.Type,
+                Item = this.Item,
                 Balance = this.Balance,
                 Manufacturer = this.Manufacturer,
                 ManufacturerGradeIndex = this.ManufacturerGradeIndex,

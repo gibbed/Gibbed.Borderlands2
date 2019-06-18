@@ -15,20 +15,24 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\Downloadable Package Display Name Overrides.json" />
     <EmbeddedResource Include="Resources\Dumps\Asset Library Manager.json" />
     <EmbeddedResource Include="Resources\Dumps\Customizations.json" />
-    <EmbeddedResource Include="Resources\Dumps\Item Balance.json" />
-    <EmbeddedResource Include="Resources\Dumps\Item Types.json" />
-    <EmbeddedResource Include="Resources\Dumps\Weapon Balance.json" />
-    <EmbeddedResource Include="Resources\Dumps\Weapon Types.json" />
-    <EmbeddedResource Include="Resources\Dumps\Player Classes.json" />
     <EmbeddedResource Include="Resources\Dumps\Downloadable Contents.json" />
     <EmbeddedResource Include="Resources\Dumps\Downloadable Packages.json" />
-    <EmbeddedResource Include="Resources\Downloadable Package Display Name Overrides.json" />
-    <EmbeddedResource Include="Resources\Dumps\Travel Stations.json" />
     <EmbeddedResource Include="Resources\Dumps\Fast Travel Station Ordering.json" />
+    <EmbeddedResource Include="Resources\Dumps\Item Balance.json" />
+    <EmbeddedResource Include="Resources\Dumps\Item Balance Part Lists.json" />
     <EmbeddedResource Include="Resources\Dumps\Item Name Parts.json" />
+    <EmbeddedResource Include="Resources\Dumps\Item Part Lists.json" />
+    <EmbeddedResource Include="Resources\Dumps\Items.json" />
+    <EmbeddedResource Include="Resources\Dumps\Player Classes.json" />
+    <EmbeddedResource Include="Resources\Dumps\Travel Stations.json" />
+    <EmbeddedResource Include="Resources\Dumps\Weapon Balance.json" />
+    <EmbeddedResource Include="Resources\Dumps\Weapon Balance Part Lists.json" />
     <EmbeddedResource Include="Resources\Dumps\Weapon Name Parts.json" />
+    <EmbeddedResource Include="Resources\Dumps\Weapon Part Lists.json" />
+    <EmbeddedResource Include="Resources\Dumps\Weapon Types.json" />
     <EmbeddedResource Include="Resources\Platform Configurations.json" />
   </ItemGroup>
 </Project>

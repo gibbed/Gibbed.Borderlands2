@@ -29,7 +29,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
     public class PackedWeapon : IPackedSlot
     {
         #region Fields
-        private PackedAssetReference _Type = PackedAssetReference.None;
+        private PackedAssetReference _WeaponType = PackedAssetReference.None;
         private PackedAssetReference _Balance = PackedAssetReference.None;
         private PackedAssetReference _Manufacturer = PackedAssetReference.None;
         private int _ManufacturerGradeIndex;
@@ -50,7 +50,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         public void Read(BitReader reader, Platform platform)
         {
             var m = InfoManager.AssetLibraryManager;
-            this.Type = m.Decode(reader, platform, AssetGroup.WeaponTypes);
+            this.WeaponType = m.Decode(reader, platform, AssetGroup.WeaponTypes);
             this.Balance = m.Decode(reader, platform, AssetGroup.BalanceDefs);
             this.Manufacturer = m.Decode(reader, platform, AssetGroup.Manufacturers);
             this.ManufacturerGradeIndex = reader.ReadInt32(7);
@@ -71,7 +71,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         public void Write(BitWriter writer, Platform platform)
         {
             var m = InfoManager.AssetLibraryManager;
-            m.Encode(writer, platform, AssetGroup.WeaponTypes, this.Type);
+            m.Encode(writer, platform, AssetGroup.WeaponTypes, this.WeaponType);
             m.Encode(writer, platform, AssetGroup.BalanceDefs, this.Balance);
             m.Encode(writer, platform, AssetGroup.Manufacturers, this.Manufacturer);
             writer.WriteInt32(this.ManufacturerGradeIndex, 7);
@@ -90,15 +90,15 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         }
 
         #region Properties
-        public PackedAssetReference Type
+        public PackedAssetReference WeaponType
         {
-            get { return this._Type; }
+            get { return this._WeaponType; }
             set
             {
-                if (value != this._Type)
+                if (value != this._WeaponType)
                 {
-                    this._Type = value;
-                    this.NotifyOfPropertyChange(nameof(Type));
+                    this._WeaponType = value;
+                    this.NotifyOfPropertyChange(nameof(WeaponType));
                 }
             }
         }
@@ -304,7 +304,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         {
             return new PackedWeapon()
             {
-                Type = this.Type,
+                WeaponType = this.WeaponType,
                 Balance = this.Balance,
                 Manufacturer = this.Manufacturer,
                 ManufacturerGradeIndex = this.ManufacturerGradeIndex,

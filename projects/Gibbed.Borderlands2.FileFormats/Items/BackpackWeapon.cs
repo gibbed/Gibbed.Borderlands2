@@ -80,7 +80,7 @@ namespace Gibbed.Borderlands2.FileFormats.Items
         {
             return new BackpackWeapon()
             {
-                Type = this.Type,
+                WeaponType = this.WeaponType,
                 Balance = this.Balance,
                 Manufacturer = this.Manufacturer,
                 ManufacturerGradeIndex = this.ManufacturerGradeIndex,

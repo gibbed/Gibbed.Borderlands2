@@ -37,8 +37,9 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
                 var raws = LoaderHelper.DeserializeDump<Dictionary<string, Raw.DownloadablePackage>>(
                     "Downloadable Packages");
                 return new InfoDictionary<DownloadablePackageDefinition>(
-                    raws.ToDictionary(kv => kv.Key,
-                                      kv => GetDownloadablePackage(kv, displayNameOverrides)));
+                    raws.ToDictionary(
+                        kv => kv.Key,
+                        kv => CreateDownloadablePackage(kv, displayNameOverrides)));
             }
             catch (Exception e)
             {
@@ -46,19 +47,22 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             }
         }
 
-        private static DownloadablePackageDefinition GetDownloadablePackage(
-            KeyValuePair<string, Raw.DownloadablePackage> kv, Dictionary<string, string> displayNameOverrides)
+        private static DownloadablePackageDefinition CreateDownloadablePackage(
+            KeyValuePair<string, Raw.DownloadablePackage> kv,
+            Dictionary<string, string> displayNameOverrides)
         {
-            if (displayNameOverrides.TryGetValue(kv.Key, out var displayName) == false ||
+            var path = kv.Key;
+            var raw = kv.Value;
+            if (displayNameOverrides.TryGetValue(path, out var displayName) == false ||
                 string.IsNullOrEmpty(displayName) == true)
             {
                 displayName = kv.Value.DisplayName;
             }
             return new DownloadablePackageDefinition()
             {
-                ResourcePath = kv.Key,
-                Id = kv.Value.Id,
-                DLCName = kv.Value.DLCName,
+                ResourcePath = path,
+                Id = raw.Id,
+                DLCName = raw.DLCName,
                 DisplayName = displayName,
             };
         }

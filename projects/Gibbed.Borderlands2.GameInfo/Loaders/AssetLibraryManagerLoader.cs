@@ -34,7 +34,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             {
                 var raw = LoaderHelper.DeserializeDump<Raw.AssetLibraryManager>(
                     "Asset Library Manager");
-                return GetAssetLibraryManager(raw);
+                return CreateAssetLibraryManager(raw);
             }
             catch (Exception e)
             {
@@ -42,49 +42,51 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             }
         }
 
-        private static AssetLibraryManager GetAssetLibraryManager(Raw.AssetLibraryManager raw)
+        private static AssetLibraryManager CreateAssetLibraryManager(Raw.AssetLibraryManager raw)
         {
             return new AssetLibraryManager()
             {
                 Version = raw.Version,
-                Configurations = raw.Configurations.ToDictionary(kv => kv.Key, GetAssetLibraryConfiguration),
-                Sets = raw.Sets.Select(GetAssetLibrarySet).ToList(),
+                Configurations = raw.Configurations.ToDictionary(kv => kv.Key, CreateAssetLibraryConfiguration),
+                Sets = raw.Sets.Select(CreateAssetLibrarySet).ToList(),
             };
         }
 
-        private static AssetLibraryConfiguration GetAssetLibraryConfiguration(
+        private static AssetLibraryConfiguration CreateAssetLibraryConfiguration(
             KeyValuePair<AssetGroup, Raw.AssetLibraryConfiguration> kv)
         {
+            var raw = kv.Value;
             return new AssetLibraryConfiguration()
             {
                 Group = kv.Key,
-                Type = kv.Value.Type,
-                SublibraryBits = kv.Value.SublibraryBits,
-                AssetBits = kv.Value.AssetBits,
+                Type = raw.Type,
+                SublibraryBits = raw.SublibraryBits,
+                AssetBits = raw.AssetBits,
             };
         }
 
-        private static AssetLibrarySet GetAssetLibrarySet(Raw.AssetLibrarySet raw)
+        private static AssetLibrarySet CreateAssetLibrarySet(Raw.AssetLibrarySet raw)
         {
             return new AssetLibrarySet()
             {
                 Id = raw.Id,
-                Libraries = raw.Libraries.ToDictionary(kv => kv.Key, GetAssetLibraryDefinition),
+                Libraries = raw.Libraries.ToDictionary(kv => kv.Key, CreateAssetLibraryDefinition),
             };
         }
 
-        private static AssetLibraryDefinition GetAssetLibraryDefinition(
+        private static AssetLibraryDefinition CreateAssetLibraryDefinition(
             KeyValuePair<AssetGroup, Raw.AssetLibraryDefinition> kv)
         {
+            var raw = kv.Value;
             return new AssetLibraryDefinition()
             {
                 Group = kv.Key,
-                Type = kv.Value.Type,
-                Sublibraries = kv.Value.Sublibraries.Select(GetAssetSublibraryDefinition).ToList(),
+                Type = raw.Type,
+                Sublibraries = raw.Sublibraries.Select(CreateAssetSublibraryDefinition).ToList(),
             };
         }
 
-        private static AssetSublibraryDefinition GetAssetSublibraryDefinition(Raw.AssetSublibraryDefinition raw)
+        private static AssetSublibraryDefinition CreateAssetSublibraryDefinition(Raw.AssetSublibraryDefinition raw)
         {
             return new AssetSublibraryDefinition()
             {

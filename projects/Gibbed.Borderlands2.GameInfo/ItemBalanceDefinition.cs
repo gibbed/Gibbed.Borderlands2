@@ -34,26 +34,24 @@ namespace Gibbed.Borderlands2.GameInfo
 
         public string ResourcePath { get; internal set; }
         public ItemBalanceDefinition Base { get; internal set; }
-        public ItemTypeDefinition Type { get; internal set; }
-        public List<ItemTypeDefinition> Types { get; internal set; }
+        public ItemDefinition Item { get; internal set; }
+        public List<ItemDefinition> Items { get; internal set; }
         public List<string> Manufacturers { get; internal set; }
         public ItemBalancePartCollection Parts { get; internal set; }
 
-        public bool IsSuitableFor(ItemTypeDefinition type)
+        public bool IsSuitableFor(ItemDefinition item)
         {
             var current = this;
             do
             {
-                if (current.Type != null ||
-                    current.Types != null)
+                if (current.Item != null && current.Item == item)
                 {
-                    if (current.Type == type ||
-                        (current.Types != null && current.Types.Contains(type) == true))
-                    {
-                        return true;
-                    }
+                    return true;
+                }
 
-                    return false;
+                if (current.Items != null && current.Items.Contains(item) == true)
+                {
+                    return true;
                 }
 
                 current = current.Base;
@@ -63,26 +61,94 @@ namespace Gibbed.Borderlands2.GameInfo
             return false;
         }
 
-        public ItemBalanceDefinition Create(ItemTypeDefinition type)
+        public ItemBalanceDefinition Create(ItemDefinition item)
         {
+            var balances = this.GetBalances();
+
+            ItemDefinition balanceItem = null;
+            foreach (var balance in balances)
+            {
+                if (balance.Item != null)
+                {
+                    balanceItem = balance.Item;
+                }
+            }
+
+            var wantBalanceParts = item.Type == ItemType.ClassMod ||
+                                   item.Type == ItemType.CrossDLCClassMod ||
+                                   item == balanceItem;
+
+            List<string> getList(IEnumerable<string> enumerable)
+            {
+                return enumerable == null
+                    ? new List<string>()
+                    : enumerable.ToList();
+            }
             var result = new ItemBalanceDefinition()
             {
                 ResourcePath = this.ResourcePath,
+                Item = balanceItem,
                 Parts = new ItemBalancePartCollection()
                 {
                     Mode = PartReplacementMode.Complete,
-                    AlphaParts = type.AlphaParts.ToList(),
-                    BetaParts = type.BetaParts.ToList(),
-                    GammaParts = type.GammaParts.ToList(),
-                    DeltaParts = type.DeltaParts.ToList(),
-                    EpsilonParts = type.EpsilonParts.ToList(),
-                    ZetaParts = type.ZetaParts.ToList(),
-                    EtaParts = type.EtaParts.ToList(),
-                    ThetaParts = type.ThetaParts.ToList(),
-                    MaterialParts = type.MaterialParts.ToList(),
+                    AlphaParts = getList(item.AlphaParts),
+                    BetaParts = getList(item.BetaParts),
+                    GammaParts = getList(item.GammaParts),
+                    DeltaParts = getList(item.DeltaParts),
+                    EpsilonParts = getList(item.EpsilonParts),
+                    ZetaParts = getList(item.ZetaParts),
+                    EtaParts = getList(item.EtaParts),
+                    ThetaParts = getList(item.ThetaParts),
+                    MaterialParts = getList(item.MaterialParts),
                 },
             };
 
+            if (wantBalanceParts == true)
+            {
+                foreach (var balance in balances)
+                {
+                    if (balance.Items != null)
+                    {
+                        result.Items = balance.Items.ToList();
+                    }
+
+                    if (balance.Manufacturers != null)
+                    {
+                        result.Manufacturers = balance.Manufacturers.ToList();
+                    }
+
+                    if (balance.Parts == null)
+                    {
+                        continue;
+                    }
+
+                    if (balance.Parts.Item != null)
+                    {
+                        result.Parts.Item = balance.Parts.Item;
+                    }
+
+                    AddPartList(balance.Parts.AlphaParts, balance.Parts.Mode, result.Parts.AlphaParts);
+                    AddPartList(balance.Parts.BetaParts, balance.Parts.Mode, result.Parts.BetaParts);
+                    AddPartList(balance.Parts.GammaParts, balance.Parts.Mode, result.Parts.GammaParts);
+                    AddPartList(balance.Parts.DeltaParts, balance.Parts.Mode, result.Parts.DeltaParts);
+                    AddPartList(balance.Parts.EpsilonParts, balance.Parts.Mode, result.Parts.EpsilonParts);
+                    AddPartList(balance.Parts.ZetaParts, balance.Parts.Mode, result.Parts.ZetaParts);
+                    AddPartList(balance.Parts.EtaParts, balance.Parts.Mode, result.Parts.EtaParts);
+                    AddPartList(balance.Parts.ThetaParts, balance.Parts.Mode, result.Parts.ThetaParts);
+                    AddPartList(balance.Parts.MaterialParts, balance.Parts.Mode, result.Parts.MaterialParts);
+                }
+            }
+
+            if (result.Item != item && result.Items.Contains(item) == false)
+            {
+                throw new ResourceNotFoundException($"item type '{item.ResourcePath}' is not valid for '{this.ResourcePath}'");
+            }
+
+            return result;
+        }
+
+        private List<ItemBalanceDefinition> GetBalances()
+        {
             var balances = new List<ItemBalanceDefinition>();
             var current = this;
             do
@@ -91,51 +157,7 @@ namespace Gibbed.Borderlands2.GameInfo
                 current = current.Base;
             }
             while (current != null);
-
-            foreach (var balance in balances)
-            {
-                if (balance.Type != null)
-                {
-                    result.Type = balance.Type;
-                }
-
-                if (balance.Types != null)
-                {
-                    result.Types = balance.Types.ToList();
-                }
-
-                if (balance.Manufacturers != null)
-                {
-                    result.Manufacturers = balance.Manufacturers.ToList();
-                }
-
-                if (balance.Parts == null)
-                {
-                    continue;
-                }
-
-                if (balance.Parts.Type != null)
-                {
-                    result.Parts.Type = balance.Parts.Type;
-                }
-
-                AddPartList(balance.Parts.AlphaParts, balance.Parts.Mode, result.Parts.AlphaParts);
-                AddPartList(balance.Parts.BetaParts, balance.Parts.Mode, result.Parts.BetaParts);
-                AddPartList(balance.Parts.GammaParts, balance.Parts.Mode, result.Parts.GammaParts);
-                AddPartList(balance.Parts.DeltaParts, balance.Parts.Mode, result.Parts.DeltaParts);
-                AddPartList(balance.Parts.EpsilonParts, balance.Parts.Mode, result.Parts.EpsilonParts);
-                AddPartList(balance.Parts.ZetaParts, balance.Parts.Mode, result.Parts.ZetaParts);
-                AddPartList(balance.Parts.EtaParts, balance.Parts.Mode, result.Parts.EtaParts);
-                AddPartList(balance.Parts.ThetaParts, balance.Parts.Mode, result.Parts.ThetaParts);
-                AddPartList(balance.Parts.MaterialParts, balance.Parts.Mode, result.Parts.MaterialParts);
-            }
-
-            if (result.Type != type && result.Types.Contains(type) == false)
-            {
-                throw new ResourceNotFoundException($"item type '{type.ResourcePath}' is not valid for '{this.ResourcePath}'");
-            }
-
-            return result;
+            return balances;
         }
 
         private static void AddPartList(IEnumerable<string> source, PartReplacementMode mode, List<string> destination)

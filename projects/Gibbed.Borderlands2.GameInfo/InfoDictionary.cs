@@ -43,21 +43,20 @@ namespace Gibbed.Borderlands2.GameInfo
             }
         }
 
-        public bool ContainsKey(string key)
+        public bool TryGetValue(string key, out TType value)
         {
-            return this._Dictionary.ContainsKey(key);
+            return this._Dictionary.TryGetValue(key, out value);
         }
 
         public TType this[string key]
         {
             get
             {
-                if (this._Dictionary.ContainsKey(key) == false)
+                if (this._Dictionary.TryGetValue(key, out var value) == true)
                 {
-                    throw new KeyNotFoundException();
+                    return value;
                 }
-
-                return this._Dictionary[key];
+                throw new KeyNotFoundException($"'{key}' not found");
             }
         }
 

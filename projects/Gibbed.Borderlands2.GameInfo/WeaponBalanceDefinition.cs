@@ -34,18 +34,18 @@ namespace Gibbed.Borderlands2.GameInfo
 
         public string ResourcePath { get; internal set; }
         public WeaponBalanceDefinition Base { get; internal set; }
-        public WeaponTypeDefinition Type { get; internal set; }
+        public WeaponTypeDefinition WeaponType { get; internal set; }
         public List<string> Manufacturers { get; internal set; }
         public WeaponBalancePartCollection Parts { get; internal set; }
 
-        public bool IsSuitableFor(WeaponTypeDefinition type)
+        public bool IsSuitableFor(WeaponTypeDefinition weaponType)
         {
             var current = this;
             do
             {
-                if (current.Type != null)
+                if (current.WeaponType != null)
                 {
-                    if (current.Type == type)
+                    if (current.WeaponType == weaponType)
                     {
                         return true;
                     }
@@ -60,7 +60,7 @@ namespace Gibbed.Borderlands2.GameInfo
             return false;
         }
 
-        public WeaponBalanceDefinition Create(WeaponTypeDefinition type)
+        public WeaponBalanceDefinition Create(WeaponTypeDefinition weaponType)
         {
             var result = new WeaponBalanceDefinition()
             {
@@ -68,15 +68,15 @@ namespace Gibbed.Borderlands2.GameInfo
                 Parts = new WeaponBalancePartCollection()
                 {
                     Mode = PartReplacementMode.Complete,
-                    BodyParts = type.BodyParts.ToList(),
-                    GripParts = type.GripParts.ToList(),
-                    BarrelParts = type.BarrelParts.ToList(),
-                    SightParts = type.SightParts.ToList(),
-                    StockParts = type.StockParts.ToList(),
-                    ElementalParts = type.ElementalParts.ToList(),
-                    Accessory1Parts = type.Accessory1Parts.ToList(),
-                    Accessory2Parts = type.Accessory2Parts.ToList(),
-                    MaterialParts = type.MaterialParts.ToList(),
+                    BodyParts = new List<string>(),
+                    GripParts = new List<string>(),
+                    BarrelParts = new List<string>(),
+                    SightParts = new List<string>(),
+                    StockParts = new List<string>(),
+                    ElementalParts = new List<string>(),
+                    Accessory1Parts = new List<string>(),
+                    Accessory2Parts = new List<string>(),
+                    MaterialParts = new List<string>(),
                 },
             };
 
@@ -92,9 +92,9 @@ namespace Gibbed.Borderlands2.GameInfo
 
             foreach (var balance in balances)
             {
-                if (balance.Type != null)
+                if (balance.WeaponType != null)
                 {
-                    result.Type = balance.Type;
+                    result.WeaponType = balance.WeaponType;
                 }
 
                 if (balance.Manufacturers != null)
@@ -107,9 +107,9 @@ namespace Gibbed.Borderlands2.GameInfo
                     continue;
                 }
 
-                if (balance.Parts.Type != null)
+                if (balance.Parts.WeaponType != null)
                 {
-                    result.Parts.Type = balance.Parts.Type;
+                    result.Parts.WeaponType = balance.Parts.WeaponType;
                 }
 
                 AddPartList(balance.Parts.BodyParts, balance.Parts.Mode, result.Parts.BodyParts);
@@ -123,9 +123,9 @@ namespace Gibbed.Borderlands2.GameInfo
                 AddPartList(balance.Parts.MaterialParts, balance.Parts.Mode, result.Parts.MaterialParts);
             }
 
-            if (result.Type != type)
+            if (result.WeaponType != weaponType)
             {
-                throw new ResourceNotFoundException($"weapon type '{type.ResourcePath}' is not valid for '{this.ResourcePath}'");
+                throw new ResourceNotFoundException($"weapon type '{weaponType.ResourcePath}' is not valid for '{this.ResourcePath}'");
             }
 
             return result;

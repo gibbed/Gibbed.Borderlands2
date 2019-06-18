@@ -30,7 +30,7 @@ namespace Gibbed.Borderlands2.GameInfo
         {
         }
 
-        public ItemTypeDefinition Type { get; internal set; }
+        public ItemDefinition Item { get; internal set; }
         public PartReplacementMode Mode { get; internal set; }
         public List<string> AlphaParts { get; internal set; }
         public List<string> BetaParts { get; internal set; }

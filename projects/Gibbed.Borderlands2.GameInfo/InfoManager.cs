@@ -32,7 +32,7 @@ namespace Gibbed.Borderlands2.GameInfo
         public static InfoDictionary<WeaponTypeDefinition> WeaponTypes { get; private set; }
         public static InfoDictionary<WeaponNamePartDefinition> WeaponNameParts { get; private set; }
         public static InfoDictionary<WeaponBalanceDefinition> WeaponBalance { get; private set; }
-        public static InfoDictionary<ItemTypeDefinition> ItemTypes { get; private set; }
+        public static InfoDictionary<ItemDefinition> Items { get; private set; }
         public static InfoDictionary<ItemNamePartDefinition> ItemNameParts { get; private set; }
         public static InfoDictionary<ItemBalanceDefinition> ItemBalance { get; private set; }
         public static InfoDictionary<CustomizationDefinition> Customizations { get; private set; }
@@ -52,9 +52,9 @@ namespace Gibbed.Borderlands2.GameInfo
             WeaponNameParts = Loaders.WeaponNamePartDefinitionLoader.Load();
             WeaponBalance = Loaders.WeaponBalanceDefinitionLoader.Load(WeaponTypes);
 
-            ItemTypes = Loaders.ItemTypeDefinitionLoader.Load();
+            Items = Loaders.ItemDefinitionLoader.Load();
             ItemNameParts = Loaders.ItemNamePartDefinitionLoader.Load();
-            ItemBalance = Loaders.ItemBalanceDefinitionLoader.Load(ItemTypes);
+            ItemBalance = Loaders.ItemBalanceDefinitionLoader.Load(Items);
 
             Customizations = Loaders.CustomizationDefinitionLoader.Load(DownloadableContents);
 

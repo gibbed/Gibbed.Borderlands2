@@ -27,31 +27,31 @@ namespace Gibbed.Borderlands2.SaveEdit
 {
     internal class BackpackWeaponViewModel : BaseWeaponViewModel, IBackpackSlotViewModel
     {
-        private readonly BackpackWeapon _Weapon;
+        private readonly BackpackWeapon _BackpackWeapon;
 
         public BackpackWeaponViewModel(BackpackWeapon weapon)
             : base(weapon)
         {
-            this._Weapon = weapon;
+            this._BackpackWeapon = weapon;
         }
 
         #region Properties
         public IBackpackSlot BackpackSlot
         {
-            get { return this._Weapon; }
+            get { return this._BackpackWeapon; }
         }
 
-        public BackpackWeapon Weapon
+        public BackpackWeapon BackpackWeapon
         {
-            get { return this._Weapon; }
+            get { return this._BackpackWeapon; }
         }
 
         public QuickWeaponSlot QuickSlot
         {
-            get { return this._Weapon.QuickSlot; }
+            get { return this._BackpackWeapon.QuickSlot; }
             set
             {
-                this._Weapon.QuickSlot = value;
+                this._BackpackWeapon.QuickSlot = value;
                 this.NotifyOfPropertyChange(nameof(QuickSlot));
                 this.NotifyOfPropertyChange(nameof(DisplayGroup));
             }
@@ -59,10 +59,10 @@ namespace Gibbed.Borderlands2.SaveEdit
 
         public PlayerMark Mark
         {
-            get { return this._Weapon.Mark; }
+            get { return this._BackpackWeapon.Mark; }
             set
             {
-                this._Weapon.Mark = value;
+                this._BackpackWeapon.Mark = value;
                 this.NotifyOfPropertyChange(nameof(Mark));
             }
         }
