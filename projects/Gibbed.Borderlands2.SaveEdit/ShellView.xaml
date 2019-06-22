@@ -47,6 +47,7 @@
             [Shortcut Control+N] = [Action NewSave];
             [Shortcut Control+O] = [Action ReadSave];
             [Shortcut Control+S] = [Action WriteSave];
+            [Shortcut Control+Shift+S] = [Action WriteSaveAs];
         </c:Message.Attach>
         <ToolBar Name="ButtonBar"
                  DockPanel.Dock="Top">
@@ -86,15 +87,25 @@
                 </StackPanel>
                 <Button.ToolTip>Open (Ctrl+O)</Button.ToolTip>
             </Button>
-            <Button IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}">
+            <Button IsEnabled="{Binding Path=SavePath, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}">
                 <c:Message.Attach>[Event Click] = [Action WriteSave]</c:Message.Attach>
                 <StackPanel Orientation="Horizontal">
                     <Image Width="16"
                            Height="16"
-                           Source="Resources\fugue\disk-black.png" />
+                           Source="Resources\fugue\disk.png" />
                     <Label Content="Save" />
                 </StackPanel>
                 <Button.ToolTip>Save (Ctrl+S)</Button.ToolTip>
+            </Button>
+            <Button IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}">
+                <c:Message.Attach>[Event Click] = [Action WriteSaveAs]</c:Message.Attach>
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="16"
+                           Height="16"
+                           Source="Resources\fugue\disk-rename.png" />
+                    <Label Content="Save As" />
+                </StackPanel>
+                <Button.ToolTip>Save As (Ctrl+Shift+S)</Button.ToolTip>
             </Button>
         </ToolBar>
         <TabControl TabStripPlacement="Top">
