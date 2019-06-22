@@ -70,7 +70,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.50*" />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <gbx:PropertyProxy In="{Binding AssetLibrarySetId, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
