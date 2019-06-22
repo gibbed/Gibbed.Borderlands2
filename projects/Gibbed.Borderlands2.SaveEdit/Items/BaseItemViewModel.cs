@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Data;
 using Caliburn.Micro;
 using Gibbed.Borderlands2.FileFormats.Items;
@@ -33,6 +34,13 @@ namespace Gibbed.Borderlands2.SaveEdit
 {
     internal class BaseItemViewModel : PropertyChangedBase, IBaseSlotViewModel
     {
+        private static readonly EnumerableComparer<object> _AssetListComparer;
+
+        static BaseItemViewModel()
+        {
+            _AssetListComparer = new EnumerableComparer<object>();
+        }
+
         private readonly BaseItem _Item;
         private string _DisplayName = "Unknown Item";
 
@@ -70,7 +78,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             };
             this._ItemTypeFilters = itemTypeFilters;
 
-            this.ItemAssets = CreateAssetList(resources.Distinct().Select(t => t.ResourcePath).OrderBy(s => s));
+            this.ItemAssets = CreateAssetList(resources.Distinct().Select(t => t.ResourcePath));
             this.BuildBalanceAssets();
             this.UpdateDisplayName();
 
@@ -452,12 +460,22 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             var list = new List<string>()
             {
-                "None"
+                "None",
             };
 
             if (items != null)
             {
-                list.AddRange(items);
+                object convert(string str)
+                {
+                    if (int.TryParse(str, out var value) == true)
+                    {
+                        return value;
+                    }
+                    return str;
+                }
+                list.AddRange(items
+                    .Distinct()
+                    .OrderBy(s => Regex.Split(s.Replace(" ", ""), "([0-9]+)").Select(convert), _AssetListComparer));
             }
 
             return list;
@@ -636,8 +654,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             {
                 this.BalanceAssets = CreateAssetList(InfoManager.ItemBalance.Items
                     .Where(kv => kv.Value.IsSuitableFor(item) == true)
-                    .Select(kv => kv.Key)
-                    .OrderBy(s => s));
+                    .Select(kv => kv.Key));
             }
             else
             {
@@ -669,16 +686,16 @@ namespace Gibbed.Borderlands2.SaveEdit
             else
             {
                 var balance = itemBalance.Create(item);
-                this.ManufacturerAssets = CreateAssetList(balance.Manufacturers.OrderBy(s => s).Distinct());
-                this.AlphaPartAssets = CreateAssetList(balance.Parts.AlphaParts.OrderBy(s => s).Distinct());
-                this.BetaPartAssets = CreateAssetList(balance.Parts.BetaParts.OrderBy(s => s).Distinct());
-                this.GammaPartAssets = CreateAssetList(balance.Parts.GammaParts.OrderBy(s => s).Distinct());
-                this.DeltaPartAssets = CreateAssetList(balance.Parts.DeltaParts.OrderBy(s => s).Distinct());
-                this.EpsilonPartAssets = CreateAssetList(balance.Parts.EpsilonParts.OrderBy(s => s).Distinct());
-                this.ZetaPartAssets = CreateAssetList(balance.Parts.ZetaParts.OrderBy(s => s).Distinct());
-                this.EtaPartAssets = CreateAssetList(balance.Parts.EtaParts.OrderBy(s => s).Distinct());
-                this.ThetaPartAssets = CreateAssetList(balance.Parts.ThetaParts.OrderBy(s => s).Distinct());
-                this.MaterialPartAssets = CreateAssetList(balance.Parts.MaterialParts.OrderBy(s => s).Distinct());
+                this.ManufacturerAssets = CreateAssetList(balance.Manufacturers);
+                this.AlphaPartAssets = CreateAssetList(balance.Parts.AlphaParts);
+                this.BetaPartAssets = CreateAssetList(balance.Parts.BetaParts);
+                this.GammaPartAssets = CreateAssetList(balance.Parts.GammaParts);
+                this.DeltaPartAssets = CreateAssetList(balance.Parts.DeltaParts);
+                this.EpsilonPartAssets = CreateAssetList(balance.Parts.EpsilonParts);
+                this.ZetaPartAssets = CreateAssetList(balance.Parts.ZetaParts);
+                this.EtaPartAssets = CreateAssetList(balance.Parts.EtaParts);
+                this.ThetaPartAssets = CreateAssetList(balance.Parts.ThetaParts);
+                this.MaterialPartAssets = CreateAssetList(balance.Parts.MaterialParts);
             }
         }
         #endregion

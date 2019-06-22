@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Caliburn.Micro;
 using Gibbed.Borderlands2.FileFormats.Items;
 using Gibbed.Borderlands2.GameInfo;
@@ -31,6 +32,13 @@ namespace Gibbed.Borderlands2.SaveEdit
 {
     internal class BaseWeaponViewModel : PropertyChangedBase, IBaseSlotViewModel
     {
+        private static readonly EnumerableComparer<object> _AssetListComparer;
+
+        static BaseWeaponViewModel()
+        {
+            _AssetListComparer = new EnumerableComparer<object>();
+        }
+
         private readonly BaseWeapon _Weapon;
         private string _DisplayName;
 
@@ -45,9 +53,7 @@ namespace Gibbed.Borderlands2.SaveEdit
 
             this.WeaponTypeAssets = CreateAssetList(InfoManager.WeaponBalance.Items
                 .Where(kv => kv.Value.WeaponType != null)
-                .Select(kv => kv.Value.WeaponType.ResourcePath)
-                .Distinct()
-                .OrderBy(s => s));
+                .Select(kv => kv.Value.WeaponType.ResourcePath));
             this.BuildBalanceAssets();
             this.UpdateDisplayName();
         }
@@ -308,12 +314,22 @@ namespace Gibbed.Borderlands2.SaveEdit
         {
             var list = new List<string>()
             {
-                "None"
+                "None",
             };
 
             if (items != null)
             {
-                list.AddRange(items);
+                object convert(string str)
+                {
+                    if (int.TryParse(str, out var value) == true)
+                    {
+                        return value;
+                    }
+                    return str;
+                }
+                list.AddRange(items
+                    .Distinct()
+                    .OrderBy(s => Regex.Split(s.Replace(" ", ""), "([0-9]+)").Select(convert), _AssetListComparer));
             }
 
             return list;
@@ -462,9 +478,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             {
                 this.BalanceAssets = CreateAssetList(InfoManager.WeaponBalance.Items
                     .Where(bd => bd.Value.IsSuitableFor(weaponType) == true)
-                    .Select(kv => kv.Key)
-                    .Distinct()
-                    .OrderBy(s => s));
+                    .Select(kv => kv.Key));
             }
 
             this.BuildPartAssets();
@@ -492,16 +506,16 @@ namespace Gibbed.Borderlands2.SaveEdit
             else
             {
                 var balance = weaponTypeBalance.Create(weaponType);
-                this.ManufacturerAssets = CreateAssetList(balance.Manufacturers.OrderBy(s => s).Distinct());
-                this.BodyPartAssets = CreateAssetList(balance.Parts.BodyParts.OrderBy(s => s).Distinct());
-                this.GripPartAssets = CreateAssetList(balance.Parts.GripParts.OrderBy(s => s).Distinct());
-                this.BarrelPartAssets = CreateAssetList(balance.Parts.BarrelParts.OrderBy(s => s).Distinct());
-                this.SightPartAssets = CreateAssetList(balance.Parts.SightParts.OrderBy(s => s).Distinct());
-                this.StockPartAssets = CreateAssetList(balance.Parts.StockParts.OrderBy(s => s).Distinct());
-                this.ElementalPartAssets = CreateAssetList(balance.Parts.ElementalParts.OrderBy(s => s).Distinct());
-                this.Accessory1PartAssets = CreateAssetList(balance.Parts.Accessory1Parts.OrderBy(s => s).Distinct());
-                this.Accessory2PartAssets = CreateAssetList(balance.Parts.Accessory2Parts.OrderBy(s => s).Distinct());
-                this.MaterialPartAssets = CreateAssetList(balance.Parts.MaterialParts.OrderBy(s => s).Distinct());
+                this.ManufacturerAssets = CreateAssetList(balance.Manufacturers);
+                this.BodyPartAssets = CreateAssetList(balance.Parts.BodyParts);
+                this.GripPartAssets = CreateAssetList(balance.Parts.GripParts);
+                this.BarrelPartAssets = CreateAssetList(balance.Parts.BarrelParts);
+                this.SightPartAssets = CreateAssetList(balance.Parts.SightParts);
+                this.StockPartAssets = CreateAssetList(balance.Parts.StockParts);
+                this.ElementalPartAssets = CreateAssetList(balance.Parts.ElementalParts);
+                this.Accessory1PartAssets = CreateAssetList(balance.Parts.Accessory1Parts);
+                this.Accessory2PartAssets = CreateAssetList(balance.Parts.Accessory2Parts);
+                this.MaterialPartAssets = CreateAssetList(balance.Parts.MaterialParts);
             }
         }
         #endregion
