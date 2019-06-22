@@ -39,7 +39,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
                 return new InfoDictionary<WeaponTypeDefinition>(
                     raws.ToDictionary(
                         kv => kv.Key,
-                        kv => CreateWeaponTypeDefinition(kv, partLists)));
+                        kv => CreateWeaponType(kv, partLists)));
             }
             catch (Exception e)
             {
@@ -47,7 +47,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             }
         }
 
-        private static WeaponTypeDefinition CreateWeaponTypeDefinition(
+        private static WeaponTypeDefinition CreateWeaponType(
             KeyValuePair<string, Raw.WeaponTypeDefinition> kv,
             Dictionary<string, List<string>> partLists)
         {

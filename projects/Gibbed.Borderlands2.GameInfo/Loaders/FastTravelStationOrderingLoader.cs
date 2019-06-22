@@ -69,12 +69,12 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             return new FastTravelStationOrdering()
             {
                 ResourcePath = kv.Key,
-                Stations = GetStations(stations, raw.Stations),
+                Stations = CreateStations(stations, raw.Stations),
                 DLCExpansion = dlcExpansion,
             };
         }
 
-        private static List<FastTravelStationDefinition> GetStations(
+        private static List<FastTravelStationDefinition> CreateStations(
             InfoDictionary<TravelStationDefinition> stations,
             IEnumerable<string> paths)
         {

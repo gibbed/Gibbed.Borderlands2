@@ -35,7 +35,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
                 var raws = LoaderHelper.DeserializeDump<Dictionary<string, Raw.WeaponNamePartDefinition>>(
                     "Weapon Name Parts");
                 return new InfoDictionary<WeaponNamePartDefinition>(
-                    raws.ToDictionary(kv => kv.Key, CreateWeaponNamePartDefinition));
+                    raws.ToDictionary(kv => kv.Key, CreateWeaponNamePart));
             }
             catch (Exception e)
             {
@@ -43,7 +43,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             }
         }
 
-        private static WeaponNamePartDefinition CreateWeaponNamePartDefinition(
+        private static WeaponNamePartDefinition CreateWeaponNamePart(
             KeyValuePair<string, Raw.WeaponNamePartDefinition> kv)
         {
             var raw = kv.Value;

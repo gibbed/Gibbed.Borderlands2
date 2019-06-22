@@ -44,7 +44,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
                 var balances = new InfoDictionary<WeaponBalanceDefinition>(
                     raws.ToDictionary(
                         kv => kv.Key,
-                        kv => CreateWeaponBalanceDefinition(weaponTypes, kv, partLists)));
+                        kv => CreateWeaponBalance(weaponTypes, kv, partLists)));
 
                 foreach (var kv in raws.Where(kv => string.IsNullOrEmpty(kv.Value.Base) == false))
                 {
@@ -54,6 +54,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
                     }
                     balances[kv.Key].Base = baseBalance;
                 }
+
                 return balances;
             }
             catch (Exception e)
@@ -62,7 +63,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             }
         }
 
-        private static WeaponBalanceDefinition CreateWeaponBalanceDefinition(
+        private static WeaponBalanceDefinition CreateWeaponBalance(
             InfoDictionary<WeaponTypeDefinition> weaponTypes,
             KeyValuePair<string, Raw.WeaponBalanceDefinition> kv,
             InfoDictionary<WeaponBalancePartCollection> partLists)

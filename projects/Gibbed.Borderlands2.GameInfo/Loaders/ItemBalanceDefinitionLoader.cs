@@ -63,19 +63,6 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             }
         }
 
-        private static ItemDefinition GetItem(InfoDictionary<ItemDefinition> items, string itemPath)
-        {
-            if (string.IsNullOrEmpty(itemPath) == true)
-            {
-                return null;
-            }
-            if (items.TryGetValue(itemPath, out var item) == true)
-            {
-                return item;
-            }
-            throw ResourceNotFoundException.Create("item", itemPath);
-        }
-
         private static ItemBalanceDefinition CreateItemBalance(
             InfoDictionary<ItemDefinition> items,
             KeyValuePair<string, Raw.ItemBalanceDefinition> kv,
@@ -121,6 +108,19 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
                 ThetaParts = raw.ThetaParts,
                 MaterialParts = raw.MaterialParts,
             };
+        }
+
+        private static ItemDefinition GetItem(InfoDictionary<ItemDefinition> items, string itemPath)
+        {
+            if (string.IsNullOrEmpty(itemPath) == true)
+            {
+                return null;
+            }
+            if (items.TryGetValue(itemPath, out var item) == true)
+            {
+                return item;
+            }
+            throw ResourceNotFoundException.Create("item", itemPath);
         }
 
         private static List<ItemDefinition> GetItems(

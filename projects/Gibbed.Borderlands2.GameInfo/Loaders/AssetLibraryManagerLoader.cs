@@ -70,11 +70,11 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             return new AssetLibrarySet()
             {
                 Id = raw.Id,
-                Libraries = raw.Libraries.ToDictionary(kv => kv.Key, CreateAssetLibraryDefinition),
+                Libraries = raw.Libraries.ToDictionary(kv => kv.Key, CreateAssetLibrary),
             };
         }
 
-        private static AssetLibraryDefinition CreateAssetLibraryDefinition(
+        private static AssetLibraryDefinition CreateAssetLibrary(
             KeyValuePair<AssetGroup, Raw.AssetLibraryDefinition> kv)
         {
             var raw = kv.Value;
@@ -82,11 +82,11 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             {
                 Group = kv.Key,
                 Type = raw.Type,
-                Sublibraries = raw.Sublibraries.Select(CreateAssetSublibraryDefinition).ToList(),
+                Sublibraries = raw.Sublibraries.Select(CreateAssetSublibrary).ToList(),
             };
         }
 
-        private static AssetSublibraryDefinition CreateAssetSublibraryDefinition(Raw.AssetSublibraryDefinition raw)
+        private static AssetSublibraryDefinition CreateAssetSublibrary(Raw.AssetSublibraryDefinition raw)
         {
             return new AssetSublibraryDefinition()
             {

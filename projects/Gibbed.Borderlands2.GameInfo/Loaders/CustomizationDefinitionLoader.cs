@@ -38,7 +38,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
                 return new InfoDictionary<CustomizationDefinition>(
                     raws.ToDictionary(
                         kv => kv.Key,
-                        kv => CreateCustomizationDefinition(downloadableContents, kv)));
+                        kv => CreateCustomization(downloadableContents, kv)));
             }
             catch (Exception e)
             {
@@ -46,7 +46,7 @@ namespace Gibbed.Borderlands2.GameInfo.Loaders
             }
         }
 
-        private static CustomizationDefinition CreateCustomizationDefinition(
+        private static CustomizationDefinition CreateCustomization(
             InfoDictionary<DownloadableContentDefinition> downloadableContents,
             KeyValuePair<string, Raw.CustomizationDefinition> kv)
         {
