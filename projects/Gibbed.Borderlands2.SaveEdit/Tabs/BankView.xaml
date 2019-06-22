@@ -209,6 +209,7 @@
                           Width="4"
                           ResizeBehavior="PreviousAndNext" />
             <ScrollViewer Grid.Column="2"
+                          Padding="4"
                           HorizontalScrollBarVisibility="Disabled"
                           VerticalScrollBarVisibility="Auto">
                 <ContentControl x:Name="SelectedSlot" />
