@@ -60,10 +60,10 @@ before_build:
 after_build:
   - set TZ=GMT
   - git log . > git-log.txt
-  - if NOT "%CONFIGURATION%"=="SaveEdit Packaging" 7z a -r -tzip -mx=9 -x!*/LICENSE.txt bl2_all-tools_%APPVEYOR_BUILD_VERSION%.zip              ./LICENSE.txt ./README.txt   git-log.txt bin/*.exe bin/*.dll           bin/projects
-  - if NOT "%CONFIGURATION%"=="SaveEdit Packaging" 7z a -r -tzip -mx=9 -x!*/LICENSE.txt bl2_all-tools_%APPVEYOR_BUILD_VERSION%-with-debug_symbols.zip ./LICENSE.txt ./README.txt   git-log.txt bin/*.exe bin/*.dll bin/*.pdb bin/projects
-  - if     "%CONFIGURATION%"=="SaveEdit Packaging" 7z a -r -tzip -mx=9 -x!*/LICENSE.txt bl2_saveedit_%APPVEYOR_BUILD_VERSION%.zip               ./LICENSE.txt ./README.txt ./git-log.txt ./upload/*.exe                ./dist/*
-  - if     "%CONFIGURATION%"=="SaveEdit Packaging" 7z a -r -tzip -mx=9 -x!*/LICENSE.txt bl2_saveedit_%APPVEYOR_BUILD_VERSION%-with-debug_symbols.zip  ./LICENSE.txt ./README.txt ./git-log.txt ./upload/*.exe ./upload/*.pdb ./dist/*
+  - if NOT "%CONFIGURATION%"=="SaveEdit Packaging" 7z a -r -tzip -mx=9 -x!*/LICENSE.txt bl2_all-tools_%APPVEYOR_BUILD_VERSION%.zip                    ./LICENSE.txt ./README.txt   git-log.txt bin/*.exe bin/*.dll           bin/projects
+  - if NOT "%CONFIGURATION%"=="SaveEdit Packaging" 7z a -r -tzip -mx=9 -x!*/LICENSE.txt bl2_all-tools_%APPVEYOR_BUILD_VERSION%_with-debug-symbols.zip ./LICENSE.txt ./README.txt   git-log.txt bin/*.exe bin/*.dll bin/*.pdb bin/projects
+  - if     "%CONFIGURATION%"=="SaveEdit Packaging" 7z a -r -tzip -mx=9 -x!*/LICENSE.txt bl2_saveedit_%APPVEYOR_BUILD_VERSION%.zip                     ./LICENSE.txt ./README.txt ./git-log.txt ./upload/*.exe                ./dist/*
+  - if     "%CONFIGURATION%"=="SaveEdit Packaging" 7z a -r -tzip -mx=9 -x!*/LICENSE.txt bl2_saveedit_%APPVEYOR_BUILD_VERSION%_with-debug-symbols.zip  ./LICENSE.txt ./README.txt ./git-log.txt ./upload/*.exe ./upload/*.pdb ./dist/*
 
 artifacts:
   - path: '*.zip'
