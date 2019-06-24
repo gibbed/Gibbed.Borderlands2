@@ -139,6 +139,11 @@ namespace Gibbed.Borderlands2.GameInfo
                 }
             }
 
+            if (result.Item != item && result.Items.Contains(item) == false)
+            {
+                throw new ResourceNotFoundException($"item type '{item.ResourcePath}' is not valid for '{this.ResourcePath}'");
+            }
+
             return result;
         }
 
