@@ -294,6 +294,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             this.Backpack.ImportData(saveFile.SaveGame, saveFile.Platform);
             this.Bank.ImportData(saveFile.SaveGame, saveFile.Platform);
             this.FastTravel.ImportData(saveFile.SaveGame);
+            this.SavePath = null;
             this.SaveFile = saveFile;
             this.MaybeSwitchToGeneral();
         }
