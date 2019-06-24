@@ -44,14 +44,14 @@ namespace Gibbed.Borderlands2.GameInfo
             var current = this;
             do
             {
-                if (current.Item != null && current.Item == item)
+                if (current.Item != null || current.Items?.Count > 0)
                 {
-                    return true;
-                }
+                    if (current.Item == item || current.Items?.Contains(item) == true)
+                    {
+                        return true;
+                    }
 
-                if (current.Items != null && current.Items.Contains(item) == true)
-                {
-                    return true;
+                    return false;
                 }
 
                 current = current.Base;
@@ -137,11 +137,6 @@ namespace Gibbed.Borderlands2.GameInfo
                     AddPartList(balance.Parts.ThetaParts, balance.Parts.Mode, result.Parts.ThetaParts);
                     AddPartList(balance.Parts.MaterialParts, balance.Parts.Mode, result.Parts.MaterialParts);
                 }
-            }
-
-            if (result.Item != item && result.Items.Contains(item) == false)
-            {
-                throw new ResourceNotFoundException($"item type '{item.ResourcePath}' is not valid for '{this.ResourcePath}'");
             }
 
             return result;

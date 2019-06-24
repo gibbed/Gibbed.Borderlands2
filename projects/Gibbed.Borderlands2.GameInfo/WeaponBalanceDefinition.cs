@@ -123,11 +123,6 @@ namespace Gibbed.Borderlands2.GameInfo
                 AddPartList(balance.Parts.MaterialParts, balance.Parts.Mode, result.Parts.MaterialParts);
             }
 
-            if (result.WeaponType != weaponType)
-            {
-                throw new ResourceNotFoundException($"weapon type '{weaponType.ResourcePath}' is not valid for '{this.ResourcePath}'");
-            }
-
             return result;
         }
 
