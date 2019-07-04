@@ -24,10 +24,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Gibbed.Borderlands2.FileFormats;
 using Gibbed.IO;
-using NDesk.Options;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
+using NDesk.Options;
 
 // Unpacks 'WillowTMS.cfg', found at URL:
 //   http://cdn.services.gearboxsoftware.com/sparktms/willow2/pc/steam/WillowTMS.cfg
@@ -156,7 +155,7 @@ namespace Gibbed.Borderlands2.SparkTmsUnpack
                         Encoding entryTextEncoding;
                         if (entryTextLength >= 0)
                         {
-                            entryTextEncoding = Encoding.ASCII;
+                            entryTextEncoding = Encoding.GetEncoding(1252);
                         }
                         else
                         {
@@ -183,10 +182,7 @@ namespace Gibbed.Borderlands2.SparkTmsUnpack
                             Directory.CreateDirectory(entryParentPath);
                         }
 
-                        using (var output = new StreamWriter(entryPath, false, entryTextEncoding))
-                        {
-                            output.Write(entryText);
-                        }
+                        File.WriteAllText(entryPath, entryText, Encoding.UTF8);
                     }
                 }
             }
