@@ -27,6 +27,7 @@ using System.Text;
 using Gibbed.Borderlands2.FileFormats;
 using Gibbed.IO;
 using NDesk.Options;
+using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
 // Unpacks 'WillowTMS.cfg', found at URL:
 //   http://cdn.services.gearboxsoftware.com/sparktms/willow2/pc/steam/WillowTMS.cfg
@@ -79,19 +80,27 @@ namespace Gibbed.Borderlands2.SparkTmsUnpack
             string inputPath = extras[0];
             string outputPath = extras.Count > 1 ? extras[1] : Path.ChangeExtension(inputPath, null) + "_unpack";
 
-            var endian = Endian.Little;
-
             using (var input = File.OpenRead(inputPath))
             {
+                const uint signature = 0x9E2A83C1u;
+
+                input.Position = 8;
+                var magic = input.ReadValueU32(Endian.Little);
+                if (magic != signature && magic.Swap() != signature)
+                {
+                    throw new FormatException("bad magic");
+                }
+                var endian = magic == signature ? Endian.Little : Endian.Big;
+
+                input.Position = 0;
                 var uncompressedSize3 = input.ReadValueU32(endian);
                 var fileCount = input.ReadValueU32(endian);
-                var magic = input.ReadValueU32(endian);
+                input.Position += 4; // skip magic
                 var version = input.ReadValueU32(endian);
 
-                if (magic != 0x9E2A83C1 ||
-                    version != 0x00020000)
+                if (version != 0x00020000)
                 {
-                    throw new FormatException();
+                    throw new FormatException("bad version");
                 }
 
                 var compressedSize1 = input.ReadValueU32(endian);
@@ -118,7 +127,12 @@ namespace Gibbed.Borderlands2.SparkTmsUnpack
                     ref actualUncompressedSize);
                 if (result != MiniLZO.ErrorCode.Success)
                 {
-                    throw new FormatException();
+                    // LZO failed, try Zlib.
+                    using (var temp = new MemoryStream(compressedBytes))
+                    {
+                        var zlib = new InflaterInputStream(temp);
+                        actualUncompressedSize = zlib.Read(uncompressedBytes, 0, (int)uncompressedSize1);
+                    }
                 }
 
                 if (actualUncompressedSize != uncompressedSize1)

@@ -12,6 +12,9 @@
     <OutputPath>..\..\bin\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="SharpZipLib" Version="0.86.0" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Gibbed.Borderlands2.FileFormats\Gibbed.Borderlands2.FileFormats.csproj" />
     <ProjectReference Include="..\Gibbed.IO\Gibbed.IO.csproj" />
     <ProjectReference Include="..\NDesk.Options\NDesk.Options.csproj" />
