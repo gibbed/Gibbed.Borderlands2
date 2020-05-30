@@ -91,7 +91,8 @@ namespace Gibbed.Borderlands2.FileFormats
             return platform == Platform.PC ||
                    platform == Platform.X360 ||
                    platform == Platform.PS3 || platform == Platform.PSVita ||
-                   platform == Platform.Shield;
+                   platform == Platform.Shield ||
+                   platform == Platform.Switch;
         }
 
         public void Serialize(Stream output)
@@ -124,7 +125,11 @@ namespace Gibbed.Borderlands2.FileFormats
             {
                 var hash = CRC32.Hash(innerUncompressedBytes, 0, innerUncompressedBytes.Length);
 
-                innerCompressedData.WriteValueS32(0, Endian.Big);
+                if (compressionScheme != CompressionScheme.None)
+                {
+                    innerCompressedData.WriteValueS32(0, Endian.Big);
+                }
+
                 innerCompressedData.WriteString("WSG");
                 innerCompressedData.WriteValueU32(2, endian);
                 innerCompressedData.WriteValueU32(hash, endian);
@@ -134,26 +139,168 @@ namespace Gibbed.Borderlands2.FileFormats
                 encoder.Build(innerUncompressedBytes);
                 innerCompressedData.WriteBytes(encoder.Encode(innerUncompressedBytes));
 
-                innerCompressedData.Position = 0;
-                innerCompressedData.WriteValueU32((uint)(innerCompressedData.Length - 4), Endian.Big);
+                if (compressionScheme != CompressionScheme.None)
+                {
+                    innerCompressedData.Position = 0;
+                    innerCompressedData.WriteValueU32((uint)(innerCompressedData.Length - 4), Endian.Big);
+                }
 
                 innerCompressedData.Position = 0;
                 innerCompressedBytes = innerCompressedData.ReadBytes((int)innerCompressedData.Length);
             }
 
+            if (compressionScheme == CompressionScheme.None)
+            {
+                output.WriteBytes(innerCompressedBytes);
+            }
+            else
+            {
+                Wrap(output, innerCompressedBytes, compressionScheme);
+            }
+        }
+
+        [Flags]
+        public enum DeserializeSettings
+        {
+            None = 0,
+            IgnoreSha1Mismatch = 1 << 0,
+            IgnoreCrc32Mismatch = 1 << 1,
+            IgnoreReencodeMismatch = 1 << 2,
+        }
+
+        public static SaveFile Deserialize(Stream input, Platform platform, DeserializeSettings settings)
+        {
+            if (IsSupportedPlatform(platform) == false)
+            {
+                throw new ArgumentException("unsupported platform", nameof(platform));
+            }
+
+            if (input.Position + 20 > input.Length)
+            {
+                throw new SaveCorruptionException("not enough data for save header");
+            }
+
+            var check = input.ReadValueU32(Endian.Big);
+            if (check == 0x434F4E20)
+            {
+                throw new SaveFormatException("cannot load XBOX 360 CON files, extract save using Modio or equivalent");
+            }
+            input.Seek(-4, SeekOrigin.Current);
+
+            var compressionScheme = platform.GetCompressionScheme();
+
+            byte[] uncompressedBytes;
+            if (compressionScheme == CompressionScheme.None)
+            {
+                uncompressedBytes = input.ReadBytes((int)input.Length);
+            }
+            else
+            {
+                uncompressedBytes = Unwrap(input, compressionScheme, settings);
+            }
+
+            using (var outerData = new MemoryStream(uncompressedBytes))
+            {
+                var endian = platform.GetEndian();
+
+                uint innerSize = compressionScheme == CompressionScheme.None
+                    ? (uint)outerData.Length
+                    : outerData.ReadValueU32(Endian.Big);
+
+                var magic = outerData.ReadString(3);
+                if (magic != "WSG")
+                {
+                    throw new SaveCorruptionException("invalid magic");
+                }
+
+                var version = outerData.ReadValueU32(endian);
+                if (version != 2)
+                {
+                    throw new SaveCorruptionException("invalid or unsupported version");
+                }
+
+                var readCRC32Hash = outerData.ReadValueU32(endian);
+                var innerUncompressedSize = outerData.ReadValueS32(endian);
+
+                var innerCompressedBytes = outerData.ReadBytes((int)(innerSize - 3 - 4 - 4 - 4));
+                var innerUncompressedBytes = Huffman.Decoder.Decode(innerCompressedBytes,
+                                                                    innerUncompressedSize);
+                if (innerUncompressedBytes.Length != innerUncompressedSize)
+                {
+                    throw new SaveCorruptionException("huffman decompression failure");
+                }
+
+                var computedCRC32Hash = CRC32.Hash(innerUncompressedBytes, 0, innerUncompressedBytes.Length);
+                if ((settings & DeserializeSettings.IgnoreCrc32Mismatch) == 0 &&
+                    computedCRC32Hash != readCRC32Hash)
+                {
+                    throw new SaveCorruptionException("invalid CRC32 hash");
+                }
+
+                using (var innerUncompressedData = new MemoryStream(innerUncompressedBytes))
+                {
+                    var saveGame = ProtoSerializer.Deserialize<WillowTwoSave.WillowTwoPlayerSaveGame>(
+                        innerUncompressedData);
+
+                    PlayerStats playerStats = null;
+                    if (saveGame.StatsData != null &&
+                        PlayerStats.IsSupportedVersion(saveGame.StatsData, endian) == true)
+                    {
+                        playerStats = new PlayerStats();
+                        playerStats.Deserialize(saveGame.StatsData, endian);
+                    }
+
+                    if ((settings & DeserializeSettings.IgnoreReencodeMismatch) == 0)
+                    {
+                        using (var testData = new MemoryStream())
+                        {
+                            byte[] oldStatsData = saveGame.StatsData;
+                            if (playerStats != null)
+                            {
+                                saveGame.StatsData = playerStats.Serialize(endian);
+                            }
+
+                            ProtoSerializer.Serialize(testData, saveGame);
+
+                            if (playerStats != null)
+                            {
+                                saveGame.StatsData = oldStatsData;
+                            }
+
+                            testData.Position = 0;
+                            var testBytes = testData.ReadBytes((int)testData.Length);
+                            if (innerUncompressedBytes.SequenceEqual(testBytes) == false)
+                            {
+                                throw new SaveCorruptionException("reencode mismatch");
+                            }
+                        }
+                    }
+
+                    return new SaveFile()
+                    {
+                        Platform = platform,
+                        SaveGame = saveGame,
+                        PlayerStats = playerStats,
+                    };
+                }
+            }
+        }
+
+        private static void Wrap(Stream output, byte[] bytes, CompressionScheme compressionScheme)
+        {
             byte[] compressedBytes;
 
-            if (innerCompressedBytes.Length <= BlockSize)
+            if (bytes.Length <= BlockSize)
             {
                 if (compressionScheme == CompressionScheme.LZO)
                 {
-                    compressedBytes = new byte[innerCompressedBytes.Length +
-                                               (innerCompressedBytes.Length / 16) + 64 + 3];
+                    compressedBytes = new byte[bytes.Length +
+                                               (bytes.Length / 16) + 64 + 3];
                     var actualCompressedSize = compressedBytes.Length;
                     var result = MiniLZO.LZO.Compress(
-                        innerCompressedBytes,
+                        bytes,
                         0,
-                        innerCompressedBytes.Length,
+                        bytes.Length,
                         compressedBytes,
                         0,
                         ref actualCompressedSize,
@@ -170,7 +317,7 @@ namespace Gibbed.Borderlands2.FileFormats
                     using (var temp = new MemoryStream())
                     {
                         var zlib = new DeflaterOutputStream(temp);
-                        zlib.WriteBytes(innerCompressedBytes);
+                        zlib.WriteBytes(bytes);
                         zlib.Finish();
                         temp.Flush();
                         temp.Position = 0;
@@ -187,7 +334,7 @@ namespace Gibbed.Borderlands2.FileFormats
                 if (compressionScheme == CompressionScheme.LZO)
                 {
                     int innerCompressedOffset = 0;
-                    int innerCompressedSizeLeft = innerCompressedBytes.Length;
+                    int innerCompressedSizeLeft = bytes.Length;
 
                     using (var blockData = new MemoryStream())
                     {
@@ -205,7 +352,7 @@ namespace Gibbed.Borderlands2.FileFormats
                                                        (blockUncompressedSize / 16) + 64 + 3];
                             var actualCompressedSize = compressedBytes.Length;
                             var result = MiniLZO.LZO.Compress(
-                                innerCompressedBytes,
+                                bytes,
                                 innerCompressedOffset,
                                 blockUncompressedSize,
                                 compressedBytes,
@@ -238,7 +385,7 @@ namespace Gibbed.Borderlands2.FileFormats
                 else if (compressionScheme == CompressionScheme.Zlib)
                 {
                     int innerCompressedOffset = 0;
-                    int innerCompressedSizeLeft = innerCompressedBytes.Length;
+                    int innerCompressedSizeLeft = bytes.Length;
 
                     using (var blockData = new MemoryStream())
                     {
@@ -255,7 +402,7 @@ namespace Gibbed.Borderlands2.FileFormats
                             using (var temp = new MemoryStream())
                             {
                                 var zlib = new DeflaterOutputStream(temp);
-                                zlib.Write(innerCompressedBytes, innerCompressedOffset, blockUncompressedSize);
+                                zlib.Write(bytes, innerCompressedOffset, blockUncompressedSize);
                                 zlib.Finish();
                                 temp.Flush();
 
@@ -290,7 +437,7 @@ namespace Gibbed.Borderlands2.FileFormats
             byte[] uncompressedBytes;
             using (var uncompressedData = new MemoryStream())
             {
-                uncompressedData.WriteValueS32(innerCompressedBytes.Length, Endian.Big);
+                uncompressedData.WriteValueS32(bytes.Length, Endian.Big);
                 uncompressedData.WriteBytes(compressedBytes);
                 uncompressedData.Position = 0;
                 uncompressedBytes = uncompressedData.ReadBytes((int)uncompressedData.Length);
@@ -306,36 +453,8 @@ namespace Gibbed.Borderlands2.FileFormats
             output.WriteBytes(uncompressedBytes);
         }
 
-        [Flags]
-        public enum DeserializeSettings
+        private static byte[] Unwrap(Stream input, CompressionScheme compressionScheme, DeserializeSettings settings)
         {
-            None = 0,
-            IgnoreSha1Mismatch = 1 << 0,
-            IgnoreCrc32Mismatch = 1 << 1,
-            IgnoreReencodeMismatch = 1 << 2,
-        }
-
-        public static SaveFile Deserialize(Stream input, Platform platform, DeserializeSettings settings)
-        {
-            if (IsSupportedPlatform(platform) == false)
-            {
-                throw new ArgumentException("unsupported platform", nameof(platform));
-            }
-
-            if (input.Position + 20 > input.Length)
-            {
-                throw new SaveCorruptionException("not enough data for save header");
-            }
-
-            var check = input.ReadValueU32(Endian.Big);
-            if (check == 0x434F4E20)
-            {
-                throw new SaveFormatException("cannot load XBOX 360 CON files, extract save using Modio or equivalent");
-            }
-            input.Seek(-4, SeekOrigin.Current);
-
-            var compressionScheme = platform.GetCompressionScheme();
-
             var readSha1Hash = input.ReadBytes(20);
             using (var data = input.ReadToMemoryStream((int)(input.Length - 20)))
             {
@@ -505,92 +624,10 @@ namespace Gibbed.Borderlands2.FileFormats
                     }
                     else
                     {
-                        throw new InvalidOperationException("unsupported platform");
+                        throw new InvalidOperationException("unsupported compression scheme");
                     }
                 }
-
-                using (var outerData = new MemoryStream(uncompressedBytes))
-                {
-                    var endian = platform.GetEndian();
-
-                    var innerSize = outerData.ReadValueU32(Endian.Big);
-                    var magic = outerData.ReadString(3);
-                    if (magic != "WSG")
-                    {
-                        throw new SaveCorruptionException("invalid magic");
-                    }
-
-                    var version = outerData.ReadValueU32(endian);
-                    if (version != 2)
-                    {
-                        throw new SaveCorruptionException("invalid or unsupported version");
-                    }
-
-                    var readCRC32Hash = outerData.ReadValueU32(endian);
-                    var innerUncompressedSize = outerData.ReadValueS32(endian);
-
-                    var innerCompressedBytes = outerData.ReadBytes((int)(innerSize - 3 - 4 - 4 - 4));
-                    var innerUncompressedBytes = Huffman.Decoder.Decode(innerCompressedBytes,
-                                                                        innerUncompressedSize);
-                    if (innerUncompressedBytes.Length != innerUncompressedSize)
-                    {
-                        throw new SaveCorruptionException("huffman decompression failure");
-                    }
-
-                    var computedCRC32Hash = CRC32.Hash(innerUncompressedBytes, 0, innerUncompressedBytes.Length);
-                    if ((settings & DeserializeSettings.IgnoreCrc32Mismatch) == 0 &&
-                        computedCRC32Hash != readCRC32Hash)
-                    {
-                        throw new SaveCorruptionException("invalid CRC32 hash");
-                    }
-
-                    using (var innerUncompressedData = new MemoryStream(innerUncompressedBytes))
-                    {
-                        var saveGame = ProtoSerializer.Deserialize<WillowTwoSave.WillowTwoPlayerSaveGame>(
-                            innerUncompressedData);
-
-                        PlayerStats playerStats = null;
-                        if (saveGame.StatsData != null &&
-                            PlayerStats.IsSupportedVersion(saveGame.StatsData, endian) == true)
-                        {
-                            playerStats = new PlayerStats();
-                            playerStats.Deserialize(saveGame.StatsData, endian);
-                        }
-
-                        if ((settings & DeserializeSettings.IgnoreReencodeMismatch) == 0)
-                        {
-                            using (var testData = new MemoryStream())
-                            {
-                                byte[] oldStatsData = saveGame.StatsData;
-                                if (playerStats != null)
-                                {
-                                    saveGame.StatsData = playerStats.Serialize(endian);
-                                }
-
-                                ProtoSerializer.Serialize(testData, saveGame);
-
-                                if (playerStats != null)
-                                {
-                                    saveGame.StatsData = oldStatsData;
-                                }
-
-                                testData.Position = 0;
-                                var testBytes = testData.ReadBytes((int)testData.Length);
-                                if (innerUncompressedBytes.SequenceEqual(testBytes) == false)
-                                {
-                                    throw new SaveCorruptionException("reencode mismatch");
-                                }
-                            }
-                        }
-
-                        return new SaveFile()
-                        {
-                            Platform = platform,
-                            SaveGame = saveGame,
-                            PlayerStats = playerStats,
-                        };
-                    }
-                }
+                return uncompressedBytes;
             }
         }
 

@@ -35,6 +35,7 @@ namespace Gibbed.Borderlands2.FileFormats
                 case Platform.PC:
                 case Platform.PSVita:
                 case Platform.Shield:
+                case Platform.Switch:
                 {
                     return Endian.Little;
                 }
@@ -53,6 +54,11 @@ namespace Gibbed.Borderlands2.FileFormats
         {
             switch (platform)
             {
+                case Platform.Switch:
+                {
+                    return CompressionScheme.None;
+                }
+
                 case Platform.PC:
                 case Platform.X360:
                 {
