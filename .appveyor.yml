@@ -22,7 +22,6 @@ cache:
   - '%LocalAppData%\NuGet\v3-cache'
 
 install:
-  - choco install dotnetcore-sdk --pre -y -r
   - git submodule update --init --recursive
 
 configuration:

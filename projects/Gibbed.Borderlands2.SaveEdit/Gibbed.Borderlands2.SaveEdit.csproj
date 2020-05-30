@@ -16,6 +16,7 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <Configurations>Debug;Release;SaveEdit Packaging</Configurations>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <UseWpf>true</UseWpf>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\..\bin\</OutputPath>
@@ -97,19 +98,6 @@
     <Resource Include="Resources\Xceed.Wpf.Toolkit\PropertyGrid\Images\Resource11.png" />
     <Resource Include="Resources\Xceed.Wpf.Toolkit\PropertyGrid\Images\SortAscending16.png" />
     <Resource Include="Resources\Xceed.Wpf.Toolkit\PropertyGrid\Images\Style11.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </ApplicationDefinition>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="**\*.xaml" Exclude="App.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </Page>
-    <Compile Update="**\*.xaml.cs" SubType="Code" DependentUpon="%(Filename)" />
   </ItemGroup>
   <Target Name="RemoveBadReferencedAssemblies" AfterTargets="ResolveAssemblyReferences" Condition="'$(Configuration)'!='SaveEdit Packaging'">
     <ItemGroup>
