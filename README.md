@@ -21,4 +21,4 @@ These tools are used for unpacking Spark TMS data, which is downloaded by Border
 
 ## Building from source code
 
-Intended to be built with [Visual Studio 2019](https://visualstudio.microsoft.com/vs/). You'll need the [.NET Core 3.0 preview](https://dotnet.microsoft.com/download/dotnet-core/3.0) as well.
+Intended to be built with [Visual Studio 2019](https://visualstudio.microsoft.com/vs/). You'll need minimum [.NET Core 3.0](https://dotnet.microsoft.com/download/dotnet-core/3.0) as well.
